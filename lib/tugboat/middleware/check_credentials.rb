@@ -1,9 +1,22 @@
+require 'thor'
+require 'digital_ocean'
+
 module Tugboat
   module Middleware
-    # Check if the client can connect to DO
+    # Check if the client can connect to the ocean
     class CheckCredentials < Base
       def call(env)
-        say "Checking credentials..."
+        # We use a harmless API call to check if the authentication will
+        # work.
+        begin
+          env["ocean"].droplets.list
+        rescue Faraday::Error::ParsingError
+          say "Authentication with DigitalOcean failed. Run `tugboat authorize`", :red
+          return
+        end
+
+        say "Authentication with DigitalOcean was successful", :green
+
         @app.call(env)
       end
     end

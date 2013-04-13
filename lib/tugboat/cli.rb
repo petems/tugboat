@@ -1,7 +1,8 @@
 require 'thor'
-require 'tugboat/middleware'
 
 module Tugboat
+  autoload :Middleware, "tugboat/middleware"
+
   class CLI < Thor
     include Thor::Actions
 
@@ -13,7 +14,7 @@ module Tugboat
 
     desc "authorize", "Authorize a DigitalOcean account with tugboat"
     def authorize
-      Tugboat::Middleware.sequence_authorize.call(nil)
+      Middleware.sequence_authorize.call({})
     end
 
     desc "list", "Retrieve a list of your droplets"
