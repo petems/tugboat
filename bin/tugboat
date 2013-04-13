@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require "tugboat"
+
+Tugboat::CLI.start(ARGV)

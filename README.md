@@ -65,7 +65,8 @@ A command line tool for interacting with your [DigitalOcean](https://www.digital
 ### Snapshot a droplet
 
     $ tugboat snapshot admin
-    Queuing snapshot for "pearkes-admin-001"...done.
+    Please enter name of snapshot: test
+    Queuing 'test' snapshot for "pearkes-admin-001"...done.
 
 ## Contributing
 
