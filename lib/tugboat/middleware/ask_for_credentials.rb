@@ -5,8 +5,12 @@ module Tugboat
       def call(env)
         say "Note: You can get this information from digitalocean.com/api_access", :yellow
         say
-        ask "Enter your client key:"
-        ask "Enter your API key:"
+        client = ask "Enter your client key:"
+        api = ask "Enter your API key:"
+
+        # Write the config file.
+        env['config'].create_config_file(client, api)
+
         @app.call(env)
       end
     end

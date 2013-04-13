@@ -1,3 +1,4 @@
+require 'digital_ocean'
 module Tugboat
   module Middleware
     # Inject the digital ocean client into the environment

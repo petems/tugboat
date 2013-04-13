@@ -12,7 +12,7 @@ module Tugboat
 
     def initialize
       @path = File.join(File.expand_path("~"), FILE_NAME)
-      @data = load_config_file
+      @data = self.load_config_file
     end
 
     # If we can't load the config file, self.data is nil, which we can
@@ -30,6 +30,15 @@ module Tugboat
 
     def api_key
       @data['authentication']['api_key']
+    end
+
+    # Writes a config file
+    def create_config_file(client, api)
+      require 'yaml'
+      File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
+        data = {"authentication" => {"api_key" => api, "client_key" => client}}
+        file.write data.to_yaml
+      end
     end
 
   end

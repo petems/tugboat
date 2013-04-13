@@ -19,9 +19,7 @@ module Tugboat
 
     desc "list", "Retrieve a list of your droplets"
     def list
-      say "pearkes-admin-001 (region: 1, size: 64, image ID: 2676)"
-      say "pearkes-www-001 (region: 1, size: 64, image ID: 2561)"
-      say "pearkes-api-001 (region: 1, size: 64, image ID: 6321)"
+      Middleware.sequence_list_droplets.call({})
     end
 
     desc "ssh", "SSH into a droplet"

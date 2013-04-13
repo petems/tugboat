@@ -1,5 +1,4 @@
 require 'thor'
-require 'digital_ocean'
 
 module Tugboat
   module Middleware
@@ -10,7 +9,7 @@ module Tugboat
         # work.
         begin
           env["ocean"].droplets.list
-        rescue Faraday::Error::ParsingError
+        rescue
           say "Authentication with DigitalOcean failed. Run `tugboat authorize`", :red
           return
         end
