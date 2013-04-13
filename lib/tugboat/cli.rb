@@ -1,18 +1,19 @@
 require 'thor'
+require 'tugboat/middleware'
 
 module Tugboat
   class CLI < Thor
+    include Thor::Actions
 
-    desc "authorize", "Authorize an DigitalOcean account with Tugboat"
+    desc "help [command]", "Describe commands or a specific command"
+    def help
+      super
+      say "To learn more or contribute to tugboat, please see github.com/pearkes/tugboat"
+    end
+
+    desc "authorize", "Authorize a DigitalOcean account with tugboat"
     def authorize
-      say "Note: You can get this stuff at digitalocean.com/api_access", :yellow
-      say
-      client_key = ask "Enter your client key:"
-      secret_key = ask "Enter your API key:"
-      say secret_key, client_key
-      say
-      say "Checking..."
-      say "Succesfully authenticated.", :green
+      Tugboat::Middleware.sequence_authorize.call(nil)
     end
 
     desc "list", "Retrieve a list of your droplets"
@@ -35,15 +36,17 @@ module Tugboat
       say "Succesfully created '#{droplet_name}'", :green
     end
 
-    desc "destroy", "Destroy a droplet"
+    desc "destroy", "Queue the destruction of a droplet"
     def destroy
       droplet_name = ask "Enter name of droplet to destroy:"
       say
-      confirm = ask "Warning! Potentially destructive action. Please re-enter droplet name, '#{droplet_name}':", :red
-      say "Confirmation: #{confirm}"
-      say
+      say "Warning! Potentially destructive action.", :red
+      confirm = yes? "Confirm destruction of '#{droplet_name}' [y,n]"
+
+      raise Thor::Error.new "Response was no - destroy aborted" if !confirm
+
       say "Destroying '#{droplet_name}'...", :yellow
-      say "Succesfully destroyed '#{droplet_name}'", :green
+      say "Succesfully queued destroy for '#{droplet_name}'", :green
     end
 
     desc "restart", "Restart a droplet"
@@ -60,7 +63,7 @@ module Tugboat
       say "Succesfully shut down 'pearkes-admin-001'.", :green
     end
 
-    desc "halt", "Shutdown a droplet"
+    desc "snapshot", "Queue a snapshot of a droplet"
     def snapshot
       ask "Please enter name of snapshot:"
       say "Queuing 'test' snapshot for 'pearkes-admin-001'..."
