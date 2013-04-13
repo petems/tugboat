@@ -8,7 +8,8 @@ module Tugboat
         ocean = env["ocean"]
 
         ocean.droplets.list.droplets.each do |droplet|
-          say "#{droplet.name} (ip: #{droplet.ip_address}, status: #{droplet.status}, region: #{droplet.region_id})"
+          status_color = GREEN if droplet.status == "active" || RED
+          say "#{droplet.name} (ip: #{droplet.ip_address}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region_id})"
         end
 
         @app.call(env)
