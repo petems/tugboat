@@ -9,7 +9,7 @@ module Tugboat
     autoload :InjectClient, "tugboat/middleware/inject_client"
     autoload :CheckCredentials, "tugboat/middleware/check_credentials"
     autoload :ListDroplets, "tugboat/middleware/list_droplets"
-    # autoload :FindDroplet, "tugboat/middleware/find_droplet"
+    autoload :FindDroplet, "tugboat/middleware/find_droplet"
     autoload :RestartDroplet, "tugboat/middleware/restart_droplet"
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
 
@@ -41,7 +41,7 @@ module Tugboat
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
-        # use FindDroplet
+        use FindDroplet
         use RestartDroplet
       end
     end

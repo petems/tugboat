@@ -1,0 +1,70 @@
+module Tugboat
+  module Middleware
+    # Check if the client has set-up configuration yet.
+    class FindDroplet < Base
+      def call(env)
+        user_fuzzy_name = env['user_droplet_fuzzy_name']
+        user_droplet_name = env['user_droplet_name']
+        user_droplet_id = env['user_droplet_id']
+        # If you were to `tugboat restart foo -n foo-server-001` then we'd use
+        # 'foo-server-001' without looking up the fuzzy name.
+        #
+        # This is why we check in this order.
+
+        # Easy for us if they provide an id. Just set it to the droplet_id
+        if user_droplet_id
+          env["droplet_id"] = user_droplet_id
+          say "Droplet ID provided. Skipping lookup.", :green
+        end
+
+        # If they provide a name, we need to get the ID for it.
+        # This requires a lookup.
+        if user_droplet_name && !env["droplet_id"]
+          say "Droplet name provided. Finding droplet ID...", nil, false
+
+          # Look for the droplet by an exact name match.
+          env["ocean"].droplets.list.droplets.each do |droplet|
+            if droplet.name == user_droplet_name
+              env["droplet_id"] = droplet.id
+            end
+          end
+
+          # If we coulnd't find it, tell the user and drop out of the
+          # sequence.
+          if !env["droplet_id"]
+            say "Unable to find a droplet named '#{user_droplet_name}'.", :red
+            return
+          end
+        end
+
+        # We only need to "fuzzy find" a droplet if a fuzzy name is provided,
+        # and we don't want to fuzzy search if an id or name is provided
+        # with a flag.
+        #
+        # This requires a lookup.
+        if !user_fuzzy_name.empty? && !env["droplet_id"]
+          say "Droplet fuzzy name provided. Finding droplet ID...", nil, false
+
+          env["ocean"].droplets.list.droplets.each do |droplet|
+            # Check to see if one of the droplet names have the fuzzy string.
+          end
+
+          # If we coulnd't find it, tell the user and drop out of the
+          # sequence.
+          if !env["droplet_id"]
+            say "Unable to find a droplet named '#{user_fuzzy_name}'.", :red
+            return
+          end
+        end
+
+        # If nothing in FindDroplet managed to make a droplet_id for
+        # use with the API, we can fail and tell the user.
+
+
+        say "done, #{env["droplet_id"]}", :green
+        @app.call(env)
+      end
+    end
+  end
+end
+

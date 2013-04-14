@@ -1,5 +1,3 @@
-require 'thor/error'
-
 module Tugboat
   module Middleware
     # Check if the client has set-up configuration yet.
@@ -9,6 +7,7 @@ module Tugboat
 
         if !config || !config.data || !config.api_key || !config.client_key
           say "You must run `tugboat authorize` in order to connect to DigitalOcean", :red
+          return
         end
 
         @app.call(env)

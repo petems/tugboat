@@ -48,17 +48,23 @@ module Tugboat
       say "Succesfully queued destroy for '#{droplet_name}'", :green
     end
 
-    desc "restart", "Restart a droplet"
-    def restart(id)
+    desc "restart FUZZY_NAME", "Restart a droplet"
+    method_options :id => :string, :name => :string
+    def restart(name="")
       Middleware.sequence_restart_droplet.call({
-        "droplet_id" => id
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_fuzzy_name" => name
       })
     end
 
-    desc "halt", "Shutdown a droplet"
-    def halt(id)
+    desc "halt FUZZY_NAME", "Shutdown a droplet"
+    method_options :id => :string, :name => :string
+    def halt(name="")
         Middleware.sequence_halt_droplet.call({
-          "droplet_id" => id
+          "user_droplet_id" => options[:id],
+          "user_droplet_name" => options[:name],
+          "user_droplet_fuzzy_name" => name
         })
     end
 

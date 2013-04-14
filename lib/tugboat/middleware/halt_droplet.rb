@@ -1,5 +1,3 @@
-require 'thor/error'
-
 module Tugboat
   module Middleware
     # Check if the client has set-up configuration yet.

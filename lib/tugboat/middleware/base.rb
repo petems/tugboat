@@ -14,6 +14,8 @@ module Tugboat
 
       def initialize(app)
         @app = app
+        # This resets the color to "clear" on the user's terminal.
+        say "", :clear, false
       end
 
       def call(env)
