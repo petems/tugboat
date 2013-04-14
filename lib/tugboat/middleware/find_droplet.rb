@@ -55,8 +55,32 @@ module Tugboat
         if user_fuzzy_name && !env["droplet_id"]
           say "Droplet fuzzy name provided. Finding droplet ID...", nil, false
 
-          env["ocean"].droplets.list.droplets.each do |droplet|
+          found_droplets = []
+          choices = []
+
+          env["ocean"].droplets.list.droplets.each_with_index do |droplet, i|
             # Check to see if one of the droplet names have the fuzzy string.
+            if droplet.name.include? user_fuzzy_name
+              found_droplets << droplet
+            end
+          end
+
+          # Check to see if we have more then one droplet, and prompt
+          # a user to choose otherwise.
+          if found_droplets.length == 1
+            env["droplet_id"] = droplet.id
+            env["droplet_name"] = "(#{droplet.name})"
+          else
+            say "Multiple droplets found."
+            say
+            found_droplets.each_with_index do |droplet, i|
+              say "#{i}) #{droplet.id} (#{droplet.name})"
+              choices << i.to_s
+            end
+            say
+            choice = ask "Please choose a droplet:", :limited_to => choices
+            env["droplet_id"] = found_droplets[choice.to_i].id
+            env["droplet_name"] = found_droplets[choice.to_i].name
           end
 
           # If we coulnd't find it, tell the user and drop out of the
@@ -67,7 +91,7 @@ module Tugboat
           end
         end
 
-        say "done, #{env["droplet_id"]}", :green
+        say "done, #{env["droplet_id"]} #{env["droplet_name"]}", :green
         @app.call(env)
       end
     end
