@@ -16,7 +16,7 @@ Run the configuration utility, `tugboat authorize`. You can grab your keys
     Enter your API key: bar
     Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa):
     Enter your SSH user (optional, defaults to jack):
-    Authentication with DigitalOcean was successful
+    Authentication with DigitalOcean was successful!
 
 ## Usage
 
@@ -103,6 +103,18 @@ match.
 
     $ tugboat snapshot admin test-admin-snaphot
     Queuing snapshot 'test' for 13231512 (pearkes-admin-001)...done
+
+## Help
+
+If you're curious about command flags for a specific command, you can
+ask tugboat about it.
+
+    $ tugboat help restart
+
+
+For a complete overview of all of the available commands, run:
+
+    $ tugboat help
 
 ## Contributing
 
