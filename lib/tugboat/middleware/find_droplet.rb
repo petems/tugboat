@@ -14,7 +14,7 @@ module Tugboat
         # Easy for us if they provide an id. Just set it to the droplet_id
         if user_droplet_id
           env["droplet_id"] = user_droplet_id
-          say "Droplet ID provided. Skipping lookup.", :green
+          say "Droplet ID provided...", nil, false
         end
 
         # If they provide a name, we need to get the ID for it.

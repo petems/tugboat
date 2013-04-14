@@ -52,7 +52,7 @@ module Tugboat
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
-        # use FindDroplet
+        use FindDroplet
         use HaltDroplet
       end
     end

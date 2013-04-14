@@ -7,7 +7,12 @@ module Tugboat
 
         say "Queuing restart for #{env["droplet_id"]}...", nil, false
 
-        ocean.droplets.reboot env["droplet_id"]
+        req = ocean.droplets.reboot env["droplet_id"]
+
+        if req.status == "ERROR"
+          say "#{req.status}: #{req.error_message}", :red
+          return
+        end
 
         say "done", :green
 

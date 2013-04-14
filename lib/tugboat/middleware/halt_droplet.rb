@@ -7,7 +7,12 @@ module Tugboat
 
         say "Queuing shutdown for #{env["droplet_id"]}...", nil, false
 
-        ocean.droplets.shutdown env["droplet_id"]
+        req = ocean.droplets.shutdown env["droplet_id"]
+
+        if req.status == "ERROR"
+          say req.error_message, :red
+          return
+        end
 
         say "done", :green
 
