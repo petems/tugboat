@@ -10,6 +10,7 @@ module Tugboat
     attr_reader :path
 
     FILE_NAME = '.tugboat'
+    DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'
 
     def initialize
       @path = File.join(File.expand_path("~"), FILE_NAME)
@@ -33,6 +34,14 @@ module Tugboat
       @data['authentication']['api_key']
     end
 
+    def ssh_key_path
+      @data['ssh']['ssh_key_path']
+    end
+
+    def ssh_user
+      @data['ssh']['ssh_user']
+    end
+
     # Allow the path to be set.
     def path=(path)
       @path = path
@@ -45,10 +54,20 @@ module Tugboat
     end
 
     # Writes a config file
-    def create_config_file(client, api)
+    def create_config_file(client, api, ssh_key_path, ssh_user)
+      # Default SSH Key path
+      if ssh_key_path.empty?
+        ssh_key_path = File.join(File.expand_path("~"), DEFAULT_SSH_KEY_PATH)
+      end
+
+      if ssh_user.empty?
+        ssh_user = ENV['USER']
+      end
+
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
-        data = {"authentication" => {"api_key" => api, "client_key" => client}}
+        data = {"authentication" => { "client_key" => client, "api_key" => api },
+                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path }}
         file.write data.to_yaml
       end
     end
