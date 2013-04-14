@@ -68,6 +68,16 @@ module Tugboat
         })
     end
 
+    desc "info FUZZY_NAME", "Show a droplet's information"
+    method_options :id => :string, :name => :string
+    def info(name="")
+        Middleware.sequence_info_droplet.call({
+          "user_droplet_id" => options[:id],
+          "user_droplet_name" => options[:name],
+          "user_droplet_fuzzy_name" => name
+        })
+    end
+
     desc "snapshot", "Queue a snapshot of a droplet"
     def snapshot
       ask "Please enter name of snapshot:"

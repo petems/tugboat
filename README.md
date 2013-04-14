@@ -46,6 +46,11 @@ A command line tool for interacting with your [DigitalOcean](https://www.digital
     Creating "pearkes-www-002" (region: 1, size: 64, image ID: 2676)...done.
 
 
+### Show a droplet
+
+    $ tugboat show admin
+    pearkes-admin-001 (region: 1, size: 64, image ID: 2561)
+
 ### Destroy a droplet
 
     $ tugboat destroy admin

@@ -1,6 +1,5 @@
 module Tugboat
   module Middleware
-    # Check if the client has set-up configuration yet.
     class HaltDroplet < Base
       def call(env)
         ocean = env["ocean"]

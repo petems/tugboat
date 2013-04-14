@@ -12,6 +12,7 @@ module Tugboat
     autoload :FindDroplet, "tugboat/middleware/find_droplet"
     autoload :RestartDroplet, "tugboat/middleware/restart_droplet"
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
+    autoload :InfoDroplet, "tugboat/middleware/info_droplet"
 
 
     # This takes the user through the authorization flow
@@ -54,6 +55,17 @@ module Tugboat
         use InjectClient
         use FindDroplet
         use HaltDroplet
+      end
+    end
+
+    # This shows a droplet
+    def self.sequence_info_droplet
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use InfoDroplet
       end
     end
   end
