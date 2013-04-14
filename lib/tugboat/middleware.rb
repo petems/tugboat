@@ -14,7 +14,11 @@ module Tugboat
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
     autoload :InfoDroplet, "tugboat/middleware/info_droplet"
     autoload :SSHDroplet, "tugboat/middleware/ssh_droplet"
-
+    autoload :CreateDroplet, "tugboat/middleware/create_droplet"
+    autoload :DestroyDroplet, "tugboat/middleware/destroy_droplet"
+    autoload :ConfirmAction, "tugboat/middleware/confirm_action"
+    autoload :SnapshotDroplet, "tugboat/middleware/snapshot_droplet"
+    autoload :ListImages, "tugboat/middleware/list_images"
 
     # This takes the user through the authorization flow
     def self.sequence_authorize
@@ -34,6 +38,16 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use ListDroplets
+      end
+    end
+
+    # This provides a list of droplets
+    def self.sequence_list_images
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use ListImages
       end
     end
 
@@ -78,6 +92,39 @@ module Tugboat
         use InjectClient
         use FindDroplet
         use SSHDroplet
+      end
+    end
+
+    # SSH Into a droplet
+    def self.sequence_create_droplet
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use CreateDroplet
+      end
+    end
+
+    # SSH Into a droplet
+    def self.sequence_destroy_droplet
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use ConfirmAction
+        use DestroyDroplet
+      end
+    end
+
+    # SSH Into a droplet
+    def self.sequence_snapshot_droplet
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use SnapshotDroplet
       end
     end
   end

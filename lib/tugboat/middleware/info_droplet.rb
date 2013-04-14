@@ -25,6 +25,7 @@ module Tugboat
         say "Status:           #{status_color}#{droplet.status}#{CLEAR}"
         say "IP:               #{droplet.ip_address}"
         say "Region ID:        #{droplet.region_id}"
+        say "Image ID:         #{droplet.image_id}"
         say "Size ID:          #{droplet.size_id}"
         say "Backups Active:   #{droplet.backups_active || false}"
 

@@ -7,13 +7,11 @@ module Tugboat
         user_fuzzy_name = env['user_droplet_fuzzy_name']
         user_droplet_name = env['user_droplet_name']
         user_droplet_id = env['user_droplet_id']
+
         # First, if nothing is provided to us, we should quit and
         # let the user know.
         if !user_fuzzy_name && !user_droplet_name && !user_droplet_id
-          say "ERROR: tugboat info was called with invalid arguments"
-          say "Usage: 'tugboat info FUZZY_NAME [OPTIONS]'"
-          say
-          say "Try tugboat help for more"
+          say "Tugboat attempted to find a droplet with no arguments.", :red
           return
         end
 
@@ -78,11 +76,11 @@ module Tugboat
             env["droplet_id"] = found_droplets.first.id
             env["droplet_name"] = "(#{found_droplets.first.name})"
             env["droplet_ip"] = found_droplets.first.ip_address
-          else
+          elsif found_droplets.length > 1
             say "Multiple droplets found."
             say
             found_droplets.each_with_index do |d, i|
-              say "#{i}) #{d.id} (#{d.name})"
+              say "#{i}) #{d.name} (#{d.id})"
               choices << i.to_s
             end
             say
@@ -95,7 +93,7 @@ module Tugboat
           # If we coulnd't find it, tell the user and drop out of the
           # sequence.
           if !env["droplet_id"]
-            say "Unable to find a droplet named '#{user_fuzzy_name}'.", :red
+            say "error\nUnable to find a droplet named '#{user_fuzzy_name}'.", :red
             return
           end
         end
