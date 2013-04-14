@@ -24,10 +24,15 @@ module Tugboat
       Middleware.sequence_list_droplets.call({})
     end
 
-    desc "ssh", "SSH into a droplet"
-    def ssh
-      say "Found droplet: 'pearkes-admin-001'", :green
-      say "Executing SSH..."
+    desc "ssh FUZZY_NAME", "SSH into a droplet. Uses your local ssh executable."
+    method_options :id => :string, :aliases => "-i", :name => :string
+    method_options :name => :string, :aliases => "-n", :name => :string
+    def ssh(name=nil)
+      Middleware.sequence_ssh_droplet.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_fuzzy_name" => name
+      })
     end
 
     desc "create", "Create a droplet"

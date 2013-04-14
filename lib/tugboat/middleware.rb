@@ -13,6 +13,7 @@ module Tugboat
     autoload :RestartDroplet, "tugboat/middleware/restart_droplet"
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
     autoload :InfoDroplet, "tugboat/middleware/info_droplet"
+    autoload :SSHDroplet, "tugboat/middleware/ssh_droplet"
 
 
     # This takes the user through the authorization flow
@@ -66,6 +67,17 @@ module Tugboat
         use InjectClient
         use FindDroplet
         use InfoDroplet
+      end
+    end
+
+    # SSH Into a droplet
+    def self.sequence_ssh_droplet
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use SSHDroplet
       end
     end
   end

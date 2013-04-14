@@ -3,6 +3,7 @@ module Tugboat
     # Check if the client has set-up configuration yet.
     class FindDroplet < Base
       def call(env)
+        ocean = env["ocean"]
         user_fuzzy_name = env['user_droplet_fuzzy_name']
         user_droplet_name = env['user_droplet_name']
         user_droplet_id = env['user_droplet_id']
@@ -23,8 +24,12 @@ module Tugboat
 
         # Easy for us if they provide an id. Just set it to the droplet_id
         if user_droplet_id
-          env["droplet_id"] = user_droplet_id
-          say "Droplet ID provided...", nil, false
+          say "Droplet id provided. Finding Droplet...", nil, false
+          droplet = ocean.droplets.show user_droplet_id
+
+          env["droplet_id"] = droplet.id
+          env["droplet_name"] = "(#{droplet.name})"
+          env["droplet_ip"] = droplet.ip_address
         end
 
         # If they provide a name, we need to get the ID for it.
@@ -33,9 +38,11 @@ module Tugboat
           say "Droplet name provided. Finding droplet ID...", nil, false
 
           # Look for the droplet by an exact name match.
-          env["ocean"].droplets.list.droplets.each do |droplet|
+          ocean.droplets.list.droplets.each do |d|
             if droplet.name == user_droplet_name
-              env["droplet_id"] = droplet.id
+              env["droplet_id"] = d.id
+              env["droplet_name"] = "(#{d.name})"
+              env["droplet_ip"] = d.ip_address
             end
           end
 
@@ -58,10 +65,10 @@ module Tugboat
           found_droplets = []
           choices = []
 
-          env["ocean"].droplets.list.droplets.each_with_index do |droplet, i|
+          ocean.droplets.list.droplets.each_with_index do |d, i|
             # Check to see if one of the droplet names have the fuzzy string.
-            if droplet.name.include? user_fuzzy_name
-              found_droplets << droplet
+            if d.name.include? user_fuzzy_name
+              found_droplets << d
             end
           end
 
@@ -70,17 +77,19 @@ module Tugboat
           if found_droplets.length == 1
             env["droplet_id"] = found_droplets.first.id
             env["droplet_name"] = "(#{found_droplets.first.name})"
+            env["droplet_ip"] = found_droplets.first.ip_address
           else
             say "Multiple droplets found."
             say
-            found_droplets.each_with_index do |droplet, i|
-              say "#{i}) #{droplet.id} (#{droplet.name})"
+            found_droplets.each_with_index do |d, i|
+              say "#{i}) #{d.id} (#{d.name})"
               choices << i.to_s
             end
             say
             choice = ask "Please choose a droplet:", :limited_to => choices
             env["droplet_id"] = found_droplets[choice.to_i].id
             env["droplet_name"] = found_droplets[choice.to_i].name
+            env["droplet_ip"] = found_droplets[choice.to_i].ip_address
           end
 
           # If we coulnd't find it, tell the user and drop out of the
