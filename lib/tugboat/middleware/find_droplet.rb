@@ -68,8 +68,8 @@ module Tugboat
           # Check to see if we have more then one droplet, and prompt
           # a user to choose otherwise.
           if found_droplets.length == 1
-            env["droplet_id"] = droplet.id
-            env["droplet_name"] = "(#{droplet.name})"
+            env["droplet_id"] = found_droplets.first.id
+            env["droplet_name"] = "(#{found_droplets.first.name})"
           else
             say "Multiple droplets found."
             say
@@ -91,7 +91,7 @@ module Tugboat
           end
         end
 
-        say "done, #{env["droplet_id"]} #{env["droplet_name"]}", :green
+        say "done#{CLEAR}, #{env["droplet_id"]} #{env["droplet_name"]}", :green
         @app.call(env)
       end
     end
