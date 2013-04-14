@@ -25,6 +25,7 @@ module Tugboat
       ::Middleware::Builder.new do
         use InjectConfiguration
         use AskForCredentials
+        use InjectConfiguration
         use CheckConfiguration
         use InjectClient
         use CheckCredentials

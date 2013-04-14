@@ -4,6 +4,7 @@ module Tugboat
     class InjectConfiguration < Base
       def call(env)
         config = Tugboat::Configuration.instance
+        config.reset!
 
         env["config"] = config
 

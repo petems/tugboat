@@ -77,6 +77,9 @@ module Tugboat
             env["droplet_name"] = "(#{found_droplets.first.name})"
             env["droplet_ip"] = found_droplets.first.ip_address
           elsif found_droplets.length > 1
+            # Did we run the multiple questionairre?
+            did_run_multiple = true
+
             say "Multiple droplets found."
             say
             found_droplets.each_with_index do |d, i|
@@ -98,7 +101,9 @@ module Tugboat
           end
         end
 
-        say "done#{CLEAR}, #{env["droplet_id"]} #{env["droplet_name"]}", :green
+        if !did_run_multiple
+          say "done#{CLEAR}, #{env["droplet_id"]} #{env["droplet_name"]}", :green
+        end
         @app.call(env)
       end
     end

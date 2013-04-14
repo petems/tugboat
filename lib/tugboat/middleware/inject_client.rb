@@ -8,7 +8,8 @@ module Tugboat
           # later.
           env["ocean"]  = DigitalOcean::API.new \
                              :client_id => env["config"].client_key,
-                             :api_key   => env["config"].api_key
+                             :api_key   => env["config"].api_key,
+                             :debug => ENV['DEBUG'] || false
 
           @app.call(env)
         end
