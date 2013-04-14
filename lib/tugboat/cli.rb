@@ -49,17 +49,17 @@ module Tugboat
     end
 
     desc "restart", "Restart a droplet"
-    def restart
-      say "Restarting: 'pearkes-admin-001'", :yellow
-      say
-      say "Succesfully restarted 'pearkes-admin-001'.", :green
+    def restart(id)
+      Middleware.sequence_restart_droplet.call({
+        "droplet_id" => id
+      })
     end
 
     desc "halt", "Shutdown a droplet"
-    def halt
-      say "Shutting down: 'pearkes-admin-001'", :yellow
-      say
-      say "Succesfully shut down 'pearkes-admin-001'.", :green
+    def halt(id)
+        Middleware.sequence_halt_droplet.call({
+          "droplet_id" => id
+        })
     end
 
     desc "snapshot", "Queue a snapshot of a droplet"
