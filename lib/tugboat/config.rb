@@ -7,6 +7,7 @@ module Tugboat
   class Configuration
     include Singleton
     attr_reader :data
+    attr_reader :path
 
     FILE_NAME = '.tugboat'
 
@@ -30,6 +31,17 @@ module Tugboat
 
     def api_key
       @data['authentication']['api_key']
+    end
+
+    # Allow the path to be set.
+    def path=(path)
+      @path = path
+      path
+    end
+
+    # Re-runs initialize
+    def reset!
+      self.send(:initialize)
     end
 
     # Writes a config file

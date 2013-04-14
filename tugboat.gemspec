@@ -21,6 +21,4 @@ Gem::Specification.new do |gem|
   gem.add_dependency "digital_ocean", "~> 1.0.1"
   gem.add_dependency "middleware" , "~> 0.1.0"
   gem.add_dependency "activesupport"
-
-  gem.add_development_dependency "debugger"
 end
