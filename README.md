@@ -8,70 +8,101 @@ A command line tool for interacting with your [DigitalOcean](https://www.digital
 
 ## Configuration
 
+Run the configuration utility, `tugboat authorize`. You can grab your keys
+[here](https://www.digitalocean.com/api_access).
+
     $ tugboat authorize
-    Note: You can get this stuff at digitalocean.com/api_access
-
-    Enter your client key: ...
-    Enter your API Key: ...
-
-    Checking...done.
+    Enter your client key: foo
+    Enter your API key: bar
+    Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa):
+    Enter your SSH user (optional, defaults to jack):
+    Authentication with DigitalOcean was successful
 
 ## Usage
 
 ### Retrieve a list of your droplets
 
-    $ tugboat list
-    pearkes-admin-001 (region: 1, size: 64, image ID: 2676)
-    pearkes-www-001 (region: 1, size: 64, image ID: 2561)
-    pearkes-api-001 (region: 1, size: 64, image ID: 6321)
+    $ tugboat droplets
+    pearkes-web-001 (ip: 30.30.30.1, status: active, region: 1, id: 13231511)
+    pearkes-admin-001 (ip: 30.30.30.3, status: active, region: 1, id: 13231512)
+    pearkes-api-001 (ip: 30.30.30.5, status: active, region: 1, id: 13231513)
+
+### Fuzzy name matching
+
+You can pass a unique fragment of a droplets name for interactions
+throughout `tugboat`.
+
+    $ tugboat restart admin
+    Droplet fuzzy name provided. Finding droplet ID...done, 13231512 (pearkes-admin-001)
+    Queuing restart for 13231512 (pearkes-admin-001)...done
+
+tugboat handles multiple matches as well:
+
+    $ tugboat restart pearkes
+    Droplet fuzzy name provided. Finding droplet ID...Multiple droplets found.
+
+    0) pearkes-web-001  (13231511)
+    1) pearkes-admin-001 (13231512)
+    2) pearkes-api-001 (13231513)
+
+    Please choose a droplet: ["0", "1", "2"] 0
+    Queuing restart for 13231511 (pearkes-web-001)...done
 
 ### SSH into a droplet
 
+You can configure a SSH username and key path in `tugboat authorize`.
+
+This lets you ssh into a droplet by providing it's name, or a partial
+match.
+
     $ tugboat ssh admin
-    Found droplet "pearkes-admin-001"
-    Executing SSH...
-
-### SSH into a droplet with multiple matches
-
-    $ tugboat ssh www
-    Found multiple droplets:
-    1) pearkes-www-001
-    2) pearkes-www-002
-    Enter droplet number: 2
-    Executing SSH...
+    Droplet fuzzy name provided. Finding droplet ID...done, 13231512 (pearkes-admin-001)
+    Executing SSH (pearkes-admin-001)...
+    Welcome to Ubuntu 12.10 (GNU/Linux 3.5.0-17-generic x86_64)
+    pearkes@pearkes-admin-001:~#
 
 ### Create a droplet
 
-    $ tugboat create -n pearkes-www-002 -s 64 -i 2676 -r 1
-    Creating "pearkes-www-002" (region: 1, size: 64, image ID: 2676)...done.
+    $ tugboat create pearkes-www-002 -s 64 -i 2676 -r 2
+    Queueing creation of droplet 'pearkes-www-002'...done
 
+### Info about a droplet
 
-### Show a droplet
+    $ tugboat info admin
+    Droplet fuzzy name provided. Finding droplet ID...done, 13231512 (pearkes-admin-001)
 
-    $ tugboat show admin
-    pearkes-admin-001 (region: 1, size: 64, image ID: 2561)
+    Name:             pearkes-admin-001
+    ID:               13231512
+    Status:           active
+    IP:               30.30.30.3
+    Region ID:        1
+    Image ID:         25489
+    Size ID:          66
+    Backups Active:   false
 
 ### Destroy a droplet
 
-    $ tugboat destroy admin
-    Warning! Potentially destructive action. Please re-enter droplet name. "pearkes-admin-001": ...
-    Destroying "pearkes-admin-001"...done.
+    $ tugboat destroy pearkes-www-002
+    Droplet fuzzy name provided. Finding droplet ID...done, 13231515 (pearkes-www-002)
+    Warning! Potentially destructive action. Please confirm [y/n]: y
+    Queuing destroy for 13231515 (pearkes-www-002)...done
 
 ### Restart a droplet
 
     $ tugboat restart admin
-    Restarting "pearkes-admin-001"...done.
+    Droplet fuzzy name provided. Finding droplet ID...done, 13231512 (pearkes-admin-001)
+    Queuing restart for 13231512 (pearkes-admin-001)...done
 
-### Shut down a droplet
+### Shutdown a droplet
 
     $ tugboat halt admin
-    Shutting down "pearkes-admin-001"...done.
+    Droplet fuzzy name provided. Finding droplet ID...done, 13231512 (pearkes-admin-001)
+    Queuing shutdown for 13231512 (pearkes-admin-001)...done
 
 ### Snapshot a droplet
 
-    $ tugboat snapshot admin
-    Please enter name of snapshot: test
-    Queuing 'test' snapshot for "pearkes-admin-001"...done.
+    $ tugboat snapshot admin test-admin-snaphot
+    Queuing snapshot 'test' for 13231512 (pearkes-admin-001)...done
 
 ## Contributing
 

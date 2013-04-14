@@ -4,7 +4,7 @@ module Tugboat
       def call(env)
         ocean = env["ocean"]
 
-        say "Queuing restart for #{env["droplet_id"]}...", nil, false
+        say "Queuing restart for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
 
         req = ocean.droplets.reboot env["droplet_id"]
 

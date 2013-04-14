@@ -4,7 +4,7 @@ module Tugboat
       def call(env)
         ocean = env["ocean"]
 
-        say "Queuing snapshot '#{env["user_snapshot_name"]}' for #{env["droplet_id"]} (#{env["droplet_name"]})...", nil, false
+        say "Queuing snapshot '#{env["user_snapshot_name"]}' for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
 
         # Temporary
         req = ocean.droplets.snapshot env["droplet_id"],
