@@ -6,6 +6,8 @@ module Tugboat
   class CLI < Thor
     include Thor::Actions
 
+    !check_unknown_options
+
     desc "help [command]", "Describe commands or a specific command"
     def help
       super
@@ -49,8 +51,9 @@ module Tugboat
     end
 
     desc "restart FUZZY_NAME", "Restart a droplet"
-    method_options :id => :string, :name => :string
-    def restart(name="")
+    method_options :id => :string, :aliases => "-i", :name => :string
+    method_options :name => :string, :aliases => "-n", :name => :string
+    def restart(name=nil)
       Middleware.sequence_restart_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
@@ -60,7 +63,7 @@ module Tugboat
 
     desc "halt FUZZY_NAME", "Shutdown a droplet"
     method_options :id => :string, :name => :string
-    def halt(name="")
+    def halt(name=nil)
         Middleware.sequence_halt_droplet.call({
           "user_droplet_id" => options[:id],
           "user_droplet_name" => options[:name],
@@ -68,9 +71,9 @@ module Tugboat
         })
     end
 
-    desc "info FUZZY_NAME", "Show a droplet's information"
+    desc "info FUZZY_NAME [OPTIONS]", "Show a droplet's information"
     method_options :id => :string, :name => :string
-    def info(name="")
+    def info(name=nil)
         Middleware.sequence_info_droplet.call({
           "user_droplet_id" => options[:id],
           "user_droplet_name" => options[:name],

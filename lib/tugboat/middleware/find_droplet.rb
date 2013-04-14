@@ -6,6 +6,16 @@ module Tugboat
         user_fuzzy_name = env['user_droplet_fuzzy_name']
         user_droplet_name = env['user_droplet_name']
         user_droplet_id = env['user_droplet_id']
+        # First, if nothing is provided to us, we should quit and
+        # let the user know.
+        if !user_fuzzy_name && !user_droplet_name && !user_droplet_id
+          say "ERROR: tugboat info was called with invalid arguments"
+          say "Usage: 'tugboat info FUZZY_NAME [OPTIONS]'"
+          say
+          say "Try tugboat help for more"
+          return
+        end
+
         # If you were to `tugboat restart foo -n foo-server-001` then we'd use
         # 'foo-server-001' without looking up the fuzzy name.
         #
@@ -42,7 +52,7 @@ module Tugboat
         # with a flag.
         #
         # This requires a lookup.
-        if !user_fuzzy_name.empty? && !env["droplet_id"]
+        if user_fuzzy_name && !env["droplet_id"]
           say "Droplet fuzzy name provided. Finding droplet ID...", nil, false
 
           env["ocean"].droplets.list.droplets.each do |droplet|
@@ -56,10 +66,6 @@ module Tugboat
             return
           end
         end
-
-        # If nothing in FindDroplet managed to make a droplet_id for
-        # use with the API, we can fail and tell the user.
-
 
         say "done, #{env["droplet_id"]}", :green
         @app.call(env)
