@@ -101,11 +101,11 @@ module Tugboat
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
     def destroy(name=nil)
-        Middleware.sequence_destroy_droplet.call({
-          "user_droplet_id" => options[:id],
-          "user_droplet_name" => options[:name],
-          "user_droplet_fuzzy_name" => name
-        })
+      Middleware.sequence_destroy_droplet.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_fuzzy_name" => name
+      })
     end
 
     desc "restart FUZZY_NAME", "Restart a droplet"
@@ -135,11 +135,11 @@ module Tugboat
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
     def halt(name=nil)
-        Middleware.sequence_halt_droplet.call({
-          "user_droplet_id" => options[:id],
-          "user_droplet_name" => options[:name],
-          "user_droplet_fuzzy_name" => name
-        })
+      Middleware.sequence_halt_droplet.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_fuzzy_name" => name
+      })
     end
 
     desc "info FUZZY_NAME [OPTIONS]", "Show a droplet's information"
@@ -152,11 +152,11 @@ module Tugboat
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
     def info(name=nil)
-        Middleware.sequence_info_droplet.call({
-          "user_droplet_id" => options[:id],
-          "user_droplet_name" => options[:name],
-          "user_droplet_fuzzy_name" => name
-        })
+      Middleware.sequence_info_droplet.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_fuzzy_name" => name
+      })
     end
 
     desc "snapshot FUZZY_NAME [OPTIONS]", "Queue a snapshot of the droplet."
@@ -173,12 +173,12 @@ module Tugboat
                   :aliases => "-s",
                   :desc => "The name of the snapshot"
     def snapshot(name=nil, snapshot_name)
-        Middleware.sequence_snapshot_droplet.call({
-          "user_droplet_id" => options[:id],
-          "user_droplet_name" => options[:name],
-          "user_droplet_fuzzy_name" => name,
-          "user_snapshot_name" => snapshot_name
-        })
+      Middleware.sequence_snapshot_droplet.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_fuzzy_name" => name,
+        "user_snapshot_name" => snapshot_name
+      })
     end
   end
 end

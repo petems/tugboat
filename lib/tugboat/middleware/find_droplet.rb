@@ -23,11 +23,16 @@ module Tugboat
         # Easy for us if they provide an id. Just set it to the droplet_id
         if user_droplet_id
           say "Droplet id provided. Finding Droplet...", nil, false
-          droplet = ocean.droplets.show user_droplet_id
+          req = ocean.droplets.show user_droplet_id
 
-          env["droplet_id"] = droplet.id
-          env["droplet_name"] = "(#{droplet.name})"
-          env["droplet_ip"] = droplet.ip_address
+          if req.status == "ERROR"
+            say "#{req.status}: #{req.error_message}", :red
+            return
+          end
+
+          env["droplet_id"] = req.droplet.id
+          env["droplet_name"] = "(#{req.droplet.name})"
+          env["droplet_ip"] = req.droplet.ip_address
         end
 
         # If they provide a name, we need to get the ID for it.
