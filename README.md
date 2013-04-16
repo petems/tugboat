@@ -50,7 +50,8 @@ tugboat handles multiple matches as well:
 
 ### SSH into a droplet
 
-You can configure a SSH username and key path in `tugboat authorize`.
+*You can configure an SSH username and key path in `tugboat authorize`,
+or by changing your `~/.tugboat`.*
 
 This lets you ssh into a droplet by providing it's name, or a partial
 match.
@@ -102,7 +103,7 @@ match.
 ### Snapshot a droplet
 
     $ tugboat snapshot admin test-admin-snaphot
-    Queuing snapshot 'test' for 13231512 (pearkes-admin-001)...done
+    Queuing snapshot 'test-admin-snapshot' for 13231512 (pearkes-admin-001)...done
 
 ## Help
 

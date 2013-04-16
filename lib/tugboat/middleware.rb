@@ -20,7 +20,8 @@ module Tugboat
     autoload :SnapshotDroplet, "tugboat/middleware/snapshot_droplet"
     autoload :ListImages, "tugboat/middleware/list_images"
 
-    # This takes the user through the authorization flow
+    # Start the authorization flow.
+    # This writes a ~/.tugboat file, which can be edited manually.
     def self.sequence_authorize
       ::Middleware::Builder.new do
         use InjectConfiguration
@@ -32,7 +33,7 @@ module Tugboat
       end
     end
 
-    # This provides a list of droplets
+    # Display a list of droplets
     def self.sequence_list_droplets
       ::Middleware::Builder.new do
         use InjectConfiguration
@@ -42,7 +43,7 @@ module Tugboat
       end
     end
 
-    # This provides a list of droplets
+    # Display a list of images
     def self.sequence_list_images
       ::Middleware::Builder.new do
         use InjectConfiguration
@@ -52,7 +53,7 @@ module Tugboat
       end
     end
 
-    # This restarts a droplet
+    # Restart a droplet
     def self.sequence_restart_droplet
       ::Middleware::Builder.new do
         use InjectConfiguration
@@ -63,7 +64,7 @@ module Tugboat
       end
     end
 
-    # This halts a droplet
+    # Shutdown a droplet
     def self.sequence_halt_droplet
       ::Middleware::Builder.new do
         use InjectConfiguration
@@ -74,7 +75,7 @@ module Tugboat
       end
     end
 
-    # This shows a droplet
+    # Show information about a droplet
     def self.sequence_info_droplet
       ::Middleware::Builder.new do
         use InjectConfiguration
@@ -85,7 +86,7 @@ module Tugboat
       end
     end
 
-    # SSH Into a droplet
+    # SSH into a droplet
     def self.sequence_ssh_droplet
       ::Middleware::Builder.new do
         use InjectConfiguration
@@ -96,7 +97,7 @@ module Tugboat
       end
     end
 
-    # SSH Into a droplet
+    # Create a droplet
     def self.sequence_create_droplet
       ::Middleware::Builder.new do
         use InjectConfiguration
@@ -106,7 +107,7 @@ module Tugboat
       end
     end
 
-    # SSH Into a droplet
+    # Destroy a droplet
     def self.sequence_destroy_droplet
       ::Middleware::Builder.new do
         use InjectConfiguration
@@ -118,7 +119,7 @@ module Tugboat
       end
     end
 
-    # SSH Into a droplet
+    # Snapshot a droplet
     def self.sequence_snapshot_droplet
       ::Middleware::Builder.new do
         use InjectConfiguration
