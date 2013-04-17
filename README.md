@@ -1,4 +1,5 @@
 # Tugboat
+[![Build Status](https://travis-ci.org/pearkes/tugboat.png?branch=master)](https://travis-ci.org/pearkes/tugboat)
 
 A command line tool for interacting with your [DigitalOcean](https://www.digitalocean.com/) droplets.
 
