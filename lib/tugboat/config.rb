@@ -53,6 +53,11 @@ module Tugboat
       self.send(:initialize)
     end
 
+    # Re-loads the config
+    def reload!
+      @data = self.load_config_file
+    end
+
     # Writes a config file
     def create_config_file(client, api, ssh_key_path, ssh_user)
       # Default SSH Key path

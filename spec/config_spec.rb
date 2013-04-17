@@ -17,7 +17,9 @@ describe Tugboat::Configuration do
 
   it "has a data attribute" do
     config = Tugboat::Configuration.instance
-    expect(config.data).to be
+    config.path = tmp_path
+    config.reload!
+    expect(config.data).to_not be
   end
 
   it "can set a path" do
