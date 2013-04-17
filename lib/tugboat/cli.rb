@@ -172,7 +172,7 @@ module Tugboat
                   :type => :string,
                   :aliases => "-s",
                   :desc => "The name of the snapshot"
-    def snapshot(name=nil, snapshot_name)
+    def snapshot(name=nil, snapshot_name=nil)
       Middleware.sequence_snapshot_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
