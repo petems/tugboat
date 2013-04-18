@@ -82,11 +82,16 @@ module Tugboat
                    :aliases => "-r",
                    :default => 1,
                    :desc => "The region_id of the droplet"
+    method_option  "keys",
+                   :type => :string,
+                   :aliases => "-k",
+                   :desc => "A comma separated list of SSH key ids to add to the droplet"
     def create(name)
       Middleware.sequence_create_droplet.call({
         "create_droplet_size_id" => options[:size],
         "create_droplet_image_id" => options[:image],
         "create_droplet_region_id" => options[:region],
+        "create_droplet_ssh_key_ids" => options[:keys],
         "create_droplet_name" => name
       })
     end
@@ -175,6 +180,11 @@ module Tugboat
         "user_droplet_fuzzy_name" => name,
         "user_snapshot_name" => snapshot_name
       })
+    end
+
+    desc "keys", "Show available SSH keys"
+    def keys
+      Middleware.sequence_ssh_keys.call({})
     end
   end
 end

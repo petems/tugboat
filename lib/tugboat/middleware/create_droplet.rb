@@ -9,7 +9,8 @@ module Tugboat
         req = ocean.droplets.create :name   => env["create_droplet_name"],
                                  :size_id   => env["create_droplet_size_id"],
                                  :image_id  => env["create_droplet_image_id"],
-                                 :region_id => env["create_droplet_region_id"]
+                                 :region_id => env["create_droplet_region_id"],
+                                 :ssh_key_ids => env["create_droplet_ssh_key_ids"]
 
         if req.status == "ERROR"
           say req.error_message, :red

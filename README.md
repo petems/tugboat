@@ -65,7 +65,7 @@ match.
 
 ### Create a droplet
 
-    $ tugboat create pearkes-www-002 -s 64 -i 2676 -r 2
+    $ tugboat create pearkes-www-002 -s 64 -i 2676 -r 2 -k 11251
     Queueing creation of droplet 'pearkes-www-002'...done
 
 ### Info about a droplet
