@@ -103,7 +103,7 @@ match.
 
 ### Snapshot a droplet
 
-    $ tugboat snapshot admin test-admin-snaphot
+    $ tugboat snapshot test-admin-snaphot admin
     Queuing snapshot 'test-admin-snapshot' for 13231512 (pearkes-admin-001)...done
 
 ## Help

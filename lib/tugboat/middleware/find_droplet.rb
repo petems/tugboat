@@ -11,7 +11,7 @@ module Tugboat
         # First, if nothing is provided to us, we should quit and
         # let the user know.
         if !user_fuzzy_name && !user_droplet_name && !user_droplet_id
-          say "Tugboat attempted to find a droplet with no arguments.", :red
+          say "Tugboat attempted to find a droplet with no arguments. Try `tugboat help`", :red
           return
         end
 

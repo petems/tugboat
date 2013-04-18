@@ -159,7 +159,7 @@ module Tugboat
       })
     end
 
-    desc "snapshot FUZZY_NAME [OPTIONS]", "Queue a snapshot of the droplet."
+    desc "snapshot SNAPSHOT_NAME FUZZY_NAME [OPTIONS]", "Queue a snapshot of the droplet."
     method_option "id",
                   :type => :string,
                   :aliases => "-i",
@@ -168,11 +168,7 @@ module Tugboat
                   :type => :string,
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
-    method_option "snapshot",
-                  :type => :string,
-                  :aliases => "-s",
-                  :desc => "The name of the snapshot"
-    def snapshot(name=nil, snapshot_name)
+    def snapshot(snapshot_name, name=nil)
       Middleware.sequence_snapshot_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
