@@ -68,7 +68,7 @@ module Tugboat
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
         "user_droplet_ssh_port" => options[:ssh_port]
-                                           })
+      })
     end
 
     desc "create NAME", "Create a droplet."
