@@ -39,7 +39,7 @@ describe Tugboat::Configuration do
     let(:client_key)       { "foo" }
     let(:api_key)          { "bar" }
     let(:ssh_user)         { "baz" }
-    let(:ssh_key_path)     { "~/.ssh/id_rsa2.pub" }
+    let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
 
     let(:config)           { config = Tugboat::Configuration.instance }
 
