@@ -65,7 +65,7 @@ match.
 
 ### Create a droplet
 
-    $ tugboat create pearkes-www-002 -s 64 -i 2676 -r 2
+    $ tugboat create pearkes-www-002 -s 64 -i 2676 -r 2 -k 11251
     Queueing creation of droplet 'pearkes-www-002'...done
 
 ### Info about a droplet
@@ -103,7 +103,7 @@ match.
 
 ### Snapshot a droplet
 
-    $ tugboat snapshot admin test-admin-snaphot
+    $ tugboat snapshot test-admin-snaphot admin
     Queuing snapshot 'test-admin-snapshot' for 13231512 (pearkes-admin-001)...done
 
 ## Help

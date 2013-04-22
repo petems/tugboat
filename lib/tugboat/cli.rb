@@ -58,16 +58,11 @@ module Tugboat
                   :type => :string,
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
-    method_option "ssh_port",
-                  :type => :string,
-                  :aliases => "-p",
-                  :desc => "SSH Port (Overides Config File)"
     def ssh(name=nil)
       Middleware.sequence_ssh_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
-        "user_droplet_fuzzy_name" => name,
-        "user_droplet_ssh_port" => options[:ssh_port]
+        "user_droplet_fuzzy_name" => name
       })
     end
 
@@ -87,11 +82,16 @@ module Tugboat
                    :aliases => "-r",
                    :default => 1,
                    :desc => "The region_id of the droplet"
+    method_option  "keys",
+                   :type => :string,
+                   :aliases => "-k",
+                   :desc => "A comma separated list of SSH key ids to add to the droplet"
     def create(name)
       Middleware.sequence_create_droplet.call({
         "create_droplet_size_id" => options[:size],
         "create_droplet_image_id" => options[:image],
         "create_droplet_region_id" => options[:region],
+        "create_droplet_ssh_key_ids" => options[:keys],
         "create_droplet_name" => name
       })
     end
@@ -164,7 +164,7 @@ module Tugboat
       })
     end
 
-    desc "snapshot FUZZY_NAME [OPTIONS]", "Queue a snapshot of the droplet."
+    desc "snapshot SNAPSHOT_NAME FUZZY_NAME [OPTIONS]", "Queue a snapshot of the droplet."
     method_option "id",
                   :type => :string,
                   :aliases => "-i",
@@ -173,17 +173,18 @@ module Tugboat
                   :type => :string,
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
-    method_option "snapshot",
-                  :type => :string,
-                  :aliases => "-s",
-                  :desc => "The name of the snapshot"
-    def snapshot(name=nil, snapshot_name=nil)
+    def snapshot(snapshot_name, name=nil)
       Middleware.sequence_snapshot_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
         "user_snapshot_name" => snapshot_name
       })
+    end
+
+    desc "keys", "Show available SSH keys"
+    def keys
+      Middleware.sequence_ssh_keys.call({})
     end
   end
 end

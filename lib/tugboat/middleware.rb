@@ -19,6 +19,7 @@ module Tugboat
     autoload :ConfirmAction, "tugboat/middleware/confirm_action"
     autoload :SnapshotDroplet, "tugboat/middleware/snapshot_droplet"
     autoload :ListImages, "tugboat/middleware/list_images"
+    autoload :ListSSHKeys, "tugboat/middleware/list_ssh_keys"
 
     # Start the authorization flow.
     # This writes a ~/.tugboat file, which can be edited manually.
@@ -127,6 +128,16 @@ module Tugboat
         use InjectClient
         use FindDroplet
         use SnapshotDroplet
+      end
+    end
+
+    # Display a list of available SSH keys
+    def self.sequence_ssh_keys
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use ListSSHKeys
       end
     end
   end
