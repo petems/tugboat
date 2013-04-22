@@ -58,11 +58,16 @@ module Tugboat
                   :type => :string,
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
+    method_option "ssh_port",
+                  :type => :string,
+                  :aliases => "-p",
+                  :desc => "SSH Port (Overides Config File)"
     def ssh(name=nil)
       Middleware.sequence_ssh_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
-        "user_droplet_fuzzy_name" => name
+        "user_droplet_fuzzy_name" => name,
+        "user_droplet_ssh_port" => options[:ssh_port]
       })
     end
 
@@ -172,7 +177,7 @@ module Tugboat
                   :type => :string,
                   :aliases => "-s",
                   :desc => "The name of the snapshot"
-    def snapshot(name=nil, snapshot_name)
+    def snapshot(name=nil, snapshot_name=nil)
       Middleware.sequence_snapshot_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],

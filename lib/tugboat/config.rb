@@ -41,6 +41,10 @@ module Tugboat
     def ssh_user
       @data['ssh']['ssh_user']
     end
+    
+    def ssh_port
+      @data['ssh']['ssh_port']
+    end
 
     # Allow the path to be set.
     def path=(path)
@@ -72,7 +76,7 @@ module Tugboat
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
         data = {"authentication" => { "client_key" => client, "api_key" => api },
-                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path }}
+                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => "22"}}
         file.write data.to_yaml
       end
     end
