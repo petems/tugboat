@@ -9,6 +9,8 @@ module Tugboat
 
     !check_unknown_options
 
+    map "--version" => :version, "-v" => :version
+
     desc "help [COMMAND]", "Describe commands or a specific command"
     def help(meth=nil)
       super
@@ -185,6 +187,11 @@ module Tugboat
     desc "keys", "Show available SSH keys"
     def keys
       Middleware.sequence_ssh_keys.call({})
+    end
+
+    desc "version", "Show version"
+    def version
+      say "Tugboat #{Tugboat::VERSION}"
     end
   end
 end
