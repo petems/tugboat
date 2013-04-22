@@ -23,6 +23,7 @@ module Tugboat
 
         options << host_string
 
+
         Kernel.exec("ssh", *options)
 
         @app.call(env)
