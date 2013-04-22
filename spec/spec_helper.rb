@@ -1,5 +1,6 @@
 require 'tugboat'
 require 'webmock/rspec'
+require "shared/environment"
 
 RSpec.configure do |config|
   # Pretty tests
