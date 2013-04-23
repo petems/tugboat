@@ -13,7 +13,7 @@ module Tugboat
     DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'
 
     def initialize
-      @path = File.join(File.expand_path("~"), FILE_NAME)
+      @path = ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME)
       @data = self.load_config_file
     end
 
@@ -40,12 +40,6 @@ module Tugboat
 
     def ssh_user
       @data['ssh']['ssh_user']
-    end
-
-    # Allow the path to be set.
-    def path=(path)
-      @path = path
-      path
     end
 
     # Re-runs initialize
