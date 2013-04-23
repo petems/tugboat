@@ -1,0 +1,35 @@
+{
+  "status": "OK",
+  "droplets": [
+    {
+      "ip_address": "33.33.33.10",
+      "backups_active": null,
+      "id": 100823,
+      "image_id": 420,
+      "name": "test222",
+      "region_id": 1,
+      "size_id": 33,
+      "status": "active"
+    },
+    {
+      "ip_address": "33.33.33.10",
+      "backups_active": null,
+      "id": 100823,
+      "image_id": 420,
+      "name": "test223",
+      "region_id": 1,
+      "size_id": 33,
+      "status": "active"
+    },
+    {
+      "ip_address": "33.33.33.10",
+      "backups_active": null,
+      "id": 100823,
+      "image_id": 420,
+      "name": "foo",
+      "region_id": 1,
+      "size_id": 33,
+      "status": "off"
+    }
+  ]
+}

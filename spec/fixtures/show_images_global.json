@@ -1,0 +1,20 @@
+{
+  "status": "OK",
+  "images": [
+    {
+      "id": 466,
+      "name": "NYTD Backup 1-18-2012",
+      "distribution": "Ubuntu"
+    },
+    {
+      "id": 478,
+      "name": "NLP Final",
+      "distribution": "Ubuntu"
+    },
+    {
+      "id": 479,
+      "name": "Global Final",
+      "distribution": "Ubuntu"
+    }
+  ]
+}
