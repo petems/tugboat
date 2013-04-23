@@ -1,3 +1,4 @@
+require 'spec_helper'
 
 shared_context "spec" do
   # Default configuration and
@@ -15,8 +16,8 @@ shared_context "spec" do
     $stderr.sync = true
 
     # Set a temprary project path and create fake config.
-    config.path = project_path + "/tmp/tugboat"
     config.create_config_file(client_key, api_key, ssh_user, ssh_key_path)
+    config.reload!
 
     # Keep track of the old stderr / out
     @orig_stderr = $stderr

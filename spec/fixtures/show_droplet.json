@@ -5,6 +5,7 @@
     "id": 100823,
     "image_id": 420,
     "name": "test222",
+    "ip_address": "33.33.33.10",
     "region_id": 1,
     "size_id": 33,
     "status": "active"

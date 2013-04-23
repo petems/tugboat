@@ -17,22 +17,7 @@ describe Tugboat::Configuration do
 
   it "has a data attribute" do
     config = Tugboat::Configuration.instance
-    config.path = tmp_path
-    config.reload!
-    expect(config.data).to_not be
-  end
-
-  it "can set a path" do
-    config = Tugboat::Configuration.instance
-    config.path = tmp_path
-    expect(config.path).to equal(tmp_path)
-  end
-
-  it "properly resets path" do
-    config = Tugboat::Configuration.instance
-    config.path = tmp_path
-    config.reset!
-    expect(config.path).to eq(File.join(File.expand_path("~"), '.tugboat'))
+    expect(config.data).to be
   end
 
   describe "the file" do
@@ -45,7 +30,6 @@ describe Tugboat::Configuration do
 
     before :each do
       # Create a temporary file
-      config.path = tmp_path
       config.create_config_file(client_key, api_key, ssh_key_path, ssh_user)
     end
 
