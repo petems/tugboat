@@ -24,6 +24,8 @@ describe Tugboat::CLI do
       $stdin.should_receive(:gets).and_return(ssh_key_path)
       $stdout.should_receive(:print).with("Enter your SSH user (optional, defaults to #{ENV['USER']}): ")
       $stdin.should_receive(:gets).and_return(ssh_user)
+      $stdout.should_receive(:print).with("Enter your SSH port number (optional, defaults to 22): ")
+      $stdin.should_receive(:gets).and_return(ssh_port)
 
       @cli.authorize
 

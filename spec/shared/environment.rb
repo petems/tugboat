@@ -6,6 +6,7 @@ shared_context "spec" do
   let(:client_key)       { "foo" }
   let(:api_key)          { "bar" }
   let(:ssh_user)         { "baz" }
+  let(:ssh_port)         { "22" }
   let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
   let(:droplet_name)     { "foo" }
   let(:droplet_id)       { 1234 }
@@ -16,7 +17,7 @@ shared_context "spec" do
     $stderr.sync = true
 
     # Set a temprary project path and create fake config.
-    config.create_config_file(client_key, api_key, ssh_user, ssh_key_path)
+    config.create_config_file(client_key, api_key, ssh_user, ssh_key_path, ssh_port)
     config.reload!
 
     # Keep track of the old stderr / out
