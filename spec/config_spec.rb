@@ -46,7 +46,7 @@ describe Tugboat::Configuration do
     before :each do
       # Create a temporary file
       config.path = tmp_path
-      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user)
+      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port)
     end
 
     it "can be created" do
