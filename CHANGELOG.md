@@ -1,4 +1,6 @@
-## 0.0.4 (unreleased)
+## 0.0.5 (unreleased)
+
+## 0.0.4 (April 23, 2013)
 
 BUG FIXES:
 
