@@ -17,9 +17,7 @@ describe Tugboat::CLI do
 
       $stdin.should_receive(:gets).and_return("y")
 
-      @cli.options = @cli.options.merge(:confirm => true)
       @cli.destroy("foo")
-
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing destroy for 100823 (foo)...done
@@ -83,7 +81,8 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nWarning! Po
       @cli.destroy
 
       expect($stdout.string).to eq <<-eos
-Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing destroy for 100823 (foo)...done
+Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
+Queuing destroy for 100823 (foo)...done
       eos
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
