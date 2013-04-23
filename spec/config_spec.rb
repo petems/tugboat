@@ -89,5 +89,10 @@ describe Tugboat::Configuration do
         ssh = data["ssh"]
         expect(ssh).to have_key("ssh_user")
       end
+
+      it "should have an ssh port" do
+        ssh = data["ssh"]
+        expect(ssh).to have_key("ssh_port")
+      end
   end
 end
