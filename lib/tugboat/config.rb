@@ -11,6 +11,7 @@ module Tugboat
 
     FILE_NAME = '.tugboat'
     DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'
+    DEFAULT_SSH_PORT = '22'
 
     def initialize
       @path = ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME)
@@ -41,6 +42,10 @@ module Tugboat
     def ssh_user
       @data['ssh']['ssh_user']
     end
+    
+    def ssh_port
+      @data['ssh']['ssh_port']
+    end
 
     # Re-runs initialize
     def reset!
@@ -53,7 +58,7 @@ module Tugboat
     end
 
     # Writes a config file
-    def create_config_file(client, api, ssh_key_path, ssh_user)
+    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port)
       # Default SSH Key path
       if ssh_key_path.empty?
         ssh_key_path = File.join(File.expand_path("~"), DEFAULT_SSH_KEY_PATH)
@@ -63,10 +68,14 @@ module Tugboat
         ssh_user = ENV['USER']
       end
 
+      if ssh_port.empty?
+        ssh_port = DEFAULT_SSH_PORT
+      end
+
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
         data = {"authentication" => { "client_key" => client, "api_key" => api },
-                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path }}
+                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port}}
         file.write data.to_yaml
       end
     end

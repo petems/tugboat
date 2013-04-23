@@ -25,12 +25,14 @@ describe Tugboat::Configuration do
     let(:api_key)          { "bar" }
     let(:ssh_user)         { "baz" }
     let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
+    let(:ssh_key_path)     { "~/.ssh/id_rsa2.pub" }
+    let(:ssh_port)         { "22" }
 
     let(:config)           { config = Tugboat::Configuration.instance }
 
     before :each do
       # Create a temporary file
-      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user)
+      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port)
     end
 
     it "can be created" do
@@ -71,6 +73,11 @@ describe Tugboat::Configuration do
       it "should have an ssh user" do
         ssh = data["ssh"]
         expect(ssh).to have_key("ssh_user")
+      end
+
+      it "should have an ssh port" do
+        ssh = data["ssh"]
+        expect(ssh).to have_key("ssh_port")
       end
   end
 end
