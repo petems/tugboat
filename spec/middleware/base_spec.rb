@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Tugboat::Middleware::Base do
-  include_context "middleware"
+  include_context "spec"
 
   let(:klass)      { described_class }
 

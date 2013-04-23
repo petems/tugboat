@@ -1,5 +1,5 @@
 
-shared_context "middleware" do
+shared_context "spec" do
   # Default configuration and
   let(:config)           { Tugboat::Configuration.instance }
   let(:client_key)       { "foo" }
@@ -31,6 +31,11 @@ shared_context "middleware" do
     # Reassign the stderr / out so rspec can have it back.
     $stderr = @orig_stderr
     $stdout = @orig_stdout
+  end
+
+  after(:each) do
+    # Delete the temporary configuration file if it exists.
+    File.delete(project_path + "/tmp/tugboat") if File.exist?(project_path + "/tmp/tugboat")
   end
 
 end

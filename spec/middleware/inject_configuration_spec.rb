@@ -1,17 +1,19 @@
 require 'spec_helper'
 
 describe Tugboat::Middleware::InjectConfiguration do
-  include_context "middleware"
+  include_context "spec"
 
-#   let(:klass)      { described_class.new }
+  let(:app) { lambda { |env| } }
+  let(:env) { {} }
 
   describe ".call" do
+
     it "loads the configuration into the environment" do
-      data = {}
-      klass = described_class.new(app)
-      klass.call(data)
-      data["config"].should be
+      described_class.new(app).call(env)
+
+      env["config"].should == config
     end
+
   end
 
 end
