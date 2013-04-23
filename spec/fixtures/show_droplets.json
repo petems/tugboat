@@ -26,7 +26,7 @@
       "backups_active": null,
       "id": 100823,
       "image_id": 420,
-      "name": "test224",
+      "name": "foo",
       "region_id": 1,
       "size_id": 33,
       "status": "off"
