@@ -4,6 +4,8 @@ BUG FIXES:
 
   - Fix a syntax error caused by the order of arguments on `snapshot`.
   This changes the argument order and is a breaking change [GH-10].
+  - Fix an issue with looking up a droplet by it's `--name`. A variable
+  was changed, and because it was shadowed passed inspection.
 
 IMPROVEMENTS:
 

@@ -42,7 +42,7 @@ module Tugboat
 
           # Look for the droplet by an exact name match.
           ocean.droplets.list.droplets.each do |d|
-            if droplet.name == user_droplet_name
+            if d.name == user_droplet_name
               env["droplet_id"] = d.id
               env["droplet_name"] = "(#{d.name})"
               env["droplet_ip"] = d.ip_address
