@@ -9,6 +9,7 @@ IMPROVEMENTS:
 
   - Added a warning for snapshotting a droplet in a non-powered off
   state. DigitalOcean currently doesn't return an error from their API.
+  - Added a `--confirm` or `-c` to confirmed actions, like destroy.
 
 FEATURES:
 

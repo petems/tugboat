@@ -107,10 +107,15 @@ module Tugboat
                   :type => :string,
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
+    method_option "confirm",
+                  :type => :boolean,
+                  :aliases => "-c",
+                  :desc => "Skip confirmation of the action"
     def destroy(name=nil)
       Middleware.sequence_destroy_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
+        "user_confirm_action" => options[:confirm],
         "user_droplet_fuzzy_name" => name
       })
     end
