@@ -208,6 +208,11 @@ module Tugboat
     def version
       say "Tugboat #{Tugboat::VERSION}"
     end
+
+    desc "sizes", "Show available droplet sizes"
+    def sizes
+      Middleware.sequence_sizes.call({})
+    end
   end
 end
 
