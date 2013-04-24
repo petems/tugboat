@@ -17,6 +17,7 @@ Run the configuration utility, `tugboat authorize`. You can grab your keys
     Enter your API key: bar
     Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa):
     Enter your SSH user (optional, defaults to jack):
+    Enter your SSH port number (optional, defaults to 22):
     Authentication with DigitalOcean was successful!
 
 ## Usage
