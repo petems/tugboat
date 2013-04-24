@@ -20,6 +20,7 @@ module Tugboat
     autoload :SnapshotDroplet, "tugboat/middleware/snapshot_droplet"
     autoload :ListImages, "tugboat/middleware/list_images"
     autoload :ListSSHKeys, "tugboat/middleware/list_ssh_keys"
+    autoload :ListRegions, "tugboat/middleware/list_regions"
 
     # Start the authorization flow.
     # This writes a ~/.tugboat file, which can be edited manually.
@@ -138,6 +139,16 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use ListSSHKeys
+      end
+    end
+
+    # Display a list of regions
+    def self.sequence_regions
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use ListRegions
       end
     end
   end

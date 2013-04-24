@@ -199,6 +199,11 @@ module Tugboat
       Middleware.sequence_ssh_keys.call({})
     end
 
+    desc "regions", "Show regions"
+    def regions
+      Middleware.sequence_regions.call({})
+    end
+
     desc "version", "Show version"
     def version
       say "Tugboat #{Tugboat::VERSION}"
