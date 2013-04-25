@@ -1,5 +1,6 @@
 require 'tugboat'
 require 'webmock/rspec'
+require 'digital_ocean'
 require "shared/environment"
 
 RSpec.configure do |config|
