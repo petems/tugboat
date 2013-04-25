@@ -9,7 +9,7 @@ module Tugboat
           if !response
             say "Aborted due to user request.", :red
             # Quit
-            return
+            exit 1
           end
 
         end

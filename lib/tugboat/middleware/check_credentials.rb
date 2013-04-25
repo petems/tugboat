@@ -11,7 +11,7 @@ module Tugboat
           env["ocean"].droplets.list
         rescue Faraday::Error::ParsingError
           say "Authentication with DigitalOcean failed. Run `tugboat authorize`", :red
-          return
+          exit 1
         end
 
         say "Authentication with DigitalOcean was successful.", :green

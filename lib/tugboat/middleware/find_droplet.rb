@@ -12,7 +12,7 @@ module Tugboat
         # let the user know.
         if !user_fuzzy_name && !user_droplet_name && !user_droplet_id
           say "Tugboat attempted to find a droplet with no arguments. Try `tugboat help`", :red
-          return
+          exit 1
         end
 
         # If you were to `tugboat restart foo -n foo-server-001` then we'd use
@@ -27,7 +27,7 @@ module Tugboat
 
           if req.status == "ERROR"
             say "#{req.status}: #{req.error_message}", :red
-            return
+            exit 1
           end
 
           env["droplet_id"] = req.droplet.id
@@ -52,8 +52,8 @@ module Tugboat
           # If we coulnd't find it, tell the user and drop out of the
           # sequence.
           if !env["droplet_id"]
-            say "Unable to find a droplet named '#{user_droplet_name}'.", :red
-            return
+            say "error\nUnable to find a droplet named '#{user_droplet_name}'.", :red
+            exit 1
           end
         end
 
@@ -102,7 +102,7 @@ module Tugboat
           # sequence.
           if !env["droplet_id"]
             say "error\nUnable to find a droplet named '#{user_fuzzy_name}'.", :red
-            return
+            exit 1
           end
         end
 

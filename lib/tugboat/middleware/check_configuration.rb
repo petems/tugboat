@@ -7,7 +7,7 @@ module Tugboat
 
         if !config || !config.data || !config.api_key || !config.client_key
           say "You must run `tugboat authorize` in order to connect to DigitalOcean", :red
-          return
+          exit 1
         end
 
         @app.call(env)
