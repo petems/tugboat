@@ -14,7 +14,7 @@ module Tugboat
 
         if req.status == "ERROR"
           say req.error_message, :red
-          return
+          exit 1
         end
 
         say "done", :green

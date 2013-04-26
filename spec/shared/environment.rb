@@ -10,11 +10,12 @@ shared_context "spec" do
   let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
   let(:droplet_name)     { "foo" }
   let(:droplet_id)       { 1234 }
-
+  let(:ocean)            { DigitalOcean::API.new :client_id => client_key, :api_key =>api_key }
 
   before(:each) do
     $stdout.sync = true
     $stderr.sync = true
+
 
     # Set a temprary project path and create fake config.
     config.create_config_file(client_key, api_key, ssh_user, ssh_key_path, ssh_port)
