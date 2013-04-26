@@ -8,7 +8,7 @@ module Tugboat
 
         if req.status == "ERROR"
           say "#{req.status}: #{req.error_message}", :red
-          return
+          exit 1
         end
 
         droplet = req.droplet
