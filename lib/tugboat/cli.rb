@@ -64,12 +64,17 @@ module Tugboat
                   :type => :string,
                   :aliases => "-p",
                   :desc => "The custom SSH Port to connect to"
+    method_option "ssh_user",
+                  :type => :string,
+                  :aliases => "-u",
+                  :desc => "Specifies which user to log in as"
     def ssh(name=nil)
       Middleware.sequence_ssh_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
-        "user_droplet_ssh_port" => options[:ssh_port]
+        "user_droplet_ssh_port" => options[:ssh_port],
+        "user_droplet_ssh_user" => options[:ssh_user]
       })
     end
 
