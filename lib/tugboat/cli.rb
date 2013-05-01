@@ -213,6 +213,23 @@ module Tugboat
     def sizes
       Middleware.sequence_sizes.call({})
     end
+
+    desc "powercycle FUZZY_NAME", "Power cycle a droplet"
+    method_option "id",
+                  :type => :string,
+                  :aliases => "-i",
+                  :desc => "The ID of the droplet."
+    method_option "name",
+                  :type => :string,
+                  :aliases => "-n",
+                  :desc => "The exact name of the droplet"
+    def powercycle(name=nil)
+      Middleware.sequence_power_cycle_droplet.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_fuzzy_name" => name
+      })
+    end
   end
 end
 

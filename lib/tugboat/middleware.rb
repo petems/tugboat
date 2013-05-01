@@ -12,6 +12,7 @@ module Tugboat
     autoload :FindDroplet, "tugboat/middleware/find_droplet"
     autoload :RestartDroplet, "tugboat/middleware/restart_droplet"
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
+    autoload :PowerCycleDroplet, "tugboat/middleware/power_cycle_droplet"
     autoload :InfoDroplet, "tugboat/middleware/info_droplet"
     autoload :SSHDroplet, "tugboat/middleware/ssh_droplet"
     autoload :CreateDroplet, "tugboat/middleware/create_droplet"
@@ -160,6 +161,17 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use ListSizes
+      end
+    end
+
+    # Power cycle a droplet
+    def self.sequence_power_cycle_droplet
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use PowerCycleDroplet
       end
     end
   end
