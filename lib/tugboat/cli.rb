@@ -139,10 +139,15 @@ module Tugboat
                   :type => :string,
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
+    method_option "hard",
+                  :type => :boolean,
+                  :aliases => "-h",
+                  :desc => "Perform a hard restart"
     def restart(name=nil)
       Middleware.sequence_restart_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
+        "user_droplet_hard" => options[:hard],
         "user_droplet_fuzzy_name" => name
       })
     end
@@ -156,10 +161,15 @@ module Tugboat
                   :type => :string,
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
+    method_option "hard",
+                  :type => :boolean,
+                  :aliases => "-h",
+                  :desc => "Perform a hard shutdown"
     def halt(name=nil)
       Middleware.sequence_halt_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
+        "user_droplet_hard" => options[:hard],
         "user_droplet_fuzzy_name" => name
       })
     end
