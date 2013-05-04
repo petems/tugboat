@@ -228,6 +228,23 @@ module Tugboat
     def sizes
       Middleware.sequence_sizes.call({})
     end
+
+    desc "start FUZZY_NAME", "Start a droplet"
+    method_option "id",
+                  :type => :string,
+                  :aliases => "-i",
+                  :desc => "The ID of the droplet."
+    method_option "name",
+                  :type => :string,
+                  :aliases => "-n",
+                  :desc => "The exact name of the droplet"
+    def start(name=nil)
+      Middleware.sequence_start_droplet.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_fuzzy_name" => name
+      })
+    end
   end
 end
 

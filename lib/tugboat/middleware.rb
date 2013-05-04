@@ -11,6 +11,7 @@ module Tugboat
     autoload :ListDroplets, "tugboat/middleware/list_droplets"
     autoload :FindDroplet, "tugboat/middleware/find_droplet"
     autoload :RestartDroplet, "tugboat/middleware/restart_droplet"
+    autoload :StartDroplet, "tugboat/middleware/start_droplet"
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
     autoload :InfoDroplet, "tugboat/middleware/info_droplet"
     autoload :SSHDroplet, "tugboat/middleware/ssh_droplet"
@@ -64,6 +65,17 @@ module Tugboat
         use InjectClient
         use FindDroplet
         use RestartDroplet
+      end
+    end
+
+    # Start a droplet
+    def self.sequence_start_droplet
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use StartDroplet
       end
     end
 
