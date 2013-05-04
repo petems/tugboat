@@ -1,8 +1,28 @@
 ## 0.0.5 (unreleased)
 
 FEATURES:
-  - [Ørjan](https://github.com/blom) made a command to list the regions
-  avaiable for droplets to be created in with `tugboat regions`. [GH-18]
+
+  - [Ørjan](https://github.com/blom) added a `regions` command, which
+  returns a list of available DigitalOcean regions. You can specify
+  which region to use while creating: `tugboat create foobar -r 2`. [GH-18]
+  - [Ørjan](https://github.com/blom) added an ssh_user option to the
+  `ssh` command. This lets you specify the user to connect as on
+  a per-command basis, as well as in your `.tugboat`.
+  - [Ørjan](https://github.com/blom) added a `sizes` command, which
+  returns a list of available sizes. You can specify which size to
+  use while creating: `tugboat create foobar -s 66` [GH-19]
+
+
+BUG FIXES:
+
+
+IMPROVEMENTS:
+
+  - Tugboat now returns proper status codes for successes and failures.
+  [GH-21]
+  - Support for MRI 1.8.7
+  - CTRL+C's, SIG-INT's are now caught and quietly kill Tugboat without
+  a stacktrace.
 
 ## 0.0.4 (April 23, 2013)
 
