@@ -11,10 +11,8 @@ FEATURES:
   - [Ørjan](https://github.com/blom) added a `sizes` command, which
   returns a list of available sizes. You can specify which size to
   use while creating: `tugboat create foobar -s 66` [GH-19]
-
-
-BUG FIXES:
-
+  - [Ørjan](https://github.com/blom) added a `hard` flag to 
+  `halt` and `restart`. This cycles the Droplet's power. `tugboat restart --hard` [GH-27]
 
 IMPROVEMENTS:
 
