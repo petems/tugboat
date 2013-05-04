@@ -9,6 +9,7 @@ shared_context "spec" do
   let(:ssh_port)         { "22" }
   let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
   let(:droplet_name)     { "foo" }
+  let(:droplet_ip)       { "33.33.33.10" }
   let(:droplet_id)       { 1234 }
   let(:ocean)            { DigitalOcean::API.new :client_id => client_key, :api_key =>api_key }
 
@@ -18,7 +19,7 @@ shared_context "spec" do
 
 
     # Set a temprary project path and create fake config.
-    config.create_config_file(client_key, api_key, ssh_user, ssh_key_path, ssh_port)
+    config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port)
     config.reload!
 
     # Keep track of the old stderr / out
