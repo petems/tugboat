@@ -12,7 +12,7 @@ describe Tugboat::CLI do
   describe "snapshots a droplet" do
     it "with a fuzzy name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets"))
+           to_return(:status => 200, :body => fixture("show_droplets_inactive"))
 
       stub_request(:get, "https://api.digitalocean.com/droplets/100823/snapshot?api_key=#{api_key}&client_id=#{client_key}&name=#{snapshot_name}").
            to_return(:status => 200, :body => fixture("show_droplet"))
@@ -31,7 +31,7 @@ Queuing snapshot 'foo-snapshot' for 100823 (foo)...done
 
     it "with an id" do
       stub_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplet"))
+           to_return(:status => 200, :body => fixture("show_droplet_inactive"))
 
       stub_request(:get, "https://api.digitalocean.com/droplets/100823/snapshot?api_key=#{api_key}&client_id=#{client_key}&name=#{snapshot_name}").
            to_return(:status => 200, :body => fixture("show_droplet"))
@@ -52,7 +52,7 @@ Queuing snapshot 'foo-snapshot' for 100823 (foo)...done
 
     it "with a name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets"))
+           to_return(:status => 200, :body => fixture("show_droplets_inactive"))
 
       stub_request(:get, "https://api.digitalocean.com/droplets/100823/snapshot?api_key=#{api_key}&client_id=#{client_key}&name=#{snapshot_name}").
            to_return(:status => 200, :body => fixture("show_droplet"))
@@ -68,6 +68,21 @@ Queuing snapshot 'foo-snapshot' for 100823 (foo)...done
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
       expect(a_request(:get, "https://api.digitalocean.com/droplets/100823/snapshot?api_key=#{api_key}&client_id=#{client_key}&name=#{snapshot_name}")).to have_been_made
+    end
+
+    it "does not snaphshot a droplet that is active" do
+      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
+           to_return(:status => 200, :body => fixture("show_droplets"))
+
+      @cli.options = @cli.options.merge(:name => droplet_name)
+      expect {@cli.snapshot(snapshot_name)}.to raise_error(SystemExit)
+
+      expect($stdout.string).to eq <<-eos
+Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
+Droplet must be in an 'off' state for this operation to be successful.
+      eos
+
+      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
     end
 
   end
