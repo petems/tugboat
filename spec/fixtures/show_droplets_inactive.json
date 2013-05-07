@@ -9,7 +9,7 @@
       "name": "test222",
       "region_id": 1,
       "size_id": 33,
-      "status": "active"
+      "status": "off"
     },
     {
       "ip_address": "33.33.33.10",
@@ -19,7 +19,7 @@
       "name": "test223",
       "region_id": 1,
       "size_id": 33,
-      "status": "active"
+      "status": "off"
     },
     {
       "ip_address": "33.33.33.10",
@@ -29,7 +29,7 @@
       "name": "foo",
       "region_id": 1,
       "size_id": 33,
-      "status": "active"
+      "status": "off"
     }
   ]
 }
