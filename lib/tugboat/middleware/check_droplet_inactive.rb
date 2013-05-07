@@ -5,7 +5,7 @@ module Tugboat
       def call(env)
 
         if env["droplet_status"] != "off"
-          say "Droplet must be in an 'off' state for this operation to be successful.", :red
+          say "Droplet must be off for this operation to be successful.", :red
           exit 1
         end
 
