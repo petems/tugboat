@@ -83,6 +83,22 @@ Queuing shutdown for 100823 (foo)...done
       expect(a_request(:put, "https://api.digitalocean.com/droplets/100823/shutdown?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
     end
 
+
+    it "does not halt a droplet that is off" do
+      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
+           to_return(:status => 200, :body => fixture("show_droplets_inactive"))
+
+      @cli.options = @cli.options.merge(:name => droplet_name)
+      expect {@cli.halt}.to raise_error(SystemExit)
+
+      expect($stdout.string).to eq <<-eos
+Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
+Droplet must be on for this operation to be successful.
+      eos
+
+      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
+    end
+
   end
 
 end

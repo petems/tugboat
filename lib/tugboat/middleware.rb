@@ -23,6 +23,8 @@ module Tugboat
     autoload :ListSSHKeys, "tugboat/middleware/list_ssh_keys"
     autoload :ListRegions, "tugboat/middleware/list_regions"
     autoload :ListSizes, "tugboat/middleware/list_sizes"
+    autoload :CheckDropletActive, "tugboat/middleware/check_droplet_active"
+    autoload :CheckDropletInactive, "tugboat/middleware/check_droplet_inactive"
 
     # Start the authorization flow.
     # This writes a ~/.tugboat file, which can be edited manually.
@@ -75,6 +77,7 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use FindDroplet
+        use CheckDropletInactive
         use StartDroplet
       end
     end
@@ -86,6 +89,7 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use FindDroplet
+        use CheckDropletActive
         use HaltDroplet
       end
     end
@@ -108,6 +112,7 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use FindDroplet
+        use CheckDropletActive
         use SSHDroplet
       end
     end
@@ -141,6 +146,7 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use FindDroplet
+        use CheckDropletInactive
         use SnapshotDroplet
       end
     end
