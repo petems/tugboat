@@ -9,6 +9,8 @@ Coveralls.wear!
 RSpec.configure do |config|
   # Pretty tests
   config.color_enabled = true
+
+  config.order = :random
 end
 
 def project_path

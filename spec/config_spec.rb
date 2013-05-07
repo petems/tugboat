@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Tugboat::Configuration do
+  include_context "spec"
+
   let(:tmp_path)             { project_path + "/tmp/tugboat" }
 
   after :each do
