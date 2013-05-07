@@ -6,6 +6,7 @@
 .bundle
 .rvmrc
 Gemfile.lock
+coverage
 doc/*
 log/*
 pkg/*

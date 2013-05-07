@@ -1,10 +1,10 @@
+require 'coveralls'
+Coveralls.wear! { add_filter '/spec/' }
+
 require 'tugboat'
 require 'webmock/rspec'
 require 'digital_ocean'
 require "shared/environment"
-
-require 'coveralls'
-Coveralls.wear!
 
 RSpec.configure do |config|
   # Pretty tests
