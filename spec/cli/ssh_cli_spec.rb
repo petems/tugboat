@@ -31,7 +31,7 @@ describe Tugboat::CLI do
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
-Droplet must be in an 'active' state for this operation to be successful.
+Droplet must be on for this operation to be successful.
       eos
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
