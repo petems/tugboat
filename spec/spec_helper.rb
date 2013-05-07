@@ -3,6 +3,9 @@ require 'webmock/rspec'
 require 'digital_ocean'
 require "shared/environment"
 
+require 'coveralls'
+Coveralls.wear!
+
 RSpec.configure do |config|
   # Pretty tests
   config.color_enabled = true
