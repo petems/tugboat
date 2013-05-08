@@ -3,10 +3,6 @@ require 'spec_helper'
 describe Tugboat::CLI do
   include_context "spec"
 
-  before :each do
-    @cli = Tugboat::CLI.new
-  end
-
   describe "authorize" do
     before do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").

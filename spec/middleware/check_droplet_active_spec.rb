@@ -3,9 +3,6 @@ require 'spec_helper'
 describe Tugboat::Middleware::CheckDropletActive do
   include_context "spec"
 
-  let(:app) { lambda { |env| } }
-  let(:env) { {} }
-
   describe ".call" do
     it "raises an error when droplet is not active" do
 

@@ -3,9 +3,6 @@ require 'spec_helper'
 describe Tugboat::Middleware::SSHDroplet do
   include_context "spec"
 
-  let(:app) { lambda { |env| } }
-  let(:env) { {} }
-
   before do
     Kernel.stub!(:exec)
   end
