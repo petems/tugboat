@@ -3,10 +3,6 @@ require 'spec_helper'
 describe Tugboat::CLI do
   include_context "spec"
 
-  before :each do
-    @cli = Tugboat::CLI.new
-  end
-
   describe "create a droplet" do
     it "with a name" do
       stub_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id&name=#{droplet_name}&region_id&size_id&ssh_key_ids").

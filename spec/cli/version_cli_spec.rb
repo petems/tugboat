@@ -3,10 +3,6 @@ require 'spec_helper'
 describe Tugboat::CLI do
   include_context "spec"
 
-  before :each do
-    @cli = Tugboat::CLI.new
-  end
-
   describe "version" do
     it "shows the correct version" do
 

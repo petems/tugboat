@@ -3,9 +3,6 @@ require 'spec_helper'
 describe Tugboat::Middleware::CheckCredentials do
   include_context "spec"
 
-  let(:app) { lambda { |env| } }
-  let(:env) { {} }
-
   describe ".call" do
     it "raises SystemExit with no configuration" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
