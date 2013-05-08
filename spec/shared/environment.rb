@@ -12,11 +12,14 @@ shared_context "spec" do
   let(:droplet_ip)       { "33.33.33.10" }
   let(:droplet_id)       { 1234 }
   let(:ocean)            { DigitalOcean::API.new :client_id => client_key, :api_key =>api_key }
+  let(:app)              { lambda { |env| } }
+  let(:env)              { {} }
 
   before(:each) do
     $stdout.sync = true
     $stderr.sync = true
 
+    @cli = Tugboat::CLI.new
 
     # Set a temprary project path and create fake config.
     config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port)

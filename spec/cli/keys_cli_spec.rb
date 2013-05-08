@@ -3,10 +3,6 @@ require 'spec_helper'
 describe Tugboat::CLI do
   include_context "spec"
 
-  before :each do
-    @cli = Tugboat::CLI.new
-  end
-
   describe "keys" do
     it "shows a list" do
       stub_request(:get, "https://api.digitalocean.com/ssh_keys?api_key=#{api_key}&client_id=#{client_key}").

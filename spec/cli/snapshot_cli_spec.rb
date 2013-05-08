@@ -5,10 +5,6 @@ describe Tugboat::CLI do
 
   let(:snapshot_name)     { "foo-snapshot" }
 
-  before :each do
-    @cli = Tugboat::CLI.new
-  end
-
   describe "snapshots a droplet" do
     it "with a fuzzy name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
