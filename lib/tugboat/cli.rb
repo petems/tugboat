@@ -68,13 +68,18 @@ module Tugboat
                   :type => :string,
                   :aliases => "-u",
                   :desc => "Specifies which user to log in as"
+    method_option "ssh_opts",
+                  :type => :string,
+                  :aliases => "-o",
+                  :desc => "Custom SSH options"
     def ssh(name=nil)
       Middleware.sequence_ssh_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
         "user_droplet_ssh_port" => options[:ssh_port],
-        "user_droplet_ssh_user" => options[:ssh_user]
+        "user_droplet_ssh_user" => options[:ssh_user],
+        "user_droplet_ssh_opts" => options[:ssh_opts]
       })
     end
 
