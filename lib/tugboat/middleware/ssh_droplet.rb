@@ -19,6 +19,10 @@ module Tugboat
           options.push("-p", "22")
         end
 
+        if env["user_droplet_ssh_opts"]
+          options.concat env["user_droplet_ssh_opts"].split
+        end
+
         ssh_user = env["user_droplet_ssh_user"] || env["config"].ssh_user
         host_string = "#{ssh_user}@#{env["droplet_ip"]}"
 
