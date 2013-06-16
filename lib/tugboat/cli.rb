@@ -87,12 +87,12 @@ module Tugboat
     method_option  "size",
                    :type => :numeric,
                    :aliases => "-s",
-                   :default => 64,
+                   :default => 66,
                    :desc => "The size_id of the droplet"
     method_option  "image",
                    :type => :numeric,
                    :aliases => "-i",
-                   :default => 2676,
+                   :default => 284203,
                    :desc => "The image_id of the droplet"
     method_option  "region",
                    :type => :numeric,
