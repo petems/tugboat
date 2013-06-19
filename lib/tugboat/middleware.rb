@@ -19,6 +19,7 @@ module Tugboat
     autoload :DestroyDroplet, "tugboat/middleware/destroy_droplet"
     autoload :ConfirmAction, "tugboat/middleware/confirm_action"
     autoload :SnapshotDroplet, "tugboat/middleware/snapshot_droplet"
+    autoload :ResizeDroplet, "tugboat/middleware/resize_droplet"
     autoload :ListImages, "tugboat/middleware/list_images"
     autoload :ListSSHKeys, "tugboat/middleware/list_ssh_keys"
     autoload :ListRegions, "tugboat/middleware/list_regions"
@@ -178,6 +179,17 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use ListSizes
+      end
+    end
+
+    # Resize a droplet
+    def self.sequence_resize_droplet
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use ResizeDroplet
       end
     end
   end

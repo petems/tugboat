@@ -250,6 +250,29 @@ module Tugboat
         "user_droplet_fuzzy_name" => name
       })
     end
+
+    desc "resize FUZZY_NAME", "Resize a droplet"
+    method_option "id",
+                  :type => :numeric,
+                  :aliases => "-i",
+                  :desc => "The ID of the droplet."
+    method_option "name",
+                  :type => :string,
+                  :aliases => "-n",
+                  :desc => "The exact name of the droplet"
+    method_option "size",
+                  :type => :numeric,
+                  :aliases => "-s",
+                  :required => true,
+                  :desc => "The size_id to resize the droplet to"
+    def resize(name=nil)
+      Middleware.sequence_resize_droplet.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_size" => options[:size],
+        "user_droplet_fuzzy_name" => name
+      })
+    end
   end
 end
 
