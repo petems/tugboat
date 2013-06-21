@@ -110,7 +110,7 @@ match.
 
 ### Resize a droplet
 
-    $ tugboat resize test-admin -s 66
+    $ tugboat resize admin -s 66
     Queuing resize for 13231512 (pearkes-admin-001)...done
 
 ### List Available Images
