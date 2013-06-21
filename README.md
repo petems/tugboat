@@ -142,11 +142,11 @@ Optionally, list images provided by DigitalOcean as well.
 
 ### List Available Regions
 
-    $ tugboat sizes
-    Sizes:
-    512MB (id: 66)
-    1GB (id: 63)
-    ...
+    $ tugboat regions
+    Regions:
+    New York 1 (id: 1)
+    Amsterdam 1 (id: 2)
+    San Francisco 1 (id: 3)
 
 ### List SSH Keys
 
