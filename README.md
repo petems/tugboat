@@ -108,6 +108,53 @@ match.
     $ tugboat snapshot test-admin-snaphot admin
     Queuing snapshot 'test-admin-snapshot' for 13231512 (pearkes-admin-001)...done
 
+### Resize a droplet
+
+    $ tugboat resize admin -s 66
+    Queuing resize for 13231512 (pearkes-admin-001)...done
+
+### List Available Images
+
+You can list images that you have created.
+
+    $ tugboat images
+    My Images:
+    pearkes-admin-001 2013-05-19 (id: 13231512, distro: Ubuntu)
+    ....
+
+Optionally, list images provided by DigitalOcean as well.
+
+    $ tugboat images --global
+    My Images:
+    pearkes-admin-001 2013-05-19 (id: 13231512, distro: Ubuntu)
+    ....
+    Global Images:
+    CentOS 5.8 x64 (id: 1601, distro: CentOS)
+    ...
+
+### List Available Sizes
+
+    $ tugboat sizes
+    Sizes:
+    512MB (id: 66)
+    1GB (id: 63)
+    ...
+
+### List Available Regions
+
+    $ tugboat regions
+    Regions:
+    New York 1 (id: 1)
+    Amsterdam 1 (id: 2)
+    San Francisco 1 (id: 3)
+
+### List SSH Keys
+
+    $ tugboat keys
+    Keys:
+    pearkes (id: 10501)
+    ...
+
 ## Help
 
 If you're curious about command flags for a specific command, you can
