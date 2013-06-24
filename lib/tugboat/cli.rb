@@ -273,6 +273,23 @@ module Tugboat
         "user_droplet_fuzzy_name" => name
       })
     end
+
+    desc "passwordreset FUZZY_NAME", "Reset root password"
+    method_option "id",
+                  :type => :numeric,
+                  :aliases => "-i",
+                  :desc => "The ID of the droplet."
+    method_option "name",
+                  :type => :string,
+                  :aliases => "-n",
+                  :desc => "The exact name of the droplet"
+    def passwordreset(name=nil)
+      Middleware.sequence_password_reset.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_fuzzy_name" => name
+      })
+    end
   end
 end
 
