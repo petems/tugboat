@@ -26,6 +26,7 @@ module Tugboat
     autoload :ListSizes, "tugboat/middleware/list_sizes"
     autoload :CheckDropletActive, "tugboat/middleware/check_droplet_active"
     autoload :CheckDropletInactive, "tugboat/middleware/check_droplet_inactive"
+    autoload :PasswordReset, "tugboat/middleware/password_reset"
 
     # Start the authorization flow.
     # This writes a ~/.tugboat file, which can be edited manually.
@@ -190,6 +191,17 @@ module Tugboat
         use InjectClient
         use FindDroplet
         use ResizeDroplet
+      end
+    end
+
+    # Reset root password
+    def self.sequence_password_reset
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use PasswordReset
       end
     end
   end
