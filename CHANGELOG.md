@@ -1,3 +1,28 @@
+## 0.0.6 (June 25, 2013)
+
+FEATURES:
+
+  - [Ørjan](https://github.com/blom) added a `start` command, which
+  let's you start a droplet. [GH-30]
+  - [Ørjan](https://github.com/blom) added a `resize` command, which
+  let's you resize a droplet. [GH-40]
+  - [Ørjan](https://github.com/blom) added a `password-reset` command
+  [GH-45]
+  - Added a the `wait` command, allowing you to "wait" for a droplet
+  to enter a state. [GH-46]
+
+IMPROVEMENTS:
+
+  - [Ørjan](https://github.com/blom) added an `--ssh-opts` flag, for the
+  `ssh` command. [GH-38]
+  - Droplet state is checked for some commands. For example, a droplet
+  can't be started if it's active. [GH-31]
+
+BUG FIXES:
+
+  - DigitalOcean changed their `image_id`'s, so the defaults for `create`
+  were updated. [GH-39]
+
 ## 0.0.5 (May 4, 2013)
 
 FEATURES:
