@@ -27,6 +27,7 @@ module Tugboat
     autoload :CheckDropletActive, "tugboat/middleware/check_droplet_active"
     autoload :CheckDropletInactive, "tugboat/middleware/check_droplet_inactive"
     autoload :PasswordReset, "tugboat/middleware/password_reset"
+    autoload :WaitForState, "tugboat/middleware/wait_for_state"
 
     # Start the authorization flow.
     # This writes a ~/.tugboat file, which can be edited manually.
@@ -202,6 +203,17 @@ module Tugboat
         use InjectClient
         use FindDroplet
         use PasswordReset
+      end
+    end
+
+    # Wait for a droplet to enter a desired state
+    def self.sequence_wait
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use WaitForState
       end
     end
   end

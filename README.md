@@ -155,6 +155,19 @@ Optionally, list images provided by DigitalOcean as well.
     pearkes (id: 10501)
     ...
 
+### Wait for Droplet State
+
+Sometimes you want to wait for a droplet to enter some state, for
+example "off".
+
+    $ tugboat wait admin --state off
+    Droplet fuzzy name provided. Finding droplet ID...done, 13231512 (pearkes-admin-001)
+    Waiting for droplet to become off....
+    ...
+
+This will simply block until the droplet returns a state of "off".
+A period will be printed after each request.
+
 ## Help
 
 If you're curious about command flags for a specific command, you can

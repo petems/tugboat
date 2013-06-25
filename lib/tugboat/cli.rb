@@ -292,6 +292,29 @@ module Tugboat
         "user_droplet_fuzzy_name" => name
       })
     end
+
+    desc "wait FUZZY_NAME", "Wait for a droplet to reach a state"
+    method_option "id",
+                  :type => :numeric,
+                  :aliases => "-i",
+                  :desc => "The ID of the droplet."
+    method_option "name",
+                  :type => :string,
+                  :aliases => "-n",
+                  :desc => "The exact name of the droplet"
+    method_option "state",
+                  :type => :string,
+                  :aliases => "-s",
+                  :default => "active",
+                  :desc => "The state of the droplet to wait for"
+    def wait(name=nil)
+      Middleware.sequence_wait.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_desired_state" => options[:state],
+        "user_droplet_fuzzy_name" => name
+      })
+    end
   end
 end
 
