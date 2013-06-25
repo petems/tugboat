@@ -16,7 +16,7 @@ describe Tugboat::CLI do
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)
-Waiting for droplet to become active.done\e[0m (0s)
+Waiting for droplet to become active..done\e[0m (0s)
 eos
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
@@ -35,7 +35,7 @@ eos
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)
-Waiting for droplet to become active.done\e[0m (0s)
+Waiting for droplet to become active..done\e[0m (0s)
       eos
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
@@ -54,7 +54,7 @@ Waiting for droplet to become active.done\e[0m (0s)
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
-Waiting for droplet to become active.done\e[0m (0s)
+Waiting for droplet to become active..done\e[0m (0s)
 eos
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
