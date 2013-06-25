@@ -9,7 +9,9 @@ module Tugboat
 
     !check_unknown_options
 
-    map "--version" => :version, "-v" => :version
+    map "--version"      => :version,
+        "-v"             => :version,
+        "password-reset" => :password_reset
 
     desc "help [COMMAND]", "Describe commands or a specific command"
     def help(meth=nil)
@@ -274,7 +276,7 @@ module Tugboat
       })
     end
 
-    desc "passwordreset FUZZY_NAME", "Reset root password"
+    desc "password-reset FUZZY_NAME", "Reset root password"
     method_option "id",
                   :type => :numeric,
                   :aliases => "-i",
@@ -283,7 +285,7 @@ module Tugboat
                   :type => :string,
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
-    def passwordreset(name=nil)
+    def password_reset(name=nil)
       Middleware.sequence_password_reset.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],

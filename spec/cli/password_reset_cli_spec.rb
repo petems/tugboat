@@ -10,7 +10,7 @@ describe Tugboat::CLI do
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/password_reset?api_key=#{api_key}&client_id=#{client_key}").
         to_return(:status => 200, :body => '{"status":"OK","event_id":456}')
 
-      @cli.passwordreset("foo")
+      @cli.password_reset("foo")
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)
@@ -31,7 +31,7 @@ Your new root password will be emailed to you
         to_return(:status => 200, :body => '{"status":"OK","event_id":456}')
 
       @cli.options = @cli.options.merge(:id => 100823)
-      @cli.passwordreset
+      @cli.password_reset
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)
@@ -52,7 +52,7 @@ Your new root password will be emailed to you
         to_return(:status => 200, :body => '{"status":"OK","event_id":456}')
 
       @cli.options = @cli.options.merge(:name => "foo")
-      @cli.passwordreset
+      @cli.password_reset
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
@@ -72,7 +72,7 @@ Your new root password will be emailed to you
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/password_reset?api_key=#{api_key}&client_id=#{client_key}").
         to_return(:status => 500, :body => '{"status":"ERROR","message":"Some error"}')
 
-      expect { @cli.passwordreset("foo") }.to raise_error(SystemExit)
+      expect { @cli.password_reset("foo") }.to raise_error(SystemExit)
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).
         to have_been_made
