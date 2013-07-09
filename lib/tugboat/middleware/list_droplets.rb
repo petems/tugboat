@@ -5,15 +5,21 @@ module Tugboat
       def call(env)
         ocean = env["ocean"]
 
-        ocean.droplets.list.droplets.each do |droplet|
+        droplet_list = ocean.droplets.list.droplets
 
-          if droplet.status == "active"
-            status_color = GREEN
-          else
-            status_color = RED
+        if droplet_list.empty?
+          say "Unable to find any droplets.", :red
+        else
+          droplet_list.each do |droplet|
+
+            if droplet.status == "active"
+              status_color = GREEN
+            else
+              status_color = RED
+            end
+
+            say "#{droplet.name} (ip: #{droplet.ip_address}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region_id}, id: #{droplet.id})"
           end
-
-          say "#{droplet.name} (ip: #{droplet.ip_address}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region_id}, id: #{droplet.id})"
         end
 
         @app.call(env)
