@@ -19,6 +19,20 @@ NLP Final (id: 478, distro: Ubuntu)
       expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images")).to have_been_made
     end
 
+    it "shows an error response when images empty " do
+      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
+      to_return(:status => 200, :body => fixture("show_images_empty"))
+
+      @cli.images
+
+      expect($stdout.string).to eq <<-eos
+My Images:
+No images found
+      eos
+
+      expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images")).to have_been_made
+    end
+
     it "shows a global list" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
            to_return(:status => 200, :body => fixture("show_images"))
