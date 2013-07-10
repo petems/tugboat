@@ -26,7 +26,8 @@ foo (ip: 33.33.33.10, status: \e[32mactive\e[0m, region: 1, id: 100823)
       @cli.droplets
 
       expect($stdout.string).to eq <<-eos
-Unable to find any droplets.
+You don't appear to have any droplets.
+Try creating one with \e[32m`tugboat create`
       eos
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made

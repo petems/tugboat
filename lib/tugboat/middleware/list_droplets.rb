@@ -8,7 +8,8 @@ module Tugboat
         droplet_list = ocean.droplets.list.droplets
 
         if droplet_list.empty?
-          say "Unable to find any droplets.", :red
+          say "You don't appear to have any droplets.", :red
+          say "Try creating one with #{GREEN}\`tugboat create\`"
         else
           droplet_list.each do |droplet|
 
