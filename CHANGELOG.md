@@ -1,3 +1,13 @@
+## 0.0.7 (unreleased)
+
+IMPROVEMENTS:
+  - [Pete](https://github.com/petems) made it clearer to the user
+  if they don't have any droplets or images. [GH-48], [GH-49]
+
+BUG FIXES:
+
+  - Fix the initial check for authorization after `authorize` [GH-41]
+
 ## 0.0.6 (June 25, 2013)
 
 FEATURES:
