@@ -19,6 +19,44 @@ NLP Final (id: 478, distro: Ubuntu)
       expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images")).to have_been_made
     end
 
+    it "acknowledges when my images are empty" do
+      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
+      to_return(:status => 200, :body => fixture("show_images_empty"))
+
+      @cli.images
+
+      expect($stdout.string).to eq <<-eos
+My Images:
+No images found
+      eos
+
+      expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images")).to have_been_made
+    end
+
+    it "acknowledges when my images are empty and also shows a global list" do
+      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
+           to_return(:status => 200, :body => fixture("show_images_empty"))
+
+      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=global").
+           to_return(:status => 200, :body => fixture("show_images_global"))
+
+      @cli.options = @cli.options.merge(:global => true)
+      @cli.images
+
+      expect($stdout.string).to eq <<-eos
+My Images:
+No images found
+
+Global Images:
+NYTD Backup 1-18-2012 (id: 466, distro: Ubuntu)
+NLP Final (id: 478, distro: Ubuntu)
+Global Final (id: 479, distro: Ubuntu)
+      eos
+
+      expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images")).to have_been_made
+      expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=global")).to have_been_made
+    end
+
     it "shows a global list" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
            to_return(:status => 200, :body => fixture("show_images"))
