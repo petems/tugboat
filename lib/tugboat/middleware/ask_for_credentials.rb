@@ -13,6 +13,7 @@ module Tugboat
 
         # Write the config file.
         env['config'].create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port)
+        env['config'].reload!
 
         @app.call(env)
       end
