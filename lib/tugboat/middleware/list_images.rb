@@ -9,8 +9,13 @@ module Tugboat
         end
 
         say "My Images:"
-        my_images.images.each do |image|
-          say "#{image.name} (id: #{image.id}, distro: #{image.distribution})"
+        my_images_list = my_images.images
+        if my_images_list.empty?
+          say "No images found"
+        else
+          my_images_list.each do |image|
+            say "#{image.name} (id: #{image.id}, distro: #{image.distribution})"
+          end
         end
 
         if env["user_show_global_images"]
