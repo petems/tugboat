@@ -42,6 +42,16 @@ module Tugboat
       end
     end
 
+    # This checks you can connect to the
+    def self.sequence_verify
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use CheckCredentials
+      end
+    end
+
     # Display a list of droplets
     def self.sequence_list_droplets
       ::Middleware::Builder.new do

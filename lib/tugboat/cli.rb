@@ -36,6 +36,15 @@ module Tugboat
       Middleware.sequence_authorize.call({})
     end
 
+    desc "verify", "Check your DigitalOcean credentials"
+    long_desc "This tests that your credentials created by the \`authorize\`
+    command that are stored in ~/.tugboat are correct and allow you to connect
+    to the API without errors.
+    "
+    def verify
+      Middleware.sequence_verify.call({})
+    end
+
     desc "droplets", "Retrieve a list of your droplets"
     def droplets
       Middleware.sequence_list_droplets.call({})
