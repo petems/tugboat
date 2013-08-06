@@ -3,6 +3,7 @@ module Tugboat
     extend Forwardable
     def_delegators :'Faraday::Utils', :parse_query, :build_query
     RED        = "\e[31m"
+    CLEAR      = "\e[0m"
 
     def initialize(app, client_id, api_key)
       @client_id = client_id
@@ -20,7 +21,7 @@ module Tugboat
         @app.call(env)
       rescue Faraday::Error::ClientError => e
         puts "#{RED} Authentication with DigitalOcean failed (#{e})"
-        puts "#{RED} Check your API keys and run `tugboat authorize` to re-enter them if needed"
+        puts "#{CLEAR} Check your API keys and run `tugboat authorize` to re-enter them if needed"
         exit 1
       end
     end

@@ -1,5 +1,5 @@
 require 'digital_ocean'
-require_relative '../authentication_middleware'
+require File.expand_path('../../authentication_middleware', __FILE__)
 
 module Tugboat
   module Middleware
