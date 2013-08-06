@@ -9,7 +9,7 @@ module Tugboat
         # work.
         begin
           env["ocean"].droplets.list
-        rescue Faraday::Error::ParsingError
+        rescue Faraday::Error::ClientError
           say "Authentication with DigitalOcean failed. Run `tugboat authorize`", :red
           exit 1
         end

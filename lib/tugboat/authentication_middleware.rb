@@ -15,7 +15,13 @@ module Tugboat
 
       env[:url].query = build_query params
 
-      @app.call(env)
+      begin
+        @app.call(env)
+      rescue Faraday::Error::ClientError => e
+        puts "Authentication with DigitalOcean failed (#{e})"
+        puts "Run check your API keys and run `tugboat authorize`"
+        exit 1
+      end
     end
 
     def query_params(url)
