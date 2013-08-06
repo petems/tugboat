@@ -42,7 +42,7 @@ module Tugboat
       end
     end
 
-    # This checks you can connect to the
+    # This checks that the credentials in ~/.tugboat are valid
     def self.sequence_verify
       ::Middleware::Builder.new do
         use InjectConfiguration
