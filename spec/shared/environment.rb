@@ -32,7 +32,6 @@ shared_context "spec" do
     # Make them strings so we can manipulate and compare.
     $stderr = StringIO.new
     $stdout = StringIO.new
-
   end
 
   after(:each) do
