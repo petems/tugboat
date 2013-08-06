@@ -32,6 +32,14 @@ shared_context "spec" do
     # Make them strings so we can manipulate and compare.
     $stderr = StringIO.new
     $stdout = StringIO.new
+
+    stub_request(:get, "http:///droplets/1234?api_key&client_id").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.8.8'}).
+         to_return(:status => 200, :body => "", :headers => {})
+
+    stub_request(:get, "http:///sizes?api_key&client_id").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.8.8'}).
+         to_return(:status => 200, :body => "", :headers => {})
   end
 
   after(:each) do
