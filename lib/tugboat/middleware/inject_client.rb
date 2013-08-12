@@ -11,11 +11,10 @@ module Tugboat
         Faraday.new(:url => 'https://api.digitalocean.com/') do |faraday|
           faraday.use AuthenticationMiddleware, @client_id, @api_key
           faraday.use Faraday::Response::RaiseError
-          faraday.use CustomLogger
+          faraday.use CustomLogger if ENV['DEBUG']
           faraday.request  :url_encoded
           faraday.response :rashify
           faraday.response :json
-          faraday.response :logger if ENV['DEBUG']
           faraday.adapter Faraday.default_adapter
         end
       end
