@@ -9,7 +9,7 @@ module Tugboat
 
         if droplet_list.empty?
           say "You don't appear to have any droplets.", :red
-          say "Try creating one with #{GREEN}\`tugboat create\`"
+          say "Try creating one with #{GREEN}\`tugboat create\`#{CLEAR}"
         else
           droplet_list.each do |droplet|
 
