@@ -1,5 +1,6 @@
 require 'digital_ocean'
 require File.expand_path('../authentication_middleware', __FILE__)
+require File.expand_path('../custom_logger', __FILE__)
 
 module Tugboat
   module Middleware
@@ -10,10 +11,11 @@ module Tugboat
         Faraday.new(:url => 'https://api.digitalocean.com/') do |faraday|
           faraday.use AuthenticationMiddleware, @client_id, @api_key
           faraday.use Faraday::Response::RaiseError
+          faraday.use CustomLogger
           faraday.request  :url_encoded
           faraday.response :rashify
           faraday.response :json
-          faraday.response(:logger) if ENV['DEBUG']
+          faraday.response :logger if ENV['DEBUG']
           faraday.adapter Faraday.default_adapter
         end
       end
