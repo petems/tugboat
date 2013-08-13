@@ -27,8 +27,8 @@ module Tugboat
 
       def filter_url(output)
         if ENV['FILTER']
-          output = output.to_s.gsub!(/client_id=[a-zA-z0-9]*/,'client_id=[REDACTED]')
-          output = output.to_s.gsub!(/api_key=[a-zA-z0-9]*/,'api_key=[REDACTED]')
+          output = output.to_s.gsub!(/client_id=[a-zA-Z0-9]*/,'client_id=[REDACTED]')
+          output = output.to_s.gsub!(/api_key=[a-zA-Z0-9]*/,'api_key=[REDACTED]')
         else
           output
         end
