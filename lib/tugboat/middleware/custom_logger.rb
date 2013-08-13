@@ -25,21 +25,22 @@ module Tugboat
 
       private
 
-      def filter_url(output)
+      def filter(output)
         if ENV['FILTER']
-          output = output.to_s.gsub!(/client_id=[a-zA-Z0-9]*/,'client_id=[REDACTED]')
-          output = output.to_s.gsub!(/api_key=[a-zA-Z0-9]*/,'api_key=[REDACTED]')
+          output = output.to_s.gsub(/client_id=[a-zA-Z0-9]*/,'client_id=[REDACTED]')
+          output = output.to_s.gsub(/api_key=[a-zA-Z0-9]*/,'api_key=[REDACTED]')
+          output = output.to_s.gsub(/_digitalocean2_session_v2=[a-zA-Z0-9%-]*/,'_digitalocean2_session_v2=[SESSION_COOKIE]')
         else
           output
         end
       end
 
       def request_info(env)
-        "Started %s request to: %s" % [ env[:method].to_s.upcase, filter_url(env[:url]) ]
+        "Started %s request to: %s" % [ env[:method].to_s.upcase, filter(env[:url]) ]
       end
 
       def response_info(env, response_time)
-        "Response from %s; Status: %d; Time: %.1fms" % [ filter_url(env[:url]), env[:status], (response_time * 1_000.0) ]
+        "Response from %s; Status: %d; Time: %.1fms" % [ filter(env[:url]), env[:status], (response_time * 1_000.0) ]
       end
 
       def request_debug(env)
@@ -64,7 +65,7 @@ module Tugboat
 
       def format_headers(headers)
         length = headers.map {|k,v| k.to_s.size }.max
-        headers.map { |name, value| "#{name.to_s.ljust(length)} : #{value}" }.join("\n")
+        headers.map { |name, value| "#{name.to_s.ljust(length)} : #{filter(value)}" }.join("\n")
       end
 
   end
