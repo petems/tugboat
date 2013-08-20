@@ -26,7 +26,7 @@ module Tugboat
       private
 
       def filter(output)
-        if ENV['DEBUG'] == '2'
+        unless ENV['DEBUG'] == '2'
           output = output.to_s.gsub(/client_id=[a-zA-Z0-9]*/,'client_id=[REDACTED]')
           output = output.to_s.gsub(/api_key=[a-zA-Z0-9]*/,'api_key=[REDACTED]')
           output = output.to_s.gsub(/_digitalocean2_session_v2=[a-zA-Z0-9%-]*/,'_digitalocean2_session_v2=[SESSION_COOKIE]')
