@@ -51,6 +51,14 @@ module Tugboat
       @data['defaults']['region']
     end
 
+    def default_image
+      @data['defaults']['image']
+    end
+
+    def default_size
+      @data['defaults']['size']
+    end
+
     # Re-runs initialize
     def reset!
       self.send(:initialize)
