@@ -30,12 +30,14 @@ describe Tugboat::Configuration do
     let(:ssh_key_path)     { "~/.ssh/id_rsa2.pub" }
     let(:ssh_port)         { "22" }
     let(:region)           { "2" }
+    let(:image)            { "345791" }
+    let(:size)             { "66" }
 
     let(:config)           { config = Tugboat::Configuration.instance }
 
     before :each do
       # Create a temporary file
-      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region)
+      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size)
     end
 
     it "can be created" do

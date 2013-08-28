@@ -12,6 +12,8 @@ shared_context "spec" do
   let(:droplet_ip)       { "33.33.33.10" }
   let(:droplet_id)       { 1234 }
   let(:region)           { '1' }
+  let(:image)            { '345791'}
+  let(:size)             { '66'}
   let(:ocean)            { DigitalOcean::API.new :client_id => client_key, :api_key =>api_key }
   let(:app)              { lambda { |env| } }
   let(:env)              { {} }

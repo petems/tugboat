@@ -11,7 +11,7 @@ describe Tugboat::CLI do
 
     it "asks the right questions and checks credentials" do
 
-      $stdout.should_receive(:print).exactly(7).times
+      $stdout.should_receive(:print).exactly(8).times
       $stdout.should_receive(:print).with("Enter your client key: ")
       $stdin.should_receive(:gets).and_return(client_key)
       $stdout.should_receive(:print).with("Enter your API key: ")
@@ -22,8 +22,12 @@ describe Tugboat::CLI do
       $stdin.should_receive(:gets).and_return(ssh_user)
       $stdout.should_receive(:print).with("Enter your SSH port number (optional, defaults to 22): ")
       $stdin.should_receive(:gets).and_return(ssh_port)
-      $stdout.should_receive(:print).with("Enter your default region (1,2,3) (optional, defaults to 1 (New York)): ")
+      $stdout.should_receive(:print).with("Enter your default region (optional, defaults to 1 (New York)): ")
       $stdin.should_receive(:gets).and_return(region)
+      $stdout.should_receive(:print).with("Enter your default image (optional, defaults to 33 (512MB)): ")
+      $stdin.should_receive(:gets).and_return(image)
+      $stdout.should_receive(:print).with("Enter your default size  (optional, defaults to 345791 (Ubuntu 13.04 x32)): ")
+      $stdin.should_receive(:gets).and_return(size)
 
       @cli.authorize
 

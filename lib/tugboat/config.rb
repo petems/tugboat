@@ -70,7 +70,7 @@ module Tugboat
     end
 
     # Writes a config file
-    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region)
+    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region='', image='', size='')
       # Default SSH Key path
       if ssh_key_path.empty?
         ssh_key_path = File.join(File.expand_path("~"), DEFAULT_SSH_KEY_PATH)
@@ -84,16 +84,12 @@ module Tugboat
         ssh_port = DEFAULT_SSH_PORT
       end
 
-      if region.empty?
-        region = 1
-      end
-
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
         data = {
                 "authentication" => { "client_key" => client, "api_key" => api },
                 "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port},
-                "defaults" => { "region" => region }
+                "defaults" => { "region" => region, "image" => image, "size" => size }
               }
         file.write data.to_yaml
       end
