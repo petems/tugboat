@@ -11,7 +11,7 @@ describe Tugboat::CLI do
 
     it "asks the right questions and checks credentials" do
 
-      $stdout.should_receive(:print).exactly(8).times
+      $stdout.should_receive(:print).exactly(6).times
       $stdout.should_receive(:print).with("Enter your client key: ")
       $stdin.should_receive(:gets).and_return(client_key)
       $stdout.should_receive(:print).with("Enter your API key: ")
