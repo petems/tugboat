@@ -25,7 +25,7 @@ shared_context "spec" do
     @cli = Tugboat::CLI.new
 
     # Set a temprary project path and create fake config.
-    config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region)
+    config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size)
     config.reload!
 
     # Keep track of the old stderr / out
