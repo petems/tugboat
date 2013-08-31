@@ -14,6 +14,7 @@ shared_context "spec" do
   let(:region)           { '1' }
   let(:image)            { '345791'}
   let(:size)             { '66'}
+  let(:ssh_key_id)      { '1234' }
   let(:ocean)            { DigitalOcean::API.new :client_id => client_key, :api_key =>api_key }
   let(:app)              { lambda { |env| } }
   let(:env)              { {} }

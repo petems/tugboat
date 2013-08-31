@@ -5,7 +5,7 @@ describe Tugboat::CLI do
 
   describe "create a droplet" do
     it "with a name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id&name=#{droplet_name}&region_id&size_id&ssh_key_ids").
+      stub_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id=#{image}&name=#{droplet_name}&region_id=#{region}&size_id=#{size}&ssh_key_ids").
          to_return(:status => 200, :body => '{"status":"OK"}')
 
       @cli.create(droplet_name)
@@ -17,10 +17,10 @@ Queueing creation of droplet '#{droplet_name}'...done
     end
 
     it "with args" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id=2672&name=#{droplet_name}&region_id=2&size_id=64&ssh_key_ids=1234").
+      stub_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id=#{image}&name=#{droplet_name}&region_id=#{region}&size_id=#{size}&ssh_key_ids=#{ssh_key_id}").
          to_return(:status => 200, :body => '{"status":"OK"}')
 
-      @cli.options = @cli.options.merge(:image => 2672, :size => 64, :region => 2, :keys => "1234")
+      @cli.options = @cli.options.merge(:image => image, :size => size, :region => region, :keys => ssh_key_id)
       @cli.create(droplet_name)
 
       expect($stdout.string).to eq <<-eos
