@@ -70,7 +70,7 @@ module Tugboat
     end
 
     # Writes a config file
-    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region='', image='', size='')
+    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region, image, size)
       # Default SSH Key path
       if ssh_key_path.empty?
         ssh_key_path = File.join(File.expand_path("~"), DEFAULT_SSH_KEY_PATH)
@@ -80,8 +80,16 @@ module Tugboat
         ssh_user = ENV['USER']
       end
 
-      if ssh_port.empty?
-        ssh_port = DEFAULT_SSH_PORT
+      if region.empty?
+        region = '1'
+      end
+
+      if image.empty?
+        image = '345791'
+      end
+
+      if size.empty?
+        size = '33'
       end
 
       require 'yaml'
