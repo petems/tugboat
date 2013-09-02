@@ -89,7 +89,7 @@ module Tugboat
       end
 
       if image.empty?
-        image = '345791'
+        image = '284203'
       end
 
       if size.empty?
