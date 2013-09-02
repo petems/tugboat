@@ -6,7 +6,7 @@ shared_context "spec" do
   let(:client_key)       { "foo" }
   let(:api_key)          { "bar" }
   let(:ssh_user)         { "baz" }
-  let(:ssh_port)         { "22" }
+  let(:ssh_port)         { "33" }
   let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
   let(:droplet_name)     { "foo" }
   let(:droplet_ip)       { "33.33.33.10" }
