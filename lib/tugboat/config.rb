@@ -80,6 +80,10 @@ module Tugboat
         ssh_user = ENV['USER']
       end
 
+      if ssh_port.empty?
+        ssh_port = DEFAULT_SSH_PORT
+      end
+
       if region.empty?
         region = '1'
       end
