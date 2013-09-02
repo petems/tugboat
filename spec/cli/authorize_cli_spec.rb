@@ -24,9 +24,9 @@ describe Tugboat::CLI do
       $stdin.should_receive(:gets).and_return(ssh_port)
       $stdout.should_receive(:print).with("Enter your default region (optional, defaults to 1 (New York)): ")
       $stdin.should_receive(:gets).and_return(region)
-      $stdout.should_receive(:print).with("Enter your default image (optional, defaults to 33 (512MB)): ")
+      $stdout.should_receive(:print).with("Enter your default image (optional, defaults to 345791 (Ubuntu 13.04 x32)): ")
       $stdin.should_receive(:gets).and_return(image)
-      $stdout.should_receive(:print).with("Enter your default size  (optional, defaults to 345791 (Ubuntu 13.04 x32)): ")
+      $stdout.should_receive(:print).with("Enter your default size  (optional, defaults to 33 (512MB)): ")
       $stdin.should_receive(:gets).and_return(size)
 
       @cli.authorize

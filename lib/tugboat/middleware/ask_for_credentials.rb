@@ -11,8 +11,8 @@ module Tugboat
         ssh_user = ask "Enter your SSH user (optional, defaults to #{ENV['USER']}):"
         ssh_port = ask "Enter your SSH port number (optional, defaults to 22):"
         region   = ask "Enter your default region (optional, defaults to 1 (New York)):"
-        image    = ask "Enter your default image (optional, defaults to 33 (512MB)):"
-        size     = ask "Enter your default size  (optional, defaults to 345791 (Ubuntu 13.04 x32)):"
+        image    = ask "Enter your default image (optional, defaults to 345791 (Ubuntu 13.04 x32)):"
+        size     = ask "Enter your default size  (optional, defaults to 33 (512MB)):"
 
         # Write the config file.
         env['config'].create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size)
