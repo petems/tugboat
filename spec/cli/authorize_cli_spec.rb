@@ -63,7 +63,7 @@ describe Tugboat::CLI do
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
 
-      File.read(tmp_path).should include "image: '284203'", "region: '1'", "size: '33'", "ssh_user: #{ENV['USER']}", "ssh_key_path: ~/.ssh/id_rsa", "ssh_port: '22'"
+      File.read(tmp_path).should include "image: '284203'", "region: '1'", "size: '66'", "ssh_user: #{ENV['USER']}", "ssh_key_path: ~/.ssh/id_rsa", "ssh_port: '22'"
 
     end
   end

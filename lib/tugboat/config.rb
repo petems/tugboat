@@ -93,7 +93,7 @@ module Tugboat
       end
 
       if size.empty?
-        size = '33'
+        size = '66'
       end
 
       require 'yaml'
