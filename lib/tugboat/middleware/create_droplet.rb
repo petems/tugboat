@@ -6,23 +6,17 @@ module Tugboat
 
         say "Queueing creation of droplet '#{env["create_droplet_name"]}'...", nil, false
 
-        unless env["create_droplet_region_id"]
-          droplet_region_id = env["config"].default_region
-        else
-          droplet_region_id = env["create_droplet_region_id"]
-        end
+        env["create_droplet_region_id"] ?
+            droplet_region_id = env["create_droplet_region_id"] :
+            droplet_region_id = env["config"].default_region
 
-        unless env["create_droplet_image_id"]
-          droplet_image_id = env["config"].default_image
-        else
-          droplet_image_id = env["create_droplet_image_id"]
-        end
+        env["create_droplet_image_id"] ?
+            droplet_image_id = env["create_droplet_image_id"] :
+            droplet_image_id = env["config"].default_image
 
-        unless env["create_droplet_size_id"]
-          droplet_size_id = env["config"].default_size
-        else
-          droplet_size_id = env["create_droplet_size_id"]
-        end
+        env["create_droplet_size_id"] ?
+            droplet_size_id = env["create_droplet_size_id"] :
+            droplet_size_id = env["config"].default_size
 
         req = ocean.droplets.create :name   => env["create_droplet_name"],
                                  :size_id   => droplet_size_id,
