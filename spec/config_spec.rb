@@ -86,4 +86,57 @@ describe Tugboat::Configuration do
       expect(ssh).to have_key("ssh_port")
     end
   end
+
+  describe "backwards compatible" do
+    let(:client_key)       { "foo" }
+    let(:api_key)          { "bar" }
+    let(:ssh_user)         { "baz" }
+    let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
+    let(:ssh_key_path)     { "~/.ssh/id_rsa2.pub" }
+    let(:ssh_port)         { "22" }
+
+    let(:config)                 { config = Tugboat::Configuration.instance }
+    let(:config_default_region)  { Tugboat::Configuration::DEFAULT_REGION }
+    let(:config_default_image)   { Tugboat::Configuration::DEFAULT_IMAGE }
+    let(:config_default_size)    { Tugboat::Configuration::DEFAULT_SIZE }
+    let(:config_default_ssh_key) { Tugboat::Configuration::DEFAULT_SSH_KEY }
+
+    before :each do
+      # Create a temporary file without defaults (pre 0.0.7)
+      old_version_config(client_key, api_key, ssh_key_path, ssh_user, ssh_port)
+    end
+
+    it "should use default region if not in configuration" do
+      region = config.default_region
+      expect(region).to eql config_default_region
+    end
+
+    it "should use default region if not in configuration" do
+      image = config.default_image
+      expect(image).to eql config_default_image
+    end
+
+    it "should use default region if not in configuration" do
+      size = config.default_size
+      expect(size).to eql config_default_size
+    end
+
+    it "should use default region if not in configuration" do
+      ssh_key = config.default_ssh_key
+      expect(ssh_key).to eql config_default_ssh_key
+    end
+
+  end
+
+  def old_version_config client_key, api_key, ssh_key_path, ssh_user, ssh_port
+    require 'yaml'
+    File.open(tmp_path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
+      data = {
+        "authentication" => { "client_key" => client_key, "api_key" => api_key },
+        "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port},
+        "defaults" => { }
+      }
+      file.write data.to_yaml
+    end
+  end
 end
