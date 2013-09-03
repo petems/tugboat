@@ -15,6 +15,7 @@ module Tugboat
     DEFAULT_REGION = '1'
     DEFAULT_IMAGE = '284203'
     DEFAULT_SIZE = '66'
+    DEFAULT_SSH_KEY = ''
 
     def initialize
       @path = ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME)
@@ -51,19 +52,19 @@ module Tugboat
     end
 
     def default_region
-      @data['defaults']['region']
+      !@data['defaults']['region'].nil? ? @data['defaults']['region'] : DEFAULT_REGION
     end
 
     def default_image
-      @data['defaults']['image']
+      !@data['defaults']['image'].nil? ? @data['defaults']['image'] : DEFAULT_IMAGE
     end
 
     def default_size
-      @data['defaults']['size']
+      !@data['defaults']['size'].nil? ? @data['defaults']['size'] : DEFAULT_SIZE
     end
 
     def default_ssh_key
-      @data['defaults']['ssh_key']
+      !@data['defaults']['ssh_key'].nil? ? @data['defaults']['ssh_key'] : DEFAULT_SSH_KEY
     end
 
     # Re-runs initialize

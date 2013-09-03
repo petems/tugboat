@@ -51,39 +51,39 @@ describe Tugboat::Configuration do
     end
 
     describe "the file format"
-      let(:data)  { YAML.load_file(tmp_path) }
+    let(:data)  { YAML.load_file(tmp_path) }
 
-      it "should have authentication at the top level" do
-        expect(data).to have_key("authentication")
-      end
+    it "should have authentication at the top level" do
+      expect(data).to have_key("authentication")
+    end
 
-      it "should have ssh at the top level" do
-        expect(data).to have_key("ssh")
-      end
+    it "should have ssh at the top level" do
+      expect(data).to have_key("ssh")
+    end
 
-      it "should have a client key" do
-        auth = data["authentication"]
-        expect(auth).to have_key("client_key")
-      end
+    it "should have a client key" do
+      auth = data["authentication"]
+      expect(auth).to have_key("client_key")
+    end
 
-      it "should have an api key" do
-        auth = data["authentication"]
-        expect(auth).to have_key("api_key")
-      end
+    it "should have an api key" do
+      auth = data["authentication"]
+      expect(auth).to have_key("api_key")
+    end
 
-      it "should have an ssh key path" do
-        ssh = data["ssh"]
-        expect(ssh).to have_key("ssh_key_path")
-      end
+    it "should have an ssh key path" do
+      ssh = data["ssh"]
+      expect(ssh).to have_key("ssh_key_path")
+    end
 
-      it "should have an ssh user" do
-        ssh = data["ssh"]
-        expect(ssh).to have_key("ssh_user")
-      end
+    it "should have an ssh user" do
+      ssh = data["ssh"]
+      expect(ssh).to have_key("ssh_user")
+    end
 
-      it "should have an ssh port" do
-        ssh = data["ssh"]
-        expect(ssh).to have_key("ssh_port")
-      end
+    it "should have an ssh port" do
+      ssh = data["ssh"]
+      expect(ssh).to have_key("ssh_port")
+    end
   end
 end
