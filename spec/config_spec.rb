@@ -86,7 +86,6 @@ describe Tugboat::Configuration do
       expect(ssh).to have_key("ssh_port")
     end
   end
-
   describe "backwards compatible" do
     let(:client_key)       { "foo" }
     let(:api_key)          { "bar" }
@@ -111,17 +110,17 @@ describe Tugboat::Configuration do
       expect(region).to eql config_default_region
     end
 
-    it "should use default region if not in configuration" do
+    it "should use default image if not in configuration" do
       image = config.default_image
       expect(image).to eql config_default_image
     end
 
-    it "should use default region if not in configuration" do
+    it "should use default size if not in configuration" do
       size = config.default_size
       expect(size).to eql config_default_size
     end
 
-    it "should use default region if not in configuration" do
+    it "should use default ssh key if not in configuration" do
       ssh_key = config.default_ssh_key
       expect(ssh_key).to eql config_default_ssh_key
     end
