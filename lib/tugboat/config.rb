@@ -12,6 +12,9 @@ module Tugboat
     FILE_NAME = '.tugboat'
     DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'
     DEFAULT_SSH_PORT = '22'
+    DEFAULT_REGION = '1'
+    DEFAULT_IMAGE = '284203'
+    DEFAULT_SIZE = '66'
 
     def initialize
       @path = ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME)
@@ -85,15 +88,15 @@ module Tugboat
       end
 
       if region.empty?
-        region = '1'
+        region = DEFAULT_REGION
       end
 
       if image.empty?
-        image = '284203'
+        image = DEFAULT_IMAGE
       end
 
       if size.empty?
-        size = '66'
+        size = DEFAULT_SIZE
       end
 
       require 'yaml'
