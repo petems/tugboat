@@ -52,19 +52,19 @@ module Tugboat
     end
 
     def default_region
-      !@data['defaults']['region'].nil? ? @data['defaults']['region'] : DEFAULT_REGION
+      @data['defaults']['region'].nil? ? DEFAULT_REGION : @data['defaults']['region']
     end
 
     def default_image
-      !@data['defaults']['image'].nil? ? @data['defaults']['image'] : DEFAULT_IMAGE
+      @data['defaults']['image'].nil? ? DEFAULT_IMAGE : @data['defaults']['image']
     end
 
     def default_size
-      !@data['defaults']['size'].nil? ? @data['defaults']['size'] : DEFAULT_SIZE
+      @data['defaults']['size'].nil? ? DEFAULT_SIZE : @data['defaults']['size']
     end
 
     def default_ssh_key
-      !@data['defaults']['ssh_key'].nil? ? @data['defaults']['ssh_key'] : DEFAULT_SSH_KEY
+      @data['defaults']['ssh_key'].nil? ? DEFAULT_SSH_KEY : @data['defaults']['ssh_key']
     end
 
     # Re-runs initialize
@@ -75,6 +75,10 @@ module Tugboat
     # Re-loads the config
     def reload!
       @data = self.load_config_file
+    end
+
+    def get_data
+      @data
     end
 
     # Writes a config file

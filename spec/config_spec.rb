@@ -99,10 +99,17 @@ describe Tugboat::Configuration do
     let(:config_default_image)   { Tugboat::Configuration::DEFAULT_IMAGE }
     let(:config_default_size)    { Tugboat::Configuration::DEFAULT_SIZE }
     let(:config_default_ssh_key) { Tugboat::Configuration::DEFAULT_SSH_KEY }
+    let(:backwards_config) {
+      {
+                "authentication" => { "client_key" => client_key, "api_key" => api_key },
+                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port},
+                "defaults" => { }
+      }
+    }
 
     before :each do
       # Create a temporary file without defaults (pre 0.0.7)
-      old_version_config(client_key, api_key, ssh_key_path, ssh_user, ssh_port)
+      config.stub :data, backwards_config
     end
 
     it "should use default region if not in configuration" do
@@ -125,17 +132,5 @@ describe Tugboat::Configuration do
       expect(ssh_key).to eql config_default_ssh_key
     end
 
-  end
-
-  def old_version_config client_key, api_key, ssh_key_path, ssh_user, ssh_port
-    require 'yaml'
-    File.open(tmp_path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
-      data = {
-        "authentication" => { "client_key" => client_key, "api_key" => api_key },
-        "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port},
-        "defaults" => { }
-      }
-      file.write data.to_yaml
-    end
   end
 end
