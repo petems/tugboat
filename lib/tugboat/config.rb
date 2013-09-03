@@ -62,6 +62,10 @@ module Tugboat
       @data['defaults']['size']
     end
 
+    def default_ssh_key
+      @data['defaults']['ssh_key']
+    end
+
     # Re-runs initialize
     def reset!
       self.send(:initialize)
@@ -73,7 +77,7 @@ module Tugboat
     end
 
     # Writes a config file
-    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region, image, size)
+    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key)
       # Default SSH Key path
       if ssh_key_path.empty?
         ssh_key_path = File.join(File.expand_path("~"), DEFAULT_SSH_KEY_PATH)
@@ -104,7 +108,7 @@ module Tugboat
         data = {
                 "authentication" => { "client_key" => client, "api_key" => api },
                 "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port},
-                "defaults" => { "region" => region, "image" => image, "size" => size }
+                "defaults" => { "region" => region, "image" => image, "size" => size, "ssh_key" => ssh_key }
               }
         file.write data.to_yaml
       end

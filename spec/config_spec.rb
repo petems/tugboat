@@ -32,12 +32,13 @@ describe Tugboat::Configuration do
     let(:region)           { "2" }
     let(:image)            { "345791" }
     let(:size)             { "66" }
+    let(:ssh_key_id)       { '1234' }
 
     let(:config)           { config = Tugboat::Configuration.instance }
 
     before :each do
       # Create a temporary file
-      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size)
+      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id)
     end
 
     it "can be created" do

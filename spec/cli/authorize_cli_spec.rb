@@ -30,12 +30,14 @@ describe Tugboat::CLI do
       $stdin.should_receive(:gets).and_return(image)
       $stdout.should_receive(:print).with("Enter your default size  (optional, defaults to 66 (512MB)): ")
       $stdin.should_receive(:gets).and_return(size)
+      $stdout.should_receive(:print).with("Enter your default ssh key (optional, defaults to none): ")
+      $stdin.should_receive(:gets).and_return(ssh_key_id)
 
       @cli.authorize
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
 
-      File.read(tmp_path).should include "image: '#{image}'", "region: '#{region}'", "size: '#{size}'", "ssh_user: #{ssh_user}", "ssh_key_path: #{ssh_key_path}", "ssh_port: '#{ssh_port}'"
+      File.read(tmp_path).should include "image: '#{image}'", "region: '#{region}'", "size: '#{size}'", "ssh_user: #{ssh_user}", "ssh_key_path: #{ssh_key_path}", "ssh_port: '#{ssh_port}'", "ssh_key: '#{ssh_key_id}'"
 
     end
 
@@ -58,12 +60,14 @@ describe Tugboat::CLI do
       $stdin.should_receive(:gets).and_return('')
       $stdout.should_receive(:print).with("Enter your default size  (optional, defaults to 66 (512MB)): ")
       $stdin.should_receive(:gets).and_return('')
+      $stdout.should_receive(:print).with("Enter your default ssh key (optional, defaults to none): ")
+      $stdin.should_receive(:gets).and_return('')
 
       @cli.authorize
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
 
-      File.read(tmp_path).should include "image: '284203'", "region: '1'", "size: '66'", "ssh_user: #{ENV['USER']}", "ssh_key_path: ~/.ssh/id_rsa", "ssh_port: '22'"
+      File.read(tmp_path).should include "image: '284203'", "region: '1'", "size: '66'", "ssh_user: #{ENV['USER']}", "ssh_key_path: ~/.ssh/id_rsa", "ssh_port: '22'", "ssh_key: ''"
 
     end
   end
