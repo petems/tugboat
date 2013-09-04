@@ -52,19 +52,19 @@ module Tugboat
     end
 
     def default_region
-      @data['defaults']['region'].nil? ? DEFAULT_REGION : @data['defaults']['region']
+      @data['defaults'].nil? ? DEFAULT_REGION : @data['defaults']['region']
     end
 
     def default_image
-      @data['defaults']['image'].nil? ? DEFAULT_IMAGE : @data['defaults']['image']
+      @data['defaults'].nil? ? DEFAULT_IMAGE : @data['defaults']['image']
     end
 
     def default_size
-      @data['defaults']['size'].nil? ? DEFAULT_SIZE : @data['defaults']['size']
+      @data['defaults'].nil? ? DEFAULT_SIZE : @data['defaults']['size']
     end
 
     def default_ssh_key
-      @data['defaults']['ssh_key'].nil? ? DEFAULT_SSH_KEY : @data['defaults']['ssh_key']
+      @data['defaults'].nil? ? DEFAULT_SSH_KEY : @data['defaults']['ssh_key']
     end
 
     # Re-runs initialize
