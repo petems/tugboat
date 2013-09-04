@@ -4,7 +4,7 @@ describe Tugboat::Middleware::SSHDroplet do
   include_context "spec"
 
   before do
-    Kernel.stub!(:exec)
+    Kernel.stub(:exec)
   end
 
   describe ".call" do

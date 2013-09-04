@@ -29,12 +29,16 @@ describe Tugboat::Configuration do
     let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
     let(:ssh_key_path)     { "~/.ssh/id_rsa2.pub" }
     let(:ssh_port)         { "22" }
+    let(:region)           { "2" }
+    let(:image)            { "345791" }
+    let(:size)             { "66" }
+    let(:ssh_key_id)       { '1234' }
 
     let(:config)           { config = Tugboat::Configuration.instance }
 
     before :each do
       # Create a temporary file
-      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port)
+      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id)
     end
 
     it "can be created" do
@@ -47,39 +51,89 @@ describe Tugboat::Configuration do
     end
 
     describe "the file format"
-      let(:data)  { YAML.load_file(tmp_path) }
+    let(:data)  { YAML.load_file(tmp_path) }
 
-      it "should have authentication at the top level" do
-        expect(data).to have_key("authentication")
-      end
+    it "should have authentication at the top level" do
+      expect(data).to have_key("authentication")
+    end
 
-      it "should have ssh at the top level" do
-        expect(data).to have_key("ssh")
-      end
+    it "should have ssh at the top level" do
+      expect(data).to have_key("ssh")
+    end
 
-      it "should have a client key" do
-        auth = data["authentication"]
-        expect(auth).to have_key("client_key")
-      end
+    it "should have a client key" do
+      auth = data["authentication"]
+      expect(auth).to have_key("client_key")
+    end
 
-      it "should have an api key" do
-        auth = data["authentication"]
-        expect(auth).to have_key("api_key")
-      end
+    it "should have an api key" do
+      auth = data["authentication"]
+      expect(auth).to have_key("api_key")
+    end
 
-      it "should have an ssh key path" do
-        ssh = data["ssh"]
-        expect(ssh).to have_key("ssh_key_path")
-      end
+    it "should have an ssh key path" do
+      ssh = data["ssh"]
+      expect(ssh).to have_key("ssh_key_path")
+    end
 
-      it "should have an ssh user" do
-        ssh = data["ssh"]
-        expect(ssh).to have_key("ssh_user")
-      end
+    it "should have an ssh user" do
+      ssh = data["ssh"]
+      expect(ssh).to have_key("ssh_user")
+    end
 
-      it "should have an ssh port" do
-        ssh = data["ssh"]
-        expect(ssh).to have_key("ssh_port")
-      end
+    it "should have an ssh port" do
+      ssh = data["ssh"]
+      expect(ssh).to have_key("ssh_port")
+    end
+  end
+  describe "backwards compatible" do
+    let(:client_key)       { "foo" }
+    let(:api_key)          { "bar" }
+    let(:ssh_user)         { "baz" }
+    let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
+    let(:ssh_key_path)     { "~/.ssh/id_rsa2.pub" }
+    let(:ssh_port)         { "22" }
+
+    let(:config)                 { config = Tugboat::Configuration.instance }
+    let(:config_default_region)  { Tugboat::Configuration::DEFAULT_REGION }
+    let(:config_default_image)   { Tugboat::Configuration::DEFAULT_IMAGE }
+    let(:config_default_size)    { Tugboat::Configuration::DEFAULT_SIZE }
+    let(:config_default_ssh_key) { Tugboat::Configuration::DEFAULT_SSH_KEY }
+    let(:backwards_config) {
+      {
+                "authentication" => { "client_key" => client_key, "api_key" => api_key },
+                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port},
+      }
+    }
+
+    before :each do
+      config.instance_variable_set(:@data, backwards_config)
+    end
+
+    it "should load a backwards compatible config file" do
+      data_file = config.instance_variable_get(:@data)
+      expect(data_file).to eql backwards_config
+    end
+
+    it "should use default region if not in configuration" do
+      region = config.default_region
+      expect(region).to eql config_default_region
+    end
+
+    it "should use default image if not in configuration" do
+      image = config.default_image
+      expect(image).to eql config_default_image
+    end
+
+    it "should use default size if not in configuration" do
+      size = config.default_size
+      expect(size).to eql config_default_size
+    end
+
+    it "should use default ssh key if not in configuration" do
+      ssh_key = config.default_ssh_key
+      expect(ssh_key).to eql config_default_ssh_key
+    end
+
   end
 end

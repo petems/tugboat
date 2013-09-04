@@ -12,6 +12,10 @@ module Tugboat
     FILE_NAME = '.tugboat'
     DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'
     DEFAULT_SSH_PORT = '22'
+    DEFAULT_REGION = '1'
+    DEFAULT_IMAGE = '284203'
+    DEFAULT_SIZE = '66'
+    DEFAULT_SSH_KEY = ''
 
     def initialize
       @path = ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME)
@@ -42,9 +46,25 @@ module Tugboat
     def ssh_user
       @data['ssh']['ssh_user']
     end
-    
+
     def ssh_port
       @data['ssh']['ssh_port']
+    end
+
+    def default_region
+      @data['defaults'].nil? ? DEFAULT_REGION : @data['defaults']['region']
+    end
+
+    def default_image
+      @data['defaults'].nil? ? DEFAULT_IMAGE : @data['defaults']['image']
+    end
+
+    def default_size
+      @data['defaults'].nil? ? DEFAULT_SIZE : @data['defaults']['size']
+    end
+
+    def default_ssh_key
+      @data['defaults'].nil? ? DEFAULT_SSH_KEY : @data['defaults']['ssh_key']
     end
 
     # Re-runs initialize
@@ -58,7 +78,7 @@ module Tugboat
     end
 
     # Writes a config file
-    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port)
+    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key)
       # Default SSH Key path
       if ssh_key_path.empty?
         ssh_key_path = File.join(File.expand_path("~"), DEFAULT_SSH_KEY_PATH)
@@ -72,10 +92,29 @@ module Tugboat
         ssh_port = DEFAULT_SSH_PORT
       end
 
+      if region.empty?
+        region = DEFAULT_REGION
+      end
+
+      if image.empty?
+        image = DEFAULT_IMAGE
+      end
+
+      if size.empty?
+        size = DEFAULT_SIZE
+      end
+
+      if ssh_key.empty?
+        default_ssh_key = DEFAULT_SSH_KEY
+      end
+
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
-        data = {"authentication" => { "client_key" => client, "api_key" => api },
-                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port}}
+        data = {
+                "authentication" => { "client_key" => client, "api_key" => api },
+                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port},
+                "defaults" => { "region" => region, "image" => image, "size" => size, "ssh_key" => ssh_key }
+              }
         file.write data.to_yaml
       end
     end
