@@ -104,6 +104,10 @@ module Tugboat
         size = DEFAULT_SIZE
       end
 
+      if ssh_key.empty?
+        default_ssh_key = DEFAULT_SSH_KEY
+      end
+
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
         data = {
