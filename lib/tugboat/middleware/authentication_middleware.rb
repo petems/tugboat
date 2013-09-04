@@ -20,8 +20,11 @@ module Tugboat
       begin
         @app.call(env)
       rescue Faraday::Error::ClientError => e
-        puts "#{RED} Authentication with DigitalOcean failed (#{e})"
-        puts "#{CLEAR} Check your API keys and run `tugboat authorize` to re-enter them if needed"
+        puts "#{RED}#{e}!#{CLEAR}\n"
+        if env[:body].status == "ERROR"
+          puts "\n#{RED}#{env[:body].error_message}#{CLEAR}\n\n"
+        end
+        puts "Double-check your parameters and configuration (in your ~/.tugboat file)"
         exit 1
       end
     end
