@@ -77,10 +77,6 @@ module Tugboat
       @data = self.load_config_file
     end
 
-    def get_data
-      @data
-    end
-
     # Writes a config file
     def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key)
       # Default SSH Key path
