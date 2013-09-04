@@ -6,11 +6,15 @@ shared_context "spec" do
   let(:client_key)       { "foo" }
   let(:api_key)          { "bar" }
   let(:ssh_user)         { "baz" }
-  let(:ssh_port)         { "22" }
+  let(:ssh_port)         { "33" }
   let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
   let(:droplet_name)     { "foo" }
   let(:droplet_ip)       { "33.33.33.10" }
   let(:droplet_id)       { 1234 }
+  let(:region)           { '3' }
+  let(:image)            { '345791'}
+  let(:size)             { '67'}
+  let(:ssh_key_id)       { '1234' }
   let(:ocean)            { DigitalOcean::API.new :client_id => client_key, :api_key =>api_key }
   let(:app)              { lambda { |env| } }
   let(:env)              { {} }
@@ -22,7 +26,7 @@ shared_context "spec" do
     @cli = Tugboat::CLI.new
 
     # Set a temprary project path and create fake config.
-    config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port)
+    config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id)
     config.reload!
 
     # Keep track of the old stderr / out
