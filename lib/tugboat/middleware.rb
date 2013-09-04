@@ -10,7 +10,7 @@ module Tugboat
     autoload :CheckDropletInactive, "tugboat/middleware/check_droplet_inactive"
     autoload :ConfirmAction, "tugboat/middleware/confirm_action"
     autoload :CreateDroplet, "tugboat/middleware/create_droplet"
-    autoload :CreateSSHKey, "tugboat/middleware/create_ssh_key"
+    autoload :UploadSSHKey, "tugboat/middleware/upload_ssh_key"
     autoload :DestroyDroplet, "tugboat/middleware/destroy_droplet"
     autoload :FindDroplet, "tugboat/middleware/find_droplet"
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
@@ -176,12 +176,12 @@ module Tugboat
     end
 
     # Create a droplet
-    def self.sequence_create_ssh_key
+    def self.sequence_upload_ssh_key
       ::Middleware::Builder.new do
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
-        use CreateSSHKey
+        use UploadSSHKey
       end
     end
 

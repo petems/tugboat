@@ -231,11 +231,12 @@ module Tugboat
     method_option  "key",
                    :type => :string,
                    :aliases => "-k",
-                   :desc => "The string of the key"
-    def create_ssh_key(name)
-      Middleware.sequence_create_ssh_key.call({
-        "create_ssh_key_name" => name,
-        "create_ssh_key_pub_key" => options[:key],
+                   :desc => "The string of the key",
+                   :required => true
+    def upload_ssh_key(name)
+      Middleware.sequence_upload_ssh_key.call({
+        "upload_ssh_key_name" => name,
+        "upload_ssh_key_pub_key" => options[:key],
       })
     end
 
