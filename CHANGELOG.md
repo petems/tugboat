@@ -1,6 +1,26 @@
-## 0.0.7 (unreleased)
+## 0.0.8 (Unreleased)
+
+FEATURES:
+
+  - [Pete](https://github.com/petems) added configuration defaults
+  that you can set. [GH-61]
+  - [Pete](https://github.com/petems) added log filtering to debug output.
+  `DEBUG=1` now gives you filtered logs, `DEBUG=2`, raw. [GH-58]
 
 IMPROVEMENTS:
+
+  - Error messages are now caught at the Faraday level and displayed
+  back to the user.
+
+BUG FIXES:
+
+  - [Ørjan](https://github.com/blom) added a color reset on the `list`
+  command. [GH-57]
+
+## 0.0.7 (August 2, 2013)
+
+IMPROVEMENTS:
+
   - [Pete](https://github.com/petems) made it clearer to the user
   if they don't have any droplets or images. [GH-48], [GH-49]
 
