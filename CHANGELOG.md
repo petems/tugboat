@@ -1,4 +1,7 @@
-## 0.0.8 (Unreleased)
+## 0.0.9 (Unreleased)
+
+
+## 0.0.8 (September 7, 2013)
 
 FEATURES:
 
