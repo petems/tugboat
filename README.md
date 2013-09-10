@@ -19,6 +19,15 @@ Run the configuration utility, `tugboat authorize`. You can grab your keys
     Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa):
     Enter your SSH user (optional, defaults to jack):
     Enter your SSH port number (optional, defaults to 22):
+
+    To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`.
+    Defaults can be changed at any time in your ~/.tugboat configuration file.
+
+    Enter your default region ID (optional, defaults to 1 (New York)):
+    Enter your default image ID (optional, defaults to 284203 (Ubuntu 12.04 x64)):
+    Enter your default size ID (optional, defaults to 66 (512MB)):
+    Enter your default ssh key ID (optional, defaults to none):
+
     Authentication with DigitalOcean was successful!
 
 ## Usage
@@ -179,6 +188,15 @@ ask tugboat about it.
 For a complete overview of all of the available commands, run:
 
     $ tugboat help
+
+## Reporting Bugs
+
+Yes, please!
+
+It's very helpful if you can run `DEBUG=1 tugboat ...` with the command
+that is causing you issues, and then include that in the issue.
+
+You can create a new issue [here](https://github.com/pearkes/tugboat/issues/new). Thank you!
 
 ## Contributing
 
