@@ -227,16 +227,21 @@ module Tugboat
       Middleware.sequence_ssh_keys.call({})
     end
 
-    desc "add-ssh-key NAME", "Upload an ssh public key."
+    desc "add-key NAME", "Upload an ssh public key."
     method_option  "key",
                    :type => :string,
                    :aliases => "-k",
                    :desc => "The string of the key",
                    :required => true
-    def upload_ssh_key(name)
-      Middleware.sequence_upload_ssh_key.call({
-        "upload_ssh_key_name" => name,
-        "upload_ssh_key_pub_key" => options[:key],
+    method_option "path",
+                  :type => :string,
+                  :aliases => "-p",
+                  :desc => "The path to the ssh key"
+    def add_key(name)
+      Middleware.sequence_add_key.call({
+        "add_key_name" => name,
+        "add_key_pub_key" => options[:key],
+        "add_key_pub_key" => options[:key],
       })
     end
 

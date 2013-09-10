@@ -2,6 +2,7 @@ require "middleware"
 
 module Tugboat
   module Middleware
+    autoload :AddKey, "tugboat/middleware/add_key"
     autoload :AskForCredentials, "tugboat/middleware/ask_for_credentials"
     autoload :Base, "tugboat/middleware/base"
     autoload :CheckConfiguration, "tugboat/middleware/check_configuration"
@@ -10,7 +11,6 @@ module Tugboat
     autoload :CheckDropletInactive, "tugboat/middleware/check_droplet_inactive"
     autoload :ConfirmAction, "tugboat/middleware/confirm_action"
     autoload :CreateDroplet, "tugboat/middleware/create_droplet"
-    autoload :UploadSSHKey, "tugboat/middleware/upload_ssh_key"
     autoload :DestroyDroplet, "tugboat/middleware/destroy_droplet"
     autoload :FindDroplet, "tugboat/middleware/find_droplet"
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
@@ -176,12 +176,12 @@ module Tugboat
     end
 
     # Create a droplet
-    def self.sequence_upload_ssh_key
+    def self.sequence_add_key
       ::Middleware::Builder.new do
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
-        use UploadSSHKey
+        use AddKey
       end
     end
 

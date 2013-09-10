@@ -10,7 +10,7 @@ describe Tugboat::CLI do
       to_return(:status => 200, :body => fixture("create_ssh_key"))
 
       @cli.options = @cli.options.merge(:key => "#{ssh_public_key}")
-      @cli.upload_ssh_key(ssh_key_name)
+      @cli.add_key(ssh_key_name)
 
       expect($stdout.string).to eq <<-eos
 Queueing upload of ssh key '#{ssh_key_name}'...done
