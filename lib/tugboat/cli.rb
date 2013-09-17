@@ -231,8 +231,7 @@ module Tugboat
     method_option  "key",
                    :type => :string,
                    :aliases => "-k",
-                   :desc => "The string of the key",
-                   :required => true
+                   :desc => "The string of the key"                   
     method_option "path",
                   :type => :string,
                   :aliases => "-p",
@@ -241,7 +240,7 @@ module Tugboat
       Middleware.sequence_add_key.call({
         "add_key_name" => name,
         "add_key_pub_key" => options[:key],
-        "add_key_pub_key" => options[:key],
+        "add_key_file_path" => options[:path],
       })
     end
 
