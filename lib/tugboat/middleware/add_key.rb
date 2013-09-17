@@ -19,8 +19,6 @@ module Tugboat
           end        
         end
 
-        puts pub_key_string
-
         say "Queueing upload of ssh key '#{env["add_key_name"]}'...", nil, false
 
         req = ocean.ssh_keys.add    :name => env["add_key_name"],
