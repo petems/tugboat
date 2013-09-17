@@ -11,7 +11,7 @@ module Tugboat
             pub_key_string = File.read(env["add_key_file_path"])
           else
             say "No pub key string given, I'm going to suggest some from your ~/.ssh folder"
-            Dir.glob("/Users/#{ENV['USER']}/.ssh/*.pub") do |key_file|
+            Dir.glob("#{ENV['HOME']}/.ssh/*.pub") do |key_file|
               say "#{key_file}"
             end
             ssh_key_file = ask "Choose a file path to use from the list above:"
