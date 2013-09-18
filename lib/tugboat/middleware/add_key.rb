@@ -3,10 +3,10 @@ module Tugboat
     class AddKey < Base
       def call(env)
         ocean = env["ocean"]
-      
+
         if env["add_key_pub_key"]
           pub_key_string = env["add_key_pub_key"]
-        else          
+        else
           if env["add_key_file_path"]
             pub_key_string = File.read(env["add_key_file_path"])
           else
@@ -16,10 +16,10 @@ module Tugboat
             end
             ssh_key_file = ask "Choose a file path to use from the list above:"
             pub_key_string = File.read("#{ssh_key_file}")
-          end        
+          end
         end
 
-        say "Queueing upload of ssh key '#{env["add_key_name"]}'...", nil, false
+        say "Queueing upload of ssh key '#{env["add_key_name"]}'..."
 
         req = ocean.ssh_keys.add    :name => env["add_key_name"],
                                     :ssh_pub_key  => pub_key_string
@@ -29,7 +29,7 @@ module Tugboat
           exit 1
         end
 
-        say "done", :green
+        say "Done!", :green
 
         @app.call(env)
       end
