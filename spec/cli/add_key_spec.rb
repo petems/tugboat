@@ -37,11 +37,9 @@ Done!
       $stdout.should_receive(:print).with("Choose a file path to use from the list above: ")
       $stdin.should_receive(:gets).and_return('id_dsa.pub')
 
-      @cli.add_key(ssh_key_name)
-
       expect($stdout.string).to eq <<-eos
 No pub key string given, I'm going to suggest some from your ~/.ssh folder
-/Users/peterso/.ssh/id_rsa.pub
+/home/foo/.ssh/id_rsa.pub
 Queueing upload of ssh key '#{ssh_key_name}'...
 Done!
       eos
