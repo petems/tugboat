@@ -3,7 +3,10 @@ require 'spec_helper'
 describe Tugboat::CLI do
   include_context "spec"
 
+  let(:tmp_path) { project_path + "/tmp/tugboat" }
+
   before :each do
+    ENV.stub(:HOME).and_return(tmp_path)
     File.open("id_dsa.pub", 'w') {|f| f.write("ssh-dss A456= user@host") }
   end
 
@@ -29,7 +32,6 @@ Done!
     end
 
     it "with name, prompts from file folder" do
-
       stub_request(:get, "https://api.digitalocean.com/ssh_keys/new?api_key=#{api_key}&client_id=#{client_key}&name=#{ssh_key_name}&ssh_pub_key=ssh-dss%20A456=%20user@host").
       to_return(:status => 200, :body => fixture("create_ssh_key"))
 
