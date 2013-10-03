@@ -227,6 +227,23 @@ module Tugboat
       Middleware.sequence_ssh_keys.call({})
     end
 
+    desc "add-key NAME", "Upload an ssh public key."
+    method_option  "key",
+                   :type => :string,
+                   :aliases => "-k",
+                   :desc => "The string of the key"                   
+    method_option "path",
+                  :type => :string,
+                  :aliases => "-p",
+                  :desc => "The path to the ssh key"
+    def add_key(name)
+      Middleware.sequence_add_key.call({
+        "add_key_name" => name,
+        "add_key_pub_key" => options[:key],
+        "add_key_file_path" => options[:path],
+      })
+    end
+
     desc "regions", "Show regions"
     def regions
       Middleware.sequence_regions.call({})
