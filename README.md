@@ -188,6 +188,15 @@ ask tugboat about it.
 For a complete overview of all of the available commands, run:
 
     $ tugboat help
+    
+
+Depending on your local configuration, you may need to install a CA bundle (OS X only) using [homebrew](http://brew.sh/) to commmunicate with DigitalOcean through SSL/TLS:
+
+    $ brew install curl-ca-bundle
+
+After installation, source the bundle path in your `.bash_profile`/`.bashrc`:
+
+    export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
 
 ## Reporting Bugs
 
