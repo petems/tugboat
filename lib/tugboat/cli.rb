@@ -83,6 +83,10 @@ module Tugboat
                   :type => :string,
                   :aliases => "-o",
                   :desc => "Custom SSH options"
+    method_option "ssh_command",
+                  :type => :string,
+                  :aliases => "-c",
+                  :desc => "Command to run on the droplet"
     def ssh(name=nil)
       Middleware.sequence_ssh_droplet.call({
         "user_droplet_id" => options[:id],
@@ -90,7 +94,8 @@ module Tugboat
         "user_droplet_fuzzy_name" => name,
         "user_droplet_ssh_port" => options[:ssh_port],
         "user_droplet_ssh_user" => options[:ssh_user],
-        "user_droplet_ssh_opts" => options[:ssh_opts]
+        "user_droplet_ssh_opts" => options[:ssh_opts],
+        "user_droplet_ssh_command" => options[:ssh_command]
       })
     end
 

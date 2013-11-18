@@ -28,6 +28,9 @@ module Tugboat
 
         options << host_string
 
+        if env["user_droplet_ssh_command"]
+          options.push(env["user_droplet_ssh_command"])
+        end
 
         Kernel.exec("ssh", *options)
 
