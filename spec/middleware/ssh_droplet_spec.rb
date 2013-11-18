@@ -35,10 +35,12 @@ describe Tugboat::Middleware::SSHDroplet do
                         "-p", ssh_port,
                         "-q",
                         "-X",
-                        "#{ssh_user}@#{droplet_ip}")
+                        "#{ssh_user}@#{droplet_ip}",
+                        "echo hello")
 
       env["droplet_ip"] = droplet_ip
       env["config"] = config
+      env["user_droplet_ssh_command"] = "echo hello"
       env["user_droplet_ssh_opts"] = "-q -X"
 
       described_class.new(app).call(env)
