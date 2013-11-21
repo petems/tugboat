@@ -22,11 +22,18 @@ module Tugboat
             droplet_ssh_key_id = env["create_droplet_ssh_key_ids"] :
             droplet_ssh_key_id = env["config"].default_ssh_key
 
-        req = ocean.droplets.create :name        => env["create_droplet_name"],
-                                    :size_id     => droplet_size_id,
-                                    :image_id    => droplet_image_id,
-                                    :region_id   => droplet_region_id,
-                                    :ssh_key_ids => droplet_ssh_key_id
+        env["create_droplet_private_networking"] ?
+            droplet_private_networking = env["create_droplet_private_networking"] :
+            droplet_private_networking = env["config"].default_private_networking
+
+        droplet_private_networking = droplet_private_networking.to_s
+
+        req = ocean.droplets.create :name               => env["create_droplet_name"],
+                                    :size_id            => droplet_size_id,
+                                    :image_id           => droplet_image_id,
+                                    :region_id          => droplet_region_id,
+                                    :ssh_key_ids        => droplet_ssh_key_id,
+                                    :private_networking => droplet_private_networking
 
         if req.status == "ERROR"
           say req.error_message, :red

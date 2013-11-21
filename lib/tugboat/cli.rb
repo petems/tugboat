@@ -116,12 +116,17 @@ module Tugboat
                    :type => :string,
                    :aliases => "-k",
                    :desc => "A comma separated list of SSH key ids to add to the droplet"
+    method_option  "private_networking",
+                   :type => :boolean,
+                   :aliases => "-p",
+                   :desc => "Adds private networking to the droplet"
     def create(name)
       Middleware.sequence_create_droplet.call({
         "create_droplet_size_id" => options[:size],
         "create_droplet_image_id" => options[:image],
         "create_droplet_region_id" => options[:region],
         "create_droplet_ssh_key_ids" => options[:keys],
+        "create_droplet_private_networking" => options[:private_networking],
         "create_droplet_name" => name
       })
     end
