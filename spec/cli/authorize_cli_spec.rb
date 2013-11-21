@@ -26,7 +26,7 @@ describe Tugboat::CLI do
       $stdin.should_receive(:gets).and_return(ssh_port)
       $stdout.should_receive(:print).with("Enter your default region ID (optional, defaults to 1 (New York)): ")
       $stdin.should_receive(:gets).and_return(region)
-      $stdout.should_receive(:print).with("Enter your default image ID (optional, defaults to 284203 (Ubuntu 12.04 x64)): ")
+      $stdout.should_receive(:print).with("Enter your default image ID (optional, defaults to 350076 (Ubuntu 12.04 x64)): ")
       $stdin.should_receive(:gets).and_return(image)
       $stdout.should_receive(:print).with("Enter your default size ID (optional, defaults to 66 (512MB)): ")
       $stdin.should_receive(:gets).and_return(size)
@@ -56,7 +56,7 @@ describe Tugboat::CLI do
       $stdin.should_receive(:gets).and_return('')
       $stdout.should_receive(:print).with("Enter your default region ID (optional, defaults to 1 (New York)): ")
       $stdin.should_receive(:gets).and_return('')
-      $stdout.should_receive(:print).with("Enter your default image ID (optional, defaults to 284203 (Ubuntu 12.04 x64)): ")
+      $stdout.should_receive(:print).with("Enter your default image ID (optional, defaults to 350076 (Ubuntu 12.04 x64)): ")
       $stdin.should_receive(:gets).and_return('')
       $stdout.should_receive(:print).with("Enter your default size ID (optional, defaults to 66 (512MB)): ")
       $stdin.should_receive(:gets).and_return('')
@@ -67,7 +67,7 @@ describe Tugboat::CLI do
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
 
-      File.read(tmp_path).should include "image: '284203'", "region: '1'", "size: '66'", "ssh_user: #{ENV['USER']}", "ssh_key_path: ~/.ssh/id_rsa", "ssh_port: '22'", "ssh_key: ''"
+      File.read(tmp_path).should include "image: '350076'", "region: '1'", "size: '66'", "ssh_user: #{ENV['USER']}", "ssh_key_path: ~/.ssh/id_rsa", "ssh_port: '22'", "ssh_key: ''"
 
     end
   end
