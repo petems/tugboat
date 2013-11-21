@@ -23,21 +23,22 @@ describe Tugboat::Configuration do
   end
 
   describe "the file" do
-    let(:client_key)       { "foo" }
-    let(:api_key)          { "bar" }
-    let(:ssh_user)         { "baz" }
-    let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
-    let(:ssh_port)         { "22" }
-    let(:region)           { "2" }
-    let(:image)            { "345791" }
-    let(:size)             { "66" }
-    let(:ssh_key_id)       { '1234' }
+    let(:client_key)         { "foo" }
+    let(:api_key)            { "bar" }
+    let(:ssh_user)           { "baz" }
+    let(:ssh_key_path)       { "~/.ssh/id_rsa2" }
+    let(:ssh_port)           { "22" }
+    let(:region)             { "2" }
+    let(:image)              { "345791" }
+    let(:size)               { "66" }
+    let(:ssh_key_id)         { '1234' }
+    let(:private_networking) { 'false' }
 
     let(:config)           { config = Tugboat::Configuration.instance }
 
     before :each do
       # Create a temporary file
-      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id)
+      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking)
     end
 
     it "can be created" do
@@ -84,6 +85,11 @@ describe Tugboat::Configuration do
       ssh = data["ssh"]
       expect(ssh).to have_key("ssh_port")
     end
+
+    it "should have private networking" do
+      ssh = data["ssh"]
+      expect(ssh).to have_key("private_networking")
+    end
   end
   describe "backwards compatible" do
     let(:client_key)       { "foo" }
@@ -97,6 +103,7 @@ describe Tugboat::Configuration do
     let(:config_default_image)   { Tugboat::Configuration::DEFAULT_IMAGE }
     let(:config_default_size)    { Tugboat::Configuration::DEFAULT_SIZE }
     let(:config_default_ssh_key) { Tugboat::Configuration::DEFAULT_SSH_KEY }
+    let(:config_default_private_networking) { Tugboat::Configuration::DEFAULT_PRIVATE_NETWORKING }
     let(:backwards_config) {
       {
                 "authentication" => { "client_key" => client_key, "api_key" => api_key },
@@ -132,6 +139,12 @@ describe Tugboat::Configuration do
       ssh_key = config.default_ssh_key
       expect(ssh_key).to eql config_default_ssh_key
     end
+
+    it "should use default private networking if not in configuration" do
+      private_networking = config.default_private_networking
+      expect(private_networking).to eql config_default_private_networking
+    end
+
 
   end
 end
