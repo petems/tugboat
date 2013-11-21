@@ -13,7 +13,7 @@ module Tugboat
     DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'
     DEFAULT_SSH_PORT = '22'
     DEFAULT_REGION = '1'
-    DEFAULT_IMAGE = '284203'
+    DEFAULT_IMAGE = '350076'
     DEFAULT_SIZE = '66'
     DEFAULT_SSH_KEY = ''
 
