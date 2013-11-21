@@ -16,6 +16,7 @@ module Tugboat
     DEFAULT_IMAGE = '284203'
     DEFAULT_SIZE = '66'
     DEFAULT_SSH_KEY = ''
+    DEFAULT_PRIVATE_NETWORKING = 'false'
 
     def initialize
       @path = ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME)
@@ -67,6 +68,10 @@ module Tugboat
       @data['defaults'].nil? ? DEFAULT_SSH_KEY : @data['defaults']['ssh_key']
     end
 
+    def default_private_networking
+      @data['defaults'].nil? ? DEFAULT_PRIVATE_NETWORKING : @data['defaults']['private_networking']
+    end
+
     # Re-runs initialize
     def reset!
       self.send(:initialize)
@@ -78,7 +83,7 @@ module Tugboat
     end
 
     # Writes a config file
-    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key)
+    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking)
       # Default SSH Key path
       if ssh_key_path.empty?
         ssh_key_path = File.join(File.expand_path("~"), DEFAULT_SSH_KEY_PATH)
@@ -108,13 +113,28 @@ module Tugboat
         default_ssh_key = DEFAULT_SSH_KEY
       end
 
+      if private_networking.empty?
+        private_networking = DEFAULT_PRIVATE_NETWORKING
+      end
+
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
         data = {
-                "authentication" => { "client_key" => client, "api_key" => api },
-                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port},
-                "defaults" => { "region" => region, "image" => image, "size" => size, "ssh_key" => ssh_key }
-              }
+                "authentication" => {
+                  "client_key" => client,
+                  "api_key" => api },
+                "ssh" => {
+                  "ssh_user" => ssh_user,
+                  "ssh_key_path" => ssh_key_path ,
+                  "ssh_port" => ssh_port },
+                "defaults" => {
+                  "region" => region,
+                  "image" => image,
+                  "size" => size,
+                  "ssh_key" => ssh_key,
+                  "private_networking" => private_networking
+                }
+        }
         file.write data.to_yaml
       end
     end
