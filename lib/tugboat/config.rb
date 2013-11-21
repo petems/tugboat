@@ -10,12 +10,36 @@ module Tugboat
     attr_reader :path
 
     FILE_NAME = '.tugboat'
+
     DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'
-    DEFAULT_SSH_PORT = '22'
-    DEFAULT_REGION = '1'
-    DEFAULT_IMAGE = '284203'
-    DEFAULT_SIZE = '66'
-    DEFAULT_SSH_KEY = ''
+    DEFAULT_SSH_PORT     = '22'
+    DEFAULT_SSH_KEY      = ''
+
+    DEFAULT_REGION   = '1'
+    DEFAULT_IMAGE    = '284203'
+    DEFAULT_SIZE     = '66'
+
+    # DEFAULT_SORT_BY  = 'name' # droplet#name, ip, region, status...
+
+    REGION_NAMES = {
+      1 => 'New York 1',
+      2 => 'Amsterdam',
+      3 => 'San Francisco 1',
+      4 => 'New York 2'
+    }
+
+    SIZE_NAMES = {
+      66 => "512MB",
+      63 => "1GB",
+      62 => "2GB",
+      64 => "4GB",
+      65 => "8GB",
+      61 => "16GB",
+      60 => "32GB",
+      70 => "48GB",
+      69 => "64GB",
+      68 => "96GB"
+    }
 
     def initialize
       @path = ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME)
@@ -111,9 +135,9 @@ module Tugboat
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
         data = {
-                "authentication" => { "client_key" => client, "api_key" => api },
-                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port},
-                "defaults" => { "region" => region, "image" => image, "size" => size, "ssh_key" => ssh_key }
+                'authentication' => { 'client_key' => client, 'api_key' => api },
+                'ssh' => { 'ssh_user' => ssh_user, 'ssh_key_path' => ssh_key_path , 'ssh_port' => ssh_port },
+                'defaults' => { 'region' => region, 'image' => image, 'size' => size, 'ssh_key' => ssh_key }
               }
         file.write data.to_yaml
       end

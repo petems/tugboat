@@ -7,7 +7,7 @@
     "name": "foo",
     "ip_address": "33.33.33.10",
     "region_id": 1,
-    "size_id": 33,
+    "size_id": 70,
     "status": "active"
   }
 }
