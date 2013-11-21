@@ -16,13 +16,13 @@ describe Tugboat::CLI do
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)
 
+Status:           \e[32mactive\e[0m
 Name:             foo
 ID:               100823
-Status:           \e[32mactive\e[0m
 IP:               33.33.33.10
-Region ID:        1
+Region ID:        1 (New York 1)
 Image ID:         420
-Size ID:          33
+Size ID:          70 (48GB)
 Backups Active:   false
       eos
 
@@ -43,13 +43,13 @@ Backups Active:   false
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)
 
+Status:           \e[32mactive\e[0m
 Name:             foo
 ID:               100823
-Status:           \e[32mactive\e[0m
 IP:               33.33.33.10
-Region ID:        1
+Region ID:        1 (New York 1)
 Image ID:         420
-Size ID:          33
+Size ID:          70 (48GB)
 Backups Active:   false
       eos
 
@@ -70,13 +70,13 @@ Backups Active:   false
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
 
+Status:           \e[32mactive\e[0m
 Name:             foo
 ID:               100823
-Status:           \e[32mactive\e[0m
 IP:               33.33.33.10
-Region ID:        1
+Region ID:        1 (New York 1)
 Image ID:         420
-Size ID:          33
+Size ID:          70 (48GB)
 Backups Active:   false
       eos
 

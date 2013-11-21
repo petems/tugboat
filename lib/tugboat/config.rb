@@ -10,7 +10,9 @@ module Tugboat
     attr_reader :path
 
     FILE_NAME = '.tugboat'
+
     DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'
+
     DEFAULT_SSH_PORT = '22'
     DEFAULT_REGION = '1'
     DEFAULT_IMAGE = '3240036'
@@ -18,6 +20,15 @@ module Tugboat
     DEFAULT_SSH_KEY = ''
     DEFAULT_PRIVATE_NETWORKING = 'false'
     DEFAULT_BACKUPS_ENABLED = 'false'
+
+    DEFAULT_SSH_PORT     = '22'
+    DEFAULT_SSH_KEY      = ''
+
+    DEFAULT_REGION   = '1'
+    DEFAULT_IMAGE    = '284203'
+    DEFAULT_SIZE     = '66'
+
+    DEFAULT_SORT_BY  = 'name'
 
     def initialize
       @path = ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME)
