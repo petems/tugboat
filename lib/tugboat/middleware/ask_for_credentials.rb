@@ -18,9 +18,10 @@ module Tugboat
         image    = ask "Enter your default image ID (optional, defaults to 284203 (Ubuntu 12.04 x64)):"
         size     = ask "Enter your default size ID (optional, defaults to 66 (512MB)):"
         ssh_key  = ask "Enter your default ssh key ID (optional, defaults to none):"
+        private_networking = ask "Enter your default for private networking (optional, defaults to false):"
 
         # Write the config file.
-        env['config'].create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key)
+        env['config'].create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking)
         env['config'].reload!
 
         @app.call(env)
