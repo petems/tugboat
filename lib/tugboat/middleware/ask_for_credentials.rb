@@ -15,7 +15,7 @@ module Tugboat
         say "Defaults can be changed at any time in your ~/.tugboat configuration file."
         say
         region   = ask "Enter your default region ID (optional, defaults to 1 (New York)):"
-        image    = ask "Enter your default image ID (optional, defaults to 284203 (Ubuntu 12.04 x64)):"
+        image    = ask "Enter your default image ID (optional, defaults to 350076 (Ubuntu 13.04 x64)):"
         size     = ask "Enter your default size ID (optional, defaults to 66 (512MB)):"
         ssh_key  = ask "Enter your default ssh key ID (optional, defaults to none):"
 

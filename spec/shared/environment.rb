@@ -11,6 +11,7 @@ shared_context "spec" do
   let(:droplet_name)     { "foo" }
   let(:droplet_ip)       { "33.33.33.10" }
   let(:droplet_id)       { 1234 }
+  let(:private_networking) { 'false' }
   let(:region)           { '3' }
   let(:image)            { '345791'}
   let(:size)             { '67'}
