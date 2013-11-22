@@ -32,12 +32,14 @@ describe Tugboat::CLI do
       $stdin.should_receive(:gets).and_return(size)
       $stdout.should_receive(:print).with("Enter your default ssh key ID (optional, defaults to none): ")
       $stdin.should_receive(:gets).and_return(ssh_key_id)
+      $stdout.should_receive(:print).with("Enter your default for private networking (optional, defaults to false): ")
+      $stdin.should_receive(:gets).and_return(private_networking)
 
       @cli.authorize
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
 
-      File.read(tmp_path).should include "image: '#{image}'", "region: '#{region}'", "size: '#{size}'", "ssh_user: #{ssh_user}", "ssh_key_path: #{ssh_key_path}", "ssh_port: '#{ssh_port}'", "ssh_key: '#{ssh_key_id}'"
+      File.read(tmp_path).should include "image: '#{image}'", "region: '#{region}'", "size: '#{size}'", "ssh_user: #{ssh_user}", "ssh_key_path: #{ssh_key_path}", "ssh_port: '#{ssh_port}'", "ssh_key: '#{ssh_key_id}'", "private_networking: '#{private_networking}'"
 
     end
 
@@ -61,6 +63,8 @@ describe Tugboat::CLI do
       $stdout.should_receive(:print).with("Enter your default size ID (optional, defaults to 66 (512MB)): ")
       $stdin.should_receive(:gets).and_return('')
       $stdout.should_receive(:print).with("Enter your default ssh key ID (optional, defaults to none): ")
+      $stdin.should_receive(:gets).and_return('')
+      $stdout.should_receive(:print).with("Enter your default for private networking (optional, defaults to false): ")
       $stdin.should_receive(:gets).and_return('')
 
       @cli.authorize
