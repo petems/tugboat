@@ -18,6 +18,7 @@ shared_context "spec" do
   let(:ssh_key_name)       { 'macbook_pro' }
   let(:ssh_public_key)     { 'ssh-dss A123= user@host' }
   let(:private_networking) { 'false'}
+  let(:backups_enabled)    { 'false'}
   let(:ocean)              { DigitalOcean::API.new :client_id => client_key, :api_key =>api_key }
   let(:app)                { lambda { |env| } }
   let(:env)                { {} }
@@ -29,7 +30,7 @@ shared_context "spec" do
     @cli = Tugboat::CLI.new
 
     # Set a temprary project path and create fake config.
-    config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking)
+    config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
     config.reload!
 
     # Keep track of the old stderr / out

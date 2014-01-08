@@ -120,6 +120,10 @@ module Tugboat
                   :type => :boolean,
                   :aliases => "-p",
                   :desc => "Enable private networking on the droplet"
+    method_option  "backups_enabled",
+                   :type => :boolean,
+                   :aliases => "-b",
+                   :desc => "Enable backups on the droplet"
 
     def create(name)
       Middleware.sequence_create_droplet.call({
@@ -128,6 +132,7 @@ module Tugboat
         "create_droplet_region_id" => options[:region],
         "create_droplet_ssh_key_ids" => options[:keys],
         "create_droplet_private_networking" => options[:private_networking],
+        "create_droplet_backups_enabled" => options[:backups_enabled],
         "create_droplet_name" => name
       })
     end

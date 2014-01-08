@@ -26,12 +26,18 @@ module Tugboat
             droplet_private_networking = env["create_droplet_private_networking"] :
             droplet_private_networking = env["config"].default_private_networking
 
+        env["create_droplet_backups_enabled"] ?
+            droplet_backups_enabled = env["create_droplet_backups_enabled"] :
+            droplet_backups_enabled = env["config"].default_backups_enabled
+
+
         req = ocean.droplets.create :name               => env["create_droplet_name"],
                                     :size_id            => droplet_size_id,
                                     :image_id           => droplet_image_id,
                                     :region_id          => droplet_region_id,
                                     :ssh_key_ids        => droplet_ssh_key_id,
-                                    :private_networking => droplet_private_networking
+                                    :private_networking => droplet_private_networking,
+                                    :backups_enabled    => droplet_backups_enabled
 
         if req.status == "ERROR"
           say req.error_message, :red
