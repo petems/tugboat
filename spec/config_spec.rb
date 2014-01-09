@@ -33,12 +33,13 @@ describe Tugboat::Configuration do
     let(:size)               { "66" }
     let(:ssh_key_id)         { '1234' }
     let(:private_networking) { 'true' }
+    let(:backups_enabled)    { 'true' }
 
     let(:config)           { config = Tugboat::Configuration.instance }
 
     before :each do
       # Create a temporary file
-      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking)
+      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
     end
 
     it "can be created" do
@@ -90,6 +91,11 @@ describe Tugboat::Configuration do
       private_networking = data["defaults"]
       expect(private_networking).to have_key("private_networking")
     end
+
+    it "should have backups_enabled set" do
+      backups_enabled = data["defaults"]
+      expect(backups_enabled).to have_key("backups_enabled")
+    end
   end
   describe "backwards compatible" do
     let(:client_key)       { "foo" }
@@ -104,6 +110,7 @@ describe Tugboat::Configuration do
     let(:config_default_size)       { Tugboat::Configuration::DEFAULT_SIZE }
     let(:config_default_ssh_key)    { Tugboat::Configuration::DEFAULT_SSH_KEY }
     let(:config_default_networking) { Tugboat::Configuration::DEFAULT_PRIVATE_NETWORKING }
+    let(:config_default_backups)    { Tugboat::Configuration::DEFAULT_BACKUPS_ENABLED }
     let(:backwards_config) {
       {
                 "authentication" => { "client_key" => client_key, "api_key" => api_key },
@@ -143,6 +150,11 @@ describe Tugboat::Configuration do
     it "should use default private networking option if not in configuration" do
       private_networking = config.default_private_networking
       expect(private_networking).to eql config_default_networking
+    end
+
+    it "should use default backups_enabled if not in the configuration" do
+      backups_enabled = config.default_backups_enabled
+      expect(backups_enabled).to eql config_default_backups
     end
 
   end

@@ -19,9 +19,10 @@ module Tugboat
         size     = ask "Enter your default size ID (optional, defaults to 66 (512MB)):"
         ssh_key  = ask "Enter your default ssh key ID (optional, defaults to none):"
         private_networking = ask "Enter your default for private networking (optional, defaults to false):"
+        backups_enabled = ask "Enter your default for enabling backups (optional, defaults to false):"
 
         # Write the config file.
-        env['config'].create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking)
+        env['config'].create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled)
         env['config'].reload!
 
         @app.call(env)
