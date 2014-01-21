@@ -10,6 +10,12 @@ module Tugboat
           exit 1
         end
 
+        # If the user passes the global `-q/--quiet` flag, redirect
+        # stdout
+        if env["user_quiet"] == true
+          $stdout = File.new('/dev/null', 'w')
+        end
+
         @app.call(env)
       end
     end

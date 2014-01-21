@@ -9,6 +9,8 @@ module Tugboat
 
     !check_unknown_options
 
+    class_option :quiet, type: :boolean, aliases: "-q"
+
     map "--version"      => :version,
         "-v"             => :version,
         "password-reset" => :password_reset
@@ -33,7 +35,9 @@ module Tugboat
     $USER environment variable.
     "
     def authorize
-      Middleware.sequence_authorize.call({})
+      Middleware.sequence_authorize.call({
+        "user_quiet" => options[:quiet]
+        })
     end
 
     desc "verify", "Check your DigitalOcean credentials"
@@ -42,12 +46,16 @@ module Tugboat
     to the API without errors.
     "
     def verify
-      Middleware.sequence_verify.call({})
+      Middleware.sequence_verify.call({
+        "user_quiet" => options[:quiet]
+        })
     end
 
     desc "droplets", "Retrieve a list of your droplets"
     def droplets
-      Middleware.sequence_list_droplets.call({})
+      Middleware.sequence_list_droplets.call({
+        "user_quiet" => options[:quiet]
+        })
     end
 
     desc "images", "Retrieve a list of your images"
@@ -59,6 +67,7 @@ module Tugboat
     def images
       Middleware.sequence_list_images.call({
         "user_show_global_images" => options[:global],
+        "user_quiet" => options[:quiet]
         })
     end
 
@@ -95,7 +104,8 @@ module Tugboat
         "user_droplet_ssh_port" => options[:ssh_port],
         "user_droplet_ssh_user" => options[:ssh_user],
         "user_droplet_ssh_opts" => options[:ssh_opts],
-        "user_droplet_ssh_command" => options[:ssh_command]
+        "user_droplet_ssh_command" => options[:ssh_command],
+        "user_quiet" => options[:quiet]
       })
     end
 
@@ -133,7 +143,8 @@ module Tugboat
         "create_droplet_ssh_key_ids" => options[:keys],
         "create_droplet_private_networking" => options[:private_networking],
         "create_droplet_backups_enabled" => options[:backups_enabled],
-        "create_droplet_name" => name
+        "create_droplet_name" => name,
+        "user_quiet" => options[:quiet]
       })
     end
 
@@ -155,7 +166,8 @@ module Tugboat
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_confirm_action" => options[:confirm],
-        "user_droplet_fuzzy_name" => name
+        "user_droplet_fuzzy_name" => name,
+        "user_quiet" => options[:quiet]
       })
     end
 
@@ -177,7 +189,8 @@ module Tugboat
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_hard" => options[:hard],
-        "user_droplet_fuzzy_name" => name
+        "user_droplet_fuzzy_name" => name,
+        "user_quiet" => options[:quiet]
       })
     end
 
@@ -199,7 +212,8 @@ module Tugboat
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_hard" => options[:hard],
-        "user_droplet_fuzzy_name" => name
+        "user_droplet_fuzzy_name" => name,
+        "user_quiet" => options[:quiet]
       })
     end
 
@@ -216,7 +230,8 @@ module Tugboat
       Middleware.sequence_info_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
-        "user_droplet_fuzzy_name" => name
+        "user_droplet_fuzzy_name" => name,
+        "user_quiet" => options[:quiet]
       })
     end
 
@@ -234,7 +249,8 @@ module Tugboat
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
-        "user_snapshot_name" => snapshot_name
+        "user_snapshot_name" => snapshot_name,
+        "user_quiet" => options[:quiet]
       })
     end
 
@@ -247,7 +263,7 @@ module Tugboat
     method_option  "key",
                    :type => :string,
                    :aliases => "-k",
-                   :desc => "The string of the key"                   
+                   :desc => "The string of the key"
     method_option "path",
                   :type => :string,
                   :aliases => "-p",
@@ -257,12 +273,15 @@ module Tugboat
         "add_key_name" => name,
         "add_key_pub_key" => options[:key],
         "add_key_file_path" => options[:path],
+        "user_quiet" => options[:quiet]
       })
     end
 
     desc "regions", "Show regions"
     def regions
-      Middleware.sequence_regions.call({})
+      Middleware.sequence_regions.call({
+        "user_quiet" => options[:quiet]
+        })
     end
 
     desc "version", "Show version"
@@ -272,7 +291,9 @@ module Tugboat
 
     desc "sizes", "Show available droplet sizes"
     def sizes
-      Middleware.sequence_sizes.call({})
+      Middleware.sequence_sizes.call({
+        "user_quiet" => options[:quiet]
+        })
     end
 
     desc "start FUZZY_NAME", "Start a droplet"
@@ -288,7 +309,8 @@ module Tugboat
       Middleware.sequence_start_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
-        "user_droplet_fuzzy_name" => name
+        "user_droplet_fuzzy_name" => name,
+        "user_quiet" => options[:quiet]
       })
     end
 
@@ -311,7 +333,8 @@ module Tugboat
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_size" => options[:size],
-        "user_droplet_fuzzy_name" => name
+        "user_droplet_fuzzy_name" => name,
+        "user_quiet" => options[:quiet]
       })
     end
 
@@ -324,11 +347,13 @@ module Tugboat
                   :type => :string,
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
+
     def password_reset(name=nil)
       Middleware.sequence_password_reset.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
-        "user_droplet_fuzzy_name" => name
+        "user_droplet_fuzzy_name" => name,
+        "user_quiet" => options[:quiet]
       })
     end
 
@@ -346,14 +371,17 @@ module Tugboat
                   :aliases => "-s",
                   :default => "active",
                   :desc => "The state of the droplet to wait for"
+
     def wait(name=nil)
       Middleware.sequence_wait.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_desired_state" => options[:state],
-        "user_droplet_fuzzy_name" => name
+        "user_droplet_fuzzy_name" => name,
+        "user_quiet" => options[:quiet]
       })
     end
   end
 end
+
 
