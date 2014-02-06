@@ -161,11 +161,11 @@ module Tugboat
                   :type => :boolean,
                   :aliases => "-c",
                   :desc => "Skip confirmation of the action"
-    method_option "imageId",
+    method_option "image_id",
                   :type => :numeric,
                   :aliases => "-k",
                   :desc => "The ID of the image"
-    method_option "imageName",
+    method_option "image_name",
                   :type => :string,
                   :aliases => "-m",
                   :desc => "The exact name of the image"
@@ -174,8 +174,8 @@ module Tugboat
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
-        "user_image_id" => options[:imageId],
-        "user_image_name" => options[:imageName],
+        "user_image_id" => options[:image_id],
+        "user_image_name" => options[:image_name],
         "user_image_fuzzy_name" => image_name,
         "user_confirm_action" => options[:confirm],
         "user_quiet" => options[:quiet]
