@@ -205,6 +205,29 @@ module Tugboat
       })
     end
 
+    desc "destroy_image FUZZY_NAME", "Destroy an image"
+    method_option "id",
+                  :type => :string,
+                  :aliases => "-i",
+                  :desc => "The ID of the image."
+    method_option "name",
+                  :type => :string,
+                  :aliases => "-n",
+                  :desc => "The exact name of the image"
+    method_option "confirm",
+                  :type => :boolean,
+                  :aliases => "-c",
+                  :desc => "Skip confirmation of the action"
+    def destroy_image(name=nil)
+      Middleware.sequence_destroy_image.call({
+        "user_image_id" => options[:id],
+        "user_image_name" => options[:name],
+        "user_image_fuzzy_name" => name,
+        "user_confirm_action" => options[:confirm],
+        "user_quiet" => options[:quiet]
+      })
+    end
+
     desc "restart FUZZY_NAME", "Restart a droplet"
     method_option "id",
                   :type => :string,
