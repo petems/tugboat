@@ -11,8 +11,10 @@ module Tugboat
     autoload :CheckDropletInactive, "tugboat/middleware/check_droplet_inactive"
     autoload :ConfirmAction, "tugboat/middleware/confirm_action"
     autoload :CreateDroplet, "tugboat/middleware/create_droplet"
+    autoload :RebuildDroplet, "tugboat/middleware/rebuild_droplet"
     autoload :DestroyDroplet, "tugboat/middleware/destroy_droplet"
     autoload :FindDroplet, "tugboat/middleware/find_droplet"
+    autoload :FindImage, "tugboat/middleware/find_image"
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
     autoload :InfoDroplet, "tugboat/middleware/info_droplet"
     autoload :InjectClient, "tugboat/middleware/inject_client"
@@ -138,6 +140,19 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use CreateDroplet
+      end
+    end
+
+    # Rebuild a droplet
+    def self.sequence_rebuild_droplet
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use FindImage
+        use ConfirmAction
+        use RebuildDroplet
       end
     end
 

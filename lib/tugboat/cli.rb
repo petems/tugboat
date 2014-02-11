@@ -148,6 +148,40 @@ module Tugboat
       })
     end
 
+    desc "rebuild FUZZY_NAME IMAGE_NAME", "Rebuild a droplet."
+    method_option "id",
+                  :type => :string,
+                  :aliases => "-i",
+                  :desc => "The ID of the droplet."
+    method_option "name",
+                  :type => :string,
+                  :aliases => "-n",
+                  :desc => "The exact name of the droplet"
+    method_option "confirm",
+                  :type => :boolean,
+                  :aliases => "-c",
+                  :desc => "Skip confirmation of the action"
+    method_option "image_id",
+                  :type => :numeric,
+                  :aliases => "-k",
+                  :desc => "The ID of the image"
+    method_option "image_name",
+                  :type => :string,
+                  :aliases => "-m",
+                  :desc => "The exact name of the image"
+    def rebuild(name=nil, image_name=nil)
+      Middleware.sequence_rebuild_droplet.call({
+        "user_droplet_id" => options[:id],
+        "user_droplet_name" => options[:name],
+        "user_droplet_fuzzy_name" => name,
+        "user_image_id" => options[:image_id],
+        "user_image_name" => options[:image_name],
+        "user_image_fuzzy_name" => image_name,
+        "user_confirm_action" => options[:confirm],
+        "user_quiet" => options[:quiet]
+      })
+    end
+
     desc "destroy FUZZY_NAME", "Destroy a droplet"
     method_option "id",
                   :type => :string,
