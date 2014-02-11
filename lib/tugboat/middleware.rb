@@ -18,6 +18,7 @@ module Tugboat
     autoload :FindImage, "tugboat/middleware/find_image"
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
     autoload :InfoDroplet, "tugboat/middleware/info_droplet"
+    autoload :InfoImage, "tugboat/middleware/info_image"
     autoload :InjectClient, "tugboat/middleware/inject_client"
     autoload :InjectConfiguration, "tugboat/middleware/inject_configuration"
     autoload :ListDroplets, "tugboat/middleware/list_droplets"
@@ -119,6 +120,17 @@ module Tugboat
         use InjectClient
         use FindDroplet
         use InfoDroplet
+      end
+    end
+
+    # Show information about an image
+    def self.sequence_info_image
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindImage
+        use InfoImage
       end
     end
 

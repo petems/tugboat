@@ -292,6 +292,24 @@ module Tugboat
       })
     end
 
+    desc "info_image FUZZY_NAME [OPTIONS]", "Show an image's information"
+    method_option "id",
+                  :type => :string,
+                  :aliases => "-i",
+                  :desc => "The ID of the image."
+    method_option "name",
+                  :type => :string,
+                  :aliases => "-n",
+                  :desc => "The exact name of the image"
+    def info_image(name=nil)
+      Middleware.sequence_info_image.call({
+        "user_image_id" => options[:id],
+        "user_image_name" => options[:name],
+        "user_image_fuzzy_name" => name,
+        "user_quiet" => options[:quiet]
+      })
+    end
+
     desc "snapshot SNAPSHOT_NAME FUZZY_NAME [OPTIONS]", "Queue a snapshot of the droplet."
     method_option "id",
                   :type => :string,
