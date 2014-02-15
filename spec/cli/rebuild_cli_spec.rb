@@ -71,7 +71,7 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage fuzzy
            to_return(:status => 200, :body => fixture("show_droplets"), :headers => {})
             
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => '{"status": "OK", "image": {"id": 478, "name": "NLP Final", "distribution": "Ubuntu"}}', :headers => {})
+           to_return(:status => 200, :body => fixture("show_image"), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
@@ -92,7 +92,7 @@ Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage
            to_return(:status => 200, :body => fixture("show_droplet"))
             
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => '{"status": "OK", "image": {"id": 478, "name": "NLP Final", "distribution": "Ubuntu"}}', :headers => {})
+           to_return(:status => 200, :body => fixture("show_image"), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
@@ -113,7 +113,7 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage id provide
            to_return(:status => 200, :body => fixture("show_droplets"))
             
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => '{"status": "OK", "image": {"id": 478, "name": "NLP Final", "distribution": "Ubuntu"}}', :headers => {})
+           to_return(:status => 200, :body => fixture("show_image"), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})

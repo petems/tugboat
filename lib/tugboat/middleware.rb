@@ -13,10 +13,12 @@ module Tugboat
     autoload :CreateDroplet, "tugboat/middleware/create_droplet"
     autoload :RebuildDroplet, "tugboat/middleware/rebuild_droplet"
     autoload :DestroyDroplet, "tugboat/middleware/destroy_droplet"
+    autoload :DestroyImage, "tugboat/middleware/destroy_image"
     autoload :FindDroplet, "tugboat/middleware/find_droplet"
     autoload :FindImage, "tugboat/middleware/find_image"
     autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
     autoload :InfoDroplet, "tugboat/middleware/info_droplet"
+    autoload :InfoImage, "tugboat/middleware/info_image"
     autoload :InjectClient, "tugboat/middleware/inject_client"
     autoload :InjectConfiguration, "tugboat/middleware/inject_configuration"
     autoload :ListDroplets, "tugboat/middleware/list_droplets"
@@ -121,6 +123,17 @@ module Tugboat
       end
     end
 
+    # Show information about an image
+    def self.sequence_info_image
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindImage
+        use InfoImage
+      end
+    end
+
     # SSH into a droplet
     def self.sequence_ssh_droplet
       ::Middleware::Builder.new do
@@ -165,6 +178,18 @@ module Tugboat
         use FindDroplet
         use ConfirmAction
         use DestroyDroplet
+      end
+    end
+
+    # Destroy an image
+    def self.sequence_destroy_image
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindImage
+        use ConfirmAction
+        use DestroyImage
       end
     end
 
