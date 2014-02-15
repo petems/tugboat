@@ -1,4 +1,24 @@
-## 0.0.9 (UNRELEASED)
+## 0.2.1 (UNRELEASED)
+
+
+## 0.2.0 (Feburary 15, 2014)
+
+FEATURES:
+
+  - [Pierre](https://github.com/spearway) added an `info-image` and `destroy-image`
+  command, letting you deal with your images from Tugboat. It's great. [GH-91]
+  - [Pierre](https://github.com/spearway) also added a `rebuild` command,
+  letting you take an existing droplet and recreate it from scratch. [GH-90]
+
+IMPROVEMENTS:
+
+  - [Dale](https://github.com/Vel0x) made it so fuzzy name searching
+  is case insensitive. We wonder why we didn't do this earlier, really. [GH-88]
+  - There is now a `--quiet/-q` flag, which makes Tugboat be silent, as it
+  can get a little obnoxious. [GH-87]
+  - [Andrew](https://github.com/4n3w) hooked up a `backups_enabled` option
+  for creating droplets. [GH-82]
+
 
 ## 0.0.9 (December 24, 2013)
 
