@@ -42,8 +42,17 @@ describe Tugboat::CLI do
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
 
-      File.read(tmp_path).should include "image: '#{image}'", "region: '#{region}'", "size: '#{size}'", "ssh_user: #{ssh_user}", "ssh_key_path: #{ssh_key_path}", "ssh_port: '#{ssh_port}'", "ssh_key: '#{ssh_key_id}'", "private_networking: '#{private_networking}'", "backups_enabled: '#{backups_enabled}'"
+      config = YAML.load_file(tmp_path)
 
+      config["defaults"]["image"].should eq image
+      config["defaults"]["region"].should eq region
+      config["defaults"]["size"].should eq size
+      config["ssh"]["ssh_user"].should eq ssh_user
+      config["ssh"]["ssh_key_path"].should eq ssh_key_path
+      config["ssh"]["ssh_port"].should eq ssh_port
+      config["defaults"]["ssh_key"].should eq ssh_key_id
+      config["defaults"]["private_networking"].should eq private_networking
+      config["defaults"]["backups_enabled"].should eq backups_enabled
     end
 
     it "sets defaults if no input given" do
@@ -77,8 +86,15 @@ describe Tugboat::CLI do
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
 
-      File.read(tmp_path).should include "image: '350076'", "region: '1'", "size: '66'", "ssh_user: #{ENV['USER']}", "ssh_key_path: ~/.ssh/id_rsa", "ssh_port: '22'", "ssh_key: ''"
+      config = YAML.load_file(tmp_path)
 
+      config["defaults"]["image"].should eq "350076"
+      config["defaults"]["region"].should eq "1"
+      config["defaults"]["size"].should eq "66"
+      config["ssh"]["ssh_user"].should eq ENV["USER"]
+      config["ssh"]["ssh_key_path"].should eq "~/.ssh/id_rsa2"
+      config["ssh"]["ssh_port"].should eq "22"
+      config["defaults"]["ssh_key"].should eq ""
     end
   end
 
