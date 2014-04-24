@@ -26,7 +26,7 @@ describe Tugboat::CLI do
       $stdin.should_receive(:gets).and_return(ssh_port)
       $stdout.should_receive(:print).with("Enter your default region ID (optional, defaults to 1 (New York)): ")
       $stdin.should_receive(:gets).and_return(region)
-      $stdout.should_receive(:print).with("Enter your default image ID (optional, defaults to 350076 (Ubuntu 13.04 x64)): ")
+      $stdout.should_receive(:print).with("Enter your default image ID (optional, defaults to 3240036 (Ubuntu 14.04 x64)): ")
       $stdin.should_receive(:gets).and_return(image)
       $stdout.should_receive(:print).with("Enter your default size ID (optional, defaults to 66 (512MB)): ")
       $stdin.should_receive(:gets).and_return(size)
@@ -70,7 +70,7 @@ describe Tugboat::CLI do
       $stdin.should_receive(:gets).and_return('')
       $stdout.should_receive(:print).with("Enter your default region ID (optional, defaults to 1 (New York)): ")
       $stdin.should_receive(:gets).and_return('')
-      $stdout.should_receive(:print).with("Enter your default image ID (optional, defaults to 350076 (Ubuntu 13.04 x64)): ")
+      $stdout.should_receive(:print).with("Enter your default image ID (optional, defaults to 3240036 (Ubuntu 14.04 x64)): ")
       $stdin.should_receive(:gets).and_return('')
       $stdout.should_receive(:print).with("Enter your default size ID (optional, defaults to 66 (512MB)): ")
       $stdin.should_receive(:gets).and_return('')
@@ -88,7 +88,7 @@ describe Tugboat::CLI do
 
       config = YAML.load_file(tmp_path)
 
-      config["defaults"]["image"].should eq "350076"
+      config["defaults"]["image"].should eq "3240036"
       config["defaults"]["region"].should eq "1"
       config["defaults"]["size"].should eq "66"
       config["ssh"]["ssh_user"].should eq ENV["USER"]
