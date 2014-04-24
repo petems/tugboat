@@ -58,7 +58,7 @@ module Tugboat
         })
     end
 
-    desc "images", "Retrieve a list of your images"
+    desc "images [OPTIONS]", "Retrieve a list of your images"
     method_option "global",
                   :type => :boolean,
                   :default => false,
