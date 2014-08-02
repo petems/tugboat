@@ -3,27 +3,40 @@ module Tugboat
     # Check if the client has set-up configuration yet.
     class ListDroplets < Base
       def call(env)
-        ocean = env["ocean"]
+        client = env["client"]
+        ui = env["ui"]
 
-        droplet_list = ocean.droplets.list.droplets
+        ui.say("Requesting droplets", :output)
 
-        if droplet_list.empty?
-          say "You don't appear to have any droplets.", :red
-          say "Try creating one with #{GREEN}\`tugboat create\`#{CLEAR}"
-        else
-          droplet_list.each do |droplet|
+        droplets = client.droplet.all(per_page: 200).droplets
 
-            if droplet.status == "active"
-              status_color = GREEN
-            else
-              status_color = RED
-            end
+        if droplets.empty?
+          ui.say("No droplets were found on your account", :warn)
+          ui.say("You can create one with `tugboat create`", :info)
+          ui.fail
+        end
 
-            say "#{droplet.name} (ip: #{droplet.ip_address}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region_id}, id: #{droplet.id})"
-          end
+        ui.say("Listing droplets", :output)
+        ui.say("Showing a maximum of 200 droplets", :info)
+        ui.say("", :info)
+
+        droplets.each do |droplet|
+          ui.say("#{droplet.name.ljust(30)} #{droplet_status(droplet.status)}", :data)
+          ui.say("#{droplet.networks.v4[0].ip_address.ljust(30)} #{droplet.networks.v6[0].ip_address if droplet.networks.v6.any?}", :info)
+          ui.say("#{droplet.image.name.ljust(30)} #{droplet.region.name}", :info)
+          ui.say("#{droplet.size!.slug.ljust(30)} #{droplet.id}", :info)
+          ui.say("", :info)
         end
 
         @app.call(env)
+      end
+
+      def droplet_status(status)
+        if status == "active"
+          return "#{Tugboat::UI::GREEN}#{status}#{Tugboat::UI::CLEAR}"
+        else
+          return "#{Tugboat::UI::YELLOW}#{status}#{Tugboat::UI::CLEAR}"
+        end
       end
     end
   end

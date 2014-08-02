@@ -33,12 +33,8 @@ module Tugboat
       return
     end
 
-    def client_key
-      @data['authentication']['client_key']
-    end
-
-    def api_key
-      @data['authentication']['api_key']
+    def token
+      @data['authentication']['token']
     end
 
     def ssh_key_path
@@ -129,9 +125,7 @@ module Tugboat
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
         data = {
-                "authentication" => {
-                  "client_key" => client,
-                  "api_key" => api },
+                "token" => token,
                 "ssh" => {
                   "ssh_user" => ssh_user,
                   "ssh_key_path" => ssh_key_path ,
