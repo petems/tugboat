@@ -4,16 +4,11 @@ module Tugboat
     class CheckConfiguration < Base
       def call(env)
         config = env["config"]
+        ui = env["ui"]
 
-        if !config || !config.data || !config.access_token
-          say "You must run `tugboat authorize` in order to connect to DigitalOcean", :red
-          exit 1
-        end
-
-        # If the user passes the global `-q/--quiet` flag, redirect
-        # stdout
-        if env["user_quiet"]
-          $stdout = File.new('/dev/null', 'w')
+        if !config || !config.data || !config.token
+          ui.say("You must run `tugboat authorize` in order to connect to DigitalOcean", :fail)
+          ui.fail
         end
 
         @app.call(env)
