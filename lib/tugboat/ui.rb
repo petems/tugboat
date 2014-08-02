@@ -11,7 +11,26 @@ module Tugboat
 
     def initialize(machine=false, colors=true)
       @machine_readable = machine
-      @colors = colors
+      if @machine_readable == true
+        @colors = false
+      else
+        @colors = colors
+      end
+    end
+
+    def green(message)
+      return message if !@colors
+      return "#{GREEN}#{message}#{CLEAR}"
+    end
+
+    def yellow(message)
+      return message if !@colors
+      return "#{YELLOW}#{message}#{CLEAR}"
+    end
+
+    def red(message)
+      return message if !@colors
+      return "#{RED}#{message}#{CLEAR}"
     end
 
     # Outputs the message
@@ -30,7 +49,7 @@ module Tugboat
       # new lines.
       if @machine_readable
         message.gsub!("\n", ",") # Newlines to commas
-        message.gsub!(/\s/, ' ') # Make spaces/indents single
+        message.gsub!(/\s+/, ' ') # Make spaces/indents single
         puts "#{Time.now.utc.to_i},#{message}"
         return
       end
