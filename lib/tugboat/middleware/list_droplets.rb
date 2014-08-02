@@ -21,7 +21,7 @@ module Tugboat
         ui.say("", :info)
 
         droplets.each do |droplet|
-          ui.say("#{droplet.name.ljust(30)} #{droplet_status(droplet.status)}", :data)
+          ui.say("#{droplet.name.ljust(30)} #{droplet_status(droplet.status, ui)}", :data)
           ui.say("#{droplet.networks.v4[0].ip_address.ljust(30)} #{droplet.networks.v6[0].ip_address if droplet.networks.v6.any?}", :info)
           ui.say("#{droplet.image.name.ljust(30)} #{droplet.region.name}", :info)
           ui.say("#{droplet.size!.slug.ljust(30)} #{droplet.id}", :info)
@@ -31,11 +31,11 @@ module Tugboat
         @app.call(env)
       end
 
-      def droplet_status(status)
+      def droplet_status(status, ui)
         if status == "active"
-          return "#{Tugboat::UI::GREEN}#{status}#{Tugboat::UI::CLEAR}"
+          return ui.green(status)
         else
-          return "#{Tugboat::UI::YELLOW}#{status}#{Tugboat::UI::CLEAR}"
+          return ui.yellow(status)
         end
       end
     end
