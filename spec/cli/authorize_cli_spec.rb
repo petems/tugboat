@@ -37,8 +37,12 @@ describe Tugboat::CLI do
       $stdout.should_receive(:print).with("Enter your default for enabling backups (optional, defaults to false): ")
       $stdin.should_receive(:gets).and_return(backups_enabled)
 
-
       @cli.authorize
+
+      expect($stdout.string).to include("Note: You can get this information from https://cloud.digitalocean.com/api_access")
+      expect($stdout.string).to include("Also Note: Tugboat is setup to work with v1 of the Digital Ocean API (https://developers.digitalocean.com/v1/regions/)")
+      expect($stdout.string).to include("To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`.")
+      expect($stdout.string).to include("Defaults can be changed at any time in your ~/.tugboat configuration file.")
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
 
@@ -81,6 +85,10 @@ describe Tugboat::CLI do
       $stdout.should_receive(:print).with("Enter your default for enabling backups (optional, defaults to false): ")
       $stdin.should_receive(:gets).and_return('')
 
+      expect($stdout.string).to include("Note: You can get this information from https://cloud.digitalocean.com/api_access")
+      expect($stdout.string).to include("Also Note: Tugboat is setup to work with v1 of the Digital Ocean API (https://developers.digitalocean.com/v1/regions/)")
+      expect($stdout.string).to include("To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`.")
+      expect($stdout.string).to include("Defaults can be changed at any time in your ~/.tugboat configuration file.")
 
       @cli.authorize
 

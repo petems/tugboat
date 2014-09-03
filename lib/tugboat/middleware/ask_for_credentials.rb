@@ -3,7 +3,8 @@ module Tugboat
     # Ask for user credentials from the command line, then write them out.
     class AskForCredentials < Base
       def call(env)
-        say "Note: You can get this information from digitalocean.com/api_access", :yellow
+        say "Note: You can get this information from https://cloud.digitalocean.com/api_access", :yellow
+        say "Also Note: Tugboat is setup to work with v1 of the Digital Ocean API (https://developers.digitalocean.com/v1/regions/)", :yellow
         say
         client_key = ask "Enter your client key:"
         api_key = ask "Enter your API key:"
