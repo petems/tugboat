@@ -84,6 +84,42 @@ Backups Active:   false
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
     end
 
+    it "allows choice of multiple droplets" do
+      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
+           to_return(:status => 200, :body => fixture("show_droplets_fuzzy"))
+
+      stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
+           to_return(:status => 200, :body => fixture("show_droplet_fuzzy"))
+
+      $stdout.should_receive(:print).exactly(7).times
+      # $stdout.should_receive(:print).with("Droplet fuzzy name provided. Finding droplet ID...")
+      # $stdout.should_receive(:print).with("Multiple droplets found: ")
+      # $stdout.should_receive(:print).with("Please choose a droplet: [\"0\", \"1\"]")
+      $stdin.should_receive(:gets).and_return('0')
+
+      @cli.info("test")
+
+      expect($stdout.string).to eq <<-eos
+Multiple droplets found.
+
+0) test222 (100823)
+1) test223 (100824)
+
+
+Name:             test222
+ID:               100823
+Status:           \e[32mactive\e[0m
+IP:               33.33.33.10
+Region ID:        1
+Image ID:         420
+Size ID:          33
+Backups Active:   false
+      eos
+
+      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
+      expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
+    end
+
   end
 
 end
