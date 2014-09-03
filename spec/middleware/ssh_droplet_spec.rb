@@ -4,13 +4,13 @@ describe Tugboat::Middleware::SSHDroplet do
   include_context "spec"
 
   before do
-    Kernel.stub(:exec)
+    allow(Kernel).to receive(:exec)
   end
 
   describe ".call" do
 
     it "exec ssh with correct options" do
-      Kernel.should_receive(:exec).with("ssh",
+      expect(Kernel).to receive(:exec).with("ssh",
                         "-o", "IdentitiesOnly=yes",
                         "-o", "LogLevel=ERROR",
                         "-o", "StrictHostKeyChecking=no",
@@ -26,7 +26,7 @@ describe Tugboat::Middleware::SSHDroplet do
     end
 
     it "executes ssh with custom options" do
-      Kernel.should_receive(:exec).with("ssh",
+      expect(Kernel).to receive(:exec).with("ssh",
                         "-o", "IdentitiesOnly=yes",
                         "-o", "LogLevel=ERROR",
                         "-o", "StrictHostKeyChecking=no",

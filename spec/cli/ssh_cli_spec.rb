@@ -7,7 +7,7 @@ describe Tugboat::CLI do
     it "tries to fetch the droplet's IP from the API" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
         to_return(:status => 200, :body => fixture("show_droplets"))
-      Kernel.stub(:exec)
+      allow(Kernel).to receive(:exec)
 
       @cli.ssh("test222")
 
@@ -19,7 +19,7 @@ describe Tugboat::CLI do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:status => 200, :body => fixture("show_droplets_inactive"))
 
-      Kernel.stub(:exec)
+      allow(Kernel).to receive(:exec)
 
       @cli.options = @cli.options.merge(:name => droplet_name)
 

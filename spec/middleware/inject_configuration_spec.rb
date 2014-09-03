@@ -8,7 +8,7 @@ describe Tugboat::Middleware::InjectConfiguration do
     it "loads the configuration into the environment" do
       described_class.new(app).call(env)
 
-      env["config"].should == config
+      expect(env["config"]).to eq(config)
     end
 
   end

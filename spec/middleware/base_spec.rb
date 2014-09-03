@@ -7,7 +7,7 @@ describe Tugboat::Middleware::Base do
 
   describe ".initialize" do
     it "prints a clear line" do
-      $stdout.should_receive(:print).with("")
+      expect($stdout).to receive(:print).with("")
       klass.new({})
     end
   end

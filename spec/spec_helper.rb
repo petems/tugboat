@@ -15,7 +15,7 @@ require "shared/environment"
 
 RSpec.configure do |config|
   # Pretty tests
-  config.color_enabled = true
+  config.color = true
 
   config.order = :random
 end

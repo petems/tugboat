@@ -14,7 +14,7 @@ describe Tugboat::CLI do
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.rebuild("foo", "NLP Final")
 
@@ -34,7 +34,7 @@ Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:id => droplet_id)
       @cli.rebuild("foo", "NLP Final")
@@ -55,7 +55,7 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage fuzzy name
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:name => droplet_name)
       @cli.rebuild("foo", "NLP Final")
@@ -76,7 +76,7 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage fuzzy
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:image_id => 478)
       @cli.rebuild("foo", "NLP Final")
@@ -97,7 +97,7 @@ Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:id => droplet_id, :image_id => 478)
       @cli.rebuild("foo", "NLP Final")
@@ -118,7 +118,7 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage id provide
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:name => droplet_name, :image_id => 478)
       @cli.rebuild("foo", "NLP Final")
@@ -139,7 +139,7 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage id pr
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:image_name => "NLP Final")
       @cli.rebuild("foo", "NLP Final")
@@ -160,7 +160,7 @@ Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:id => droplet_id, :image_name => "NLP Final")
       @cli.rebuild("foo", "NLP Final")
@@ -181,7 +181,7 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage name provi
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
            to_return(:status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:name => droplet_name, :image_name => "NLP Final")
       @cli.rebuild("foo", "NLP Final")
