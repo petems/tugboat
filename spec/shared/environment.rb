@@ -10,6 +10,7 @@ shared_context "spec" do
   let(:ssh_key_path)       { "~/.ssh/id_rsa2" }
   let(:droplet_name)       { "foo" }
   let(:droplet_ip)         { "33.33.33.10" }
+  let(:droplet_ip_private) { "10.20.30.40" }
   let(:droplet_id)         { 1234 }
   let(:region)             { '3' }
   let(:image)              { '345791'}

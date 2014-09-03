@@ -17,9 +17,9 @@ describe Tugboat::Middleware::SSHDroplet do
                         "-o", "UserKnownHostsFile=/dev/null",
                         "-i", ssh_key_path,
                         "-p", ssh_port,
-                        "#{ssh_user}@#{droplet_ip}")
+                        "#{ssh_user}@#{droplet_ip_private}")
 
-      env["droplet_ip"] = droplet_ip
+      env["droplet_ip_private"] = droplet_ip_private
       env["config"] = config
 
       described_class.new(app).call(env)
@@ -33,6 +33,7 @@ describe Tugboat::Middleware::SSHDroplet do
                         "-o", "UserKnownHostsFile=/dev/null",
                         "-i", ssh_key_path,
                         "-p", ssh_port,
+                        "-e",
                         "-q",
                         "-X",
                         "#{ssh_user}@#{droplet_ip}",
@@ -41,7 +42,8 @@ describe Tugboat::Middleware::SSHDroplet do
       env["droplet_ip"] = droplet_ip
       env["config"] = config
       env["user_droplet_ssh_command"] = "echo hello"
-      env["user_droplet_ssh_opts"] = "-q -X"
+      env["user_droplet_use_public_ip"] = true
+      env["user_droplet_ssh_opts"] = "-e -q -X"
 
       described_class.new(app).call(env)
     end
