@@ -19,6 +19,7 @@ describe Tugboat::Middleware::SSHDroplet do
                         "-p", ssh_port,
                         "#{ssh_user}@#{droplet_ip_private}")
 
+      env["droplet_ip"] = droplet_ip
       env["droplet_ip_private"] = droplet_ip_private
       env["config"] = config
 
@@ -40,6 +41,7 @@ describe Tugboat::Middleware::SSHDroplet do
                         "echo hello")
 
       env["droplet_ip"] = droplet_ip
+      env["droplet_ip_private"] = droplet_ip_private
       env["config"] = config
       env["user_droplet_ssh_command"] = "echo hello"
       env["user_droplet_use_public_ip"] = true
