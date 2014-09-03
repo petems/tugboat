@@ -26,6 +26,10 @@ module Tugboat
         ssh_user = env["user_droplet_ssh_user"] || env["config"].ssh_user
         host_string = "#{ssh_user}@#{env["droplet_ip"]}"
 
+        if env["droplet_ip_private"] and not env["user_droplet_use_public_ip"]
+          host_string = "#{ssh_user}@#{env["droplet_ip_private"]}"
+        end
+
         options << host_string
 
         if env["user_droplet_ssh_command"]

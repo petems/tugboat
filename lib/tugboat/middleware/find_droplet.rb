@@ -33,6 +33,7 @@ module Tugboat
           env["droplet_id"] = req.droplet.id
           env["droplet_name"] = "(#{req.droplet.name})"
           env["droplet_ip"] = req.droplet.ip_address
+          env["droplet_ip_private"] = req.droplet.private_ip_address
           env["droplet_status"] = req.droplet.status
         end
 
@@ -47,6 +48,7 @@ module Tugboat
               env["droplet_id"] = d.id
               env["droplet_name"] = "(#{d.name})"
               env["droplet_ip"] = d.ip_address
+              env["droplet_ip_private"] = d.private_ip_address
               env["droplet_status"] = d.status
             end
           end
@@ -83,6 +85,7 @@ module Tugboat
             env["droplet_id"] = found_droplets.first.id
             env["droplet_name"] = "(#{found_droplets.first.name})"
             env["droplet_ip"] = found_droplets.first.ip_address
+            env["droplet_ip_private"] = found_droplets.first.private_ip_address
             env["droplet_status"] = found_droplets.first.status
           elsif found_droplets.length > 1
             # Did we run the multiple questionairre?
@@ -99,6 +102,7 @@ module Tugboat
             env["droplet_id"] = found_droplets[choice.to_i].id
             env["droplet_name"] = found_droplets[choice.to_i].name
             env["droplet_ip"] = found_droplets[choice.to_i].ip_address
+            env["droplet_ip_private"] = found_droplets[choice.to_i].private_ip_address
             env["droplet_status"] = found_droplets[choice.to_i].status
           end
 
