@@ -21,13 +21,6 @@ module Tugboat
     DEFAULT_PRIVATE_NETWORKING = 'false'
     DEFAULT_BACKUPS_ENABLED = 'false'
 
-    DEFAULT_SSH_PORT     = '22'
-    DEFAULT_SSH_KEY      = ''
-
-    DEFAULT_REGION   = '1'
-    DEFAULT_IMAGE    = '284203'
-    DEFAULT_SIZE     = '66'
-
     DEFAULT_SORT_BY  = 'name'
 
     def initialize
