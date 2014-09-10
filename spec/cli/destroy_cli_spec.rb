@@ -84,6 +84,25 @@ Queuing destroy for 100823 (foo)...done
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
       expect(a_request(:delete, "https://api.digitalocean.com/droplets/100823/destroy?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
     end
+
+    it "does not destroy a droplet if no is chosen" do
+      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
+           to_return(:status => 200, :body => fixture("show_droplets"))
+
+      stub_request(:delete, "https://api.digitalocean.com/droplets/100823/destroy?api_key=#{api_key}&client_id=#{client_key}").
+           to_return(:status => 200, :body => fixture("show_droplet"))
+
+      $stdin.should_receive(:gets).and_return("n")
+
+      expect {@cli.destroy("foo")}.to raise_error(SystemExit)      
+
+      expect($stdout.string).to eq <<-eos
+Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nWarning! Potentially destructive action. Please confirm [y/n]: Aborted due to user request.
+      eos
+
+      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
+      expect(a_request(:delete, "https://api.digitalocean.com/droplets/100823/destroy?api_key=#{api_key}&client_id=#{client_key}")).to_not have_been_made
+    end
   end
 
 end
