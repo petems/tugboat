@@ -91,21 +91,17 @@ Backups Active:   false
       stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:status => 200, :body => fixture("show_droplet_fuzzy"))
 
-      $stdout.should_receive(:print).exactly(7).times
-      # $stdout.should_receive(:print).with("Droplet fuzzy name provided. Finding droplet ID...")
-      # $stdout.should_receive(:print).with("Multiple droplets found: ")
-      # $stdout.should_receive(:print).with("Please choose a droplet: [\"0\", \"1\"]")
       $stdin.should_receive(:gets).and_return('0')
 
       @cli.info("test")
 
       expect($stdout.string).to eq <<-eos
-Multiple droplets found.
+Droplet fuzzy name provided. Finding droplet ID...Multiple droplets found.
 
 0) test222 (100823)
 1) test223 (100824)
 
-
+Please choose a droplet: ["0", "1"] 
 Name:             test222
 ID:               100823
 Status:           \e[32mactive\e[0m
