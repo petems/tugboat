@@ -19,7 +19,7 @@ foo (ip: 33.33.33.10, status: \e[32mactive\e[0m, region: 1, id: 100823)
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
     end
 
-    it "returns an error when no droplets exist" do
+    it "returns an error message when no droplets exist" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:status => 200, :body => fixture("show_droplets_empty"))
 
