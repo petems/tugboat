@@ -3,15 +3,18 @@
   "regions": [
     {
       "id": 1,
-      "name": "Region 1"
+      "name": "Region 1",
+      "slug": "reg1"
     },
     {
       "id": 2,
-      "name": "Region 2"
+      "name": "Region 2",
+      "slug": "reg2"
     },
     {
       "id": 3,
-      "name": "Region 3"
+      "name": "Region 3",
+      "slug": "reg3"
     }
   ]
 }

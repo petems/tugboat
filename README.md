@@ -155,9 +155,9 @@ Optionally, list images provided by DigitalOcean as well.
 
     $ tugboat regions
     Regions:
-    New York 1 (id: 1)
-    Amsterdam 1 (id: 2)
-    San Francisco 1 (id: 3)
+    New York 1 (id: 1) (slug: nyc1)
+    Amsterdam 1 (id: 2) (slug: ams1)
+    San Francisco 1 (id: 3) (slug: sfo1)
 
 ### List SSH Keys
 
@@ -190,7 +190,7 @@ ask tugboat about it.
 For a complete overview of all of the available commands, run:
 
     $ tugboat help
-    
+
 
 Depending on your local configuration, you may need to install a CA bundle (OS X only) using [homebrew](http://brew.sh/) to commmunicate with DigitalOcean through SSL/TLS:
 
