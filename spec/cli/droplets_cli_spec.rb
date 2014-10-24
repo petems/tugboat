@@ -11,9 +11,9 @@ describe Tugboat::CLI do
       @cli.droplets
 
       expect($stdout.string).to eq <<-eos
-test222 (ip: 33.33.33.10, status: \e[32mactive\e[0m, region: 1, id: 100823)
-test223 (ip: 33.33.33.10, status: \e[32mactive\e[0m, region: 1, id: 100823)
-foo (ip: 33.33.33.10, status: \e[32mactive\e[0m, region: 1, id: 100823)
+\e[32mON \e[0m foo                            33.33.33.10     @ New York 1        #100823
+\e[32mON \e[0m test222                        33.33.33.10     @ New York 1        #100823
+\e[32mON \e[0m test223                        33.33.33.10     @ New York 1        #100823
       eos
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
@@ -47,4 +47,3 @@ Try creating one with \e[32m`tugboat create`\e[0m
   end
 
 end
-
