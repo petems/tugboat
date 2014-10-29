@@ -20,6 +20,7 @@ Name:             foo
 ID:               100823
 Status:           \e[32mactive\e[0m
 IP:               33.33.33.10
+Private IP:       10.20.30.40
 Region ID:        1
 Image ID:         420
 Size ID:          33
@@ -47,6 +48,7 @@ Name:             foo
 ID:               100823
 Status:           \e[32mactive\e[0m
 IP:               33.33.33.10
+Private IP:       10.20.30.40
 Region ID:        1
 Image ID:         420
 Size ID:          33
@@ -74,6 +76,7 @@ Name:             foo
 ID:               100823
 Status:           \e[32mactive\e[0m
 IP:               33.33.33.10
+Private IP:       10.20.30.40
 Region ID:        1
 Image ID:         420
 Size ID:          33

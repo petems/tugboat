@@ -84,6 +84,10 @@ module Tugboat
                   :type => :string,
                   :aliases => "-p",
                   :desc => "The custom SSH Port to connect to"
+    method_option "use_public_ip",
+                  :type => :boolean,
+                  :aliases => "-e",
+                  :desc => "Use public IP while private IP is present"
     method_option "ssh_user",
                   :type => :string,
                   :aliases => "-u",
@@ -103,6 +107,7 @@ module Tugboat
         "user_droplet_fuzzy_name" => name,
         "user_droplet_ssh_port" => options[:ssh_port],
         "user_droplet_ssh_user" => options[:ssh_user],
+        "user_droplet_use_public_ip" => options[:use_public_ip],
         "user_droplet_ssh_opts" => options[:ssh_opts],
         "user_droplet_ssh_command" => options[:ssh_command],
         "user_quiet" => options[:quiet]

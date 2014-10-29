@@ -11,9 +11,9 @@ describe Tugboat::CLI do
       @cli.droplets
 
       expect($stdout.string).to eq <<-eos
-test222 (ip: 33.33.33.10, status: \e[32mactive\e[0m, region: 1, id: 100823)
+test222 (ip: 33.33.33.10, privateip: 10.20.30.1, status: \e[32mactive\e[0m, region: 1, id: 100823)
 test223 (ip: 33.33.33.10, status: \e[32mactive\e[0m, region: 1, id: 100823)
-foo (ip: 33.33.33.10, status: \e[32mactive\e[0m, region: 1, id: 100823)
+foo (ip: 33.33.33.10, privateip: 10.20.30.40, status: \e[32mactive\e[0m, region: 1, id: 100823)
       eos
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made

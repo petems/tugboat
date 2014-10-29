@@ -13,13 +13,17 @@ module Tugboat
         else
           droplet_list.each do |droplet|
 
+            if droplet.private_ip_address
+              private_ip = ", privateip: #{droplet.private_ip_address}"
+            end
+
             if droplet.status == "active"
               status_color = GREEN
             else
               status_color = RED
             end
 
-            say "#{droplet.name} (ip: #{droplet.ip_address}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region_id}, id: #{droplet.id})"
+            say "#{droplet.name} (ip: #{droplet.ip_address}#{private_ip}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region_id}, id: #{droplet.id})"
           end
         end
 

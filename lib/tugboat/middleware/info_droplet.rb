@@ -24,6 +24,11 @@ module Tugboat
         say "ID:               #{droplet.id}"
         say "Status:           #{status_color}#{droplet.status}#{CLEAR}"
         say "IP:               #{droplet.ip_address}"
+
+        if droplet.private_ip_address
+	        say "Private IP:       #{droplet.private_ip_address}"
+	      end
+
         say "Region ID:        #{droplet.region_id}"
         say "Image ID:         #{droplet.image_id}"
         say "Size ID:          #{droplet.size_id}"
