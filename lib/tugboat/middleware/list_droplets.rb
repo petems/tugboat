@@ -3,9 +3,9 @@ module Tugboat
     # Check if the client has set-up configuration yet.
     class ListDroplets < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
-        droplet_list = ocean.droplets.list.droplets
+        droplet_list = ocean.droplet.all.droplets
 
         if droplet_list.empty?
           say "You don't appear to have any droplets.", :red
