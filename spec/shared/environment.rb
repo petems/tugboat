@@ -3,8 +3,7 @@ require 'spec_helper'
 shared_context "spec" do
   # Default configuration and
   let(:config)             { Tugboat::Configuration.instance }
-  let(:client_key)         { "foo" }
-  let(:api_key)            { "bar" }
+  let(:access_key)         { "foo" }
   let(:ssh_user)           { "baz" }
   let(:ssh_port)           { "33" }
   let(:ssh_key_path)       { "~/.ssh/id_rsa2" }
@@ -20,7 +19,7 @@ shared_context "spec" do
   let(:ssh_public_key)     { 'ssh-dss A123= user@host' }
   let(:private_networking) { 'false'}
   let(:backups_enabled)    { 'false'}
-  let(:ocean)              { DigitalOcean::API.new :client_id => client_key, :api_key =>api_key }
+  let(:ocean)              { Barge::Client.new(access_token: access_key) }
   let(:app)                { lambda { |env| } }
   let(:env)                { {} }
 
@@ -31,7 +30,7 @@ shared_context "spec" do
     @cli = Tugboat::CLI.new
 
     # Set a temprary project path and create fake config.
-    config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
+    config.create_config_file(access_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
     config.reload!
 
     # Keep track of the old stderr / out
