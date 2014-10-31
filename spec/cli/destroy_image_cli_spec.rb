@@ -11,7 +11,7 @@ describe Tugboat::CLI do
       stub_request(:get, "https://api.digitalocean.com/images/478/destroy?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:status => 200, :body => fixture("show_image"))
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.destroy_image("NLP Final")
 
@@ -30,7 +30,7 @@ Image fuzzy name provided. Finding image ID...done\e[0m, 478 (NLP Final)\nWarnin
       stub_request(:get, "https://api.digitalocean.com/images/478/destroy?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:status => 200, :body => fixture("show_image"))
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:id => 478)
       @cli.destroy_image
@@ -51,7 +51,7 @@ Image id provided. Finding Image...done\e[0m, 478 (NLP Final)\nWarning! Potentia
       stub_request(:get, "https://api.digitalocean.com/images/478/destroy?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:status => 200, :body => fixture("show_image"))
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:name => "NLP Final")
       @cli.destroy_image

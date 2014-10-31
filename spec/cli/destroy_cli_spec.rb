@@ -11,7 +11,7 @@ describe Tugboat::CLI do
       stub_request(:delete, "https://api.digitalocean.com/droplets/100823/destroy?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:status => 200, :body => fixture("show_droplet"))
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.destroy("foo")
 
@@ -30,7 +30,7 @@ Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nWarni
       stub_request(:delete, "https://api.digitalocean.com/droplets/100823/destroy?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:status => 200, :body => fixture("show_droplet"))
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:id => droplet_id)
       @cli.destroy
@@ -51,7 +51,7 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nWarning! Potenti
       stub_request(:delete, "https://api.digitalocean.com/droplets/100823/destroy?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:status => 200, :body => fixture("show_droplet"))
 
-      $stdin.should_receive(:gets).and_return("y")
+      expect($stdin).to receive(:gets).and_return("y")
 
       @cli.options = @cli.options.merge(:name => droplet_name)
       @cli.destroy
