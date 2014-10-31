@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class DestroyDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         say "Queuing destroy for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
 

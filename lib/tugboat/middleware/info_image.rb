@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class InfoImage < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         req = ocean.images.show env["image_id"]
 

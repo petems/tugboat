@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class ListImages < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
         my_images = ocean.images.list :filter => "my_images"
         if env["user_show_global_images"]
           global = ocean.images.list :filter => "global"

@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class PasswordReset < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         say "Queuing password reset for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
         res = ocean.droplets.password_reset env["droplet_id"]

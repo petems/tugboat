@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class CreateDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         say "Queueing creation of droplet '#{env["create_droplet_name"]}'...", nil, false
 

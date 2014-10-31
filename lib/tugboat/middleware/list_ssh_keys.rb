@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class ListSSHKeys < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
         ssh_keys = ocean.ssh_keys.list
 
         say "SSH Keys:"

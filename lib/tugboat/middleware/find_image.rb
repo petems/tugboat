@@ -3,7 +3,7 @@ module Tugboat
     # Check if the client has set-up configuration yet.
     class FindImage < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
         user_fuzzy_name = env['user_image_fuzzy_name']
         user_image_name = env['user_image_name']
         user_image_id = env['user_image_id']
