@@ -19,7 +19,6 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = ">= 1.9.2"
 
   gem.add_dependency "thor", "~> 0.18.1"
-  gem.add_dependency "digital_ocean", "~> 1.0.1"
   gem.add_dependency "barge", "~> 0.10.0"
   gem.add_dependency "middleware" , "~> 0.1.0"
 
