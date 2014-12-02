@@ -28,7 +28,7 @@ module Tugboat
     details to tugboat. First, you are asked for your API and Client keys,
     which are stored in ~/.tugboat.
 
-    You can retrieve your credentials from digitalocean.com/api_access.
+    You can retrieve your credentials from cloud.digitalocean.com/api_access.
 
     Optionally, you can configure the default SSH key path and username
     used for `tugboat ssh`. These default to '~/.ssh/id_rsa' and the
