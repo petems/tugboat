@@ -6,13 +6,13 @@ describe Tugboat::CLI do
   describe "rebuild" do
     it "rebuilds a droplet with a fuzzy name based on an image with a fuzy name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -29,10 +29,10 @@ Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -50,10 +50,10 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage fuzzy name
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -68,13 +68,13 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage fuzzy
 
     it "rebuilds a droplet with a fuzzy name based on an image with an id" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -92,10 +92,10 @@ Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -113,10 +113,10 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage id provide
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -131,13 +131,13 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage id pr
 
     it "rebuilds a droplet with a fuzzy name based on an image with a name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -155,10 +155,10 @@ Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -176,10 +176,10 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage name provi
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -194,13 +194,13 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage name 
 
     it "rebuilds a droplet with confirm flag set" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"), :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }', :headers => {})
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
 
       @cli.options = @cli.options.merge(:confirm => "no")
       @cli.rebuild("foo", "NLP Final")
