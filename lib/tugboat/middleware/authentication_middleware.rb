@@ -24,7 +24,7 @@ module Tugboat
         if env[:body].is_a?(Hashie::Rash)
           puts "\n#{RED}#{env[:body].error_message}#{CLEAR}\n\n"
         end
-        puts "Double-check your parameters and configuration (in your ~/.tugboat file)"
+        puts "Double-check your parameters and configuration (in your ~/.tugboat file)" if env[:status] == 401
         exit 1
       end
     end
