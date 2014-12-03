@@ -6,7 +6,7 @@ describe Tugboat::CLI do
   describe "droplets" do
     it "shows a list when droplets exist" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       @cli.droplets
 
@@ -21,7 +21,7 @@ foo (ip: 33.33.33.10, privateip: 10.20.30.40, status: \e[32mactive\e[0m, region:
 
     it "returns an error message when no droplets exist" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets_empty"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets_empty"))
 
       @cli.droplets
 
@@ -34,7 +34,7 @@ Try creating one with \e[32m`tugboat create`\e[0m
     end
     it "shows no output when --quiet is set" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets_empty"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets_empty"))
 
       @cli.options = @cli.options.merge(:quiet => true)
       @cli.droplets

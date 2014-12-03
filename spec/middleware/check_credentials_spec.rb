@@ -6,7 +6,7 @@ describe Tugboat::Middleware::CheckCredentials do
   describe ".call" do
     it "raises SystemExit with no configuration" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-         to_return(:status => 200, :body => "<html>You are being redirected...</html>")
+         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => "<html>You are being redirected...</html>")
 
       # Inject the client.
       env["ocean"] = ocean

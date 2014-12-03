@@ -6,7 +6,7 @@ describe Tugboat::CLI do
   describe "images" do
     it "shows a list" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
-           to_return(:status => 200, :body => fixture("show_images"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       @cli.images
 
@@ -21,7 +21,7 @@ NLP Final (id: 478, distro: Ubuntu)
 
     it "acknowledges when my images are empty" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
-      to_return(:status => 200, :body => fixture("show_images_empty"))
+      to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images_empty"))
 
       @cli.images
 
@@ -35,10 +35,10 @@ No images found
 
     it "acknowledges when my images are empty and also shows a global list" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
-           to_return(:status => 200, :body => fixture("show_images_empty"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images_empty"))
 
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=global").
-           to_return(:status => 200, :body => fixture("show_images_global"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images_global"))
 
       @cli.options = @cli.options.merge(:global => true)
       @cli.images
@@ -59,10 +59,10 @@ Global Final (id: 479, distro: Ubuntu)
 
     it "shows a global list" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
-           to_return(:status => 200, :body => fixture("show_images"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=global").
-           to_return(:status => 200, :body => fixture("show_images_global"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images_global"))
 
       @cli.options = @cli.options.merge(:global => true)
       @cli.images

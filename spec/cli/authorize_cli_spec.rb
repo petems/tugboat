@@ -8,7 +8,7 @@ describe Tugboat::CLI do
   describe "authorize" do
     before do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-      to_return(:status => 200)
+      to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200)
     end
 
     it "asks the right questions and checks credentials" do
