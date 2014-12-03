@@ -104,7 +104,7 @@ Droplet fuzzy name provided. Finding droplet ID...Multiple droplets found.
 0) test222 (100823)
 1) test223 (100824)
 
-Please choose a droplet: ["0", "1"]
+Please choose a droplet: ["0", "1"] 
 Name:             test222
 ID:               100823
 Status:           \e[32mactive\e[0m
