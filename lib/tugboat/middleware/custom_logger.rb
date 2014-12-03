@@ -7,7 +7,7 @@ module Tugboat
         @app = app
         @logger = options.fetch(:logger) {
           require 'logger'
-          ::Logger.new(STDOUT)
+          ::Logger.new($stdout)
         }
       end
 
