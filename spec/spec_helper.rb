@@ -24,8 +24,8 @@ def project_path
   File.expand_path("../..", __FILE__)
 end
 
-def fixture(fixture_name)
-  File.new(project_path + "/spec/fixtures/#{fixture_name}.json")
+def fixture(fixture_name, format='json')
+  File.new(project_path + "/spec/fixtures/#{fixture_name}.#{format}")
 end
 
 ENV["TUGBOAT_CONFIG_PATH"] = project_path + "/tmp/tugboat"
