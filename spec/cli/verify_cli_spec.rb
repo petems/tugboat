@@ -24,7 +24,7 @@ describe Tugboat::CLI do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'text/html'}, :status => 500, :body => fixture('500','html'))
       expect { @cli.verify }.to raise_error(SystemExit)
-      expect($stdout.string).to eq "\e[31mthe server responded with status 401!\e[0m\n\n\e[31mAccess Denied\e[0m\n\nDouble-check your parameters and configuration (in your ~/.tugboat file)\n"
+      expect($stdout.string).to eq "\e[31mthe server responded with status 500!\e[0m\n"
       expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
     end
 
