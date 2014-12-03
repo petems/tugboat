@@ -14,7 +14,7 @@ module Tugboat
           faraday.use CustomLogger if ENV['DEBUG']
           faraday.request  :url_encoded
           faraday.response :rashify
-          faraday.response :json
+          faraday.response :json, :content_type => /\b(json|json-home)$/
           faraday.adapter Faraday.default_adapter
         end
       end
