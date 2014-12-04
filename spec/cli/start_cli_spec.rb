@@ -6,9 +6,9 @@ describe Tugboat::CLI do
   describe "start" do
     it "starts the droplet with a fuzzy name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplets_inactive"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets_inactive"))
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/power_on?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplet"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.start("foo")
 
@@ -23,9 +23,9 @@ Queuing start for 100823 (foo)...done
 
     it "starts the droplet with an id" do
       stub_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}").
-       to_return(:status => 200, :body => fixture("show_droplet_inactive"))
+       to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet_inactive"))
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/power_on?api_key=#{api_key}&client_id=#{client_key}").
-       to_return(:status => 200, :body => fixture("show_droplet"))
+       to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.options = @cli.options.merge(:id => droplet_id)
       @cli.start
@@ -42,9 +42,9 @@ Queuing start for 100823 (foo)...done
 
     it "starts the droplet with a name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplets_inactive"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets_inactive"))
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/power_on?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplet"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.options = @cli.options.merge(:name => droplet_name)
       @cli.start
@@ -60,7 +60,7 @@ Queuing start for 100823 (foo)...done
 
     it "does not start a droplet that is inactive" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       @cli.options = @cli.options.merge(:name => droplet_name)
       expect {@cli.start}.to raise_error(SystemExit)

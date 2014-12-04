@@ -6,9 +6,9 @@ describe Tugboat::CLI do
   describe "resize" do
     it "resizes a droplet with a fuzzy name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplets"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
       stub_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123").
-        to_return(:status => 200, :body => '{"status":"OK","event_id":456}')
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{"status":"OK","event_id":456}')
 
       @cli.options = @cli.options.merge(:size => 123)
       @cli.resize("foo")
@@ -26,9 +26,9 @@ Queuing resize for 100823 (foo)...done
 
     it "resizes a droplet with an id" do
       stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplet"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
       stub_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123").
-        to_return(:status => 200, :body => '{"status":"OK","event_id":456}')
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{"status":"OK","event_id":456}')
 
       @cli.options = @cli.options.merge(:size => 123, :id => 100823)
       @cli.resize
@@ -46,9 +46,9 @@ Queuing resize for 100823 (foo)...done
 
     it "resizes a droplet with a name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplets"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
       stub_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123").
-        to_return(:status => 200, :body => '{"status":"OK","event_id":456}')
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{"status":"OK","event_id":456}')
 
       @cli.options = @cli.options.merge(:size => 123, :name => "foo")
       @cli.resize
@@ -66,9 +66,9 @@ Queuing resize for 100823 (foo)...done
 
     it "raises SystemExit when a request fails" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplets"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
       stub_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123").
-        to_return(:status => 500, :body => '{"status":"ERROR","message":"Some error"}')
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 500, :body => '{"status":"ERROR","message":"Some error"}')
 
       @cli.options = @cli.options.merge(:size => 123)
       expect { @cli.resize("foo") }.to raise_error(SystemExit)

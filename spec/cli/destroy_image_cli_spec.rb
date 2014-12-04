@@ -6,10 +6,10 @@ describe Tugboat::CLI do
   describe "destroy image" do
     it "destroys an image with a fuzzy name" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_images"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:get, "https://api.digitalocean.com/images/478/destroy?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_image"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -25,10 +25,10 @@ Image fuzzy name provided. Finding image ID...done\e[0m, 478 (NLP Final)\nWarnin
 
     it "destroys an image with an id" do
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_image"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       stub_request(:get, "https://api.digitalocean.com/images/478/destroy?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_image"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -46,10 +46,10 @@ Image id provided. Finding Image...done\e[0m, 478 (NLP Final)\nWarning! Potentia
 
     it "destroys an image with a name" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_images"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:get, "https://api.digitalocean.com/images/478/destroy?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_image"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       expect($stdin).to receive(:gets).and_return("y")
 
@@ -67,10 +67,10 @@ Image name provided. Finding image ID...done\e[0m, 478 (NLP Final)\nWarning! Pot
 
     it "destroys an image with confirm flag set" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_images"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:get, "https://api.digitalocean.com/images/478/destroy?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_image"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       @cli.options = @cli.options.merge(:name => "NLP Final")
       @cli.options = @cli.options.merge(:confirm => true)

@@ -6,7 +6,7 @@ describe Tugboat::CLI do
   describe "sizes" do
     it "shows a list" do
       stub_request(:get, "https://api.digitalocean.com/sizes?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_sizes"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_sizes"))
 
       @cli.sizes
 

@@ -6,10 +6,10 @@ describe Tugboat::CLI do
   describe "show" do
     it "shows an image with a fuzzy name" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_images"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_image"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       @cli.info_image("NLP Final")
 
@@ -23,10 +23,10 @@ Image fuzzy name provided. Finding image ID...done\e[0m, 478 (NLP Final)\n\nName
 
     it "shows an image with an id" do
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_image"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_image"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       @cli.options = @cli.options.merge(:id => 478)
       @cli.info_image
@@ -40,10 +40,10 @@ Image id provided. Finding Image...done\e[0m, 478 (NLP Final)\n\nName:          
 
     it "shows an image with a name" do
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_images"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_image"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
       @cli.options = @cli.options.merge(:name => "NLP Final")
       @cli.info_image

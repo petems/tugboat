@@ -6,10 +6,10 @@ describe Tugboat::CLI do
   describe "halt" do
     it "halts a droplet with a fuzzy name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/shutdown?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplet"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.halt("foo")
 
@@ -24,9 +24,9 @@ Queuing shutdown for 100823 (foo)...done
 
     it "halts a droplet hard when the hard option is used" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplets"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/power_off?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplet"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.options = @cli.options.merge(:hard => true)
       @cli.halt("foo")
@@ -42,10 +42,10 @@ Queuing hard shutdown for 100823 (foo)...done
 
     it "halts a droplet with an id" do
       stub_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplet"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/shutdown?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplet"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.options = @cli.options.merge(:id => droplet_id)
       @cli.halt
@@ -62,10 +62,10 @@ Queuing shutdown for 100823 (foo)...done
 
     it "halts a droplet with a name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/shutdown?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplet"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.options = @cli.options.merge(:name => droplet_name)
       @cli.halt
@@ -82,7 +82,7 @@ Queuing shutdown for 100823 (foo)...done
 
     it "does not halt a droplet that is off" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets_inactive"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets_inactive"))
 
       @cli.options = @cli.options.merge(:name => droplet_name)
       expect {@cli.halt}.to raise_error(SystemExit)

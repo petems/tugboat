@@ -6,7 +6,7 @@ describe Tugboat::CLI do
   describe "keys" do
     it "shows a list" do
       stub_request(:get, "https://api.digitalocean.com/ssh_keys?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_keys"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_keys"))
 
       @cli.keys
 

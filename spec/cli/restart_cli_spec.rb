@@ -6,10 +6,10 @@ describe Tugboat::CLI do
   describe "restarts a droplet" do
     it "with a fuzzy name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/reboot?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplet"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.restart("foo")
 
@@ -24,9 +24,9 @@ Queuing restart for 100823 (foo)...done
 
     it "restarts a droplet hard when the hard option is used" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplets"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/power_cycle?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:status => 200, :body => fixture("show_droplet"))
+        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.options = @cli.options.merge(:hard => true)
       @cli.restart("foo")
@@ -42,10 +42,10 @@ Queuing hard restart for 100823 (foo)...done
 
     it "with an id" do
       stub_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplet"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/reboot?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplet"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.options = @cli.options.merge(:id => droplet_id)
       @cli.restart
@@ -62,10 +62,10 @@ Queuing restart for 100823 (foo)...done
 
     it "with a name" do
       stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplets"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
 
       stub_request(:put, "https://api.digitalocean.com/droplets/100823/reboot?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:status => 200, :body => fixture("show_droplet"))
+           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
       @cli.options = @cli.options.merge(:name => droplet_name)
       @cli.restart
