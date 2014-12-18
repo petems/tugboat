@@ -52,6 +52,18 @@ eos
 
       @cli.create('--help')
       expect($stdout.string).to eq help_text + help_text
+
+    end
+
+    it "does not clobber named droplets that contain the word help" do
+      stub_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id=#{image}&name=somethingblahblah--help&backups_enabled=#{backups_enabled}&private_networking=#{private_networking}&region_id=#{region}&size_id=#{size}&ssh_key_ids=#{ssh_key_id}").
+         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{"status":"OK"}')
+
+      @cli.create('somethingblahblah--help')
+
+      expect($stdout.string).to eq <<-eos
+Queueing creation of droplet 'somethingblahblah--help'...done
+      eos
     end
   end
 end
