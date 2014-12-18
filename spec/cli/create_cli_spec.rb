@@ -29,8 +29,29 @@ Queueing creation of droplet '#{droplet_name}'...done
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id=555&name=foo&backups_enabled=#{backups_enabled}&private_networking=#{private_networking}&region_id=3&size_id=666&ssh_key_ids=4321")).to have_been_made
     end
+
+    it "doesn't create a droplet when mistyping help command" do
+      help_text = <<-eos
+Usage:
+  rspec create NAME
+
+Options:
+  -s, [--size=N]              # The size_id of the droplet
+  -i, [--image=N]             # The image_id of the droplet
+  -r, [--region=N]            # The region_id of the droplet
+  -k, [--keys=KEYS]           # A comma separated list of SSH key ids to add to the droplet
+  -p, [--private-networking]  # Enable private networking on the droplet
+  -b, [--backups-enabled]     # Enable backups on the droplet
+  -q, [--quiet]               
+
+Create a droplet.
+eos
+
+      @cli.create('help')
+      expect($stdout.string).to eq help_text
+
+      @cli.create('--help')
+      expect($stdout.string).to eq help_text + help_text
+    end
   end
-
-
 end
-
