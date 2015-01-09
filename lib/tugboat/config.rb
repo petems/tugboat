@@ -53,6 +53,10 @@ module Tugboat
       @data['ssh']['ssh_port']
     end
 
+    def use_public_ip
+      @data['use_public_ip']
+    end
+
     def default_region
       @data['defaults'].nil? ? DEFAULT_REGION : @data['defaults']['region']
     end
