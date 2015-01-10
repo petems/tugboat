@@ -9,7 +9,7 @@ module Tugboat
           "-o", "LogLevel=ERROR",
           "-o", "StrictHostKeyChecking=no",
           "-o", "UserKnownHostsFile=/dev/null",
-          "-i", env["config"].ssh_key_path.to_s]
+          "-i", File.expand_path(env["config"].ssh_key_path.to_s)]
 
         if env["user_droplet_ssh_port"]
           options.push("-p", env["user_droplet_ssh_port"].to_s)
