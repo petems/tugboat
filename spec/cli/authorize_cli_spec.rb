@@ -24,9 +24,9 @@ describe Tugboat::CLI do
       expect($stdin).to receive(:gets).and_return(ssh_user)
       expect($stdout).to receive(:print).with("Enter your SSH port number (optional, defaults to 22): ")
       expect($stdin).to receive(:gets).and_return(ssh_port)
-      expect($stdout).to receive(:print).with("Enter your default region ID (optional, defaults to 1 (New York)): ")
+      expect($stdout).to receive(:print).with("Enter your default region ID (optional, defaults to 8 (New York)): ")
       expect($stdin).to receive(:gets).and_return(region)
-      expect($stdout).to receive(:print).with("Enter your default image ID (optional, defaults to 3240036 (Ubuntu 14.04 x64)): ")
+      expect($stdout).to receive(:print).with("Enter your default image ID (optional, defaults to 9801950 (Ubuntu 14.04 x64)): ")
       expect($stdin).to receive(:gets).and_return(image)
       expect($stdout).to receive(:print).with("Enter your default size ID (optional, defaults to 66 (512MB)): ")
       expect($stdin).to receive(:gets).and_return(size)
@@ -72,9 +72,9 @@ describe Tugboat::CLI do
       expect($stdin).to receive(:gets).and_return('')
       expect($stdout).to receive(:print).with("Enter your SSH port number (optional, defaults to 22): ")
       expect($stdin).to receive(:gets).and_return('')
-      expect($stdout).to receive(:print).with("Enter your default region ID (optional, defaults to 1 (New York)): ")
+      expect($stdout).to receive(:print).with("Enter your default region ID (optional, defaults to 8 (New York)): ")
       expect($stdin).to receive(:gets).and_return('')
-      expect($stdout).to receive(:print).with("Enter your default image ID (optional, defaults to 3240036 (Ubuntu 14.04 x64)): ")
+      expect($stdout).to receive(:print).with("Enter your default image ID (optional, defaults to 9801950 (Ubuntu 14.04 x64)): ")
       expect($stdin).to receive(:gets).and_return('')
       expect($stdout).to receive(:print).with("Enter your default size ID (optional, defaults to 66 (512MB)): ")
       expect($stdin).to receive(:gets).and_return('')
@@ -96,8 +96,8 @@ describe Tugboat::CLI do
 
       config = YAML.load_file(tmp_path)
 
-      expect(config["defaults"]["image"]).to eq "3240036"
-      expect(config["defaults"]["region"]).to eq "1"
+      expect(config["defaults"]["image"]).to eq "9801950"
+      expect(config["defaults"]["region"]).to eq "8"
       expect(config["defaults"]["size"]).to eq "66"
       expect(config["ssh"]["ssh_user"]).to eq ENV["USER"]
       expect(config["ssh"]["ssh_key_path"]).to eq "~/.ssh/id_rsa2"
