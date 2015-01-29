@@ -25,7 +25,6 @@ module Tugboat
       unless File.exists?(@path)
         @path = ( ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME) )
       end
-      puts "config via: #{@path}"
       @data = self.load_config_file
     end
 
