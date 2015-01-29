@@ -53,6 +53,8 @@ eos
       @cli.create('--help')
       expect($stdout.string).to eq help_text + help_text
 
+      @cli.create('-h')
+      expect($stdout.string).to eq help_text + help_text + help_text
     end
 
     it "does not clobber named droplets that contain the word help" do

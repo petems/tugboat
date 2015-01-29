@@ -141,7 +141,7 @@ module Tugboat
                    :desc => "Enable backups on the droplet"
 
     def create(name)
-      if name =~ /^(--)?help/
+      if name =~ /^(-{0,2}help|-{1,2}h)/
         help('create')
         return
       end
