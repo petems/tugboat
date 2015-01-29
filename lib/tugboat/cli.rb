@@ -40,6 +40,21 @@ module Tugboat
         })
     end
 
+    desc "config", "Show your current config information"
+    long_desc "This shows the current information in the .tugboat config
+    being used by the app
+    "
+    method_option "hide",
+                  :type => :boolean,
+                  :default => true,
+                  :aliases => "-h",
+                  :desc => "Hide your API keys"
+    def config
+      Middleware.sequence_config.call({
+        "user_hide_keys" => options[:hide],
+        })
+    end
+
     desc "verify", "Check your DigitalOcean credentials"
     long_desc "This tests that your credentials created by the \`authorize\`
     command that are stored in ~/.tugboat are correct and allow you to connect

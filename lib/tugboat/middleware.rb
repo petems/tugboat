@@ -9,6 +9,7 @@ module Tugboat
     autoload :CheckCredentials, "tugboat/middleware/check_credentials"
     autoload :CheckDropletActive, "tugboat/middleware/check_droplet_active"
     autoload :CheckDropletInactive, "tugboat/middleware/check_droplet_inactive"
+    autoload :Config, "tugboat/middleware/config"
     autoload :ConfirmAction, "tugboat/middleware/confirm_action"
     autoload :CreateDroplet, "tugboat/middleware/create_droplet"
     autoload :RebuildDroplet, "tugboat/middleware/rebuild_droplet"
@@ -264,6 +265,13 @@ module Tugboat
         use InjectClient
         use FindDroplet
         use PasswordReset
+      end
+    end
+
+    # Returns current used config
+    def self.sequence_config
+      ::Middleware::Builder.new do
+        use Config
       end
     end
 
