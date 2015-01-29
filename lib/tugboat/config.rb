@@ -19,8 +19,12 @@ module Tugboat
     DEFAULT_PRIVATE_NETWORKING = 'false'
     DEFAULT_BACKUPS_ENABLED = 'false'
 
+    # Load config file from current directory, if not exit load from user's home directory
     def initialize
-      @path = ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME)
+      @path = File.join(File.expand_path("."), FILE_NAME)
+      unless File.exists?(@path)
+        @path = ( ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME) )
+      end
       @data = self.load_config_file
     end
 
