@@ -359,7 +359,10 @@ module Tugboat
       Middleware.sequence_ssh_keys.call({})
     end
 
-    desc "add-key NAME", "Upload an ssh public key."
+    desc "add-key KEY-NAME", "Upload an ssh public key to DigitalOcean, to be assigned to a droplet later"
+    long_desc "This uploads a ssh-key to DigitalOcean, which you can then assign to a droplet at
+    creation time so you can connect to it with the key rather than a password.
+    "
     method_option  "key",
                    :type => :string,
                    :aliases => "-k",
