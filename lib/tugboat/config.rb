@@ -95,7 +95,7 @@ module Tugboat
     def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled)
       # Default SSH Key path
       if ssh_key_path.empty?
-        ssh_key_path = File.join(File.expand_path("~"), DEFAULT_SSH_KEY_PATH)
+        ssh_key_path = File.join("~", DEFAULT_SSH_KEY_PATH)
       end
 
       if ssh_user.empty?
