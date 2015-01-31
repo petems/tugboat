@@ -99,7 +99,7 @@ module Tugboat
       end
 
       if ssh_user.empty?
-        ssh_user = ENV['USER']
+        ssh_user = 'root'
       end
 
       if ssh_port.empty?
