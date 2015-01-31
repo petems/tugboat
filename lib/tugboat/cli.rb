@@ -156,6 +156,11 @@ module Tugboat
                    :desc => "Enable backups on the droplet"
 
     def create(name)
+      if name =~ /^(-{0,2}help|-{1,2}h)/
+        help('create')
+        return
+      end
+
       Middleware.sequence_create_droplet.call({
         "create_droplet_size_id" => options[:size],
         "create_droplet_image_id" => options[:image],
