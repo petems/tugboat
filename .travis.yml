@@ -6,4 +6,4 @@ rvm:
   - 2.1.0
 script:
   - "bundle exec rake spec"
-  - "bundle exec rake features:run"
+  - "bundle exec rake features"
