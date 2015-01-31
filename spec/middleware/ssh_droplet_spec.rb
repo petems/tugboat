@@ -50,6 +50,25 @@ describe Tugboat::Middleware::SSHDroplet do
       described_class.new(app).call(env)
     end
 
+    it "executes ssh using public ip setting from config" do
+      config.data["use_public_ip"] = true
+
+      expect(Kernel).to receive(:exec).with("ssh",
+                        "-o", "IdentitiesOnly=yes",
+                        "-o", "LogLevel=ERROR",
+                        "-o", "StrictHostKeyChecking=no",
+                        "-o", "UserKnownHostsFile=/dev/null",
+                        "-i", ssh_key_path,
+                        "-p", ssh_port,
+                        "#{ssh_user}@#{droplet_ip}")
+
+      env["droplet_ip"] = droplet_ip
+      env["droplet_ip_private"] = droplet_ip_private
+      env["config"] = config
+
+      described_class.new(app).call(env)
+    end
+
   end
 
 end
