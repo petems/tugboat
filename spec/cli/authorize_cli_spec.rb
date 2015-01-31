@@ -99,7 +99,7 @@ describe Tugboat::CLI do
       expect(config["defaults"]["image"]).to eq "9801950"
       expect(config["defaults"]["region"]).to eq "8"
       expect(config["defaults"]["size"]).to eq "66"
-      expect(config["ssh"]["ssh_user"]).to eq ENV["USER"]
+      expect(config["ssh"]["ssh_user"]).to eq 'root'
       expect(config["ssh"]["ssh_key_path"]).to eq "~/.ssh/id_rsa2"
       expect(config["ssh"]["ssh_port"]).to eq "22"
       expect(config["defaults"]["ssh_key"]).to eq ""
