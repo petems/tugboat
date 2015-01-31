@@ -40,7 +40,7 @@ describe Tugboat::CLI do
       @cli.authorize
 
       expect($stdout.string).to include("Note: You can get this information from https://cloud.digitalocean.com/api_access")
-      expect($stdout.string).to include("Also Note: Tugboat is setup to work with v1 of the Digital Ocean API (https://developers.digitalocean.com/v1/regions/)")
+      expect($stdout.string).to include("Also Note: Tugboat is setup to work with v1 of the Digital Ocean API (https://developers.digitalocean.com/v1/)")
       expect($stdout.string).to include("To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`.")
       expect($stdout.string).to include("Defaults can be changed at any time in your ~/.tugboat configuration file.")
 
@@ -88,7 +88,7 @@ describe Tugboat::CLI do
       @cli.authorize
 
       expect($stdout.string).to include("Note: You can get this information from https://cloud.digitalocean.com/api_access")
-      expect($stdout.string).to include("Also Note: Tugboat is setup to work with v1 of the Digital Ocean API (https://developers.digitalocean.com/v1/regions/)")
+      expect($stdout.string).to include("Also Note: Tugboat is setup to work with v1 of the Digital Ocean API (https://developers.digitalocean.com/v1/)")
       expect($stdout.string).to include("To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`.")
       expect($stdout.string).to include("Defaults can be changed at any time in your ~/.tugboat configuration file.")
 
