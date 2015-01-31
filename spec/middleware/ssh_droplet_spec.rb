@@ -58,7 +58,7 @@ describe Tugboat::Middleware::SSHDroplet do
                         "-o", "LogLevel=ERROR",
                         "-o", "StrictHostKeyChecking=no",
                         "-o", "UserKnownHostsFile=/dev/null",
-                        "-i", ssh_key_path,
+                        "-i", File.expand_path(ssh_key_path),
                         "-p", ssh_port,
                         "#{ssh_user}@#{droplet_ip}")
 
