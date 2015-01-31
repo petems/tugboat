@@ -4,10 +4,8 @@ require 'cucumber/rake/task'
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => :spec
-
-namespace :features do
-  Cucumber::Rake::Task.new(:run) do |t|
-    t.cucumber_opts = %w(--format pretty --order random)
-  end
+Cucumber::Rake::Task.new(:features) do |t|
+  t.cucumber_opts = %w(--format pretty --order random)
 end
+
+task :default => [:spec, :features]
