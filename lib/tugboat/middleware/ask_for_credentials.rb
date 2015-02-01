@@ -9,13 +9,13 @@ module Tugboat
         client_key = ask "Enter your client key:"
         api_key = ask "Enter your API key:"
         ssh_key_path = ask "Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa):"
-        ssh_user = ask "Enter your SSH user (optional, defaults to #{ENV['USER']}):"
+        ssh_user = ask "Enter your SSH user (optional, defaults to root):"
         ssh_port = ask "Enter your SSH port number (optional, defaults to 22):"
         say
         say "To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`."
         say "Defaults can be changed at any time in your ~/.tugboat configuration file."
         say
-        region   = ask "Enter your default region ID (optional, defaults to 8 (New York)):"
+        region   = ask "Enter your default region ID (optional, defaults to 8 (New York 3)):"
         image    = ask "Enter your default image ID (optional, defaults to 9801950 (Ubuntu 14.04 x64)):"
         size     = ask "Enter your default size ID (optional, defaults to 66 (512MB)):"
         ssh_key  = ask "Enter your default ssh key ID (optional, defaults to none):"
