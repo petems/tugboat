@@ -32,6 +32,10 @@ Run the configuration utility, `tugboat authorize`. You can grab your keys
 
     Authentication with DigitalOcean was successful!
 
+This will create a .tugboat file in your home folder (eg. ~/.tugboat).
+
+Tugboat will look for a .tugboat config file first in the current directory you're running it in, then will look for one in the home directory.
+
 ## Usage
 
 ### Retrieve a list of your droplets
