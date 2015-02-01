@@ -9,7 +9,7 @@ module Tugboat
         client_key = ask "Enter your client key:"
         api_key = ask "Enter your API key:"
         ssh_key_path = ask "Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa):"
-        ssh_user = ask "Enter your SSH user (optional, defaults to #{ENV['USER']}):"
+        ssh_user = ask "Enter your SSH user (optional, defaults to root):"
         ssh_port = ask "Enter your SSH port number (optional, defaults to 22):"
         say
         say "To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`."
