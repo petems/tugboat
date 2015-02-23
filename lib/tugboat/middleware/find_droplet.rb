@@ -28,6 +28,7 @@ module Tugboat
 
         # Easy for us if they provide an id. Just set it to the droplet_id
         if user_droplet_id
+
           if !porcelain
             say "Droplet id provided. Finding Droplet...", nil, false
           end
@@ -53,7 +54,7 @@ module Tugboat
           end
 
           # Look for the droplet by an exact name match.
-          ocean.droplets.list.droplets.each do |d|
+          ocean.droplet.all.droplets.each do |d|
             if d.name == user_droplet_name
               env["droplet_id"] = d.id
               env["droplet_name"] = "(#{d.name})"
@@ -82,7 +83,7 @@ module Tugboat
           found_droplets = []
           choices = []
 
-          ocean.droplets.list.droplets.each_with_index do |d, i|
+          ocean.droplet.all.droplets.each_with_index do |d, i|
             # Check to see if one of the droplet names have the fuzzy string.
             if d.name.upcase.include? user_fuzzy_name.upcase
               found_droplets << d

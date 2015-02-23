@@ -5,7 +5,7 @@ module Tugboat
         ocean = env['barge']
 
         say "Queuing password reset for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
-        res = ocean.droplets.password_reset env["droplet_id"]
+        res = ocean.droplet.password_reset env["droplet_id"]
 
         if res.status == "ERROR"
           say res.error_message, :red
