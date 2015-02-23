@@ -3,11 +3,11 @@ module Tugboat
     class ListSSHKeys < Base
       def call(env)
         ocean = env['barge']
-        ssh_keys = ocean.ssh_keys.list
+        ssh_keys = ocean.key.all.ssh_keys
 
         say "SSH Keys:"
-        ssh_keys.ssh_keys.each do |key|
-          say "#{key.name} (id: #{key.id})"
+        ssh_keys.each do |key|
+          say "Name: #{key.name}, (id: #{key.id}), fingerprint: #{key.fingerprint}"
         end
 
         @app.call(env)
