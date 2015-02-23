@@ -14,7 +14,8 @@ module Tugboat
           droplet_list.each do |droplet|
 
             if droplet.private_ip_address
-              private_ip = ", privateip: #{droplet.private_ip_address}"
+              private_addr = droplet.networks.v4.detect { |address| address.type == 'private' }
+              private_ip = ", privateip: #{private_addr.ip_address}"
             end
 
             if droplet.status == "active"
@@ -23,7 +24,8 @@ module Tugboat
               status_color = RED
             end
 
-            say "#{droplet.name} (ip: #{droplet.ip_address}#{private_ip}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region_id}, id: #{droplet.id})"
+            public_addr = droplet.networks.v4.detect { |address| address.type == 'public' }
+            say "#{droplet.name} (ip: #{public_addr.ip_address}#{private_ip}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region.slug}, id: #{droplet.id})"
           end
         end
 

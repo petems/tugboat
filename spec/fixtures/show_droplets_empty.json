@@ -1,4 +1,7 @@
 {
-  "status":"OK",
-  "droplets":[]
+    "droplets": [],
+    "links": {},
+    "meta": {
+        "total": 0
+    }
 }
