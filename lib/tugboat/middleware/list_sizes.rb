@@ -3,11 +3,11 @@ module Tugboat
     class ListSizes < Base
       def call(env)
         ocean = env['barge']
-        sizes = ocean.sizes.list.sizes
+        sizes = ocean.size.all.sizes
 
         say "Sizes:"
         sizes.each do |size|
-          say "#{size.name} (id: #{size.id})"
+          say "Disk: #{size.disk}GB, Memory: #{size.memory.round}MB (slug: #{size.slug})"
         end
 
         @app.call(env)
