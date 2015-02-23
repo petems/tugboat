@@ -23,8 +23,7 @@ describe Tugboat::Configuration do
   end
 
   describe "the file" do
-    let(:client_key)         { "foo" }
-    let(:api_key)            { "bar" }
+    let(:access_token)       { "foo" }
     let(:ssh_user)           { "baz" }
     let(:ssh_key_path)       { "~/.ssh/id_rsa2" }
     let(:ssh_port)           { "22" }
@@ -39,7 +38,7 @@ describe Tugboat::Configuration do
 
     before :each do
       # Create a temporary file
-      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
+      config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
     end
 
     it "can be created" do
@@ -62,14 +61,9 @@ describe Tugboat::Configuration do
       expect(data).to have_key("ssh")
     end
 
-    it "should have a client key" do
+    it "should have an access token" do
       auth = data["authentication"]
-      expect(auth).to have_key("client_key")
-    end
-
-    it "should have an api key" do
-      auth = data["authentication"]
-      expect(auth).to have_key("api_key")
+      expect(auth).to have_key("access_token")
     end
 
     it "should have an ssh key path" do
