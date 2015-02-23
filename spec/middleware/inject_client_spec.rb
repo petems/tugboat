@@ -15,11 +15,11 @@ describe Tugboat::Middleware::InjectClient do
     it "loads the client into the environment" do
       described_class.new(app).call(env)
 
-      env["ocean"].should be_a DigitalOcean::API
+      env["barge"].should be_a Barge::Client
     end
 
     it "creates a client with values from config file" do
-      DigitalOcean::API.should_receive(:new).with(hash_including(:client_id=>"foo", :api_key=>"bar"))
+      Barge::Client.should_receive(:new).with(hash_including(:access_token=>"foo"))
 
       described_class.new(app).call(env)
     end
