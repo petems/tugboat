@@ -5,8 +5,10 @@ describe Tugboat::CLI do
 
   describe "images" do
     it "shows a list" do
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
+       stub_request(:get, "https://api.digitalocean.com/v2/images?filter=my_images&per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
+         to_return(:status => 200, :body => "", :headers => {})
+      pending 'Waiting on https://github.com/boats/barge/issues/12'
 
       @cli.images
 
@@ -17,14 +19,13 @@ My Images:
 NYTD Backup 1-18-2012 (id: 466, distro: Ubuntu)
 NLP Final (id: 478, distro: Ubuntu)
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images")).to have_been_made
     end
 
     it "acknowledges when my images are empty" do
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
-      to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images_empty"))
-
+       stub_request(:get, "https://api.digitalocean.com/v2/images?filter=my_images&per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
+         to_return(:status => 200, :body => "", :headers => {})
+      pending 'Waiting on https://github.com/boats/barge/issues/12'
       @cli.images
 
       expect($stdout.string).to eq <<-eos
@@ -33,17 +34,13 @@ Listing Your Images
 My Images:
 No images found
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images")).to have_been_made
     end
 
     it "acknowledges when my images are empty and also shows a global list" do
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images_empty"))
-
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=global").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images_global"))
-
+       stub_request(:get, "https://api.digitalocean.com/v2/images?filter=my_images&per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
+         to_return(:status => 200, :body => "", :headers => {})
+      pending 'Waiting on https://github.com/boats/barge/issues/12'
       @cli.options = @cli.options.merge(:global => true)
       @cli.images
 
@@ -56,18 +53,14 @@ NYTD Backup 1-18-2012 (id: 466, distro: Ubuntu)
 NLP Final (id: 478, distro: Ubuntu)
 Global Final (id: 479, distro: Ubuntu)
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images")).to have_been_made
-      expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=global")).to have_been_made
     end
 
     it "shows a global list" do
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
+       stub_request(:get, "https://api.digitalocean.com/v2/images?filter=my_images&per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
+         to_return(:status => 200, :body => "", :headers => {})
 
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=global").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images_global"))
-
+      pending 'Waiting on https://github.com/boats/barge/issues/12'
       @cli.options = @cli.options.merge(:global => true)
       @cli.images
 
@@ -81,9 +74,6 @@ NYTD Backup 1-18-2012 (id: 466, distro: Ubuntu)
 NLP Final (id: 478, distro: Ubuntu)
 Global Final (id: 479, distro: Ubuntu)
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=my_images")).to have_been_made
-      expect(a_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}&filter=global")).to have_been_made
     end
   end
 
