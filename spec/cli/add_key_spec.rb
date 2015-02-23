@@ -19,17 +19,19 @@ describe Tugboat::CLI do
   describe "add-key" do
     it "with a name and key string" do
 
-      stub_request(:get, "https://api.digitalocean.com/ssh_keys/new?api_key=#{api_key}&client_id=#{client_key}&name=#{ssh_key_name}&ssh_pub_key=#{ssh_public_key}").
-      to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("create_ssh_key"))
+      stub_request(:post, "https://api.digitalocean.com/v2/account/keys").
+         with(:body => "{\"name\":\"macbook_pro\",\"public_key\":\"ssh-dss A123= user@host\"}").
+         to_return(:status => 201, :body => fixture('create_ssh_key'), :headers => {})
 
       @cli.options = @cli.options.merge(:key => "#{ssh_public_key}")
       @cli.add_key(ssh_key_name)
 
       expect($stdout.string).to eq <<-eos
-Queueing upload of SSH key '#{ssh_key_name}'...done
+Queueing upload of SSH key 'macbook_pro'...Done!
+SSH Key uploaded with Name: macbook_pro ID: 3
       eos
 
-      expect(a_request(:get, "https://api.digitalocean.com/ssh_keys/new?api_key=#{api_key}&client_id=#{client_key}&name=#{ssh_key_name}&ssh_pub_key=#{ssh_public_key}")).to have_been_made
+      expect(a_request(:post, "https://api.digitalocean.com/v2/account/keys")).to have_been_made
     end
 
     before :each do
@@ -41,8 +43,10 @@ Queueing upload of SSH key '#{ssh_key_name}'...done
     end
 
     it "with name, prompts from file folder" do
-      stub_request(:get, "https://api.digitalocean.com/ssh_keys/new?api_key=#{api_key}&client_id=#{client_key}&name=#{ssh_key_name}&ssh_pub_key=ssh-dss%20A456=%20user@host").
-      to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("create_ssh_key"))
+      stub_request(:post, "https://api.digitalocean.com/v2/account/keys").
+         with(:body => "{\"name\":\"macbook_pro\",\"public_key\":\"ssh-dss A456= user@host\"}",
+              :headers => {'Accept'=>'*/*', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json'}).
+         to_return(:status => 201, :body => fixture('create_ssh_key_from_file'), :headers => {})
 
       expect($stdout).to receive(:print).exactly(4).times
       expect($stdout).to receive(:print).with("Enter the path to your SSH key: ")
@@ -56,10 +60,9 @@ Possible public key paths from #{fake_home}/.ssh:
 
 #{fake_home}/.ssh/id_rsa.pub
 
-done
+Done!
+SSH Key uploaded with Name: cool_key ID: 5
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/ssh_keys/new?api_key=#{api_key}&client_id=#{client_key}&name=#{ssh_key_name}&ssh_pub_key=ssh-dss%20A456=%20user@host")).to have_been_made
     end
 
     after :each do

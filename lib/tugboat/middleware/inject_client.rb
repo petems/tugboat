@@ -9,9 +9,7 @@ module Tugboat
           # later.
           @access_token = env["config"].access_token
 
-          env['barge'] = Barge::Client.new do |config|
-            config.access_token = @access_token
-          end
+          env['barge'] = Barge::Client.new(:access_token => @access_token)
 
           @app.call(env)
         end
