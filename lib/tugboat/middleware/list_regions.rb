@@ -3,7 +3,7 @@ module Tugboat
     class ListRegions < Base
       def call(env)
         ocean = env["ocean"]
-        regions = ocean.regions.list.regions
+        regions = ocean.regions.list.regions.sort_by(&:name)
 
         say "Regions:"
         regions.each do |region|
