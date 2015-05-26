@@ -10,11 +10,7 @@
 
 ## [v1.0.0](https://github.com/pearkes/tugboat/tree/v1.0.0) (2015-05-26)
 
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v0.2.1...v1.0.0)
-
-## [v0.2.1](https://github.com/pearkes/tugboat/tree/v0.2.1) (2015-05-26)
-
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v0.2.0...v0.2.1)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v0.2.0...v1.0.0)
 
 **Implemented enhancements:**
 
