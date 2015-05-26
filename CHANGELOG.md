@@ -2,7 +2,19 @@
 
 ## [Unreleased](https://github.com/pearkes/tugboat/tree/HEAD)
 
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v0.2.0...HEAD)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.0.0...HEAD)
+
+**Closed issues:**
+
+- 1.0.0 Release [\#125](https://github.com/pearkes/tugboat/issues/125)
+
+## [v1.0.0](https://github.com/pearkes/tugboat/tree/v1.0.0) (2015-05-26)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v0.2.1...v1.0.0)
+
+## [v0.2.1](https://github.com/pearkes/tugboat/tree/v0.2.1) (2015-05-26)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v0.2.0...v0.2.1)
 
 **Implemented enhancements:**
 
