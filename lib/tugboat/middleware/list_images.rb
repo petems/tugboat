@@ -6,6 +6,9 @@ module Tugboat
         my_images = ocean.images.list :filter => "my_images"
         if env["user_show_global_images"]
           global = ocean.images.list :filter => "global"
+        else
+          say "Listing Your Images"
+          say "(Use `tugboat images list --global` to show all images)"
         end
 
         say "My Images:"
