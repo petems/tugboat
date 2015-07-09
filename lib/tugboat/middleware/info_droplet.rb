@@ -21,17 +21,18 @@ module Tugboat
 
         attribute = env["user_attribute"]
 
-        attributes = {
-          "name" => droplet.name,
-          "id" => droplet.id,
-          "status" => droplet.status,
-          "ip_address" => droplet.ip_address,
-          "private_ip_address" => droplet.private_ip_address,
-          "region_id" => droplet.region_id,
-          "image_id" => droplet.image_id,
-          "size_id" => droplet.size_id,
-          "backups_active" => (droplet.backups_active || false)
-        }
+        attributes_list = [
+          ["name",  droplet.name],
+          ["id",  droplet.id],
+          ["status",  droplet.status],
+          ["ip",  droplet.ip_address],
+          ["private_ip",  droplet.private_ip_address],
+          ["region_id",  droplet.region_id],
+          ["image_id",  droplet.image_id],
+          ["size_id",  droplet.size_id],
+          ["backups_active",  (droplet.backups_active || false)]
+        ]
+        attributes = Hash[*attributes_list.flatten(1)]
 
         if attribute
           if attributes.has_key? attribute
@@ -39,11 +40,11 @@ module Tugboat
           else
             say "Invalid attribute \"#{attribute}\"", :red
             say "Provide one of the following:", :red
-            attributes.keys.each { |a| say "    #{a}", :red }
+            attributes_list.keys.each { |a| say "    #{a[0]}", :red }
           end
         else
           if env["user_porcelain"]
-            attributes.select{ |_, v| v }.each{ |k, v| say "#{k} #{v}"}
+            attributes_list.select{ |a| a[1] != nil }.each{ |a| say "#{a[0]} #{a[1]}"}
           else
             say
             say "Name:             #{droplet.name}"

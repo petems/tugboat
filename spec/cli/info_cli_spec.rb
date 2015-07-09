@@ -135,11 +135,12 @@ Backups Active:   false
 name foo
 id 100823
 status active
-ip_address 33.33.33.10
-private_ip_address 10.20.30.40
+ip 33.33.33.10
+private_ip 10.20.30.40
 region_id 1
 image_id 420
 size_id 33
+backups_active false
       eos
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
@@ -160,11 +161,12 @@ size_id 33
 name foo
 id 100823
 status active
-ip_address 33.33.33.10
-private_ip_address 10.20.30.40
+ip 33.33.33.10
+private_ip 10.20.30.40
 region_id 1
 image_id 420
 size_id 33
+backups_active false
       eos
 
       expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
@@ -178,7 +180,7 @@ size_id 33
     stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
          to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
-    @cli.options = @cli.options.merge(:id => droplet_id, :attribute => "ip_address")
+    @cli.options = @cli.options.merge(:id => droplet_id, :attribute => "ip")
     @cli.info
 
     expect($stdout.string).to eq <<-eos
@@ -197,7 +199,7 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)
     stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
          to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
-    @cli.options = @cli.options.merge(:name => droplet_name, :attribute => "ip_address")
+    @cli.options = @cli.options.merge(:name => droplet_name, :attribute => "ip")
     @cli.info
 
     expect($stdout.string).to eq <<-eos
@@ -216,7 +218,7 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
       stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
-      @cli.options = @cli.options.merge(:id => droplet_id, :porcelain => true, :attribute => "ip_address")
+      @cli.options = @cli.options.merge(:id => droplet_id, :porcelain => true, :attribute => "ip")
       @cli.info
 
       expect($stdout.string).to eq <<-eos
@@ -234,7 +236,7 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
       stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
-      @cli.options = @cli.options.merge(:name => droplet_name, :porcelain => true, :attribute => "ip_address")
+      @cli.options = @cli.options.merge(:name => droplet_name, :porcelain => true, :attribute => "ip")
       @cli.info
 
       expect($stdout.string).to eq <<-eos
