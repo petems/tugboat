@@ -308,12 +308,21 @@ module Tugboat
                   :type => :string,
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
+    method_option "attribute",
+                  :type => :string,
+                  :aliases => "-a",
+                  :desc => "The name of the attribute to print."
+    method_option "porcelain",
+                  :type => :boolean,
+                  :desc => "Give the output in an easy-to-parse format for scripts."
     def info(name=nil)
       Middleware.sequence_info_droplet.call({
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
-        "user_quiet" => options[:quiet]
+        "user_quiet" => options[:quiet],
+        "user_attribute" => options[:attribute],
+        "user_porcelain" => options[:porcelain]
       })
     end
 

@@ -7,11 +7,17 @@ module Tugboat
         user_fuzzy_name = env['user_droplet_fuzzy_name']
         user_droplet_name = env['user_droplet_name']
         user_droplet_id = env['user_droplet_id']
+        porcelain = env['user_porcelain']
 
         # First, if nothing is provided to us, we should quit and
         # let the user know.
         if !user_fuzzy_name && !user_droplet_name && !user_droplet_id
           say "Tugboat attempted to find a droplet with no arguments. Try `tugboat help`", :red
+          exit 1
+        end
+
+        if porcelain && (!(user_droplet_name || user_droplet_id) || user_fuzzy_name)
+          say "Tugboat expects an exact droplet ID or droplet name for porcelain mode.", :red
           exit 1
         end
 
@@ -22,7 +28,9 @@ module Tugboat
 
         # Easy for us if they provide an id. Just set it to the droplet_id
         if user_droplet_id
-          say "Droplet id provided. Finding Droplet...", nil, false
+          if !porcelain
+            say "Droplet id provided. Finding Droplet...", nil, false
+          end
           req = ocean.droplets.show user_droplet_id
 
           if req.status == "ERROR"
@@ -40,7 +48,9 @@ module Tugboat
         # If they provide a name, we need to get the ID for it.
         # This requires a lookup.
         if user_droplet_name && !env["droplet_id"]
-          say "Droplet name provided. Finding droplet ID...", nil, false
+          if !porcelain
+            say "Droplet name provided. Finding droplet ID...", nil, false
+          end
 
           # Look for the droplet by an exact name match.
           ocean.droplets.list.droplets.each do |d|
@@ -115,7 +125,9 @@ module Tugboat
         end
 
         if !did_run_multiple
-          say "done#{CLEAR}, #{env["droplet_id"]} #{env["droplet_name"]}", :green
+          if !porcelain
+            say "done#{CLEAR}, #{env["droplet_id"]} #{env["droplet_name"]}", :green
+          end
         end
         @app.call(env)
       end

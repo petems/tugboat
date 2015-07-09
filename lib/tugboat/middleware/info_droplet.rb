@@ -19,20 +19,48 @@ module Tugboat
             status_color = RED
           end
 
-        say
-        say "Name:             #{droplet.name}"
-        say "ID:               #{droplet.id}"
-        say "Status:           #{status_color}#{droplet.status}#{CLEAR}"
-        say "IP:               #{droplet.ip_address}"
+        attribute = env["user_attribute"]
 
-        if droplet.private_ip_address
-	        say "Private IP:       #{droplet.private_ip_address}"
-	      end
+        attributes = {
+          "name" => droplet.name,
+          "id" => droplet.id,
+          "status" => droplet.status,
+          "ip_address" => droplet.ip_address,
+          "private_ip_address" => droplet.private_ip_address,
+          "region_id" => droplet.region_id,
+          "image_id" => droplet.image_id,
+          "size_id" => droplet.size_id,
+          "backups_active" => (droplet.backups_active || false)
+        }
 
-        say "Region ID:        #{droplet.region_id}"
-        say "Image ID:         #{droplet.image_id}"
-        say "Size ID:          #{droplet.size_id}"
-        say "Backups Active:   #{droplet.backups_active || false}"
+        if attribute
+          if attributes.has_key? attribute
+            say attributes[attribute]
+          else
+            say "Invalid attribute \"#{attribute}\"", :red
+            say "Provide one of the following:", :red
+            attributes.keys.each { |a| say "    #{a}", :red }
+          end
+        else
+          if env["user_porcelain"]
+            attributes.select{ |_, v| v }.each{ |k, v| say "#{k} #{v}"}
+          else
+            say
+            say "Name:             #{droplet.name}"
+            say "ID:               #{droplet.id}"
+            say "Status:           #{status_color}#{droplet.status}#{CLEAR}"
+            say "IP:               #{droplet.ip_address}"
+
+            if droplet.private_ip_address
+    	        say "Private IP:       #{droplet.private_ip_address}"
+    	      end
+
+            say "Region ID:        #{droplet.region_id}"
+            say "Image ID:         #{droplet.image_id}"
+            say "Size ID:          #{droplet.size_id}"
+            say "Backups Active:   #{droplet.backups_active || false}"
+          end
+        end
 
         @app.call(env)
       end
