@@ -29,6 +29,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "webmock", "~> 1.11.0"
   gem.add_development_dependency "coveralls", "~> 0.6.7"
   gem.add_development_dependency 'aruba', '~> 0.6.2'
+  gem.add_development_dependency 'pry'
 
   gem.post_install_message = '***************************************'
   gem.post_install_message = '   .  o ..                            '
@@ -39,12 +40,15 @@ Gem::Specification.new do |gem|
   gem.post_install_message = '     \""""""""""/                     '
   gem.post_install_message = '      \. ..  . /                      '
   gem.post_install_message = ' ^^^^^^^^^^^^^^^^^^^^                 '
-  gem.post_install_message = ' Thanks for installing Tugboat!       '
+  gem.post_install_message = ' This is an Alpha release of the      '
+  gem.post_install_message = ' Tugboat 2.0.0 version                '
+  gem.post_install_message = ' It is very much an alpha and unstable'
   gem.post_install_message = '                                      '
-  gem.post_install_message = ' Tugboat > 2.0.0 uses the new 2.0 API '
   gem.post_install_message = ' You\'ll need to update your API Keys '
-  gem.post_install_message = ' For more details see here: [URL]     '
-  gem.post_install_message = ' Or downgrade to a version < 2.0.0    '
+  gem.post_install_message = ' For more details see here:           '
+  gem.post_install_message = ' https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2'
+  gem.post_install_message = ' Or downgrade to a version < 2.0.0:   '
+  gem.post_install_message = ' `gem install tugboat -v 1.0.0        '
   gem.post_install_message = '***************************************'
 
 end
