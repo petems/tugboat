@@ -93,9 +93,10 @@ module Tugboat
           # Check to see if we have more then one droplet, and prompt
           # a user to choose otherwise.
           if found_droplets.length == 1
+
             env["droplet_id"] = found_droplets.first.id
             env["droplet_name"] = "(#{found_droplets.first.name})"
-            env["droplet_ip"] = found_droplets.first.ip_address
+            env["droplet_ip"] = found_droplets.first.networks.v4.first.ip_address
             env["droplet_ip_private"] = found_droplets.first.private_ip_address
             env["droplet_status"] = found_droplets.first.status
           elsif found_droplets.length > 1
