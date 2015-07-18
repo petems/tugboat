@@ -27,14 +27,15 @@ module Tugboat
 
         host_ip = env["droplet_ip"]
 
+        if env["user_droplet_use_private_ip"] && env["droplet_ip_private"].nil?
+          say "You asked to ssh to the private IP, but no Private IP found!", :red
+          exit 1
+        end
+
         if env["droplet_ip_private"]
-          use_public_ip = env["config"].use_public_ip
-
-          if not env["user_droplet_use_public_ip"].nil?
-            use_public_ip = env["user_droplet_use_public_ip"]
-          end
-
-          if not use_public_ip
+          say "This droplet has a private IP, checking if you asked to use the Private IP..."
+          if env["user_droplet_use_private_ip"]
+            say "You did! Using private IP for ssh..."
             host_ip = env["droplet_ip_private"]
           end
         end
