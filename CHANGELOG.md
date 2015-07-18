@@ -1,12 +1,24 @@
 # Change Log
 
-## [Unreleased](https://github.com/pearkes/tugboat/tree/HEAD)
+## [v1.2.0](https://github.com/pearkes/tugboat/tree/v1.2.0) (2015-07-18)
 
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.1.0...HEAD)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.1.0...v1.2.0)
 
 **Fixed bugs:**
 
 - SSH to Private IP [\#169](https://github.com/pearkes/tugboat/issues/169)
+
+**Closed issues:**
+
+- Image list and authorize [\#163](https://github.com/pearkes/tugboat/issues/163)
+
+**Merged pull requests:**
+
+- Adds flavour text for listing global images [\#167](https://github.com/pearkes/tugboat/pull/167) ([petems](https://github.com/petems))
+
+## [v1.1.0](https://github.com/pearkes/tugboat/tree/v1.1.0) (2015-07-18)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.0.ALPHA...v1.1.0)
 
 **Closed issues:**
 
@@ -15,10 +27,6 @@
 **Merged pull requests:**
 
 - Update ssh to private ip [\#172](https://github.com/pearkes/tugboat/pull/172) ([petems](https://github.com/petems))
-
-**Closed issues:**
-
-- 1.0.0 Release [\#125](https://github.com/pearkes/tugboat/issues/125)
 
 ## [v1.0.0](https://github.com/pearkes/tugboat/tree/v1.0.0) (2015-05-26)
 
