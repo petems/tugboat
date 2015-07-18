@@ -2,7 +2,19 @@
 
 ## [Unreleased](https://github.com/pearkes/tugboat/tree/HEAD)
 
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.0.0...HEAD)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.1.0...HEAD)
+
+**Fixed bugs:**
+
+- SSH to Private IP [\#169](https://github.com/pearkes/tugboat/issues/169)
+
+**Closed issues:**
+
+- Unable to bundle to run tugboat from git repo version for testing  [\#171](https://github.com/pearkes/tugboat/issues/171)
+
+**Merged pull requests:**
+
+- Update ssh to private ip [\#172](https://github.com/pearkes/tugboat/pull/172) ([petems](https://github.com/petems))
 
 **Closed issues:**
 
