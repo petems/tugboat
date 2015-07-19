@@ -4,7 +4,7 @@ module Tugboat
       def call(env)
         ocean = env['barge']
 
-        req = ocean.droplets.show env["droplet_id"]
+        req = ocean.droplet.show env["droplet_id"]
 
         if req.status == "ERROR"
           say "#{req.status}: #{req.error_message}", :red
@@ -13,11 +13,11 @@ module Tugboat
 
         droplet = req.droplet
 
-          if droplet.status == "active"
-            status_color = GREEN
-          else
-            status_color = RED
-          end
+        if droplet.status == "active"
+          status_color = GREEN
+        else
+          status_color = RED
+        end
 
         attribute = env["user_attribute"]
 
@@ -25,12 +25,13 @@ module Tugboat
           ["name",  droplet.name],
           ["id",  droplet.id],
           ["status",  droplet.status],
-          ["ip",  droplet.ip_address],
+          ["ip4",  droplet.networks.v4[0].ip_address],
+          ["ip4",  droplet.networks.v6[0].ip_address],
           ["private_ip",  droplet.private_ip_address],
-          ["region_id",  droplet.region_id],
-          ["image_id",  droplet.image_id],
-          ["size_id",  droplet.size_id],
-          ["backups_active",  (droplet.backups_active || false)]
+          ["region",  droplet.region],
+          ["Image",  droplet.image.id],
+          ["size",  droplet.size_slug],
+          ["backups_active",  !droplet.backup_ids.empty?]
         ]
         attributes = Hash[*attributes_list.flatten(1)]
 
@@ -50,16 +51,17 @@ module Tugboat
             say "Name:             #{droplet.name}"
             say "ID:               #{droplet.id}"
             say "Status:           #{status_color}#{droplet.status}#{CLEAR}"
-            say "IP:               #{droplet.ip_address}"
+            say "IP4:              #{droplet.networks.v4[0].ip_address}"
+            say "IP6:              #{droplet.networks.v6[0].ip_address}"
 
             if droplet.private_ip_address
-    	        say "Private IP:       #{droplet.private_ip_address}"
-    	      end
+              say "Private IP:       #{droplet.private_ip_address}"
+            end
 
-            say "Region ID:        #{droplet.region_id}"
-            say "Image ID:         #{droplet.image_id}"
-            say "Size ID:          #{droplet.size_id}"
-            say "Backups Active:   #{droplet.backups_active || false}"
+            say "Region:           #{droplet.region.name} - #{droplet.region.slug}"
+            say "Image:            #{droplet.image.id} - #{droplet.image.name}"
+            say "Size:             #{droplet.size_slug.upcase}"
+            say "Backups Active:   #{!droplet.backup_ids.empty?}"
           end
         end
 
