@@ -12,7 +12,7 @@ module Tugboat
     FILE_NAME = '.tugboat'
     DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'
     DEFAULT_SSH_PORT = '22'
-    DEFAULT_REGION = 'nyc1'
+    DEFAULT_REGION = 'nyc2'
     DEFAULT_IMAGE = 'ubuntu-14-04-x64'
     DEFAULT_SIZE = '512mb'
     DEFAULT_SSH_KEY = ''
