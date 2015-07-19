@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.3.0](https://github.com/pearkes/tugboat/tree/v1.3.0) (2015-07-19)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.2.0...v1.3.0)
+
+**Merged pull requests:**
+
+- Implement single attribute fetcher and porcelain mode for droplet info command [\#170](https://github.com/pearkes/tugboat/pull/170) ([ethanal](https://github.com/ethanal))
+
 ## [v1.2.0](https://github.com/pearkes/tugboat/tree/v1.2.0) (2015-07-18)
 
 [Full Changelog](https://github.com/pearkes/tugboat/compare/v1.1.0...v1.2.0)
@@ -27,6 +35,14 @@
 **Merged pull requests:**
 
 - Update ssh to private ip [\#172](https://github.com/pearkes/tugboat/pull/172) ([petems](https://github.com/petems))
+
+## [v2.0.0.ALPHA](https://github.com/pearkes/tugboat/tree/v2.0.0.ALPHA) (2015-07-18)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.0.0...v2.0.0.ALPHA)
+
+**Closed issues:**
+
+- 1.0.0 Release [\#125](https://github.com/pearkes/tugboat/issues/125)
 
 ## [v1.0.0](https://github.com/pearkes/tugboat/tree/v1.0.0) (2015-05-26)
 
