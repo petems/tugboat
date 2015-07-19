@@ -1,3 +1,6 @@
+require 'vcr'
+require 'webmock/rspec'
+
 require 'simplecov'
 require 'coveralls'
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
@@ -18,6 +21,13 @@ RSpec.configure do |config|
   config.color = true
 
   config.order = :random
+end
+
+VCR.configure do |c|
+  c.hook_into :webmock
+  c.cassette_library_dir = 'spec/support/cassettes'
+  c.configure_rspec_metadata!
+  c.default_cassette_options = { record: :new_episodes }
 end
 
 def project_path

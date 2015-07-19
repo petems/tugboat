@@ -4,13 +4,7 @@ describe Tugboat::CLI do
   include_context "spec"
 
   describe "show" do
-    it "shows a droplet with a fuzzy name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
-      stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
-
+    it "shows a droplet with a fuzzy name", :vcr => true do
       @cli.info("foo")
 
       expect($stdout.string).to eq <<-eos
