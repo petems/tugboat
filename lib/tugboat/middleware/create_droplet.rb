@@ -30,6 +30,8 @@ module Tugboat
         droplet_backups_enabled = env["create_droplet_backups_enabled"] :
         droplet_backups_enabled = env["config"].default_backups_enabled
 
+        droplet_ssh_key_id = nil if droplet_ssh_key_id.empty?
+
         create_opts = {
           :name               => env["create_droplet_name"],
           :size               => droplet_size_id,
