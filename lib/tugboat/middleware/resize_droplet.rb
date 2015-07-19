@@ -14,8 +14,6 @@ module Tugboat
           exit 1
         end
 
-        say "done", :green
-
         @app.call(env)
       end
     end

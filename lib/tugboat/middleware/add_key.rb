@@ -29,16 +29,17 @@ module Tugboat
 
         say "Queueing upload of SSH key '#{env["add_key_name"]}'...", nil, false
 
-        req = ocean.key.create :name => env["add_key_name"],
+        response = ocean.key.create :name => env["add_key_name"],
                                :public_key  => pub_key_string
 
-        if req.status == "ERROR"
-          say req.error_message, :red
+        if response.success?
+          say "done", :green
+        else
+          say "Failed to create key: #{response.message}", :red
           exit 1
         end
 
-        say "Done!", :green
-        say "SSH Key uploaded with Name: #{req.ssh_key.name} ID: #{req.ssh_key.id}", :green
+        say "SSH Key uploaded with Name: #{response.ssh_key.name} ID: #{response.ssh_key.id}", :green
 
         @app.call(env)
       end

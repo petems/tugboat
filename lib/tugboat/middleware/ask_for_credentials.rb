@@ -3,11 +3,9 @@ module Tugboat
     # Ask for user credentials from the command line, then write them out.
     class AskForCredentials < Base
       def call(env)
-        say "Note: You can get this information from https://cloud.digitalocean.com/api_access", :yellow
-        say "Also Note: Tugboat is setup to work with v1 of the Digital Ocean API (https://developers.digitalocean.com/v1/)", :yellow
+        say "Note: You can get your Access Token from https://cloud.digitalocean.com/settings/tokens/new", :yellow
         say
-        client_key = ask "Enter your client key:"
-        api_key = ask "Enter your API key:"
+        access_token = ask "Enter your access token:"
         ssh_key_path = ask "Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa):"
         ssh_user = ask "Enter your SSH user (optional, defaults to root):"
         ssh_port = ask "Enter your SSH port number (optional, defaults to 22):"
@@ -15,9 +13,9 @@ module Tugboat
         say "To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`."
         say "Defaults can be changed at any time in your ~/.tugboat configuration file."
         say
-        region   = ask "Enter your default region ID (optional, defaults to 8 (New York 3)):"
-        image    = ask "Enter your default image ID (optional, defaults to 9801950 (Ubuntu 14.04 x64)):"
-        size     = ask "Enter your default size ID (optional, defaults to 66 (512MB)):"
+        region   = ask "Enter your default region (optional, defaults to nyc1):"
+        image    = ask "Enter your default image ID or image slug (optional, defaults to ubuntu-14-04-x64):"
+        size     = ask "Enter your default size (optional, defaults to 512mb)):"
         ssh_key  = ask "Enter your default ssh key ID (optional, defaults to none):"
         private_networking = ask "Enter your default for private networking (optional, defaults to false):"
         backups_enabled = ask "Enter your default for enabling backups (optional, defaults to false):"

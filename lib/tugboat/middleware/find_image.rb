@@ -23,15 +23,17 @@ module Tugboat
         # Easy for us if they provide an id. Just set it to the image_id
         if user_image_id
           say "Image id provided. Finding Image...", nil, false
-          req = ocean.images.show user_image_id
+          response = ocean.images.show user_image_id
 
-          if req.status == "ERROR"
-            say "#{req.status}: #{req.error_message}", :red
+          if response.success?
+            say "done", :green
+          else
+            say "Failed to find Image: #{response.message}", :red
             exit 1
           end
 
-          env["image_id"] = req.image.id
-          env["image_name"] = "(#{req.image.name})"
+          env["image_id"] = response.image.id
+          env["image_name"] = "(#{response.image.name})"
         end
 
         # If they provide a name, we need to get the ID for it.

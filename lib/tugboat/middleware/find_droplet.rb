@@ -32,18 +32,20 @@ module Tugboat
           if !porcelain
             say "Droplet id provided. Finding Droplet...", nil, false
           end
-          req = ocean.droplets.show user_droplet_id
+          response = ocean.droplet.show user_droplet_id
 
-          if req.status == "ERROR"
-            say "#{req.status}: #{req.error_message}", :red
+          if response.success?
+            say "done", :green
+          else
+            say "Failed to find Droplet: #{response.message}", :red
             exit 1
           end
 
-          env["droplet_id"] = req.droplet.id
-          env["droplet_name"] = "(#{req.droplet.name})"
-          env["droplet_ip"] = req.droplet.ip_address
-          env["droplet_ip_private"] = req.droplet.private_ip_address
-          env["droplet_status"] = req.droplet.status
+          env["droplet_id"] = response.droplet.id
+          env["droplet_name"] = "(#{response.droplet.name})"
+          env["droplet_ip"] = response.droplet.ip_address
+          env["droplet_ip_private"] = response.droplet.private_ip_address
+          env["droplet_status"] = response.droplet.status
         end
 
         # If they provide a name, we need to get the ID for it.
