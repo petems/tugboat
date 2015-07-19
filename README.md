@@ -99,6 +99,24 @@ match.
     Size ID:          66
     Backups Active:   false
 
+Print info in machine-readable format. The ``--porcelain`` flag silences extra output for easy parsing. Fuzzy name matching is not supported with the ``--porcelain`` flag.
+
+    $ tugboat info -n pearkes-admin-001 --attribute ip --porcelain
+    name pearkes-admin-001
+    id 13231512
+    status active
+    ip 30.30.30.3
+    region_id 1
+    image_id 25489
+    size_id 66
+    backups_active false
+
+Print a single attribute.
+
+    $ tugboat info -n pearkes-admin-001 --attribute ip --porcelain
+    30.30.30.3
+
+
 ### Destroy a droplet
 
     $ tugboat destroy pearkes-www-002
