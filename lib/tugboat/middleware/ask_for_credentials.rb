@@ -5,7 +5,7 @@ module Tugboat
       def call(env)
         say "Note: You can get your Access Token from https://cloud.digitalocean.com/settings/tokens/new", :yellow
         say
-        access_token = ask "Enter your access token:"
+        access_token.strip = ask "Enter your access token:"
         ssh_key_path = ask "Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa):"
         ssh_user = ask "Enter your SSH user (optional, defaults to root):"
         ssh_port = ask "Enter your SSH port number (optional, defaults to 22):"
@@ -21,7 +21,7 @@ module Tugboat
         backups_enabled = ask "Enter your default for enabling backups (optional, defaults to false):"
 
         # Write the config file.
-        env['config'].create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled)
+        env['config'].create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled)
         env['config'].reload!
 
         @app.call(env)
