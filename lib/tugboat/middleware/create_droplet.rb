@@ -32,12 +32,13 @@ module Tugboat
 
         create_opts = {
           :name               => env["create_droplet_name"],
-          :size_id            => droplet_size_id,
-          :image_id           => droplet_image_id,
-          :region_id          => droplet_region_id,
-          :ssh_key_ids        => droplet_ssh_key_id,
+          :size               => droplet_size_id,
+          :image              => "#{droplet_image_id}",
+          :region             => droplet_region_id,
+          :ssh_keys           => [droplet_ssh_key_id],
           :private_networking => droplet_private_networking,
           :backups_enabled    => droplet_backups_enabled,
+          :ipv6               => nil,
         }
 
         response = ocean.droplet.create(create_opts)
