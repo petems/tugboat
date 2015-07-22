@@ -27,8 +27,10 @@ describe Tugboat::CLI do
       @cli.add_key(ssh_key_name)
 
       expect($stdout.string).to eq <<-eos
-Queueing upload of SSH key 'macbook_pro'...Done!
-SSH Key uploaded with Name: macbook_pro ID: 3
+Queueing upload of SSH key 'macbook_pro'...SSH Key uploaded
+
+Name: macbook_pro
+ID: 3
       eos
 
       expect(a_request(:post, "https://api.digitalocean.com/v2/account/keys")).to have_been_made
@@ -60,8 +62,10 @@ Possible public key paths from #{fake_home}/.ssh:
 
 #{fake_home}/.ssh/id_rsa.pub
 
-Done!
-SSH Key uploaded with Name: cool_key ID: 5
+SSH Key uploaded
+
+Name: cool_key
+ID: 5
       eos
     end
 

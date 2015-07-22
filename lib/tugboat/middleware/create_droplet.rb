@@ -50,6 +50,8 @@ module Tugboat
           exit 1
         end
 
+        say "Droplet created!"
+
         @app.call(env)
       end
     end

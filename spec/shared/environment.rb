@@ -3,7 +3,7 @@ require 'spec_helper'
 shared_context "spec" do
   # Default configuration and
   let(:config)             { Tugboat::Configuration.instance }
-  let(:access_key)         { "foo" }
+  let(:access_token)       { ENV['DIGITAL_OCEAN_ACCESS_KEY'] }
   let(:ssh_user)           { "baz" }
   let(:ssh_port)           { "33" }
   let(:ssh_key_path)       { "~/.ssh/id_rsa2" }
@@ -30,7 +30,7 @@ shared_context "spec" do
     @cli = Tugboat::CLI.new
 
     # Set a temprary project path and create fake config.
-    config.create_config_file(access_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
+    config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
     config.reload!
 
     # Keep track of the old stderr / out

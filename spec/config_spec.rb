@@ -24,15 +24,15 @@ describe Tugboat::Configuration do
 
   describe "the file" do
     let(:access_token)       { "foo" }
-    let(:ssh_user)           { "baz" }
+    let(:ssh_user)           { "root" }
     let(:ssh_key_path)       { "~/.ssh/id_rsa2" }
     let(:ssh_port)           { "22" }
-    let(:region)             { "2" }
-    let(:image)              { "345791" }
-    let(:size)               { "66" }
+    let(:region)             { "lon1" }
+    let(:image)              { "ubuntu-14-04-x64" }
+    let(:size)               { "512mb" }
     let(:ssh_key_id)         { '1234' }
-    let(:private_networking) { 'true' }
-    let(:backups_enabled)    { 'true' }
+    let(:private_networking) { 'false' }
+    let(:backups_enabled)    { 'false' }
 
     let(:config)           { config = Tugboat::Configuration.instance }
 

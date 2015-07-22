@@ -13,15 +13,15 @@ describe Tugboat::CLI do
 
       expect($stdout.string).to eq <<-eos
 Regions:
-New York 1 (slug: nyc1)
 Amsterdam 1 (slug: ams1)
-San Francisco 1 (slug: sfo1)
-New York 2 (slug: nyc2)
 Amsterdam 2 (slug: ams2)
-Singapore 1 (slug: sgp1)
-London 1 (slug: lon1)
-New York 3 (slug: nyc3)
 Amsterdam 3 (slug: ams3)
+London 1 (slug: lon1)
+New York 1 (slug: nyc1)
+New York 2 (slug: nyc2)
+New York 3 (slug: nyc3)
+San Francisco 1 (slug: sfo1)
+Singapore 1 (slug: sgp1)
       eos
 
       expect(a_request(:get, "https://api.digitalocean.com/v2/regions?per_page=200")).
