@@ -12,9 +12,7 @@ module Tugboat
           ocean.droplet.reboot env["droplet_id"]
         end
 
-        if response.success?
-          say "done", :green
-        else
+        unless response.success?
           say "Failed to destroy Droplet: #{response.message}", :red
           exit 1
         end

@@ -12,9 +12,7 @@ module Tugboat
           ocean.droplet.shutdown env["droplet_id"]
         end
 
-        if response.success?
-          say "done", :green
-        else
+        unless response.success?
           say "Failed to halt Droplet: #{response.message}", :red
           exit 1
         end

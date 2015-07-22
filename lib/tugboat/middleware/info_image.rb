@@ -4,11 +4,9 @@ module Tugboat
       def call(env)
         ocean = env['barge']
 
-        response = ocean.images.show env["image_id"]
+        response = ocean.image.show env["image_id"]
 
-        if response.success?
-          say "done", :green
-        else
+        unless response.success?
           say "Failed to get info for Image: #{response.message}", :red
           exit 1
         end

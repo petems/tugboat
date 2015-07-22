@@ -13,9 +13,7 @@ module Tugboat
         response = ocean.droplets.snapshot env["droplet_id"],
                                 :name => env["user_snapshot_name"]
 
-        if response.success?
-          say "done", :green
-        else
+        unless response.success?
           say "Failed to snapshot Droplet: #{response.message}", :red
           exit 1
         end

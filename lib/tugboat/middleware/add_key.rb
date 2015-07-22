@@ -32,14 +32,15 @@ module Tugboat
         response = ocean.key.create :name => env["add_key_name"],
                                :public_key  => pub_key_string
 
-        if response.success?
-          say "done", :green
-        else
+        unless response.success?
           say "Failed to create key: #{response.message}", :red
           exit 1
         end
 
-        say "SSH Key uploaded with Name: #{response.ssh_key.name} ID: #{response.ssh_key.id}", :green
+        say "SSH Key uploaded", :green
+        say
+        say "Name: #{response.ssh_key.name}"
+        say "ID: #{response.ssh_key.id}"
 
         @app.call(env)
       end

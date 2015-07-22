@@ -9,9 +9,7 @@ module Tugboat
         response = ocean.droplets.rebuild env["droplet_id"],
                                      :image_id => env["image_id"]
 
-        if response.success?
-          say "done", :green
-        else
+        unless response.success?
           say "Failed to rebuild Droplet: #{response.message}", :red
           exit 1
         end

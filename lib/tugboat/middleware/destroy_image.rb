@@ -8,9 +8,7 @@ module Tugboat
 
         response = ocean.images.delete env["image_id"]
 
-        if response.success?
-          say "done", :green
-        else
+        unless response.success?
           say "Failed to destroy image: #{response.message}", :red
           exit 1
         end

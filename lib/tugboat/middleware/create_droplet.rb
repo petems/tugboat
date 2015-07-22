@@ -44,9 +44,8 @@ module Tugboat
         }
 
         response = ocean.droplet.create(create_opts)
-        if response.success?
-          say "done", :green
-        else
+
+        unless response.success?
           say "Failed to create Droplet: #{response.message}", :red
           exit 1
         end

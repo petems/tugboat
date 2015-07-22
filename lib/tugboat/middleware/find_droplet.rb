@@ -34,9 +34,7 @@ module Tugboat
           end
           response = ocean.droplet.show user_droplet_id
 
-          if response.success?
-            say "done", :green
-          else
+          unless response.success?
             say "Failed to find Droplet: #{response.message}", :red
             exit 1
           end

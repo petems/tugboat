@@ -6,9 +6,9 @@ module Tugboat
 
         response = ocean.droplet.show env["droplet_id"]
 
-        if response.success?
-          say "done", :green
-        else
+        require 'pry'; binding.pry;
+
+        unless response.success?
           say "Failed to get infor for Droplet: #{response.message}", :red
           exit 1
         end
