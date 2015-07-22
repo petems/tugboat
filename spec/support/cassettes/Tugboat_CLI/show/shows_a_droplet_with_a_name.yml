@@ -1,0 +1,134 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.digitalocean.com/v2/droplets?per_page=200
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS TOKEN>
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - cloudflare-nginx
+      Date:
+      - Wed, 22 Jul 2015 15:11:51 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d376344159baa3238225427bdb9f5d4121437577910; expires=Thu, 21-Jul-16
+        15:11:50 GMT; path=/; domain=.digitalocean.com; HttpOnly
+      Status:
+      - 200 OK
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Ratelimit-Limit:
+      - '5000'
+      Ratelimit-Remaining:
+      - '4989'
+      Ratelimit-Reset:
+      - '1437579831'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - db27c9fa-8128-4eb5-bcd9-2c403a4eb161
+      X-Runtime:
+      - '0.306517'
+      Cf-Ray:
+      - 20a01496ec6d0cad-AMS
+    body:
+      encoding: UTF-8
+      string: '{"droplets":[{"id":4288765,"name":"droplet-name","memory":1024,"vcpus":1,"disk":30,"locked":false,"status":"active","kernel":{"id":377,"name":"CentOS
+        6.5 x64 vmlinuz-2.6.32-431.1.2.0.1.el6.x86_64","version":"2.6.32-431.1.2.0.1.el6.x86_64"},"created_at":"2015-02-27T14:48:01Z","features":["backups","ipv6","virtio"],"backup_ids":[12516625,12618223,12716326,12805741],"next_backup_window":{"start":"2015-07-24T20:00:00Z","end":"2015-07-25T19:00:00Z"},"snapshot_ids":[],"image":{"id":124321,"name":"Rad Image","distribution":"CentOS","slug":null,"public":false,"regions":["lon1"],"created_at":"2015-02-27T14:44:25Z","min_disk_size":20,"type":"snapshot"},"size":{"slug":"1gb","memory":1024,"vcpus":1,"disk":30,"transfer":2.0,"price_monthly":10.0,"price_hourly":0.01488,"regions":["nyc2","sgp1","ams1","sfo1","lon1","nyc3","ams3","nyc1","ams2","fra1"],"available":true},"size_slug":"1gb","networks":{"v4":[{"ip_address":"48.79.144.140","netmask":"255.255.192.0","gateway":"178.62.0.1","type":"public"}],"v6":[]},"region":{"name":"London
+        1","slug":"lon1","sizes":["32gb","16gb","2gb","1gb","4gb","8gb","512mb","64gb","48gb"],"features":["private_networking","backups","ipv6","metadata"],"available":true}},{"id":6213326,"name":"foo","memory":512,"vcpus":1,"disk":20,"locked":false,"status":"active","kernel":{"id":5175,"name":"Ubuntu
+        14.04 x64 vmlinuz-3.13.0-57-generic","version":"3.13.0-57-generic"},"created_at":"2015-07-19T20:21:13Z","features":["virtio"],"backup_ids":[],"next_backup_window":null,"snapshot_ids":[],"image":{"id":12790328,"name":"14.04
+        x64","distribution":"Ubuntu","slug":"ubuntu-14-04-x64","public":true,"regions":["nyc1","ams1","sfo1","nyc2","ams2","sgp1","lon1","nyc3","ams3","fra1"],"created_at":"2015-07-17T16:39:08Z","min_disk_size":20,"type":"snapshot"},"size":{"slug":"512mb","memory":512,"vcpus":1,"disk":20,"transfer":1.0,"price_monthly":5.0,"price_hourly":0.00744,"regions":["nyc1","sgp1","ams1","sfo1","nyc2","lon1","nyc3","ams3","ams2","fra1"],"available":true},"size_slug":"512mb","networks":{"v4":[{"ip_address":"21.91.153.234","netmask":"255.255.224.0","gateway":"104.131.192.1","type":"public"}],"v6":[]},"region":{"name":"New
+        York 2","slug":"nyc2","sizes":["32gb","16gb","2gb","1gb","4gb","8gb","512mb","64gb","48gb"],"features":["private_networking","backups","metadata"],"available":true}}],"links":{},"meta":{"total":2}}'
+    http_version:
+  recorded_at: Wed, 22 Jul 2015 15:12:09 GMT
+- request:
+    method: get
+    uri: https://api.digitalocean.com/v2/droplets/4288765?per_page=200
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS TOKEN>
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - cloudflare-nginx
+      Date:
+      - Wed, 22 Jul 2015 15:11:52 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d1505227789ff292d84b0714c9b1a056d1437577911; expires=Thu, 21-Jul-16
+        15:11:51 GMT; path=/; domain=.digitalocean.com; HttpOnly
+      Status:
+      - 200 OK
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Ratelimit-Limit:
+      - '5000'
+      Ratelimit-Remaining:
+      - '4988'
+      Ratelimit-Reset:
+      - '1437579831'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 1cbc06db-582c-48d3-b9b9-a4903d05928e
+      X-Runtime:
+      - '0.125446'
+      Cf-Ray:
+      - 20a0149c6f0e0761-AMS
+    body:
+      encoding: UTF-8
+      string: '{"droplet":{"id":4288765,"name":"droplet-name","memory":1024,"vcpus":1,"disk":30,"locked":false,"status":"active","kernel":{"id":377,"name":"CentOS
+        6.5 x64 vmlinuz-2.6.32-431.1.2.0.1.el6.x86_64","version":"2.6.32-431.1.2.0.1.el6.x86_64"},"created_at":"2015-02-27T14:48:01Z","features":["backups","ipv6","virtio"],"backup_ids":[12516625,12618223,12716326,12805741],"next_backup_window":{"start":"2015-07-24T20:00:00Z","end":"2015-07-25T19:00:00Z"},"snapshot_ids":[],"image":{"id":124321,"name":"Rad Image","distribution":"CentOS","slug":null,"public":false,"regions":["lon1"],"created_at":"2015-02-27T14:44:25Z","min_disk_size":20,"type":"snapshot"},"size":{"slug":"1gb","memory":1024,"vcpus":1,"disk":30,"transfer":2.0,"price_monthly":10.0,"price_hourly":0.01488,"regions":["nyc2","sgp1","ams1","sfo1","lon1","nyc3","ams3","nyc1","ams2","fra1"],"available":true},"size_slug":"1gb","networks":{"v4":[{"ip_address":"48.79.144.140","netmask":"255.255.192.0","gateway":"178.62.0.1","type":"public"}],"v6":[]},"region":{"name":"London
+        1","slug":"lon1","sizes":["32gb","16gb","2gb","1gb","4gb","8gb","512mb","64gb","48gb"],"features":["private_networking","backups","ipv6","metadata"],"available":true}}}'
+    http_version:
+  recorded_at: Wed, 22 Jul 2015 15:12:10 GMT
+recorded_with: VCR 2.9.3
