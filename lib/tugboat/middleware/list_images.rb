@@ -8,7 +8,7 @@ module Tugboat
           global = ocean.images.list :filter => "global"
         else
           say "Listing Your Images"
-          say "(Use `tugboat images list --global` to show all images)"
+          say "(Use `tugboat images --global` to show all images)"
         end
 
         say "My Images:"

@@ -12,7 +12,7 @@ describe Tugboat::CLI do
 
       expect($stdout.string).to eq <<-eos
 Listing Your Images
-(Use `tugboat images list --global` to show all images)
+(Use `tugboat images --global` to show all images)
 My Images:
 NYTD Backup 1-18-2012 (id: 466, distro: Ubuntu)
 NLP Final (id: 478, distro: Ubuntu)
@@ -29,7 +29,7 @@ NLP Final (id: 478, distro: Ubuntu)
 
       expect($stdout.string).to eq <<-eos
 Listing Your Images
-(Use `tugboat images list --global` to show all images)
+(Use `tugboat images --global` to show all images)
 My Images:
 No images found
       eos
