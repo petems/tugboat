@@ -28,7 +28,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/support/cassettes'
   c.configure_rspec_metadata!
   c.default_cassette_options = { record: :new_episodes }
-  vcr.filter_sensitive_data('<ACCESS TOKEN>') { ENV['DIGITAL_OCEAN_ACCESS_TOKEN'] }
+  c.filter_sensitive_data('<ACCESS TOKEN>') { ENV['DIGITAL_OCEAN_ACCESS_TOKEN'] }
 end
 
 def project_path

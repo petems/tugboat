@@ -6,8 +6,6 @@ module Tugboat
 
         response = ocean.droplet.show env["droplet_id"]
 
-        require 'pry'; binding.pry;
-
         unless response.success?
           say "Failed to get infor for Droplet: #{response.message}", :red
           exit 1
