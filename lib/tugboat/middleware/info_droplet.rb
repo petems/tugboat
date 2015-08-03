@@ -20,6 +20,12 @@ module Tugboat
           exit 1
         end
 
+        if droplet.status == "active"
+          status_color = GREEN
+        else
+          status_color = RED
+        end
+
         attribute = env["user_attribute"]
 
         attributes_list = [
@@ -29,7 +35,7 @@ module Tugboat
           ["ip4",  droplet.networks.v4[0].ip_address],
           ["ip4",  droplet.networks.v6[0].ip_address],
           ["private_ip",  droplet.private_ip_address],
-          ["region",  droplet.region],
+          ["region",  droplet.region.slug],
           ["Image",  droplet.image.id],
           ["size",  droplet.size_slug],
           ["backups_active",  !droplet.backup_ids.empty?]
