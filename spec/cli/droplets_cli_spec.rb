@@ -14,6 +14,7 @@ describe Tugboat::CLI do
       expect($stdout.string).to eq <<-eos
 example.com (ip: 104.236.32.182, status: \e[32mactive\e[0m, region: nyc3, id: 6918990)
 example2.com (ip: 104.236.32.172, status: \e[32mactive\e[0m, region: nyc3, id: 3164444)
+example3.com (ip: 104.236.32.172, status: \e[31moff\e[0m, region: nyc3, id: 3164444)
       eos
 
       expect(a_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200")).to have_been_made
