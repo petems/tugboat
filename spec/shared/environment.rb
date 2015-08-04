@@ -3,7 +3,7 @@ require 'spec_helper'
 shared_context "spec" do
   # Default configuration and
   let(:config)             { Tugboat::Configuration.instance }
-  let(:access_token)       { ENV['DIGITAL_OCEAN_ACCESS_KEY'] }
+  let(:access_token)       { 'foo' }
   let(:ssh_user)           { "baz" }
   let(:ssh_port)           { "33" }
   let(:ssh_key_path)       { "~/.ssh/id_rsa2" }
