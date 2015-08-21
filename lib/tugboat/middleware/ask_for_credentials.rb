@@ -5,7 +5,8 @@ module Tugboat
       def call(env)
         say "Note: You can get your Access Token from https://cloud.digitalocean.com/settings/tokens/new", :yellow
         say
-        access_token.strip = ask "Enter your access token:"
+        access_token = ask "Enter your access token:"
+        access_token.strip!
         ssh_key_path = ask "Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa):"
         ssh_user = ask "Enter your SSH user (optional, defaults to root):"
         ssh_port = ask "Enter your SSH port number (optional, defaults to 22):"
