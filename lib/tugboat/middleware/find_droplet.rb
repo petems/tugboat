@@ -93,12 +93,13 @@ module Tugboat
           # Check to see if we have more then one droplet, and prompt
           # a user to choose otherwise.
           if found_droplets.length == 1
+            droplet_return = found_droplets.first
 
-            env["droplet_id"] = found_droplets.first.id
-            env["droplet_name"] = "(#{found_droplets.first.name})"
-            env["droplet_ip"] = found_droplets.first.networks.v4.first.ip_address
-            env["droplet_ip_private"] = found_droplets.first.private_ip_address
-            env["droplet_status"] = found_droplets.first.status
+            env["droplet_id"] = droplet_return.id
+            env["droplet_name"] = "(#{droplet_return.name})"
+            env["droplet_ip"] = droplet_return.networks.v4.detect { |address| address.type == 'public' }.ip_address
+            env["droplet_ip_private"] = droplet_return.networks.v4.detect { |address| address.type == 'private' }.ip_address
+            env["droplet_status"] = droplet_return.status
           elsif found_droplets.length > 1
             # Did we run the multiple questionairre?
             did_run_multiple = true
