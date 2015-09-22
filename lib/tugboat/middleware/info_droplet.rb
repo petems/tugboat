@@ -28,13 +28,17 @@ module Tugboat
 
         attribute = env["user_attribute"]
 
+        droplet_ip4_public = droplet.networks.v4.detect { |address| address.type == 'public' }.ip_address
+        droplet_ip6_public = droplet.networks.v6.detect { |address| address.type == 'public' }.ip_address unless droplet.networks.v6.empty?
+        droplet_private_ip = droplet.networks.v4.detect { |address| address.type == 'private' }.ip_address
+
         attributes_list = [
           ["name",  droplet.name],
           ["id",  droplet.id],
           ["status",  droplet.status],
-          ["ip4",  droplet.networks.v4[0].ip_address],
-          ["ip4",  droplet.networks.v6[0].ip_address],
-          ["private_ip",  droplet.private_ip_address],
+          ["ip4",  droplet_ip4_public],
+          ["ip6",  droplet_ip6_public],
+          ["private_ip",  droplet_private_ip],
           ["region",  droplet.region.slug],
           ["Image",  droplet.image.id],
           ["size",  droplet.size_slug],
@@ -58,11 +62,11 @@ module Tugboat
             say "Name:             #{droplet.name}"
             say "ID:               #{droplet.id}"
             say "Status:           #{status_color}#{droplet.status}#{CLEAR}"
-            say "IP4:              #{droplet.networks.v4[0].ip_address}"
-            say "IP6:              #{droplet.networks.v6[0].ip_address}"
+            say "IP4:              #{droplet_ip4_public}"
+            say "IP6:              #{droplet_ip6_public}" unless droplet.networks.v6.empty?
 
-            if droplet.private_ip_address
-              say "Private IP:       #{droplet.private_ip_address}"
+            if droplet_private_ip
+              say "Private IP:       #{droplet_private_ip}"
             end
 
             say "Region:           #{droplet.region.name} - #{droplet.region.slug}"
