@@ -15,6 +15,8 @@ module Tugboat
         unless response.success?
           say "Failed to destroy Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Restart complete!", :green
         end
 
         @app.call(env)
