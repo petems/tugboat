@@ -13,7 +13,7 @@ module Tugboat
         end
 
         unless response.success?
-          say "Failed to destroy Droplet: #{response.message}", :red
+          say "Failed to restart Droplet: #{response.message}", :red
           exit 1
         else
           say "Restart complete!", :green

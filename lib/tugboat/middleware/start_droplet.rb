@@ -8,8 +8,10 @@ module Tugboat
         response = ocean.droplet.power_on env["droplet_id"]
 
         unless response.success?
-          say "Failed to halt Droplet: #{response.message}", :red
+          say "Failed to start Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Start complete!", :green
         end
 
         @app.call(env)
