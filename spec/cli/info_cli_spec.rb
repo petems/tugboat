@@ -4,80 +4,112 @@ describe Tugboat::CLI do
   include_context "spec"
 
   describe "show" do
-    it "shows a droplet with a fuzzy name", :vcr => true do
-      @cli.info("droplet-fuzzy-name")
+    it "shows a droplet with a fuzzy name" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
+
+      @cli.info("example.com")
 
       expect($stdout.string).to eq <<-eos
-Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 4288321 (droplet-fuzzy-name)
+Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 
-Name:             droplet-fuzzy-name
-ID:               4288321
+Name:             example.com
+ID:               6918990
 Status:           \e[32mactive\e[0m
-IP4:              177.1.1.1
-IP6:              3B03:B0C0:0001:00D0:0000:0000:0308:D001
-Region:           London 1 - lon1
-Image:            1084211 - Cool Image
-Size:             1gb
-Backups Active:   true
+IP4:              104.131.186.241
+IP6:              2604:A880:0800:0010:0000:0000:031D:2001
+Region:           New York 3 - nyc3
+Image:            6918990 - 14.04 x64
+Size:             512MB
+Backups Active:   false
       eos
 
     end
 
-    it "shows a droplet with an id", :vcr => true do
-      @cli.options = @cli.options.merge(:id => 6213326)
+    it "shows a droplet with an id" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
+
+      @cli.options = @cli.options.merge(:id => 6918990)
       @cli.info
 
       expect($stdout.string).to eq <<-eos
-Droplet id provided. Finding Droplet...done\e[0m, 6213326 (id-droplet)
+Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
 
-Name:             id-droplet
-ID:               6213326
+Name:             example.com
+ID:               6918990
 Status:           \e[32mactive\e[0m
-IP4:              168.36.254.208
-Region:           New York 2 - nyc2
-Image:            12790328 - 14.04 x64
-Size:             512mb
+IP4:              104.131.186.241
+IP6:              2604:A880:0800:0010:0000:0000:031D:2001
+Region:           New York 3 - nyc3
+Image:            6918990 - 14.04 x64
+Size:             512MB
 Backups Active:   false
       eos
     end
 
-    it "shows a droplet with a name", :vcr => true do
-      @cli.options = @cli.options.merge(:name => "droplet-name")
+    it "shows a droplet with a name" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
+
+      @cli.options = @cli.options.merge(:name => "example.com")
       @cli.info
 
       expect($stdout.string).to eq <<-eos
-Droplet name provided. Finding droplet ID...done\e[0m, 4288765 (droplet-name)
+Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 
-Name:             droplet-name
-ID:               4288765
+Name:             example.com
+ID:               6918990
 Status:           \e[32mactive\e[0m
-IP4:              48.79.144.140
-Region:           London 1 - lon1
-Image:            124321 - Rad Image
-Size:             1gb
-Backups Active:   true
+IP4:              104.131.186.241
+IP6:              2604:A880:0800:0010:0000:0000:031D:2001
+Region:           New York 3 - nyc3
+Image:            6918990 - 14.04 x64
+Size:             512MB
+Backups Active:   false
       eos
     end
 
-    it "allows choice of multiple droplets", :vcr => true do
+    it "allows choice of multiple droplets" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
+
       $stdin.should_receive(:gets).and_return('0')
 
-      @cli.info("fuzzy")
+      @cli.info("examp")
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...Multiple droplets found.
 
-0) fuzzy-1 (6252658)
-1) fuzzy-2 (6252661)
+0) example.com (6918990)
+1) example2.com (3164956)
+2) example3.com (3164444)
 
-Please choose a droplet: ["0", "1"]\x20
-Name:             test222
-ID:               100823
+Please choose a droplet: ["0", "1", "2"]\x20
+Name:             example.com
+ID:               6918990
 Status:           \e[32mactive\e[0m
-IP4:              40.171.221.88
-Region:           New York 2 - nyc2
-Image:            12790328 - 14.04 x64
-Size:             512mb
+IP4:              104.131.186.241
+IP6:              2604:A880:0800:0010:0000:0000:031D:2001
+Region:           New York 3 - nyc3
+Image:            6918990 - 14.04 x64
+Size:             512MB
 Backups Active:   false
       eos
     end
@@ -85,129 +117,134 @@ Backups Active:   false
   end
 
   it "shows a droplet with an id under porcelain mode" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
-      stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
-
-      @cli.options = @cli.options.merge(:id => droplet_id, :porcelain => true)
+      @cli.options = @cli.options.merge(:id => '6918990', :porcelain => true)
       @cli.info
 
       expect($stdout.string).to eq <<-eos
-name foo
-id 100823
+name example.com
+id 6918990
 status active
-ip 33.33.33.10
-private_ip 10.20.30.40
-region_id 1
-image_id 420
-size_id 33
+ip4 104.131.186.241
+ip6 2604:A880:0800:0010:0000:0000:031D:2001
+region nyc3
+Image 6918990
+size 512mb
 backups_active false
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
     end
 
     it "shows a droplet with a name under porcelain mode" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
-      stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
-      @cli.options = @cli.options.merge(:name => droplet_name, :porcelain => true)
+      @cli.options = @cli.options.merge(:name => 'example.com', :porcelain => true)
       @cli.info
 
       expect($stdout.string).to eq <<-eos
-name foo
-id 100823
+name example.com
+id 6918990
 status active
-ip 33.33.33.10
-private_ip 10.20.30.40
-region_id 1
-image_id 420
-size_id 33
+ip4 104.131.186.241
+ip6 2604:A880:0800:0010:0000:0000:031D:2001
+region nyc3
+Image 6918990
+size 512mb
 backups_active false
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
-      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
     end
 
   it "shows a droplet attribute with an id" do
-    stub_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}").
-         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
+    stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
-    stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
-         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
-
-    @cli.options = @cli.options.merge(:id => droplet_id, :attribute => "ip")
+    @cli.options = @cli.options.merge(:id => '6918990', :attribute => "ip4")
     @cli.info
 
     expect($stdout.string).to eq <<-eos
-Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)
-33.33.33.10
+Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
+104.131.186.241
     eos
-
-    expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
-    expect(a_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
   end
 
   it "shows a droplet attribute with a name" do
-    stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
+    stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
-    stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
-         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
+    stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
-    @cli.options = @cli.options.merge(:name => droplet_name, :attribute => "ip")
+    @cli.options = @cli.options.merge(:name => 'example.com', :attribute => "ip4")
     @cli.info
 
     expect($stdout.string).to eq <<-eos
-Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
-33.33.33.10
+Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+104.131.186.241
     eos
-
-    expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
-    expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
   end
 
+  it "gives error if invalid attribute given" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
+
+      @cli.options = @cli.options.merge(:id => 6918990, :porcelain => true, :attribute => "foo")
+      expect {@cli.info}.to raise_error(SystemExit)
+
+      expect($stdout.string).to eq <<-eos
+Invalid attribute "foo"
+Provide one of the following:
+    name
+    id
+    status
+    ip4
+    ip6
+    private_ip
+    region
+    Image
+    size
+    backups_active
+      eos
+    end
+
   it "shows a droplet attribute with an id under porcelain mode" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
-      stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
-
-      @cli.options = @cli.options.merge(:id => droplet_id, :porcelain => true, :attribute => "ip")
+      @cli.options = @cli.options.merge(:id => '6918990', :porcelain => true, :attribute => "ip4")
       @cli.info
 
       expect($stdout.string).to eq <<-eos
-33.33.33.10
+104.131.186.241
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
     end
 
     it "shows a droplet attribute with a name under porcelain mode" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
-      stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
-
-      @cli.options = @cli.options.merge(:name => droplet_name, :porcelain => true, :attribute => "ip")
+      @cli.options = @cli.options.merge(:name => 'example.com', :porcelain => true, :attribute => "ip4")
       @cli.info
 
       expect($stdout.string).to eq <<-eos
-33.33.33.10
+104.131.186.241
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
-      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
     end
 
 end

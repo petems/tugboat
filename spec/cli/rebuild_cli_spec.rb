@@ -5,9 +5,9 @@ describe Tugboat::CLI do
 
   describe "rebuild" do
     it "rebuilds a droplet with a fuzzy name based on an image with a fuzy name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
@@ -46,9 +46,9 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage fuzzy name
     end
 
     it "rebuilds a droplet with a name based on an image with a fuzy name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
@@ -67,9 +67,9 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage fuzzy
     end
 
     it "rebuilds a droplet with a fuzzy name based on an image with an id" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
@@ -109,9 +109,9 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage id provide
     end
 
     it "rebuilds a droplet with a name based on an image with an id" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
@@ -130,9 +130,9 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage id pr
     end
 
     it "rebuilds a droplet with a fuzzy name based on an image with a name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
@@ -172,9 +172,9 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage name provi
     end
 
     it "rebuilds a droplet with a name based on an image with a name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
@@ -193,9 +193,9 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage name 
     end
 
     it "rebuilds a droplet with confirm flag set" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 

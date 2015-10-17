@@ -13,8 +13,10 @@ module Tugboat
         end
 
         unless response.success?
-          say "Failed to halt Droplet: #{response.message}", :red
+          say "Failed to halt on Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Halt successful!", :green
         end
 
         @app.call(env)

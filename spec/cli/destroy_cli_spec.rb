@@ -5,9 +5,9 @@ describe Tugboat::CLI do
 
   describe "destroy" do
     it "destroys a droplet with a fuzzy name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:delete, "https://api.digitalocean.com/droplets/100823/destroy?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
@@ -45,9 +45,9 @@ Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nWarning! Potenti
 
 
     it "destroys a droplet with a name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:delete, "https://api.digitalocean.com/droplets/100823/destroy?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
@@ -66,9 +66,9 @@ Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nWarning! Po
 
 
     it "destroys a droplet with confirm flag set" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:delete, "https://api.digitalocean.com/droplets/100823/destroy?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 
@@ -86,9 +86,9 @@ Queuing destroy for 100823 (foo)...done
     end
 
     it "does not destroy a droplet if no is chosen" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-
+stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
       stub_request(:delete, "https://api.digitalocean.com/droplets/100823/destroy?api_key=#{api_key}&client_id=#{client_key}").
            to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
 

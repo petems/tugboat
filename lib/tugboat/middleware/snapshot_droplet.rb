@@ -10,12 +10,14 @@ module Tugboat
 
         say "Queuing snapshot '#{env["user_snapshot_name"]}' for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
 
-        response = ocean.droplets.snapshot env["droplet_id"],
+        response = ocean.droplet.snapshot env["droplet_id"],
                                 :name => env["user_snapshot_name"]
 
         unless response.success?
           say "Failed to snapshot Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Snapshot successful!", :red
         end
 
         @app.call(env)

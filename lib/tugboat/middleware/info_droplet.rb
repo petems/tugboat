@@ -7,15 +7,13 @@ module Tugboat
         response = ocean.droplet.show env["droplet_id"]
 
         unless response.success?
-          say "Failed to get infor for Droplet: #{response.message}", :red
+          say "Failed to get info for Droplet: #{response.message}", :red
           exit 1
         end
 
         droplet = response.droplet
 
-        if response.success?
-          say "done", :green
-        else
+        unless response.success?
           say "Failed to find droplet: #{response.message}", :red
           exit 1
         end
@@ -30,7 +28,8 @@ module Tugboat
 
         droplet_ip4_public = droplet.networks.v4.detect { |address| address.type == 'public' }.ip_address
         droplet_ip6_public = droplet.networks.v6.detect { |address| address.type == 'public' }.ip_address unless droplet.networks.v6.empty?
-        droplet_private_ip = droplet.networks.v4.detect { |address| address.type == 'private' }.ip_address
+        check_private_ip   = droplet.networks.v4.detect { |address| address.type == 'private' }
+        droplet_private_ip = check_private_ip.ip_address if check_private_ip
 
         attributes_list = [
           ["name",  droplet.name],
@@ -52,7 +51,8 @@ module Tugboat
           else
             say "Invalid attribute \"#{attribute}\"", :red
             say "Provide one of the following:", :red
-            attributes_list.keys.each { |a| say "    #{a[0]}", :red }
+            attributes_list.each { |a| say "    #{a[0]}", :red }
+            exit 1
           end
         else
           if env["user_porcelain"]
