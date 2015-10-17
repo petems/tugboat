@@ -6,11 +6,13 @@ module Tugboat
 
         say "Queuing destroy image for #{env["image_id"]} #{env["image_name"]}...", nil, false
 
-        response = ocean.images.delete env["image_id"]
+        response = ocean.image.destroy env["image_id"]
 
         unless response.success?
           say "Failed to destroy image: #{response.message}", :red
           exit 1
+        else
+          say 'Image deletion successful!', :green
         end
 
         @app.call(env)

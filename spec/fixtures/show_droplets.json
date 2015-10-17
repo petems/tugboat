@@ -212,7 +212,7 @@
       "networks": {
         "v4": [
           {
-            "ip_address": "104.236.32.172",
+            "ip_address": "104.236.32.173",
             "netmask": "255.255.192.0",
             "gateway": "104.236.0.1",
             "type": "public"

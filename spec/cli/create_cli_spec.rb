@@ -7,7 +7,7 @@ describe Tugboat::CLI do
     it "with a name, uses defaults from configuration" do
       stub_request(:post, "https://api.digitalocean.com/v2/droplets").
          with(:body => "{\"name\":\"foo\",\"size\":\"666\",\"image\":\"555\",\"region\":\"3\",\"ssh_keys\":[\"4321\"],\"private_networking\":\"false\",\"backups_enabled\":\"false\",\"ipv6\":null}",
-              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
       @cli.create(droplet_name)
