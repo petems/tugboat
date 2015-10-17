@@ -1,4 +1,3 @@
-require 'vcr'
 require 'webmock/rspec'
 
 require 'simplecov'
@@ -21,14 +20,6 @@ RSpec.configure do |config|
   config.color = true
 
   config.order = :random
-end
-
-VCR.configure do |c|
-  c.hook_into :webmock
-  c.cassette_library_dir = 'spec/support/cassettes'
-  c.configure_rspec_metadata!
-  c.default_cassette_options = { record: :new_episodes }
-  c.filter_sensitive_data('<ACCESS TOKEN>') { ENV['DIGITAL_OCEAN_ACCESS_TOKEN'] }
 end
 
 def project_path
