@@ -6,8 +6,8 @@ describe Tugboat::CLI do
   describe "verify" do
     it "returns confirmation text when verify passes" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
-         to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       @cli.verify
       expect($stdout.string).to eq "Authentication with DigitalOcean was successful.\n"
@@ -16,8 +16,8 @@ describe Tugboat::CLI do
 
     it "returns error when verify fails" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
-        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
-        to_return(:headers => {'Content-Type' => 'text/html'}, :status => 500, :body => fixture('500','html'))
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:headers => {'Content-Type' => 'text/html'}, :status => 500, :body => fixture('500','html'))
 
       expect { @cli.verify }.to raise_error(SystemExit)
       expect($stdout.string).to include "Authentication with DigitalOcean failed."
