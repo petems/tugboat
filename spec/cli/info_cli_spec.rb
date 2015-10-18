@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Tugboat::CLI do
   include_context "spec"
 
-  describe "show" do
+  describe "info" do
     it "shows a droplet with a fuzzy name" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).

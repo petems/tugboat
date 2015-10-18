@@ -5,10 +5,9 @@ describe Tugboat::CLI do
 
   describe "images" do
     it "shows a list" do
-       stub_request(:get, "https://api.digitalocean.com/v2/images?filter=my_images&per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200&private=true").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
-      pending 'Waiting on https://github.com/boats/barge/issues/12'
 
       @cli.images
 

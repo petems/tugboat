@@ -4,211 +4,297 @@ describe Tugboat::CLI do
   include_context "spec"
 
   describe "rebuild" do
-    it "rebuilds a droplet with a fuzzy name based on an image with a fuzy name" do
-stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+    it "rebuilds a droplet with a fuzzy name based on an image with a fuzzy name" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
-      stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
 
-      expect($stdin).to receive(:gets).and_return("y")
-
-      @cli.rebuild("foo", "NLP Final")
-
-      expect($stdout.string).to eq <<-eos
-Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage fuzzy name provided. Finding image ID...done\e[0m, 478 (NLP Final)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 100823 (foo) with image 478 (NLP Final)...done
-      eos
-      expect(a_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478")).to have_been_made
-    end
-
-    it "rebuilds a droplet with an id based on an image with a fuzy name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
-
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
-
-      stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => "", :headers => {})
 
       expect($stdin).to receive(:gets).and_return("y")
 
-      @cli.options = @cli.options.merge(:id => droplet_id)
-      @cli.rebuild("foo", "NLP Final")
+      @cli.rebuild("example.com", "ubuntu-14-04-x64")
 
       expect($stdout.string).to eq <<-eos
-Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage fuzzy name provided. Finding image ID...done\e[0m, 478 (NLP Final)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 100823 (foo) with image 478 (NLP Final)...done
+Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+Image fuzzy name provided. Finding image ID...done\e[0m, 12790328 (14.04 x64)
+Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
-      expect(a_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478")).to have_been_made
+
     end
 
-    it "rebuilds a droplet with a name based on an image with a fuzy name" do
-stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+    it "rebuilds a droplet with an id based on an image with a fuzzy name" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/12790328?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
+
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => "", :headers => {})
+
+      expect($stdin).to receive(:gets).and_return("y")
+
+      @cli.options = @cli.options.merge(:id => '12790328')
+      @cli.rebuild("example.com","ubuntu-14-04-x64")
+
+      expect($stdout.string).to eq <<-eos
+Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
+Image fuzzy name provided. Finding image ID...done\e[0m, 12790328 (14.04 x64)
+Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
+      eos
+    end
+
+    it "rebuilds a droplet with a name based on an image with a fuzzy name" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
-      stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/12790328?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
+
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => "", :headers => {})
 
       expect($stdin).to receive(:gets).and_return("y")
 
-      @cli.options = @cli.options.merge(:name => droplet_name)
-      @cli.rebuild("foo", "NLP Final")
+      @cli.options = @cli.options.merge(:name => 'example.com')
+      @cli.rebuild("example.com","ubuntu-14-04-x64")
 
       expect($stdout.string).to eq <<-eos
-Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage fuzzy name provided. Finding image ID...done\e[0m, 478 (NLP Final)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 100823 (foo) with image 478 (NLP Final)...done
+Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+Image fuzzy name provided. Finding image ID...done\e[0m, 12790328 (14.04 x64)
+Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
-      expect(a_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478")).to have_been_made
+
     end
 
     it "rebuilds a droplet with a fuzzy name based on an image with an id" do
-stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
-      stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
-      stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/12790328?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
+
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+
+      stub_request(:get, "https://api.digitalocean.com/v2/images/12790328?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_image'), :headers => {})
+
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"rebuild\",\"image_id\":6376601}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => "", :headers => {})
 
       expect($stdin).to receive(:gets).and_return("y")
 
-      @cli.options = @cli.options.merge(:image_id => 478)
-      @cli.rebuild("foo", "NLP Final")
+      @cli.options = @cli.options.merge(:image_id => 12790328)
+      @cli.rebuild("example.com","ubuntu-14-04-x64")
 
       expect($stdout.string).to eq <<-eos
-Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage id provided. Finding Image...done\e[0m, 478 (NLP Final)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 100823 (foo) with image 478 (NLP Final)...done
+Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+Image id provided. Finding Image...done\e[0m, 6376601 (My application image)
+Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 6376601 (My application image)...Rebuild complete
       eos
-      expect(a_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478")).to have_been_made
     end
 
     it "rebuilds a droplet with an id based on an image with an id" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
-      stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/12790328?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
-      stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+
+      stub_request(:get, "https://api.digitalocean.com/v2/images/12790328?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_image'), :headers => {})
+
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"rebuild\",\"image_id\":6376601}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => "", :headers => {})
 
       expect($stdin).to receive(:gets).and_return("y")
 
-      @cli.options = @cli.options.merge(:id => droplet_id, :image_id => 478)
-      @cli.rebuild("foo", "NLP Final")
+      @cli.options = @cli.options.merge(:id => '12790328', :image_id => 12790328)
+      @cli.rebuild("example.com","ubuntu-14-04-x64")
 
       expect($stdout.string).to eq <<-eos
-Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage id provided. Finding Image...done\e[0m, 478 (NLP Final)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 100823 (foo) with image 478 (NLP Final)...done
+Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
+Image id provided. Finding Image...done\e[0m, 6376601 (My application image)
+Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 6376601 (My application image)...Rebuild complete
       eos
-      expect(a_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478")).to have_been_made
     end
 
     it "rebuilds a droplet with a name based on an image with an id" do
-stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
-      stub_request(:get, "https://api.digitalocean.com/images/478?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_image"))
 
-      stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/12790328?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
+
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+
+      stub_request(:get, "https://api.digitalocean.com/v2/images/12790328?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_image'), :headers => {})
+
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"rebuild\",\"image_id\":6376601}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => "", :headers => {})
 
       expect($stdin).to receive(:gets).and_return("y")
 
-      @cli.options = @cli.options.merge(:name => droplet_name, :image_id => 478)
-      @cli.rebuild("foo", "NLP Final")
+      @cli.options = @cli.options.merge(:name => 'example.com', :image_id => 12790328)
+      @cli.rebuild("example.com","ubuntu-14-04-x64")
 
       expect($stdout.string).to eq <<-eos
-Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage id provided. Finding Image...done\e[0m, 478 (NLP Final)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 100823 (foo) with image 478 (NLP Final)...done
+Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+Image id provided. Finding Image...done\e[0m, 6376601 (My application image)
+Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 6376601 (My application image)...Rebuild complete
       eos
-      expect(a_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478")).to have_been_made
     end
 
     it "rebuilds a droplet with a fuzzy name based on an image with a name" do
-stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
-      stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => "", :headers => {})
 
       expect($stdin).to receive(:gets).and_return("y")
 
-      @cli.options = @cli.options.merge(:image_name => "NLP Final")
-      @cli.rebuild("foo", "NLP Final")
+      @cli.options = @cli.options.merge(:image_name => "14.04 x64")
+
+      @cli.rebuild("example.com","ubuntu-14-04-x64")
 
       expect($stdout.string).to eq <<-eos
-Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage name provided. Finding image ID...done\e[0m, 478 (NLP Final)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 100823 (foo) with image 478 (NLP Final)...done
+Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+Image name provided. Finding Image...done\e[0m, 12790328 (14.04 x64)
+Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
-      expect(a_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478")).to have_been_made
     end
 
     it "rebuilds a droplet with an id based on an image with a name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/#{droplet_id}?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/12790328?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
-      stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => "", :headers => {})
 
       expect($stdin).to receive(:gets).and_return("y")
 
-      @cli.options = @cli.options.merge(:id => droplet_id, :image_name => "NLP Final")
-      @cli.rebuild("foo", "NLP Final")
+      @cli.options = @cli.options.merge(:id => '12790328', :image_name => "14.04 x64")
+      @cli.rebuild("example.com", "14.04 x64")
 
       expect($stdout.string).to eq <<-eos
-Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)\nImage name provided. Finding image ID...done\e[0m, 478 (NLP Final)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 100823 (foo) with image 478 (NLP Final)...done
+Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
+Image name provided. Finding Image...done\e[0m, 12790328 (14.04 x64)
+Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
-      expect(a_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478")).to have_been_made
     end
 
     it "rebuilds a droplet with a name based on an image with a name" do
-stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+    stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
-      stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => "", :headers => {})
 
       expect($stdin).to receive(:gets).and_return("y")
 
-      @cli.options = @cli.options.merge(:name => droplet_name, :image_name => "NLP Final")
-      @cli.rebuild("foo", "NLP Final")
+      @cli.options = @cli.options.merge(:name => 'example.com', :image_name => "14.04 x64")
+      @cli.rebuild("example.com", "14.04 x64")
 
       expect($stdout.string).to eq <<-eos
-Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage name provided. Finding image ID...done\e[0m, 478 (NLP Final)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 100823 (foo) with image 478 (NLP Final)...done
+Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+Image name provided. Finding Image...done\e[0m, 12790328 (14.04 x64)
+Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
-      expect(a_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478")).to have_been_made
     end
 
     it "rebuilds a droplet with confirm flag set" do
-stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
-      stub_request(:get, "https://api.digitalocean.com/images?api_key=#{api_key}&client_id=#{client_key}").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
 
-      stub_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478").
-           to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{ "status": "OK",  "event_id": 7504 }')
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => "", :headers => {})
+
 
       @cli.options = @cli.options.merge(:confirm => "no")
-      @cli.rebuild("foo", "NLP Final")
+      @cli.rebuild("example.com", "14.04 x64")
 
       expect($stdout.string).to eq <<-eos
-Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)\nImage fuzzy name provided. Finding image ID...done\e[0m, 478 (NLP Final)\nQueuing rebuild for droplet 100823 (foo) with image 478 (NLP Final)...done
+Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+Image fuzzy name provided. Finding image ID...done\e[0m, 12790328 (14.04 x64)
+Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
-      expect(a_request(:post, "https://api.digitalocean.com/droplets/100823/rebuild?api_key=#{api_key}&client_id=#{client_key}&image_id=478")).to have_been_made
     end
   end
 

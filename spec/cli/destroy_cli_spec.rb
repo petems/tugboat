@@ -23,6 +23,10 @@ eos
     end
 
     it "destroys a droplet with an id" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
+
       stub_request(:delete, "https://api.digitalocean.com/v2/droplets/6918990").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 204, :body => "", :headers => {})
@@ -56,7 +60,6 @@ Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)\nWarning
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing destroy for 6918990 (example.com)...Deletion Successful!
       eos
     end
-
 
     it "destroys a droplet with confirm flag set" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").

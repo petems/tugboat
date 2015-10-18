@@ -72,6 +72,12 @@ module Tugboat
             if d.name.upcase.include? user_fuzzy_name.upcase
               found_images << d
             end
+
+            unless d.slug.nil?
+              if d.slug.upcase.include? user_fuzzy_name.upcase
+                found_images << d
+              end
+            end
           end
 
           # Check to see if we have more then one image, and prompt
