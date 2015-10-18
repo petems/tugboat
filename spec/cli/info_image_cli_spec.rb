@@ -66,6 +66,39 @@ Distribution:     Ubuntu
       eos
     end
 
+    it "allows choice of multiple images" do
+    stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
+
+    stub_request(:get, "https://api.digitalocean.com/v2/images/9801951?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('ubuntu_image_9801951'), :headers => {})
+
+    $stdin.should_receive(:gets).and_return('0')
+
+      @cli.info_image("ubun")
+
+      expect($stdout.string).to eq <<-eos
+Image fuzzy name provided. Finding image ID...Multiple images found.
+
+0) 14.10 x32 (9801951)
+1) 14.10 x64 (9801954)
+2) 12.04.5 x64 (10321756)
+3) 12.04.5 x32 (10321777)
+4) 15.04 x64 (12658446)
+5) 15.04 x32 (12660649)
+6) 14.04 x32 (12790298)
+7) 14.04 x64 (12790328)
+
+Please choose a image: ["0", "1", "2", "3", "4", "5", "6", "7"]\x20
+Name:             14.10 x32
+ID:               9801951
+Distribution:     Ubuntu
+      eos
+    end
+
+
   end
 
 end

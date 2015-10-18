@@ -1,0 +1,24 @@
+{
+  "image": {
+    "id": 9801951,
+    "name": "14.10 x32",
+    "distribution": "Ubuntu",
+    "slug": "ubuntu-14-10-x32",
+    "public": true,
+    "regions": [
+    "nyc1",
+    "ams1",
+    "sfo1",
+    "nyc2",
+    "ams2",
+    "sgp1",
+    "lon1",
+    "nyc3",
+    "ams3",
+    "fra1"
+    ],
+    "created_at": "2015-01-08T18:41:22Z",
+    "min_disk_size": 20,
+    "type": "snapshot"
+  }
+}
