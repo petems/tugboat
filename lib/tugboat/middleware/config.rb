@@ -8,7 +8,7 @@ module Tugboat
 
         keys_retracted = ''
 
-        config_data = config.data.to_yaml
+        config_data = config.data.to_yaml.gsub(/"/,'')
 
         if env["user_hide_keys"]
           keys_retracted = '(Keys Redacted)'
@@ -16,7 +16,7 @@ module Tugboat
           config_data = config_data.gsub(/(api_key: )([a-zA-Z0-9]+)/,'\1 [REDACTED]')
         end
 
-        say "Current Config #{keys_retracted}", :green
+        say "Current Config #{keys_retracted}\n", :green
 
         say "Path: #{config.path}"
         say config_data
