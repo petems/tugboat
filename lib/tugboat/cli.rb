@@ -73,15 +73,15 @@ module Tugboat
         })
     end
 
-    desc "images [OPTIONS]", "Retrieve a list of your images"
-    method_option "global",
+    desc "images [OPTIONS]", "Retrieve a list of images"
+    method_option "show_just_private_images",
                   :type => :boolean,
                   :default => false,
-                  :aliases => "-g",
-                  :desc => "Show global images"
+                  :aliases => "-p",
+                  :desc => "Show just private images"
     def images
       Middleware.sequence_list_images.call({
-        "user_show_global_images" => options[:global],
+        "user_show_just_private_images" => options[:show_just_private_images],
         "user_quiet" => options[:quiet]
         })
     end
@@ -102,7 +102,8 @@ module Tugboat
     method_option "use_private_ip",
                   :type => :boolean,
                   :aliases => "-t",
-                  :desc => "Use Private IP while private IP is present"
+                  :desc => "Use Private IP while private IP is present",
+                  :default => false
     method_option "ssh_user",
                   :type => :string,
                   :aliases => "-u",
@@ -122,7 +123,7 @@ module Tugboat
         "user_droplet_fuzzy_name" => name,
         "user_droplet_ssh_port" => options[:ssh_port],
         "user_droplet_ssh_user" => options[:ssh_user],
-        "user_droplet_use_private_ip" => options[:use_public_ip],
+        "user_droplet_use_private_ip" => options[:use_private_ip],
         "user_droplet_ssh_opts" => options[:ssh_opts],
         "user_droplet_ssh_command" => options[:ssh_command],
         "user_quiet" => options[:quiet]
