@@ -12,11 +12,10 @@ module Tugboat
 
         if env["user_hide_keys"]
           keys_retracted = '(Keys Redacted)'
-          config_data = config_data.gsub(/(client_key: )([a-zA-Z0-9]+)/,'\1 [REDACTED]')
-          config_data = config_data.gsub(/(api_key: )([a-zA-Z0-9]+)/,'\1 [REDACTED]')
+          config_data = config_data.gsub(/(access_token: )([a-zA-Z0-9]+)/,'\1 [REDACTED]')
         end
 
-        say "Current Config #{keys_retracted}", :green
+        say "Current Config #{keys_retracted}\n", :green
 
         say "Path: #{config.path}"
         say config_data
