@@ -29,5 +29,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "webmock", "~> 1.11.0"
   gem.add_development_dependency "coveralls", "~> 0.6.7"
   gem.add_development_dependency 'aruba', '~> 0.6.2'
+  gem.add_development_dependency 'pry'
 
 end
