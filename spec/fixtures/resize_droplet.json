@@ -1,0 +1,13 @@
+{
+ "action": {
+    "id": 36804888,
+    "status": "in-progress",
+    "type": "resize",
+    "started_at": "2014-11-14T16:33:17Z",
+    "completed_at": null,
+    "resource_id": 6918990,
+    "resource_type": "droplet",
+    "region": "nyc3",
+    "region_slug": "nyc3"
+  }
+}

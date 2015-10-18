@@ -1,20 +1,29 @@
 {
-  "status": "OK",
   "images": [
     {
-      "id": 466,
-      "name": "NYTD Backup 1-18-2012",
-      "distribution": "Ubuntu"
-    },
-    {
-      "id": 478,
-      "name": "NLP Final",
-      "distribution": "Ubuntu"
-    },
-    {
-      "id": 479,
-      "name": "Global Final",
-      "distribution": "Ubuntu"
+      "id": 6376601,
+      "name": "My application image",
+      "distribution": "Ubuntu",
+      "public": false,
+      "regions": [
+        "nyc1",
+        "ams1",
+        "sfo1",
+        "nyc2",
+        "ams2",
+        "sgp1"
+      ],
+      "created_at": "2014-09-26T20:20:24Z",
+      "min_disk_size": 20
     }
-  ]
+  ],
+  "links": {
+    "pages": {
+      "last": "https://api.digitalocean.com/v2/images?page=14&per_page=1&type=application",
+      "next": "https://api.digitalocean.com/v2/images?page=2&per_page=1&type=application"
+    }
+  },
+  "meta": {
+    "total": 14
+  }
 }

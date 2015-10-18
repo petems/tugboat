@@ -7,11 +7,13 @@ describe Tugboat::CLI do
 
   describe "authorize" do
     before do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-      to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200)
+
     end
 
     it "asks the right questions and checks credentials" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       expect($stdout).to receive(:print).exactly(6).times
       expect($stdout).to receive(:print).with("Enter your access token: ")
@@ -22,11 +24,11 @@ describe Tugboat::CLI do
       expect($stdin).to receive(:gets).and_return(ssh_user)
       expect($stdout).to receive(:print).with("Enter your SSH port number (optional, defaults to 22): ")
       expect($stdin).to receive(:gets).and_return(ssh_port)
-      expect($stdout).to receive(:print).with("Enter your default region ID (optional, defaults to 8 (New York 3)): ")
+      expect($stdout).to receive(:print).with("Enter your default region (optional, defaults to nyc1): ")
       expect($stdin).to receive(:gets).and_return(region)
-      expect($stdout).to receive(:print).with("Enter your default image ID (optional, defaults to 9801950 (Ubuntu 14.04 x64)): ")
+      expect($stdout).to receive(:print).with("Enter your default image ID or image slug (optional, defaults to ubuntu-14-04-x64): ")
       expect($stdin).to receive(:gets).and_return(image)
-      expect($stdout).to receive(:print).with("Enter your default size ID (optional, defaults to 66 (512MB)): ")
+      expect($stdout).to receive(:print).with("Enter your default size (optional, defaults to 512mb)): ")
       expect($stdin).to receive(:gets).and_return(size)
       expect($stdout).to receive(:print).with("Enter your default ssh key ID (optional, defaults to none): ")
       expect($stdin).to receive(:gets).and_return(ssh_key_id)
@@ -37,12 +39,9 @@ describe Tugboat::CLI do
 
       @cli.authorize
 
-      expect($stdout.string).to include("Note: You can get this information from https://cloud.digitalocean.com/api_access")
-      expect($stdout.string).to include("Also Note: Tugboat is setup to work with v1 of the Digital Ocean API (https://developers.digitalocean.com/v1/)")
+      expect($stdout.string).to include("Note: You can get your Access Token from https://cloud.digitalocean.com/settings/tokens/new")
       expect($stdout.string).to include("To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`.")
       expect($stdout.string).to include("Defaults can be changed at any time in your ~/.tugboat configuration file.")
-
-      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
 
       config = YAML.load_file(tmp_path)
 
@@ -58,25 +57,24 @@ describe Tugboat::CLI do
     end
 
     it "sets defaults if no input given" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>/Bearer/, 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       expect($stdout).to receive(:print).exactly(6).times
-      expect($stdout).to receive(:print).with("Enter your client key: ")
-      expect($stdin).to receive(:gets).and_return(client_key)
-      expect($stdout).to receive(:print).with("Enter your API key: ")
-      expect($stdin).to receive(:gets).and_return(api_key)
       expect($stdout).to receive(:print).with("Enter your access token: ")
       expect($stdin).to receive(:gets).and_return('')
       expect($stdout).to receive(:print).with("Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa): ")
-      expect($stdin).to receive(:gets).and_return(ssh_key_path)
+      expect($stdin).to receive(:gets).and_return('')
       expect($stdout).to receive(:print).with("Enter your SSH user (optional, defaults to root): ")
       expect($stdin).to receive(:gets).and_return('')
       expect($stdout).to receive(:print).with("Enter your SSH port number (optional, defaults to 22): ")
       expect($stdin).to receive(:gets).and_return('')
-      expect($stdout).to receive(:print).with("Enter your default region ID (optional, defaults to 8 (New York 3)): ")
+      expect($stdout).to receive(:print).with("Enter your default region (optional, defaults to nyc1): ")
       expect($stdin).to receive(:gets).and_return('')
-      expect($stdout).to receive(:print).with("Enter your default image ID (optional, defaults to 9801950 (Ubuntu 14.04 x64)): ")
+      expect($stdout).to receive(:print).with("Enter your default image ID or image slug (optional, defaults to ubuntu-14-04-x64): ")
       expect($stdin).to receive(:gets).and_return('')
-      expect($stdout).to receive(:print).with("Enter your default size ID (optional, defaults to 66 (512MB)): ")
+      expect($stdout).to receive(:print).with("Enter your default size (optional, defaults to 512mb)): ")
       expect($stdin).to receive(:gets).and_return('')
       expect($stdout).to receive(:print).with("Enter your default ssh key ID (optional, defaults to none): ")
       expect($stdin).to receive(:gets).and_return('')
@@ -87,20 +85,17 @@ describe Tugboat::CLI do
 
       @cli.authorize
 
-      expect($stdout.string).to include("Note: You can get this information from https://cloud.digitalocean.com/api_access")
-      expect($stdout.string).to include("Also Note: Tugboat is setup to work with v1 of the Digital Ocean API (https://developers.digitalocean.com/v1/)")
+      expect($stdout.string).to include("Note: You can get your Access Token from https://cloud.digitalocean.com/settings/tokens/new")
       expect($stdout.string).to include("To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`.")
       expect($stdout.string).to include("Defaults can be changed at any time in your ~/.tugboat configuration file.")
 
-      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).to have_been_made
-
       config = YAML.load_file(tmp_path)
 
-      expect(config["defaults"]["image"]).to eq "9801950"
-      expect(config["defaults"]["region"]).to eq "8"
-      expect(config["defaults"]["size"]).to eq "66"
+      expect(config["defaults"]["image"]).to eq "ubuntu-14-04-x64"
+      expect(config["defaults"]["region"]).to eq "nyc2"
+      expect(config["defaults"]["size"]).to eq "512mb"
       expect(config["ssh"]["ssh_user"]).to eq 'root'
-      expect(config["ssh"]["ssh_key_path"]).to eq "~/.ssh/id_rsa2"
+      expect(config["ssh"]["ssh_key_path"]).to eq "~/.ssh/id_rsa"
       expect(config["ssh"]["ssh_port"]).to eq "22"
       expect(config["defaults"]["ssh_key"]).to eq ""
     end
