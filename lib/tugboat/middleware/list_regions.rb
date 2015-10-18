@@ -7,7 +7,7 @@ module Tugboat
 
         say "Regions:"
         regions.each do |region|
-          say "#{region.name} (id: #{region.id}) (slug: #{region.slug})"
+          say "#{region.name} (slug: #{region.slug})"
         end
 
         @app.call(env)

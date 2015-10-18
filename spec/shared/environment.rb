@@ -11,9 +11,9 @@ shared_context "spec" do
   let(:droplet_ip)         { "33.33.33.10" }
   let(:droplet_ip_private) { "10.20.30.40" }
   let(:droplet_id)         { 1234 }
-  let(:region)             { '3' }
-  let(:image)              { '345791'}
-  let(:size)               { '67'}
+  let(:region)             { 'nyc2' }
+  let(:image)              { 'ubuntu-14-04-x64'}
+  let(:size)               { '512mb'}
   let(:ssh_key_id)         { '1234' }
   let(:ssh_key_name)       { 'macbook_pro' }
   let(:ssh_public_key)     { 'ssh-dss A123= user@host' }
