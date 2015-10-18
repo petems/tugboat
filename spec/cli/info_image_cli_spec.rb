@@ -66,6 +66,19 @@ Distribution:     Ubuntu
       eos
     end
 
+    it "errors if no image with matching name is found" do
+      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_images"))
+
+      expect {@cli.info_image("foobarbaz")}.to raise_error(SystemExit)
+
+      expect($stdout.string).to eq <<-eos
+Image fuzzy name provided. Finding image ID...error
+Unable to find an image named 'foobarbaz'.
+      eos
+    end
+
     it "allows choice of multiple images" do
     stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
