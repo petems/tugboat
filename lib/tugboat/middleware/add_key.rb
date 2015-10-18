@@ -37,6 +37,10 @@ module Tugboat
           exit 1
         end
 
+        say "SSH Key uploaded", :green
+        say
+        say "Name: #{response.ssh_key.name}"
+        say "ID: #{response.ssh_key.id}"
 
         @app.call(env)
       end
