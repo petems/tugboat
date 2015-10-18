@@ -19,7 +19,7 @@ shared_context "spec" do
   let(:ssh_public_key)     { 'ssh-dss A123= user@host' }
   let(:private_networking) { 'false'}
   let(:backups_enabled)    { 'false'}
-  let(:ocean)              { Barge::Client.new(access_token: access_key) }
+  let(:ocean)              { Barge::Client.new(:access_token => access_token) }
   let(:app)                { lambda { |env| } }
   let(:env)                { {} }
 

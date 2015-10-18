@@ -74,14 +74,14 @@ module Tugboat
     end
 
     desc "images [OPTIONS]", "Retrieve a list of images"
-    method_option "global",
+    method_option "show_just_private_images",
                   :type => :boolean,
                   :default => false,
                   :aliases => "-p",
-                  :desc => "Show private images"
+                  :desc => "Show just private images"
     def images
       Middleware.sequence_list_images.call({
-        "user_show_private_images" => options[:global],
+        "user_show_just_private_images" => options[:show_just_private_images],
         "user_quiet" => options[:quiet]
         })
     end

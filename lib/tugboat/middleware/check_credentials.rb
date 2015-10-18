@@ -10,7 +10,9 @@ module Tugboat
         begin
           env['barge'].droplet.all.list
         rescue Faraday::Error::ClientError => e
-          say "Authentication with DigitalOcean failed. Run `tugboat authorize`", :red
+          say "Authentication with DigitalOcean failed."
+          say "Error was: #{e}"
+          say "Try re-running `tugboat authorize`", :red
           exit 1
         end
 
