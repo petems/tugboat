@@ -50,7 +50,7 @@ module Tugboat
           # If we coulnd't find it, tell the user and drop out of the
           # sequence.
           if !env["image_id"]
-            say "error\nUnable to find a image named '#{user_image_name}'.", :red
+            say "error\nUnable to find an image named '#{user_image_name}'.", :red
             exit 1
           end
         end
