@@ -3,7 +3,7 @@ module Tugboat
     # Check if the client has set-up configuration yet.
     class ListDroplets < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         droplet_list = ocean.droplets.list.droplets
 

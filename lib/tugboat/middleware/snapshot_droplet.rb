@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class SnapshotDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
         # Right now, the digital ocean API doesn't return an error
         # when your droplet is not powered off and you try to snapshot.
         # This is a temporary measure to let the user know.

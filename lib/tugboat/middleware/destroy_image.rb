@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class DestroyImage < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         say "Queuing destroy image for #{env["image_id"]} #{env["image_name"]}...", nil, false
 

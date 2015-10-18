@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class WaitForState < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         say "Waiting for droplet to become #{env["user_droplet_desired_state"]}.", nil, false
 

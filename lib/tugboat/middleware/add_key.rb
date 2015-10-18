@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class AddKey < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         if env["add_key_pub_key"]
           pub_key_string = env["add_key_pub_key"]

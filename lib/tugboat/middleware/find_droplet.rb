@@ -3,7 +3,7 @@ module Tugboat
     # Check if the client has set-up configuration yet.
     class FindDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
         user_fuzzy_name = env['user_droplet_fuzzy_name']
         user_droplet_name = env['user_droplet_name']
         user_droplet_id = env['user_droplet_id']

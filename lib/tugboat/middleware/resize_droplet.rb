@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class ResizeDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         say "Queuing resize for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
 

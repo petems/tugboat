@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class HaltDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         req = if env["user_droplet_hard"]
           say "Queuing hard shutdown for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false

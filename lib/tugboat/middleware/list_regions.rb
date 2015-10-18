@@ -4,6 +4,7 @@ module Tugboat
       def call(env)
         ocean = env["ocean"]
         regions = ocean.regions.list.regions.sort_by(&:name)
+        ocean = env['barge']
 
         say "Regions:"
         regions.each do |region|

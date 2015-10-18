@@ -10,6 +10,7 @@ module Tugboat
           say "Listing Your Images"
           say "(Use `tugboat images --global` to show all images)"
         end
+        ocean = env['barge']
 
         say "My Images:"
         my_images_list = my_images.images

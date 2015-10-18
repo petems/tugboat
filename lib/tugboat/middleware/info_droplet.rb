@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class InfoDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         req = ocean.droplets.show env["droplet_id"]
 
