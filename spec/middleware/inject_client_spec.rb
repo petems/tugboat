@@ -19,7 +19,7 @@ describe Tugboat::Middleware::InjectClient do
     end
 
     it "creates a client with values from config file" do
-      DigitalOcean::API.should_receive(:new).with(hash_including(:client_id=>"foo", :api_key=>"bar"))
+      Barge::Client.should_receive(:new).with(hash_including(:access_token=>"foo"))
 
       described_class.new(app).call(env)
     end

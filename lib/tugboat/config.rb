@@ -37,12 +37,8 @@ module Tugboat
       return
     end
 
-    def client_key
-      @data['authentication']['client_key']
-    end
-
-    def api_key
-      @data['authentication']['api_key']
+    def access_token
+      @data['authentication']['access_token']
     end
 
     def ssh_key_path
@@ -96,7 +92,7 @@ module Tugboat
     end
 
     # Writes a config file
-    def create_config_file(client, api, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled)
+    def create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled)
       # Default SSH Key path
       if ssh_key_path.empty?
         ssh_key_path = File.join("~", DEFAULT_SSH_KEY_PATH)
@@ -138,8 +134,8 @@ module Tugboat
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
         data = {
                 "authentication" => {
-                  "client_key" => client,
-                  "api_key" => api },
+                  "access_token" => access_token
+                },
                 "ssh" => {
                   "ssh_user" => ssh_user,
                   "ssh_key_path" => ssh_key_path ,

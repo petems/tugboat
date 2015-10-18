@@ -1,6 +1,4 @@
-require 'digital_ocean'
-require File.expand_path('../authentication_middleware', __FILE__)
-require File.expand_path('../custom_logger', __FILE__)
+require 'barge'
 
 module Tugboat
   module Middleware
@@ -22,13 +20,9 @@ module Tugboat
         def call(env)
           # Sets the digital ocean client into the environment for use
           # later.
-          @client_id = env["config"].client_key
-          @api_key   = env["config"].api_key
+          @access_token = env["config"].access_token
 
-          env["ocean"]  = DigitalOcean::API.new \
-                             :client_id => @client_id,
-                             :api_key   => @api_key,
-                             :faraday => tugboat_faraday
+          env['barge'] = Barge::Client.new(:access_token => @access_token)
 
           @app.call(env)
         end

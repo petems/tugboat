@@ -5,7 +5,7 @@ module Tugboat
       def call(env)
         config = env["config"]
 
-        if !config || !config.data || !config.api_key || !config.client_key
+        if !config || !config.data || !config.access_token
           say "You must run `tugboat authorize` in order to connect to DigitalOcean", :red
           exit 1
         end

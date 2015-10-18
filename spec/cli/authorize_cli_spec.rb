@@ -14,10 +14,8 @@ describe Tugboat::CLI do
     it "asks the right questions and checks credentials" do
 
       expect($stdout).to receive(:print).exactly(6).times
-      expect($stdout).to receive(:print).with("Enter your client key: ")
-      expect($stdin).to receive(:gets).and_return(client_key)
-      expect($stdout).to receive(:print).with("Enter your API key: ")
-      expect($stdin).to receive(:gets).and_return(api_key)
+      expect($stdout).to receive(:print).with("Enter your access token: ")
+      expect($stdin).to receive(:gets).and_return(access_token)
       expect($stdout).to receive(:print).with("Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa): ")
       expect($stdin).to receive(:gets).and_return(ssh_key_path)
       expect($stdout).to receive(:print).with("Enter your SSH user (optional, defaults to root): ")
@@ -66,6 +64,8 @@ describe Tugboat::CLI do
       expect($stdin).to receive(:gets).and_return(client_key)
       expect($stdout).to receive(:print).with("Enter your API key: ")
       expect($stdin).to receive(:gets).and_return(api_key)
+      expect($stdout).to receive(:print).with("Enter your access token: ")
+      expect($stdin).to receive(:gets).and_return('')
       expect($stdout).to receive(:print).with("Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa): ")
       expect($stdin).to receive(:gets).and_return(ssh_key_path)
       expect($stdout).to receive(:print).with("Enter your SSH user (optional, defaults to root): ")
