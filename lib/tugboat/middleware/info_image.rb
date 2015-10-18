@@ -4,14 +4,14 @@ module Tugboat
       def call(env)
         ocean = env['barge']
 
-        req = ocean.images.show env["image_id"]
+        response = ocean.image.show env["image_id"]
 
         if req.status == "ERROR"
           say "#{req.status}: #{req.error_message}", :red
           exit 1
         end
 
-        image = req.image
+        image = response.image
 
         say
         say "Name:             #{image.name}"

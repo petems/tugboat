@@ -2,9 +2,8 @@ module Tugboat
   module Middleware
     class ListRegions < Base
       def call(env)
-        ocean = env["ocean"]
-        regions = ocean.regions.list.regions.sort_by(&:name)
         ocean = env['barge']
+        regions = ocean.region.all.regions.sort_by(&:name)
 
         say "Regions:"
         regions.each do |region|

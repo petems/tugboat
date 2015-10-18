@@ -5,9 +5,6 @@ module Tugboat
         ocean = env['barge']
 
         say "Queuing rebuild for droplet #{env["droplet_id"]} #{env["droplet_name"]} with image #{env["image_id"]} #{env["image_name"]}...", nil, false
-        
-        req = ocean.droplets.rebuild env["droplet_id"],
-                                     :image_id => env["image_id"]
 
         if req.status == "ERROR"
           say req.error_message, :red

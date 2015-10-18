@@ -2,15 +2,9 @@ module Tugboat
   module Middleware
     class ListImages < Base
       def call(env)
-        ocean = env["ocean"]
-        my_images = ocean.images.list :filter => "my_images"
-        if env["user_show_global_images"]
-          global = ocean.images.list :filter => "global"
-        else
-          say "Listing Your Images"
-          say "(Use `tugboat images --global` to show all images)"
-        end
         ocean = env['barge']
+        my_images = ocean.image.all(:private => true)
+        public_images = ocean.image.all.images - my_images.images
 
         say "My Images:"
         my_images_list = my_images.images

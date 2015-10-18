@@ -31,7 +31,7 @@ module Tugboat
           if !porcelain
             say "Droplet id provided. Finding Droplet...", nil, false
           end
-          req = ocean.droplets.show user_droplet_id
+          response = ocean.droplet.show user_droplet_id
 
           if req.status == "ERROR"
             say "#{req.status}: #{req.error_message}", :red

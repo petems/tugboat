@@ -4,14 +4,14 @@ module Tugboat
       def call(env)
         ocean = env['barge']
 
-        req = ocean.droplets.show env["droplet_id"]
+        response = ocean.droplet.show env["droplet_id"]
 
-        if req.status == "ERROR"
-          say "#{req.status}: #{req.error_message}", :red
+        unless response.success?
+          say "Failed to get info for Droplet: #{response.message}", :red
           exit 1
         end
 
-        droplet = req.droplet
+        droplet = response.droplet
 
           if droplet.status == "active"
             status_color = GREEN

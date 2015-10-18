@@ -8,7 +8,7 @@ module Tugboat
 
         start_time = Time.now
 
-        req = ocean.droplets.show env["droplet_id"]
+        response = ocean.droplet.show env["droplet_id"]
 
         say ".", nil, false
 

@@ -23,7 +23,7 @@ module Tugboat
         # Easy for us if they provide an id. Just set it to the image_id
         if user_image_id
           say "Image id provided. Finding Image...", nil, false
-          req = ocean.images.show user_image_id
+          response = ocean.image.show user_image_id
 
           if req.status == "ERROR"
             say "#{req.status}: #{req.error_message}", :red

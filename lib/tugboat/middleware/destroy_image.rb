@@ -6,7 +6,7 @@ module Tugboat
 
         say "Queuing destroy image for #{env["image_id"]} #{env["image_name"]}...", nil, false
 
-        req = ocean.images.delete env["image_id"]
+        response = ocean.image.destroy env["image_id"]
 
         if req.status == "ERROR"
           say "#{req.status}: #{req.error_message}", :red
