@@ -10,7 +10,7 @@ describe Tugboat::CLI do
 
       expect($stdout.string).to eq <<-eos
 Current Config\x20
-Path: /Users/petersouter/projects/tugboat/tmp/tugboat
+Path: #{Dir.pwd}/tmp/tugboat
 ---
 authentication:
   access_token: foo
@@ -35,7 +35,7 @@ defaults:
 
             expect($stdout.string).to eq <<-eos
 Current Config (Keys Redacted)
-Path: /Users/petersouter/projects/tugboat/tmp/tugboat
+Path: #{Dir.pwd}/tmp/tugboat
 ---
 authentication:
   access_token:\x20\x20[REDACTED]
