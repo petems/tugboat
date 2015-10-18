@@ -13,12 +13,12 @@ module Tugboat
         response = ocean.droplet.snapshot env["droplet_id"],
                                 :name => env["user_snapshot_name"]
 
-        if req.status == "ERROR"
-          say "#{req.status}: #{req.error_message}", :red
+        unless response.success?
+          say "Failed to snapshot Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Snapshot successful!", :red
         end
-
-        say "done", :green
 
         @app.call(env)
       end

@@ -6,12 +6,15 @@ module Tugboat
 
         say "Queuing rebuild for droplet #{env["droplet_id"]} #{env["droplet_name"]} with image #{env["image_id"]} #{env["image_name"]}...", nil, false
 
-        if req.status == "ERROR"
-          say req.error_message, :red
-          exit 1
-        end
+        response = ocean.droplet.rebuild env["droplet_id"],
+        :image_id => env["image_id"]
 
-        say "done", :green
+        unless response.success?
+          say "Failed to rebuild Droplet: #{response.message}", :red
+          exit 1
+        else
+          say "Rebuild complete", :green
+        end
 
         @app.call(env)
       end

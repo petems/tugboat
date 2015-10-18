@@ -32,12 +32,11 @@ module Tugboat
         response = ocean.key.create :name => env["add_key_name"],
                                :public_key  => pub_key_string
 
-        if req.status == "ERROR"
-          say req.error_message, :red
+        unless response.success?
+          say "Failed to create key: #{response.message}", :red
           exit 1
         end
 
-        say "done", :green
 
         @app.call(env)
       end

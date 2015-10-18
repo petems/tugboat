@@ -39,12 +39,12 @@ module Tugboat
                                     :private_networking => droplet_private_networking,
                                     :backups_enabled    => droplet_backups_enabled
 
-        if req.status == "ERROR"
-          say req.error_message, :red
+        unless response.success?
+          say "Failed to create Droplet: #{response.message}", :red
           exit 1
         end
 
-        say "done", :green
+        say "Droplet created!"
 
         @app.call(env)
       end

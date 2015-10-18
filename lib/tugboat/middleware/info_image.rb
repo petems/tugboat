@@ -6,8 +6,8 @@ module Tugboat
 
         response = ocean.image.show env["image_id"]
 
-        if req.status == "ERROR"
-          say "#{req.status}: #{req.error_message}", :red
+        unless response.success?
+          say "Failed to get info for Image: #{response.message}", :red
           exit 1
         end
 

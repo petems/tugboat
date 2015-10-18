@@ -8,12 +8,12 @@ module Tugboat
 
         response = ocean.image.destroy env["image_id"]
 
-        if req.status == "ERROR"
-          say "#{req.status}: #{req.error_message}", :red
+        unless response.success?
+          say "Failed to destroy image: #{response.message}", :red
           exit 1
+        else
+          say 'Image deletion successful!', :green
         end
-
-        say "done", :green
 
         @app.call(env)
       end

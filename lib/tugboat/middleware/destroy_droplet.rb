@@ -8,12 +8,12 @@ module Tugboat
 
         response = ocean.droplet.destroy env["droplet_id"]
 
-        if req.status == "ERROR"
-          say "#{req.status}: #{req.error_message}", :red
+        unless response.success?
+          say "Failed to destroy Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Deletion Successful!", :green
         end
-
-        say "done", :green
 
         @app.call(env)
       end

@@ -12,12 +12,12 @@ module Tugboat
           ocean.droplet.reboot env["droplet_id"]
         end
 
-        if req.status == "ERROR"
-          say "#{req.status}: #{req.error_message}", :red
+        unless response.success?
+          say "Failed to restart Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Restart complete!", :green
         end
-
-        say "done", :green
 
         @app.call(env)
       end

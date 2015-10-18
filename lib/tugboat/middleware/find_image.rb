@@ -25,8 +25,8 @@ module Tugboat
           say "Image id provided. Finding Image...", nil, false
           response = ocean.image.show user_image_id
 
-          if req.status == "ERROR"
-            say "#{req.status}: #{req.error_message}", :red
+          unless response.success?
+            say "Failed to find Image: #{response.message}", :red
             exit 1
           end
 

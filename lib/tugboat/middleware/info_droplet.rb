@@ -13,11 +13,16 @@ module Tugboat
 
         droplet = response.droplet
 
-          if droplet.status == "active"
-            status_color = GREEN
-          else
-            status_color = RED
-          end
+        unless response.success?
+          say "Failed to find droplet: #{response.message}", :red
+          exit 1
+        end
+
+        if droplet.status == "active"
+          status_color = GREEN
+        else
+          status_color = RED
+        end
 
         attribute = env["user_attribute"]
 

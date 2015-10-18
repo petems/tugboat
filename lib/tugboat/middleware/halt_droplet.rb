@@ -12,12 +12,12 @@ module Tugboat
           ocean.droplet.shutdown env["droplet_id"]
         end
 
-        if req.status == "ERROR"
-          say req.error_message, :red
+        unless response.success?
+          say "Failed to halt on Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Halt successful!", :green
         end
-
-        say "done", :green
 
         @app.call(env)
       end
