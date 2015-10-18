@@ -6,7 +6,7 @@ require 'tugboat/version'
 Gem::Specification.new do |gem|
   gem.name          = "tugboat"
   gem.version       = Tugboat::VERSION
-  gem.authors       = ["Jack Pearkes"]
+  gem.authors       = ["Jack Pearkes", "Peter Souter", "Ørjan Blom"]
   gem.email         = ["jackpearkes@gmail.com"]
   gem.description   = %q{A command line tool for interacting with your DigitalOcean droplets.}
   gem.summary       = %q{A command line tool for interacting with your DigitalOcean droplets.}
