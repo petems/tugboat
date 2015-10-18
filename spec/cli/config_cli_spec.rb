@@ -16,7 +16,7 @@ authentication:
   access_token: foo
 ssh:
   ssh_user: baz
-  ssh_key_path: "~/.ssh/id_rsa2"
+  ssh_key_path: ~/.ssh/id_rsa2
   ssh_port: '33'
 defaults:
   region: nyc2
@@ -41,7 +41,7 @@ authentication:
   access_token:\x20\x20[REDACTED]
 ssh:
   ssh_user: baz
-  ssh_key_path: "~/.ssh/id_rsa2"
+  ssh_key_path: ~/.ssh/id_rsa2
   ssh_port: '33'
 defaults:
   region: nyc2

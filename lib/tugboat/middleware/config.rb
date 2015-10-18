@@ -8,7 +8,7 @@ module Tugboat
 
         keys_retracted = ''
 
-        config_data = config.data.to_yaml
+        config_data = config.data.to_yaml.gsub(/"/,'')
 
         if env["user_hide_keys"]
           keys_retracted = '(Keys Redacted)'
