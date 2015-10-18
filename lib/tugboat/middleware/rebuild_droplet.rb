@@ -2,19 +2,19 @@ module Tugboat
   module Middleware
     class RebuildDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         say "Queuing rebuild for droplet #{env["droplet_id"]} #{env["droplet_name"]} with image #{env["image_id"]} #{env["image_name"]}...", nil, false
-        
-        req = ocean.droplets.rebuild env["droplet_id"],
-                                     :image_id => env["image_id"]
 
-        if req.status == "ERROR"
-          say req.error_message, :red
+        response = ocean.droplet.rebuild env["droplet_id"],
+        :image_id => env["image_id"]
+
+        unless response.success?
+          say "Failed to rebuild Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Rebuild complete", :green
         end
-
-        say "done", :green
 
         @app.call(env)
       end

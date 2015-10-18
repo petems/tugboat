@@ -3,8 +3,7 @@ require 'spec_helper'
 shared_context "spec" do
   # Default configuration and
   let(:config)             { Tugboat::Configuration.instance }
-  let(:client_key)         { "foo" }
-  let(:api_key)            { "bar" }
+  let(:access_token)       { 'foo' }
   let(:ssh_user)           { "baz" }
   let(:ssh_port)           { "33" }
   let(:ssh_key_path)       { "~/.ssh/id_rsa2" }
@@ -12,15 +11,15 @@ shared_context "spec" do
   let(:droplet_ip)         { "33.33.33.10" }
   let(:droplet_ip_private) { "10.20.30.40" }
   let(:droplet_id)         { 1234 }
-  let(:region)             { '3' }
-  let(:image)              { '345791'}
-  let(:size)               { '67'}
+  let(:region)             { 'nyc2' }
+  let(:image)              { 'ubuntu-14-04-x64'}
+  let(:size)               { '512mb'}
   let(:ssh_key_id)         { '1234' }
   let(:ssh_key_name)       { 'macbook_pro' }
   let(:ssh_public_key)     { 'ssh-dss A123= user@host' }
   let(:private_networking) { 'false'}
   let(:backups_enabled)    { 'false'}
-  let(:ocean)              { DigitalOcean::API.new :client_id => client_key, :api_key =>api_key }
+  let(:ocean)              { Barge::Client.new(:access_token => access_token) }
   let(:app)                { lambda { |env| } }
   let(:env)                { {} }
 
@@ -31,7 +30,7 @@ shared_context "spec" do
     @cli = Tugboat::CLI.new
 
     # Set a temprary project path and create fake config.
-    config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
+    config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
     config.reload!
 
     # Keep track of the old stderr / out

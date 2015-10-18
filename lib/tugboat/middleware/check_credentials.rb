@@ -8,9 +8,11 @@ module Tugboat
         # We use a harmless API call to check if the authentication will
         # work.
         begin
-          env["ocean"].droplets.list
+          env['barge'].droplet.all.list
         rescue Faraday::Error::ClientError => e
-          say "Authentication with DigitalOcean failed. Run `tugboat authorize`", :red
+          say "Authentication with DigitalOcean failed."
+          say "Error was: #{e}"
+          say "Try re-running `tugboat authorize`", :red
           exit 1
         end
 

@@ -1,0 +1,13 @@
+{
+  "action": {
+    "id": 36077293,
+    "status": "in-progress",
+    "type": "shutdown",
+    "started_at": "2014-11-04T17:08:03Z",
+    "completed_at": null,
+    "resource_id": 6918990,
+    "resource_type": "droplet",
+    "region": "nyc2",
+    "region_slug": "nyc2"
+  }
+}

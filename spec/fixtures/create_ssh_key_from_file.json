@@ -1,8 +1,8 @@
 {
   "ssh_key": {
       "fingerprint": "f5:de:eb:64:2d:6a:b6:d5:bb:06:47:7f:04:4b:f8:e2",
-      "id": 3,
-      "name": "macbook_pro",
-      "public_key": "ssh-dss A123= user@host"
+      "id": 5,
+      "name": "cool_key",
+      "public_key": "ssh-dss A456= user@host"
   }
 }

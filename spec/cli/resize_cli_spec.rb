@@ -5,78 +5,81 @@ describe Tugboat::CLI do
 
   describe "resize" do
     it "resizes a droplet with a fuzzy name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-      stub_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123").
-        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{"status":"OK","event_id":456}')
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
-      @cli.options = @cli.options.merge(:size => 123)
-      @cli.resize("foo")
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"resize\",\"size\":\"1gb\"}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('resize_droplet'), :headers => {})
+
+      @cli.options = @cli.options.merge(:size => '1gb')
+      @cli.resize("example.com")
 
       expect($stdout.string).to eq <<-eos
-Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 100823 (foo)
-Queuing resize for 100823 (foo)...done
+Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+Queuing resize for 6918990 (example.com)...Resize complete!
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).
-        to have_been_made
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123")).
-        to have_been_made
     end
 
     it "resizes a droplet with an id" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplet"))
-      stub_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123").
-        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{"status":"OK","event_id":456}')
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
-      @cli.options = @cli.options.merge(:size => 123, :id => 100823)
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"resize\",\"size\":\"1gb\"}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('resize_droplet'), :headers => {})
+
+      @cli.options = @cli.options.merge(:size => '1gb', :id => 6918990)
       @cli.resize
 
       expect($stdout.string).to eq <<-eos
-Droplet id provided. Finding Droplet...done\e[0m, 100823 (foo)
-Queuing resize for 100823 (foo)...done
+Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
+Queuing resize for 6918990 (example.com)...Resize complete!
       eos
-
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/100823?api_key=#{api_key}&client_id=#{client_key}")).
-        to have_been_made
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123")).
-        to have_been_made
     end
 
     it "resizes a droplet with a name" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-      stub_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123").
-        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{"status":"OK","event_id":456}')
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
-      @cli.options = @cli.options.merge(:size => 123, :name => "foo")
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"resize\",\"size\":\"1gb\"}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('resize_droplet'), :headers => {})
+
+      @cli.options = @cli.options.merge(:size => '1gb', :name => "example.com")
       @cli.resize
 
       expect($stdout.string).to eq <<-eos
-Droplet name provided. Finding droplet ID...done\e[0m, 100823 (foo)
-Queuing resize for 100823 (foo)...done
+Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+Queuing resize for 6918990 (example.com)...Resize complete!
       eos
 
-      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).
-        to have_been_made
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123")).
-        to have_been_made
     end
 
     it "raises SystemExit when a request fails" do
-      stub_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}").
-        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
-      stub_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123").
-        to_return(:headers => {'Content-Type' => 'application/json'}, :status => 500, :body => '{"status":"ERROR","message":"Some error"}')
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
-      @cli.options = @cli.options.merge(:size => 123)
-      expect { @cli.resize("foo") }.to raise_error(SystemExit)
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
+         with(:body => "{\"type\":\"resize\",\"size\":\"1gb\"}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 500, :body => '{"status":"ERROR","message":"Some error"}')
 
-      expect(a_request(:get, "https://api.digitalocean.com/droplets?api_key=#{api_key}&client_id=#{client_key}")).
-        to have_been_made
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/100823/resize?api_key=#{api_key}&client_id=#{client_key}&size_id=123")).
-        to have_been_made
+      @cli.options = @cli.options.merge(:size => '1gb')
+      expect { @cli.resize("example.com") }.to raise_error(SystemExit)
+
+      expect($stdout.string).to eq <<-eos
+Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+Queuing resize for 6918990 (example.com)...Failed to resize Droplet: Some error
+      eos
+
     end
   end
 end

@@ -2,19 +2,19 @@ module Tugboat
   module Middleware
     class ResizeDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
         say "Queuing resize for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
 
-        res = ocean.droplets.resize env["droplet_id"],
-                                    :size_id => env["user_droplet_size"]
+        response = ocean.droplet.resize env["droplet_id"],
+                                    :size => env["user_droplet_size"]
 
-        if res.status == "ERROR"
-          say "#{res.status}: #{res.error_message}", :red
+        unless response.success?
+          say "Failed to resize Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Resize complete!", :green
         end
-
-        say "done", :green
 
         @app.call(env)
       end

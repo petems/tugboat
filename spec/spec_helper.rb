@@ -1,3 +1,5 @@
+require 'webmock/rspec'
+
 require 'simplecov'
 require 'coveralls'
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
@@ -10,7 +12,7 @@ end
 
 require 'tugboat'
 require 'webmock/rspec'
-require 'digital_ocean'
+require 'barge'
 require "shared/environment"
 
 RSpec.configure do |config|

@@ -35,8 +35,10 @@ module Tugboat
         if env["droplet_ip_private"]
           say "This droplet has a private IP, checking if you asked to use the Private IP..."
           if env["user_droplet_use_private_ip"]
-            say "You did! Using private IP for ssh..."
+            say "You did! Using private IP for ssh...", :yellow
             host_ip = env["droplet_ip_private"]
+          else
+            say "You didn't! Using public IP for ssh...", :yellow
           end
         end
 

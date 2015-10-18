@@ -3,7 +3,7 @@ module Tugboat
     # Check if the client has set-up configuration yet.
     class FindDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
         user_fuzzy_name = env['user_droplet_fuzzy_name']
         user_droplet_name = env['user_droplet_name']
         user_droplet_id = env['user_droplet_id']
@@ -28,21 +28,22 @@ module Tugboat
 
         # Easy for us if they provide an id. Just set it to the droplet_id
         if user_droplet_id
+
           if !porcelain
             say "Droplet id provided. Finding Droplet...", nil, false
           end
-          req = ocean.droplets.show user_droplet_id
+          response = ocean.droplet.show user_droplet_id
 
-          if req.status == "ERROR"
-            say "#{req.status}: #{req.error_message}", :red
+          unless response.success?
+            say "Failed to find Droplet: #{response.message}", :red
             exit 1
           end
 
-          env["droplet_id"] = req.droplet.id
-          env["droplet_name"] = "(#{req.droplet.name})"
-          env["droplet_ip"] = req.droplet.ip_address
-          env["droplet_ip_private"] = req.droplet.private_ip_address
-          env["droplet_status"] = req.droplet.status
+          env["droplet_id"] = response.droplet.id
+          env["droplet_name"] = "(#{response.droplet.name})"
+          env["droplet_ip"] = response.droplet.ip_address
+          env["droplet_ip_private"] = response.droplet.private_ip_address
+          env["droplet_status"] = response.droplet.status
         end
 
         # If they provide a name, we need to get the ID for it.
@@ -53,7 +54,7 @@ module Tugboat
           end
 
           # Look for the droplet by an exact name match.
-          ocean.droplets.list.droplets.each do |d|
+          ocean.droplet.all.droplets.each do |d|
             if d.name == user_droplet_name
               env["droplet_id"] = d.id
               env["droplet_name"] = "(#{d.name})"
@@ -82,7 +83,7 @@ module Tugboat
           found_droplets = []
           choices = []
 
-          ocean.droplets.list.droplets.each_with_index do |d, i|
+          ocean.droplet.all.droplets.each_with_index do |d, i|
             # Check to see if one of the droplet names have the fuzzy string.
             if d.name.upcase.include? user_fuzzy_name.upcase
               found_droplets << d
@@ -92,11 +93,14 @@ module Tugboat
           # Check to see if we have more then one droplet, and prompt
           # a user to choose otherwise.
           if found_droplets.length == 1
-            env["droplet_id"] = found_droplets.first.id
-            env["droplet_name"] = "(#{found_droplets.first.name})"
-            env["droplet_ip"] = found_droplets.first.ip_address
-            env["droplet_ip_private"] = found_droplets.first.private_ip_address
-            env["droplet_status"] = found_droplets.first.status
+            droplet_return = found_droplets.first
+
+            env["droplet_id"] = droplet_return.id
+            env["droplet_name"] = "(#{droplet_return.name})"
+            env["droplet_ip"] = droplet_return.networks.v4.detect { |address| address.type == 'public' }.ip_address
+            check_private_ip = droplet_return.networks.v4.detect { |address| address.type == 'private' }
+            env["droplet_ip_private"] = check_private_ip.ip_address if check_private_ip
+            env["droplet_status"] = droplet_return.status
           elsif found_droplets.length > 1
             # Did we run the multiple questionairre?
             did_run_multiple = true

@@ -3,7 +3,7 @@ module Tugboat
     # Check if the client has set-up configuration yet.
     class FindImage < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
         user_fuzzy_name = env['user_image_fuzzy_name']
         user_image_name = env['user_image_name']
         user_image_id = env['user_image_id']
@@ -23,24 +23,24 @@ module Tugboat
         # Easy for us if they provide an id. Just set it to the image_id
         if user_image_id
           say "Image id provided. Finding Image...", nil, false
-          req = ocean.images.show user_image_id
+          response = ocean.image.show user_image_id
 
-          if req.status == "ERROR"
-            say "#{req.status}: #{req.error_message}", :red
+          unless response.success?
+            say "Failed to find Image: #{response.message}", :red
             exit 1
           end
 
-          env["image_id"] = req.image.id
-          env["image_name"] = "(#{req.image.name})"
+          env["image_id"] = response.image.id
+          env["image_name"] = "(#{response.image.name})"
         end
 
         # If they provide a name, we need to get the ID for it.
         # This requires a lookup.
         if user_image_name && !env["image_id"]
-          say "Image name provided. Finding image ID...", nil, false
+          say "Image name provided. Finding Image...", nil, false
 
           # Look for the image by an exact name match.
-          ocean.images.list.images.each do |d|
+          ocean.image.all['images'].each do |d|
             if d.name == user_image_name
               env["image_id"] = d.id
               env["image_name"] = "(#{d.name})"
@@ -50,7 +50,7 @@ module Tugboat
           # If we coulnd't find it, tell the user and drop out of the
           # sequence.
           if !env["image_id"]
-            say "error\nUnable to find a image named '#{user_image_name}'.", :red
+            say "error\nUnable to find an image named '#{user_image_name}'.", :red
             exit 1
           end
         end
@@ -66,10 +66,17 @@ module Tugboat
           found_images = []
           choices = []
 
-          ocean.images.list.images.each_with_index do |d, i|
+          ocean.image.all['images'].each_with_index do |d, i|
+
             # Check to see if one of the image names have the fuzzy string.
             if d.name.upcase.include? user_fuzzy_name.upcase
               found_images << d
+            end
+
+            unless d.slug.nil?
+              if d.slug.upcase.include? user_fuzzy_name.upcase
+                found_images << d
+              end
             end
           end
 

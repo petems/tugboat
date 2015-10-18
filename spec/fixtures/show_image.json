@@ -1,8 +1,15 @@
 {
-    "image": {
-        "distribution": "Ubuntu",
-        "id": 478,
-        "name": "NLP Final"
-    },
-    "status": "OK"
+  "image": {
+    "id": 6376601,
+    "name": "My application image",
+    "distribution": "Ubuntu",
+    "slug": null,
+    "public": false,
+    "regions": [
+      "nyc2",
+      "nyc2"
+    ],
+    "created_at": "2014-11-04T22:23:02Z",
+    "min_disk_size": 20
+  }
 }

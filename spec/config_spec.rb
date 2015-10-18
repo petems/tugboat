@@ -23,23 +23,22 @@ describe Tugboat::Configuration do
   end
 
   describe "the file" do
-    let(:client_key)         { "foo" }
-    let(:api_key)            { "bar" }
-    let(:ssh_user)           { "baz" }
-    let(:ssh_key_path)       { "~/.ssh/id_rsa2" }
-    let(:ssh_port)           { "22" }
-    let(:region)             { "2" }
-    let(:image)              { "345791" }
-    let(:size)               { "66" }
+    let(:access_token)       { 'foo' }
+    let(:ssh_user)           { 'root' }
+    let(:ssh_key_path)       { '~/.ssh/id_rsa2' }
+    let(:ssh_port)           { '22' }
+    let(:region)             { 'lon1' }
+    let(:image)              { 'ubuntu-14-04-x64' }
+    let(:size)               { '512mb' }
     let(:ssh_key_id)         { '1234' }
-    let(:private_networking) { 'true' }
-    let(:backups_enabled)    { 'true' }
+    let(:private_networking) { 'false' }
+    let(:backups_enabled)    { 'false' }
 
     let(:config)           { config = Tugboat::Configuration.instance }
 
     before :each do
       # Create a temporary file
-      config.create_config_file(client_key, api_key, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
+      config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
     end
 
     it "can be created" do
@@ -62,14 +61,9 @@ describe Tugboat::Configuration do
       expect(data).to have_key("ssh")
     end
 
-    it "should have a client key" do
+    it "should have an access token" do
       auth = data["authentication"]
-      expect(auth).to have_key("client_key")
-    end
-
-    it "should have an api key" do
-      auth = data["authentication"]
-      expect(auth).to have_key("api_key")
+      expect(auth).to have_key("access_token")
     end
 
     it "should have an ssh key path" do
@@ -98,11 +92,11 @@ describe Tugboat::Configuration do
     end
   end
   describe "backwards compatible" do
-    let(:client_key)       { "foo" }
-    let(:api_key)          { "bar" }
-    let(:ssh_user)         { "baz" }
-    let(:ssh_key_path)     { "~/.ssh/id_rsa2" }
-    let(:ssh_port)         { "22" }
+    let(:client_key)       { 'foo' }
+    let(:api_key)          { 'bar' }
+    let(:ssh_user)         { 'baz' }
+    let(:ssh_key_path)     { '~/.ssh/id_rsa2' }
+    let(:ssh_port)         { '22' }
 
     let(:config)                    { config = Tugboat::Configuration.instance }
     let(:config_default_region)     { Tugboat::Configuration::DEFAULT_REGION }
@@ -113,8 +107,8 @@ describe Tugboat::Configuration do
     let(:config_default_backups)    { Tugboat::Configuration::DEFAULT_BACKUPS_ENABLED }
     let(:backwards_config) {
       {
-                "authentication" => { "client_key" => client_key, "api_key" => api_key },
-                "ssh" => { "ssh_user" => ssh_user, "ssh_key_path" => ssh_key_path , "ssh_port" => ssh_port},
+                'authentication' => { 'client_key' => client_key, 'api_key' => api_key },
+                'ssh' => { 'ssh_user' => ssh_user, 'ssh_key_path' => ssh_key_path , 'ssh_port' => ssh_port},
       }
     }
 
