@@ -26,16 +26,22 @@ module Tugboat
 
         attribute = env["user_attribute"]
 
+        droplet_ip4_public = droplet.networks.v4.detect { |address| address.type == 'public' }.ip_address
+        droplet_ip6_public = droplet.networks.v6.detect { |address| address.type == 'public' }.ip_address unless droplet.networks.v6.empty?
+        check_private_ip   = droplet.networks.v4.detect { |address| address.type == 'private' }
+        droplet_private_ip = check_private_ip.ip_address if check_private_ip
+
         attributes_list = [
           ["name",  droplet.name],
           ["id",  droplet.id],
           ["status",  droplet.status],
-          ["ip",  droplet.ip_address],
-          ["private_ip",  droplet.private_ip_address],
-          ["region_id",  droplet.region_id],
-          ["image_id",  droplet.image_id],
-          ["size_id",  droplet.size_id],
-          ["backups_active",  (droplet.backups_active || false)]
+          ["ip4",  droplet_ip4_public],
+          ["ip6",  droplet_ip6_public],
+          ["private_ip",  droplet_private_ip],
+          ["region",  droplet.region.slug],
+          ["Image",  droplet.image.id],
+          ["size",  droplet.size_slug],
+          ["backups_active",  !droplet.backup_ids.empty?]
         ]
         attributes = Hash[*attributes_list.flatten(1)]
 
@@ -45,7 +51,8 @@ module Tugboat
           else
             say "Invalid attribute \"#{attribute}\"", :red
             say "Provide one of the following:", :red
-            attributes_list.keys.each { |a| say "    #{a[0]}", :red }
+            attributes_list.each { |a| say "    #{a[0]}", :red }
+            exit 1
           end
         else
           if env["user_porcelain"]
@@ -55,16 +62,17 @@ module Tugboat
             say "Name:             #{droplet.name}"
             say "ID:               #{droplet.id}"
             say "Status:           #{status_color}#{droplet.status}#{CLEAR}"
-            say "IP:               #{droplet.ip_address}"
+            say "IP4:              #{droplet_ip4_public}"
+            say "IP6:              #{droplet_ip6_public}" unless droplet.networks.v6.empty?
 
-            if droplet.private_ip_address
-    	        say "Private IP:       #{droplet.private_ip_address}"
-    	      end
+            if droplet_private_ip
+              say "Private IP:       #{droplet_private_ip}"
+            end
 
-            say "Region ID:        #{droplet.region_id}"
-            say "Image ID:         #{droplet.image_id}"
-            say "Size ID:          #{droplet.size_id}"
-            say "Backups Active:   #{droplet.backups_active || false}"
+            say "Region:           #{droplet.region.name} - #{droplet.region.slug}"
+            say "Image:            #{droplet.image.id} - #{droplet.image.name}"
+            say "Size:             #{droplet.size_slug.upcase}"
+            say "Backups Active:   #{!droplet.backup_ids.empty?}"
           end
         end
 
