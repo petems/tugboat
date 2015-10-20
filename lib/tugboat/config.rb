@@ -38,7 +38,7 @@ module Tugboat
     end
 
     def access_token
-      @data['authentication']['access_token']
+      env_access_token || @data['authentication']['access_token']
     end
 
     def ssh_key_path
@@ -79,6 +79,10 @@ module Tugboat
 
     def default_backups_enabled
       @data['defaults'].nil? ? DEFAULT_BACKUPS_ENABLED : @data['defaults']['backups_enabled']
+    end
+
+    def env_access_token
+      ENV['DO_API_TOKEN'] unless ENV['DO_API_TOKEN'].to_s.empty?
     end
 
     # Re-runs initialize
