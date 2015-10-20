@@ -83,7 +83,7 @@ describe Tugboat::Middleware::SSHDroplet do
       expect {described_class.new(app).call(env)}.to raise_error(SystemExit)
 
       expect($stdout.string).to eq <<-eos
-Executing SSH ...
+Executing SSH on Droplet ...
 You asked to ssh to the private IP, but no Private IP found!
       eos
     end

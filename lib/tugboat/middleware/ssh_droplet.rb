@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class SSHDroplet < Base
       def call(env)
-        say "Executing SSH #{env["droplet_name"]}..."
+        say "Executing SSH on Droplet #{env["droplet_name"]}..."
 
         options = [
           "-o", "IdentitiesOnly=yes",
@@ -41,6 +41,8 @@ module Tugboat
         end
 
         host_string = "#{ssh_user}@#{host_ip}"
+
+        say "Attempting SSH: #{host_string}"
 
         options << host_string
 
