@@ -1,8 +1,26 @@
 # Change Log
 
+## [v2.0.0.RC1](https://github.com/pearkes/tugboat/tree/v2.0.0.RC1) (2015-10-20)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.3.1...v2.0.0.RC1)
+
+**Closed issues:**
+
+- Possible to delete an image/snapshot? [\#177](https://github.com/pearkes/tugboat/issues/177)
+
+**Merged pull requests:**
+
+- Update gemspec [\#181](https://github.com/pearkes/tugboat/pull/181) ([petems](https://github.com/petems))
+
+- API 2.0 Release Candidate PR [\#180](https://github.com/pearkes/tugboat/pull/180) ([petems](https://github.com/petems))
+
+- Add CLI config spec and slight formatting changes [\#179](https://github.com/pearkes/tugboat/pull/179) ([petems](https://github.com/petems))
+
+- Fix interactive prompt during authorize [\#175](https://github.com/pearkes/tugboat/pull/175) ([conorsch](https://github.com/conorsch))
+
 ## [v1.3.1](https://github.com/pearkes/tugboat/tree/v1.3.1) (2015-08-02)
 
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.3.0...v1.3.1)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.1.0.ALPHA...v1.3.1)
 
 **Closed issues:**
 
@@ -11,6 +29,10 @@
 **Merged pull requests:**
 
 - Removes wrong help messages for `images`. [\#173](https://github.com/pearkes/tugboat/pull/173) ([haihappen](https://github.com/haihappen))
+
+## [v2.1.0.ALPHA](https://github.com/pearkes/tugboat/tree/v2.1.0.ALPHA) (2015-07-20)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.3.0...v2.1.0.ALPHA)
 
 ## [v1.3.0](https://github.com/pearkes/tugboat/tree/v1.3.0) (2015-07-19)
 
@@ -38,11 +60,13 @@
 
 ## [v1.1.0](https://github.com/pearkes/tugboat/tree/v1.1.0) (2015-07-18)
 
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.0.ALPHA...v1.1.0)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.0.0...v1.1.0)
 
 **Closed issues:**
 
 - Unable to bundle to run tugboat from git repo version for testing  [\#171](https://github.com/pearkes/tugboat/issues/171)
+
+- 1.0.0 Release [\#125](https://github.com/pearkes/tugboat/issues/125)
 
 **Merged pull requests:**
 
