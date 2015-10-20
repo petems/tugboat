@@ -2,7 +2,7 @@ module Tugboat
   module Middleware
     class SnapshotDroplet < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
         # Right now, the digital ocean API doesn't return an error
         # when your droplet is not powered off and you try to snapshot.
         # This is a temporary measure to let the user know.
@@ -10,15 +10,15 @@ module Tugboat
 
         say "Queuing snapshot '#{env["user_snapshot_name"]}' for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
 
-        req = ocean.droplets.snapshot env["droplet_id"],
+        response = ocean.droplet.snapshot env["droplet_id"],
                                 :name => env["user_snapshot_name"]
 
-        if req.status == "ERROR"
-          say "#{req.status}: #{req.error_message}", :red
+        unless response.success?
+          say "Failed to snapshot Droplet: #{response.message}", :red
           exit 1
+        else
+          say "Snapshot successful!", :red
         end
-
-        say "done", :green
 
         @app.call(env)
       end

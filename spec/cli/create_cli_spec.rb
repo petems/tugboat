@@ -5,47 +5,35 @@ describe Tugboat::CLI do
 
   describe "create a droplet" do
     it "with a name, uses defaults from configuration" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id=#{image}&name=#{droplet_name}&backups_enabled=#{backups_enabled}&private_networking=#{private_networking}&region_id=#{region}&size_id=#{size}&ssh_key_ids=#{ssh_key_id}").
-         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{"status":"OK"}')
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets").
+         with(:body => "{\"name\":\"foo\",\"size\":\"512mb\",\"image\":\"ubuntu-14-04-x64\",\"region\":\"nyc2\",\"ssh_keys\":[\"1234\"],\"private_networking\":\"false\",\"backups_enabled\":\"false\",\"ipv6\":null}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('create_droplet'), :headers => {})
 
       @cli.create(droplet_name)
 
       expect($stdout.string).to eq <<-eos
-Queueing creation of droplet '#{droplet_name}'...done
+Queueing creation of droplet '#{droplet_name}'...Droplet created!
       eos
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id=#{image}&name=#{droplet_name}&backups_enabled=#{backups_enabled}&private_networking=#{private_networking}&region_id=#{region}&size_id=#{size}&ssh_key_ids=#{ssh_key_id}")).to have_been_made
     end
 
     it "with args does not use defaults from configuration" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id=555&name=foo&backups_enabled=#{backups_enabled}&private_networking=#{private_networking}&region_id=3&size_id=666&ssh_key_ids=4321").
-         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{"status":"OK"}')
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets").
+         with(:body => "{\"name\":\"example.com\",\"size\":\"1gb\",\"image\":\"ubuntu-12-04-x64\",\"region\":\"nyc3\",\"ssh_keys\":[\"foo_bar_key\"],\"private_networking\":\"false\",\"backups_enabled\":\"false\",\"ipv6\":null}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('create_droplet'), :headers => {})
 
-      @cli.options = @cli.options.merge(:image => '555', :size => '666', :region => '3', :keys => '4321')
-      @cli.create(droplet_name)
+      @cli.options = @cli.options.merge(:image => 'ubuntu-12-04-x64', :size => '1gb', :region => 'nyc3', :keys => 'foo_bar_key')
+      @cli.create('example.com')
 
       expect($stdout.string).to eq <<-eos
-Queueing creation of droplet '#{droplet_name}'...done
+Queueing creation of droplet 'example.com'...Droplet created!
       eos
 
-      expect(a_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id=555&name=foo&backups_enabled=#{backups_enabled}&private_networking=#{private_networking}&region_id=3&size_id=666&ssh_key_ids=4321")).to have_been_made
     end
 
     it "doesn't create a droplet when mistyping help command" do
-      help_text = <<-eos
-Usage:
-  rspec create NAME
-
-Options:
-  -s, [--size=N]              # The size_id of the droplet
-  -i, [--image=N]             # The image_id of the droplet
-  -r, [--region=N]            # The region_id of the droplet
-  -k, [--keys=KEYS]           # A comma separated list of SSH key ids to add to the droplet
-  -p, [--private-networking]  # Enable private networking on the droplet
-  -b, [--backups-enabled]     # Enable backups on the droplet
-  -q, [--quiet]               
-
-Create a droplet.
-eos
+      help_text = "Usage:\n  rspec create NAME\n\nOptions:\n  -s, [--size=N]              # The size_id of the droplet\n  -i, [--image=N]             # The image_id of the droplet\n  -r, [--region=N]            # The region_id of the droplet\n  -k, [--keys=KEYS]           # A comma separated list of SSH key ids to add to the droplet\n  -p, [--private-networking]  # Enable private networking on the droplet\n  -b, [--backups-enabled]     # Enable backups on the droplet\n  -q, [--quiet]               \n\nCreate a droplet.\n"
 
       @cli.create('help')
       expect($stdout.string).to eq help_text
@@ -58,13 +46,15 @@ eos
     end
 
     it "does not clobber named droplets that contain the word help" do
-      stub_request(:get, "https://api.digitalocean.com/droplets/new?api_key=#{api_key}&client_id=#{client_key}&image_id=#{image}&name=somethingblahblah--help&backups_enabled=#{backups_enabled}&private_networking=#{private_networking}&region_id=#{region}&size_id=#{size}&ssh_key_ids=#{ssh_key_id}").
-         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => '{"status":"OK"}')
+      stub_request(:post, "https://api.digitalocean.com/v2/droplets").
+         with(:body => "{\"name\":\"somethingblahblah--help\",\"size\":\"512mb\",\"image\":\"ubuntu-14-04-x64\",\"region\":\"nyc2\",\"ssh_keys\":[\"1234\"],\"private_networking\":\"false\",\"backups_enabled\":\"false\",\"ipv6\":null}",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('create_droplet'), :headers => {})
 
       @cli.create('somethingblahblah--help')
 
       expect($stdout.string).to eq <<-eos
-Queueing creation of droplet 'somethingblahblah--help'...done
+Queueing creation of droplet 'somethingblahblah--help'...Droplet created!
       eos
     end
   end

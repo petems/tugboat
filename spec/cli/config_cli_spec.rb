@@ -13,16 +13,15 @@ Current Config\x20
 Path: #{Dir.pwd}/tmp/tugboat
 ---
 authentication:
-  client_key: foo
-  api_key: bar
+  access_token: foo
 ssh:
   ssh_user: baz
   ssh_key_path: ~/.ssh/id_rsa2
   ssh_port: '33'
 defaults:
-  region: '3'
-  image: '345791'
-  size: '67'
+  region: nyc2
+  image: ubuntu-14-04-x64
+  size: 512mb
   ssh_key: '1234'
   private_networking: 'false'
   backups_enabled: 'false'
@@ -39,16 +38,15 @@ Current Config (Keys Redacted)
 Path: #{Dir.pwd}/tmp/tugboat
 ---
 authentication:
-  client_key:\x20\x20[REDACTED]
-  api_key:\x20\x20[REDACTED]
+  access_token:\x20\x20[REDACTED]
 ssh:
   ssh_user: baz
   ssh_key_path: ~/.ssh/id_rsa2
   ssh_port: '33'
 defaults:
-  region: '3'
-  image: '345791'
-  size: '67'
+  region: nyc2
+  image: ubuntu-14-04-x64
+  size: 512mb
   ssh_key: '1234'
   private_networking: 'false'
   backups_enabled: 'false'

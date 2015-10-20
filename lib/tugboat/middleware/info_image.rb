@@ -2,16 +2,16 @@ module Tugboat
   module Middleware
     class InfoImage < Base
       def call(env)
-        ocean = env["ocean"]
+        ocean = env['barge']
 
-        req = ocean.images.show env["image_id"]
+        response = ocean.image.show env["image_id"]
 
-        if req.status == "ERROR"
-          say "#{req.status}: #{req.error_message}", :red
+        unless response.success?
+          say "Failed to get info for Image: #{response.message}", :red
           exit 1
         end
 
-        image = req.image
+        image = response.image
 
         say
         say "Name:             #{image.name}"
