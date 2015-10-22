@@ -148,44 +148,61 @@ Print a single attribute.
 
 ### List Available Images
 
-You can list images that you have created.
+You can list all images
 
     $ tugboat images
-    My Images:
-    pearkes-admin-001 2013-05-19 (id: 13231512, distro: Ubuntu)
+    Showing both private and public images
+    Private Images:
+    My application image (id: 6376601, distro: Ubuntu)
+
+    Public Images:
+    745.1.0 (alpha) (slug: coreos-alpha, id: 12789325, distro: CoreOS)
+    723.3.0 (beta) (slug: coreos-beta, id: 12789350, distro: CoreOS)
+    717.3.0 (stable) (slug: coreos-stable, id: 12789351, distro: CoreOS)
     ....
 
-Optionally, list images provided by DigitalOcean as well.
+Or just list images that you have created.
 
-    $ tugboat images --global
-    My Images:
-    pearkes-admin-001 2013-05-19 (id: 13231512, distro: Ubuntu)
+    $ tugboat images --show_just_private_images # or -p
+    Showing just private images
+    Private Images:
+    My application image (id: 6376601, distro: Ubuntu)
     ....
-    Global Images:
-    CentOS 5.8 x64 (id: 1601, distro: CentOS)
-    ...
 
 ### List Available Sizes
 
     $ tugboat sizes
     Sizes:
-    512MB (id: 66)
-    1GB (id: 63)
+    Disk: 20GB, Memory: 512MB (slug: 512mb)
+    Disk: 30GB, Memory: 1024MB (slug: 1gb)
+    Disk: 40GB, Memory: 2048MB (slug: 2gb)
+    Disk: 60GB, Memory: 4096MB (slug: 4gb)
+    Disk: 80GB, Memory: 8192MB (slug: 8gb)
+    Disk: 160GB, Memory: 16384MB (slug: 16gb)
+    Disk: 320GB, Memory: 32768MB (slug: 32gb)
+    Disk: 480GB, Memory: 49152MB (slug: 48gb)
+    Disk: 640GB, Memory: 65536MB (slug: 64gb)
     ...
 
 ### List Available Regions
 
     $ tugboat regions
     Regions:
-    New York 1 (id: 1) (slug: nyc1)
-    Amsterdam 1 (id: 2) (slug: ams1)
-    San Francisco 1 (id: 3) (slug: sfo1)
+    Amsterdam 1 (slug: ams1)
+    Amsterdam 2 (slug: ams2)
+    Amsterdam 3 (slug: ams3)
+    London 1 (slug: lon1)
+    New York 1 (slug: nyc1)
+    New York 2 (slug: nyc2)
+    New York 3 (slug: nyc3)
+    San Francisco 1 (slug: sfo1)
+    Singapore 1 (slug: sgp1)
 
 ### List SSH Keys
 
     $ tugboat keys
     Keys:
-    pearkes (id: 10501)
+    Name: pearkes, (id: 231192), fingerprint: 3b:16:bf:e4:8b:00:8b:b8:59:8c:a9:d3:f0:19:45:fa
     ...
 
 ### Wait for Droplet State
@@ -212,7 +229,6 @@ ask tugboat about it.
 For a complete overview of all of the available commands, run:
 
     $ tugboat help
-
 
 Depending on your local configuration, you may need to install a CA bundle (OS X only) using [homebrew](http://brew.sh/) to communicate with DigitalOcean through SSL/TLS:
 
