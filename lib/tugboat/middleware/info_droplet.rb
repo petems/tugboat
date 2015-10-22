@@ -69,8 +69,14 @@ module Tugboat
               say "Private IP:       #{droplet_private_ip}"
             end
 
+            if droplet.image.slug.nil?
+              image_description  = droplet.image.name
+            else
+              image_description = droplet.image.slug
+            end
+
             say "Region:           #{droplet.region.name} - #{droplet.region.slug}"
-            say "Image:            #{droplet.image.id} - #{droplet.image.name}"
+            say "Image:            #{droplet.image.id} - #{image_description}"
             say "Size:             #{droplet.size_slug.upcase}"
             say "Backups Active:   #{!droplet.backup_ids.empty?}"
           end

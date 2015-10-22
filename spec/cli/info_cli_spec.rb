@@ -31,6 +31,29 @@ Backups Active:   false
 
     end
 
+    it "shows a droplet made from a user image" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplet_user_image'), :headers => {})
+
+      @cli.options = @cli.options.merge(:id => 6918990)
+      @cli.info
+
+      expect($stdout.string).to eq <<-eos
+Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
+
+Name:             example.com
+ID:               6918990
+Status:           \e[32mactive\e[0m
+IP4:              104.131.186.241
+IP6:              2604:A880:0800:0010:0000:0000:031D:2001
+Region:           New York 3 - nyc3
+Image:            36646276 - Super Cool Custom Image
+Size:             512MB
+Backups Active:   false
+      eos
+    end
+
     it "shows a droplet with an id" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
@@ -48,7 +71,7 @@ Status:           \e[32mactive\e[0m
 IP4:              104.131.186.241
 IP6:              2604:A880:0800:0010:0000:0000:031D:2001
 Region:           New York 3 - nyc3
-Image:            6918990 - 14.04 x64
+Image:            6918990 - ubuntu-14-04-x64
 Size:             512MB
 Backups Active:   false
       eos
@@ -75,7 +98,7 @@ Status:           \e[32mactive\e[0m
 IP4:              104.131.186.241
 IP6:              2604:A880:0800:0010:0000:0000:031D:2001
 Region:           New York 3 - nyc3
-Image:            6918990 - 14.04 x64
+Image:            6918990 - ubuntu-14-04-x64
 Size:             512MB
 Backups Active:   false
       eos
@@ -108,7 +131,7 @@ Status:           \e[32mactive\e[0m
 IP4:              104.131.186.241
 IP6:              2604:A880:0800:0010:0000:0000:031D:2001
 Region:           New York 3 - nyc3
-Image:            6918990 - 14.04 x64
+Image:            6918990 - ubuntu-14-04-x64
 Size:             512MB
 Backups Active:   false
       eos
@@ -131,7 +154,7 @@ status active
 ip4 104.131.186.241
 ip6 2604:A880:0800:0010:0000:0000:031D:2001
 region nyc3
-Image 6918990
+image 6918990
 size 512mb
 backups_active false
       eos
@@ -156,7 +179,7 @@ status active
 ip4 104.131.186.241
 ip6 2604:A880:0800:0010:0000:0000:031D:2001
 region nyc3
-Image 6918990
+image 6918990
 size 512mb
 backups_active false
       eos
@@ -212,7 +235,7 @@ Provide one of the following:
     ip6
     private_ip
     region
-    Image
+    image
     size
     backups_active
       eos
