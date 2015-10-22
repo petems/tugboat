@@ -39,7 +39,7 @@ module Tugboat
           ["ip6",  droplet_ip6_public],
           ["private_ip",  droplet_private_ip],
           ["region",  droplet.region.slug],
-          ["Image",  droplet.image.id],
+          ["image",  droplet.image.id],
           ["size",  droplet.size_slug],
           ["backups_active",  !droplet.backup_ids.empty?]
         ]

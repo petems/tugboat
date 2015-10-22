@@ -24,7 +24,7 @@ Status:           \e[32mactive\e[0m
 IP4:              104.131.186.241
 IP6:              2604:A880:0800:0010:0000:0000:031D:2001
 Region:           New York 3 - nyc3
-Image:            6918990 - 14.04 x64
+Image:            6918990 - ubuntu-14-04-x64
 Size:             512MB
 Backups Active:   false
       eos
