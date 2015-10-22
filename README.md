@@ -242,12 +242,8 @@ After installation, source the bundle path in your `.bash_profile`/`.bashrc`:
 
 Yes, please!
 
-It's very helpful if you can run `DEBUG=1 tugboat ...` with the command
-that is causing you issues, and then include that in the issue.
-
 You can create a new issue [here](https://github.com/pearkes/tugboat/issues/new). Thank you!
 
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md).
-
