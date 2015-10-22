@@ -66,10 +66,16 @@ module Tugboat
         })
     end
 
-    desc "droplets", "Retrieve a list of your droplets"
+    method_option "include_urls",
+                  :type => :boolean,
+                  :default => false,
+                  :aliases => "-i",
+                  :desc => "Include URLs for the droplets (can be opened in a browser)"
+    desc "droplets [OPTIONS]", "Retrieve a list of your droplets"
     def droplets
       Middleware.sequence_list_droplets.call({
-        "user_quiet" => options[:quiet]
+        "user_quiet" => options[:quiet],
+        "include_urls" => options["include_urls"]
         })
     end
 
