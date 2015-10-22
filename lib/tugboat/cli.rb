@@ -134,15 +134,15 @@ module Tugboat
     method_option  "size",
                    :type => :numeric,
                    :aliases => "-s",
-                   :desc => "The size_id of the droplet"
+                   :desc => "The size slug of the droplet"
     method_option  "image",
                    :type => :numeric,
                    :aliases => "-i",
-                   :desc => "The image_id of the droplet"
+                   :desc => "The image slug of the droplet"
     method_option  "region",
                    :type => :numeric,
                    :aliases => "-r",
-                   :desc => "The region_id of the droplet"
+                   :desc => "The region slug of the droplet"
     method_option  "keys",
                    :type => :string,
                    :aliases => "-k",
@@ -163,10 +163,10 @@ module Tugboat
       end
 
       Middleware.sequence_create_droplet.call({
-        "create_droplet_size_id" => options[:size],
-        "create_droplet_image_id" => options[:image],
-        "create_droplet_region_id" => options[:region],
         "create_droplet_ssh_key_ids" => options[:keys],
+        "create_droplet_size_slug" => options[:size],
+        "create_droplet_image_slug" => options[:image],
+        "create_droplet_region_slug" => options[:region],
         "create_droplet_private_networking" => options[:private_networking],
         "create_droplet_backups_enabled" => options[:backups_enabled],
         "create_droplet_name" => name,

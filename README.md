@@ -82,7 +82,7 @@ match.
 
 ### Create a droplet
 
-    $ tugboat create pearkes-www-002 -s 64 -i 2676 -r 2 -k 11251
+    $ tugboat create pearkes-www-002 -s 512mb -i ubuntu-12-04-x64 -r nyc2 -k 11251
     Queueing creation of droplet 'pearkes-www-002'...done
 
 ### Info about a droplet
