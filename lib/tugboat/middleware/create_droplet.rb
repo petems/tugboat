@@ -26,6 +26,11 @@ module Tugboat
         droplet_private_networking = env["create_droplet_private_networking"] :
         droplet_private_networking = env["config"].default_private_networking
 
+
+        env["create_droplet_ip6"] ?
+        droplet_ip6 = env["create_droplet_ip6"] :
+        droplet_ip6 = env["config"].default_ip6
+
         env["create_droplet_backups_enabled"] ?
         droplet_backups_enabled = env["create_droplet_backups_enabled"] :
         droplet_backups_enabled = env["config"].default_backups_enabled
@@ -40,7 +45,7 @@ module Tugboat
           :ssh_keys           => [droplet_ssh_key_id],
           :private_networking => droplet_private_networking,
           :backups_enabled    => droplet_backups_enabled,
-          :ipv6               => nil,
+          :ipv6               => droplet_ip6,
         }
 
         response = ocean.droplet.create(create_opts)
