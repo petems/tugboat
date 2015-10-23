@@ -151,6 +151,10 @@ module Tugboat
                   :type => :boolean,
                   :aliases => "-p",
                   :desc => "Enable private networking on the droplet"
+    method_option  "ip6",
+                  :type => :boolean,
+                  :aliases => "-l",
+                  :desc => "Enable IP6 on the droplet"
     method_option  "backups_enabled",
                    :type => :boolean,
                    :aliases => "-b",
@@ -168,6 +172,7 @@ module Tugboat
         "create_droplet_image_slug" => options[:image],
         "create_droplet_region_slug" => options[:region],
         "create_droplet_private_networking" => options[:private_networking],
+        "create_droplet_ip6" => options[:ip6],
         "create_droplet_backups_enabled" => options[:backups_enabled],
         "create_droplet_name" => name,
         "user_quiet" => options[:quiet]

@@ -16,6 +16,7 @@ module Tugboat
     DEFAULT_IMAGE = 'ubuntu-14-04-x64'
     DEFAULT_SIZE = '512mb'
     DEFAULT_SSH_KEY = ''
+    DEFAULT_IP6 = 'false'
     DEFAULT_PRIVATE_NETWORKING = 'false'
     DEFAULT_BACKUPS_ENABLED = 'false'
 
@@ -71,6 +72,10 @@ module Tugboat
 
     def default_ssh_key
       @data['defaults'].nil? ? DEFAULT_SSH_KEY : @data['defaults']['ssh_key']
+    end
+
+    def default_ip6
+      @data['defaults'].nil? ? DEFAULT_IP6 : @data['defaults']['ip6']
     end
 
     def default_private_networking
