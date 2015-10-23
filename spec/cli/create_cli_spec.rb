@@ -33,7 +33,7 @@ Queueing creation of droplet 'example.com'...Droplet created!
     end
 
     it "doesn't create a droplet when mistyping help command" do
-      help_text = "Usage:\n  rspec create NAME\n\nOptions:\n  -s, [--size=N]              # The size_id of the droplet\n  -i, [--image=N]             # The image_id of the droplet\n  -r, [--region=N]            # The region_id of the droplet\n  -k, [--keys=KEYS]           # A comma separated list of SSH key ids to add to the droplet\n  -p, [--private-networking]  # Enable private networking on the droplet\n  -b, [--backups-enabled]     # Enable backups on the droplet\n  -q, [--quiet]               \n\nCreate a droplet.\n"
+      help_text = "Usage:\n  rspec create NAME\n\nOptions:\n  -s, [--size=N]              # The size slug of the droplet\n  -i, [--image=N]             # The image slug of the droplet\n  -r, [--region=N]            # The region slug of the droplet\n  -k, [--keys=KEYS]           # A comma separated list of SSH key ids to add to the droplet\n  -p, [--private-networking]  # Enable private networking on the droplet\n  -b, [--backups-enabled]     # Enable backups on the droplet\n  -q, [--quiet]               \n\nCreate a droplet.\n"
 
       @cli.create('help')
       expect($stdout.string).to eq help_text
