@@ -1,0 +1,82 @@
+{
+  "droplet": {
+    "id": 6918990,
+    "name": "example.com",
+    "memory": 512,
+    "vcpus": 1,
+    "disk": 20,
+    "locked": false,
+    "status": "active",
+    "kernel": {
+      "id": 2233,
+      "name": "Ubuntu 14.04 x64 vmlinuz-3.13.0-37-generic",
+      "version": "3.13.0-37-generic"
+    },
+    "created_at": "2014-11-14T16:36:31Z",
+    "features": [
+      "ipv6",
+      "virtio"
+    ],
+    "backup_ids": [
+
+    ],
+    "snapshot_ids": [
+
+    ],
+    "image": {
+      "id": 36646276,
+      "name": "Super Cool Custom Image",
+      "distribution": "CentOS",
+      "slug": null,
+      "public": false,
+      "regions": [
+          "lon1"
+      ],
+      "created_at": "2015-02-27T14:44:25Z",
+      "min_disk_size": 20,
+      "type": "snapshot"
+    },
+    "size_slug": "512mb",
+    "networks": {
+      "v4": [
+        {
+          "ip_address": "104.131.186.241",
+          "netmask": "255.255.240.0",
+          "gateway": "104.131.176.1",
+          "type": "public"
+        }
+      ],
+      "v6": [
+        {
+          "ip_address": "2604:A880:0800:0010:0000:0000:031D:2001",
+          "netmask": 64,
+          "gateway": "2604:A880:0800:0010:0000:0000:0000:0001",
+          "type": "public"
+        }
+      ]
+    },
+    "region": {
+      "name": "New York 3",
+      "slug": "nyc3",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "virtio",
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    }
+  }
+}

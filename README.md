@@ -94,10 +94,11 @@ match.
     ID:               13231512
     Status:           active
     IP:               30.30.30.3
-    Region ID:        1
-    Image ID:         25489
-    Size ID:          66
     Backups Active:   false
+    IP6:              2A03:B0C0:0001:00D0:0000:0000:0308:D001
+    Region:           London 1 - lon1
+    Image:            6918990 - ubuntu-14-04-x64
+    Size:             1GB
 
 Print info in machine-readable format. The ``--porcelain`` flag silences extra output for easy parsing. Fuzzy name matching is not supported with the ``--porcelain`` flag.
 
@@ -105,10 +106,10 @@ Print info in machine-readable format. The ``--porcelain`` flag silences extra o
     name pearkes-admin-001
     id 13231512
     status active
-    ip 30.30.30.3
-    region_id 1
-    image_id 25489
-    size_id 66
+    ip4 30.30.30.3
+    region 1
+    image 25489
+    size 66
     backups_active false
 
 Print a single attribute.
