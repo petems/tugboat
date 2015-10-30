@@ -113,10 +113,17 @@ module Tugboat
             end
             say
             choice = ask "Please choose a droplet:", :limited_to => choices
+            for ip_list in found_droplets[choice.to_i].networks.v4 do
+              if ip_list.type == "private"
+                private_ip = ip_list.ip_address
+              elsif ip_list.type == "public"
+                public_ip = ip_list.ip_address
+              end
+            end
             env["droplet_id"] = found_droplets[choice.to_i].id
             env["droplet_name"] = found_droplets[choice.to_i].name
-            env["droplet_ip"] = found_droplets[choice.to_i].ip_address
-            env["droplet_ip_private"] = found_droplets[choice.to_i].private_ip_address
+            env["droplet_ip"] = public_ip
+            env["droplet_ip_private"] = private_ip
             env["droplet_status"] = found_droplets[choice.to_i].status
           end
 
