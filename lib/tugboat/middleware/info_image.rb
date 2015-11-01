@@ -17,6 +17,7 @@ module Tugboat
         say "Name:             #{image.name}"
         say "ID:               #{image.id}"
         say "Distribution:     #{image.distribution}"
+        say "Min Disk Size:    #{image.min_disk_size}GB"
 
         @app.call(env)
       end
