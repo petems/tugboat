@@ -114,7 +114,7 @@ module Tugboat
                   :desc => "Custom SSH options"
     method_option "ssh_command",
                   :type => :string,
-                  :aliases => "-c",
+                  :aliases => [ "-c", "-y" ,],
                   :desc => "Command to run on the droplet"
     def ssh(name=nil)
       Middleware.sequence_ssh_droplet.call({
@@ -190,7 +190,7 @@ module Tugboat
                   :desc => "The exact name of the droplet"
     method_option "confirm",
                   :type => :boolean,
-                  :aliases => "-c",
+                  :aliases => [ "-c", "-y" ,],
                   :desc => "Skip confirmation of the action"
     method_option "image_id",
                   :type => :numeric,
@@ -224,7 +224,7 @@ module Tugboat
                   :desc => "The exact name of the droplet"
     method_option "confirm",
                   :type => :boolean,
-                  :aliases => "-c",
+                  :aliases => [ "-c", "-y" ,],
                   :desc => "Skip confirmation of the action"
     def destroy(name=nil)
       Middleware.sequence_destroy_droplet.call({
@@ -247,7 +247,7 @@ module Tugboat
                   :desc => "The exact name of the image"
     method_option "confirm",
                   :type => :boolean,
-                  :aliases => "-c",
+                  :aliases => [ "-c", "-y" ,],
                   :desc => "Skip confirmation of the action"
     def destroy_image(name=nil)
       Middleware.sequence_destroy_image.call({
