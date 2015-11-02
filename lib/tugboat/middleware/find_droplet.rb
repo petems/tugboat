@@ -12,7 +12,10 @@ module Tugboat
         # First, if nothing is provided to us, we should quit and
         # let the user know.
         if !user_fuzzy_name && !user_droplet_name && !user_droplet_id
-          say "Tugboat attempted to find a droplet with no arguments. Try `tugboat help`", :red
+
+          say "Tugboat attempted to find a droplet with no arguments.", :red
+          say "Try running `tugboat #{env['tugboat_action']} dropletname`", :green
+          say "For more help run: `tugboat help #{env['tugboat_action']}`", :blue
           exit 1
         end
 
