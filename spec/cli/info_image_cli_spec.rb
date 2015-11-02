@@ -21,6 +21,7 @@ Image fuzzy name provided. Finding image ID...done\e[0m, 12789325 (745.1.0 (alph
 Name:             745.1.0 (alpha)
 ID:               12789325
 Distribution:     CoreOS
+Min Disk Size:    20GB
       eos
     end
 
@@ -42,6 +43,7 @@ Image id provided. Finding Image...done\e[0m, 12438838 (Redmine on 14.04)
 Name:             Redmine on 14.04
 ID:               12438838
 Distribution:     Ubuntu
+Min Disk Size:    20GB
       eos
     end
 
@@ -63,6 +65,7 @@ Image name provided. Finding Image...done\e[0m, 12438838 (Redmine on 14.04)
 Name:             Redmine on 14.04
 ID:               12438838
 Distribution:     Ubuntu
+Min Disk Size:    20GB
       eos
     end
 
@@ -139,6 +142,7 @@ Please choose a image: ["0", "1", "2", "3", "4", "5", "6", "7"]\x20
 Name:             14.10 x32
 ID:               9801951
 Distribution:     Ubuntu
+Min Disk Size:    20GB
       eos
     end
 
