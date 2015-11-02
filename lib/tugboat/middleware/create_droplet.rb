@@ -26,10 +26,22 @@ module Tugboat
         droplet_private_networking = env["create_droplet_private_networking"] :
         droplet_private_networking = env["config"].default_private_networking
 
-
         env["create_droplet_ip6"] ?
         droplet_ip6 = env["create_droplet_ip6"] :
         droplet_ip6 = env["config"].default_ip6
+
+        env["create_droplet_user_data"] ?
+        droplet_user_data = env["create_droplet_user_data"] :
+        droplet_user_data = env["config"].default_user_data
+
+        if droplet_user_data
+          unless File.file?(droplet_user_data)
+            say "Could not find file: #{droplet_user_data}, check your user_data setting"
+            exit 1
+          else
+            user_data_string = File.open(droplet_user_data, 'rb') { |f| f.read }
+          end
+        end
 
         env["create_droplet_backups_enabled"] ?
         droplet_backups_enabled = env["create_droplet_backups_enabled"] :
@@ -46,6 +58,7 @@ module Tugboat
           :private_networking => droplet_private_networking,
           :backups_enabled    => droplet_backups_enabled,
           :ipv6               => droplet_ip6,
+          :user_data          => user_data_string,
         }
 
         response = ocean.droplet.create(create_opts)

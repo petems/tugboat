@@ -19,6 +19,7 @@ module Tugboat
     DEFAULT_IP6 = 'false'
     DEFAULT_PRIVATE_NETWORKING = 'false'
     DEFAULT_BACKUPS_ENABLED = 'false'
+    DEFAULT_USER_DATA = nil
 
     # Load config file from current directory, if not exit load from user's home directory
     def initialize
@@ -76,6 +77,10 @@ module Tugboat
 
     def default_ip6
       @data['defaults'].nil? ? DEFAULT_IP6 : @data['defaults']['ip6']
+    end
+
+    def default_user_data
+      @data['defaults'].nil? ? DEFAULT_USER_DATA : @data['defaults']['user_data']
     end
 
     def default_private_networking

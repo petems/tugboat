@@ -167,6 +167,10 @@ module Tugboat
                   :type => :boolean,
                   :aliases => "-l",
                   :desc => "Enable IP6 on the droplet"
+    method_option  "user_data",
+                  :type => :string,
+                  :aliases => "-u",
+                  :desc => "Location of a file to read and use as user data"
     method_option  "backups_enabled",
                    :type => :boolean,
                    :aliases => "-b",
@@ -186,6 +190,7 @@ module Tugboat
         "create_droplet_region_slug" => options[:region],
         "create_droplet_private_networking" => options[:private_networking],
         "create_droplet_ip6" => options[:ip6],
+        "create_droplet_user_data" => options[:user_data],
         "create_droplet_backups_enabled" => options[:backups_enabled],
         "create_droplet_name" => name,
         "user_quiet" => options[:quiet]
