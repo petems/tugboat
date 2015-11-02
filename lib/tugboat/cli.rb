@@ -36,6 +36,7 @@ module Tugboat
     "
     def authorize
       Middleware.sequence_authorize.call({
+        "tugboat_action" => __method__,
         "user_quiet" => options[:quiet]
         })
     end
@@ -51,6 +52,7 @@ module Tugboat
                   :desc => "Hide your API keys"
     def config
       Middleware.sequence_config.call({
+        "tugboat_action" => __method__,
         "user_hide_keys" => options[:hide],
         })
     end
@@ -62,6 +64,7 @@ module Tugboat
     "
     def verify
       Middleware.sequence_verify.call({
+        "tugboat_action" => __method__,
         "user_quiet" => options[:quiet]
         })
     end
@@ -74,6 +77,7 @@ module Tugboat
     desc "droplets [OPTIONS]", "Retrieve a list of your droplets"
     def droplets
       Middleware.sequence_list_droplets.call({
+        "tugboat_action" => __method__,
         "user_quiet" => options[:quiet],
         "include_urls" => options["include_urls"]
         })
@@ -87,6 +91,7 @@ module Tugboat
                   :desc => "Show just private images"
     def images
       Middleware.sequence_list_images.call({
+        "tugboat_action" => __method__,
         "user_show_just_private_images" => options[:show_just_private_images],
         "user_quiet" => options[:quiet]
         })
@@ -124,6 +129,7 @@ module Tugboat
                   :desc => "Command to run on the droplet"
     def ssh(name=nil)
       Middleware.sequence_ssh_droplet.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
@@ -173,6 +179,7 @@ module Tugboat
       end
 
       Middleware.sequence_create_droplet.call({
+        "tugboat_action" => __method__,
         "create_droplet_ssh_key_ids" => options[:keys],
         "create_droplet_size_slug" => options[:size],
         "create_droplet_image_slug" => options[:image],
@@ -208,6 +215,7 @@ module Tugboat
                   :desc => "The exact name of the image"
     def rebuild(name=nil, image_name=nil)
       Middleware.sequence_rebuild_droplet.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
@@ -234,6 +242,7 @@ module Tugboat
                   :desc => "Skip confirmation of the action"
     def destroy(name=nil)
       Middleware.sequence_destroy_droplet.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_confirm_action" => options[:confirm],
@@ -257,6 +266,7 @@ module Tugboat
                   :desc => "Skip confirmation of the action"
     def destroy_image(name=nil)
       Middleware.sequence_destroy_image.call({
+        "tugboat_action" => __method__,
         "user_image_id" => options[:id],
         "user_image_name" => options[:name],
         "user_image_fuzzy_name" => name,
@@ -280,6 +290,7 @@ module Tugboat
                   :desc => "Perform a hard restart"
     def restart(name=nil)
       Middleware.sequence_restart_droplet.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_hard" => options[:hard],
@@ -303,6 +314,7 @@ module Tugboat
                   :desc => "Perform a hard shutdown"
     def halt(name=nil)
       Middleware.sequence_halt_droplet.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_hard" => options[:hard],
@@ -329,6 +341,7 @@ module Tugboat
                   :desc => "Give the output in an easy-to-parse format for scripts."
     def info(name=nil)
       Middleware.sequence_info_droplet.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
@@ -349,6 +362,7 @@ module Tugboat
                   :desc => "The exact name of the image"
     def info_image(name=nil)
       Middleware.sequence_info_image.call({
+        "tugboat_action" => __method__,
         "user_image_id" => options[:id],
         "user_image_name" => options[:name],
         "user_image_fuzzy_name" => name,
@@ -367,6 +381,7 @@ module Tugboat
                   :desc => "The exact name of the droplet"
     def snapshot(snapshot_name, name=nil)
       Middleware.sequence_snapshot_droplet.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
@@ -377,7 +392,9 @@ module Tugboat
 
     desc "keys", "Show available SSH keys"
     def keys
-      Middleware.sequence_ssh_keys.call({})
+      Middleware.sequence_ssh_keys.call({
+        "tugboat_action" => __method__,
+      })
     end
 
     desc "add-key KEY-NAME", "Upload an ssh public key to DigitalOcean, to be assigned to a droplet later"
@@ -394,6 +411,7 @@ module Tugboat
                   :desc => "The path to the ssh key"
     def add_key(name)
       Middleware.sequence_add_key.call({
+        "tugboat_action" => __method__,
         "add_key_name" => name,
         "add_key_pub_key" => options[:key],
         "add_key_file_path" => options[:path],
@@ -404,6 +422,7 @@ module Tugboat
     desc "regions", "Show regions"
     def regions
       Middleware.sequence_regions.call({
+        "tugboat_action" => __method__,
         "user_quiet" => options[:quiet]
         })
     end
@@ -416,6 +435,7 @@ module Tugboat
     desc "sizes", "Show available droplet sizes"
     def sizes
       Middleware.sequence_sizes.call({
+        "tugboat_action" => __method__,
         "user_quiet" => options[:quiet]
         })
     end
@@ -431,6 +451,7 @@ module Tugboat
                   :desc => "The exact name of the droplet"
     def start(name=nil)
       Middleware.sequence_start_droplet.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
@@ -454,6 +475,7 @@ module Tugboat
                   :desc => "The size_id to resize the droplet to"
     def resize(name=nil)
       Middleware.sequence_resize_droplet.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_size" => options[:size],
@@ -474,6 +496,7 @@ module Tugboat
 
     def password_reset(name=nil)
       Middleware.sequence_password_reset.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_fuzzy_name" => name,
@@ -498,6 +521,7 @@ module Tugboat
 
     def wait(name=nil)
       Middleware.sequence_wait.call({
+        "tugboat_action" => __method__,
         "user_droplet_id" => options[:id],
         "user_droplet_name" => options[:name],
         "user_droplet_desired_state" => options[:state],
