@@ -1,10 +1,88 @@
 # Change Log
 
+## [Unreleased](https://github.com/pearkes/tugboat/tree/HEAD)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.0...HEAD)
+
+## [v2.0.0](https://github.com/pearkes/tugboat/tree/v2.0.0) (2015-11-03)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.0.RC1...v2.0.0)
+
+**Implemented enhancements:**
+
+- Setting client\_id and api\_key as environment variables in shell [\#176](https://github.com/pearkes/tugboat/issues/176)
+
+- API v2.0 Support [\#122](https://github.com/pearkes/tugboat/issues/122)
+
+- If a command that requires arguments is entered without arguments, print the help for that. [\#191](https://github.com/pearkes/tugboat/issues/191)
+
+- Support traditional `-y` for automatically confirming a destructive action. [\#190](https://github.com/pearkes/tugboat/issues/190)
+
+- Allow specification of user data in create command [\#162](https://github.com/pearkes/tugboat/issues/162)
+
+- Multiple default SSH keys \(for new droplets\)? [\#142](https://github.com/pearkes/tugboat/issues/142)
+
+- tugboat info should show IPv6 address [\#119](https://github.com/pearkes/tugboat/issues/119)
+
+- Allow configuring IPv6 in create command [\#118](https://github.com/pearkes/tugboat/issues/118)
+
+- Allow resize -s to take a string size rather than ID [\#101](https://github.com/pearkes/tugboat/issues/101)
+
+- Machine Readable Flag [\#6](https://github.com/pearkes/tugboat/issues/6)
+
+**Fixed bugs:**
+
+- New Droplets dont have IP address immediatly, so the info command fails [\#198](https://github.com/pearkes/tugboat/issues/198)
+
+- Ipv6 changes broke ssh [\#192](https://github.com/pearkes/tugboat/issues/192)
+
+- tugboat doesn't work with team accounts, because they use api v2 [\#168](https://github.com/pearkes/tugboat/issues/168)
+
+- tugboat ssh not using ssh-agent? [\#160](https://github.com/pearkes/tugboat/issues/160)
+
+**Merged pull requests:**
+
+- Fixes multiple keys for droplet creation [\#201](https://github.com/pearkes/tugboat/pull/201) ([petems](https://github.com/petems))
+
+- Gives more specific output for ssh [\#199](https://github.com/pearkes/tugboat/pull/199) ([petems](https://github.com/petems))
+
+- Allow setting user data for droplet creation [\#197](https://github.com/pearkes/tugboat/pull/197) ([petems](https://github.com/petems))
+
+- Hacky way to get the ips for find droplet [\#196](https://github.com/pearkes/tugboat/pull/196) ([petems](https://github.com/petems))
+
+- Better help message [\#195](https://github.com/pearkes/tugboat/pull/195) ([petems](https://github.com/petems))
+
+- Add -y flag to skip confirmation [\#194](https://github.com/pearkes/tugboat/pull/194) ([petems](https://github.com/petems))
+
+- Add Min Disk Size to info\_image [\#193](https://github.com/pearkes/tugboat/pull/193) ([bmamlin](https://github.com/bmamlin))
+
+- Adds ability to enable IP6 on new droplets [\#189](https://github.com/pearkes/tugboat/pull/189) ([petems](https://github.com/petems))
+
+- Readme fixes API2 [\#188](https://github.com/pearkes/tugboat/pull/188) ([petems](https://github.com/petems))
+
+- Info droplet API2 changes [\#187](https://github.com/pearkes/tugboat/pull/187) ([petems](https://github.com/petems))
+
+- Fix references to id to slugs [\#186](https://github.com/pearkes/tugboat/pull/186) ([petems](https://github.com/petems))
+
+- Add "include\_urls" option to "droplets" command [\#185](https://github.com/pearkes/tugboat/pull/185) ([FreedomBen](https://github.com/FreedomBen))
+
+- Adds ability to use environment variable for key [\#184](https://github.com/pearkes/tugboat/pull/184) ([petems](https://github.com/petems))
+
+- Proper 2.0.0 release [\#183](https://github.com/pearkes/tugboat/pull/183) ([petems](https://github.com/petems))
+
+- Add UI System [\#200](https://github.com/pearkes/tugboat/pull/200) ([petems](https://github.com/petems))
+
 ## [v2.0.0.RC1](https://github.com/pearkes/tugboat/tree/v2.0.0.RC1) (2015-10-20)
 
 [Full Changelog](https://github.com/pearkes/tugboat/compare/v1.3.1...v2.0.0.RC1)
 
 **Closed issues:**
+
+- API 2.0 Release Candidate Guinea Pigs and Feedback [\#182](https://github.com/pearkes/tugboat/issues/182)
+
+- API 2.0 Switchover [\#161](https://github.com/pearkes/tugboat/issues/161)
+
+- API v2 Support [\#102](https://github.com/pearkes/tugboat/issues/102)
 
 - Possible to delete an image/snapshot? [\#177](https://github.com/pearkes/tugboat/issues/177)
 
@@ -20,7 +98,7 @@
 
 ## [v1.3.1](https://github.com/pearkes/tugboat/tree/v1.3.1) (2015-08-02)
 
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.1.0.ALPHA...v1.3.1)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.3.0...v1.3.1)
 
 **Closed issues:**
 
@@ -29,10 +107,6 @@
 **Merged pull requests:**
 
 - Removes wrong help messages for `images`. [\#173](https://github.com/pearkes/tugboat/pull/173) ([haihappen](https://github.com/haihappen))
-
-## [v2.1.0.ALPHA](https://github.com/pearkes/tugboat/tree/v2.1.0.ALPHA) (2015-07-20)
-
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v1.3.0...v2.1.0.ALPHA)
 
 ## [v1.3.0](https://github.com/pearkes/tugboat/tree/v1.3.0) (2015-07-19)
 
