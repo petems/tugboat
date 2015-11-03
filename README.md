@@ -41,9 +41,9 @@ Tugboat will look for a .tugboat config file first in the current directory you'
 ### Retrieve a list of your droplets
 
     $ tugboat droplets
-    pearkes-web-001 (ip: 30.30.30.1, status: active, region: 1, id: 13231511)
-    pearkes-admin-001 (ip: 30.30.30.3, status: active, region: 1, id: 13231512)
-    pearkes-api-001 (ip: 30.30.30.5, status: active, region: 1, id: 13231513)
+    pearkes-web-001 (ip: 30.30.30.1, status: active, region: nyc2, id: 13231511)
+    pearkes-admin-001 (ip: 30.30.30.3, status: active, region: nyc2, id: 13231512)
+    pearkes-api-001 (ip: 30.30.30.5, status: active, region: nyc2, id: 13231513)
 
 ### Fuzzy name matching
 
@@ -107,9 +107,9 @@ Print info in machine-readable format. The ``--porcelain`` flag silences extra o
     id 13231512
     status active
     ip4 30.30.30.3
-    region 1
-    image 25489
-    size 66
+    region lon1
+    image 6918990
+    size 1gb
     backups_active false
 
 Print a single attribute.
