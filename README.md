@@ -28,7 +28,7 @@ Run the configuration utility, `tugboat authorize`. You can grab your keys
     Enter your default region ID (optional, defaults to 1 (New York)):
     Enter your default image ID (optional, defaults to 350076 (Ubuntu 13.04 x64)):
     Enter your default size ID (optional, defaults to 66 (512MB)):
-    Enter your default ssh key ID (optional, defaults to none):
+    Enter your default ssh key IDs (optional, defaults to '', comma separated string):
 
     Authentication with DigitalOcean was successful!
 

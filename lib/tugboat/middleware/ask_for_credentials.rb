@@ -17,7 +17,7 @@ module Tugboat
         region   = ask "Enter your default region (optional, defaults to nyc1):"
         image    = ask "Enter your default image ID or image slug (optional, defaults to ubuntu-14-04-x64):"
         size     = ask "Enter your default size (optional, defaults to 512mb)):"
-        ssh_key  = ask "Enter your default ssh key ID (optional, defaults to none):"
+        ssh_key  = ask "Enter your default ssh key IDs (optional, defaults to none, comma separated string):"
         private_networking = ask "Enter your default for private networking (optional, defaults to false):"
         backups_enabled = ask "Enter your default for enabling backups (optional, defaults to false):"
 
