@@ -19,8 +19,8 @@ module Tugboat
         droplet_size_slug = env["config"].default_size
 
         env["create_droplet_ssh_key_ids"] ?
-        droplet_ssh_key_id = env["create_droplet_ssh_key_ids"] :
-        droplet_ssh_key_id = env["config"].default_ssh_key
+        droplet_ssh_key_ids = env["create_droplet_ssh_key_ids"] :
+        droplet_ssh_key_ids = env["config"].default_ssh_key
 
         env["create_droplet_private_networking"] ?
         droplet_private_networking = env["create_droplet_private_networking"] :
@@ -47,14 +47,17 @@ module Tugboat
         droplet_backups_enabled = env["create_droplet_backups_enabled"] :
         droplet_backups_enabled = env["config"].default_backups_enabled
 
-        droplet_ssh_key_id = nil if droplet_ssh_key_id.empty?
+        droplet_key_array = droplet_ssh_key_ids.split(',')
+
+        droplet_key_array = nil if [droplet_key_array].empty?
+
 
         create_opts = {
           :name               => env["create_droplet_name"],
           :size               => droplet_size_slug,
           :image              => "#{droplet_image_slug}",
           :region             => droplet_region_slug,
-          :ssh_keys           => [droplet_ssh_key_id],
+          :ssh_keys           => droplet_key_array,
           :private_networking => droplet_private_networking,
           :backups_enabled    => droplet_backups_enabled,
           :ipv6               => droplet_ip6,
