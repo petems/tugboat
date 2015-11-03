@@ -100,9 +100,14 @@ module Tugboat
 
             env["droplet_id"] = droplet_return.id
             env["droplet_name"] = "(#{droplet_return.name})"
-            env["droplet_ip"] = droplet_return.networks.v4.detect { |address| address.type == 'public' }.ip_address
-            check_private_ip = droplet_return.networks.v4.detect { |address| address.type == 'private' }
-            env["droplet_ip_private"] = check_private_ip.ip_address if check_private_ip
+            if droplet_return.networks.v4.empty?
+              env["droplet_ip"] = '' # No Network Yet
+              env["droplet_ip_private"] = '' # No Network Yet
+            else
+              env["droplet_ip"] = droplet_return.networks.v4.detect { |address| address.type == 'public' }.ip_address
+              check_private_ip = droplet_return.networks.v4.detect { |address| address.type == 'private' }
+              env["droplet_ip_private"] = check_private_ip.ip_address if check_private_ip
+            end
             env["droplet_status"] = droplet_return.status
           elsif found_droplets.length > 1
             # Did we run the multiple questionairre?
