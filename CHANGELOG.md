@@ -2,7 +2,23 @@
 
 ## [Unreleased](https://github.com/pearkes/tugboat/tree/HEAD)
 
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.0...HEAD)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.1...HEAD)
+
+## [v2.0.1](https://github.com/pearkes/tugboat/tree/v2.0.1) (2015-11-10)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.0...v2.0.1)
+
+**Fixed bugs:**
+
+- Slugs don't work [\#204](https://github.com/pearkes/tugboat/issues/204)
+
+- New Droplets dont have IP address immediatly, so the info command fails [\#198](https://github.com/pearkes/tugboat/issues/198)
+
+**Merged pull requests:**
+
+- Fixes format for creating droplets [\#207](https://github.com/pearkes/tugboat/pull/207) ([petems](https://github.com/petems))
+
+- Fixes issue with new machines having no network [\#203](https://github.com/pearkes/tugboat/pull/203) ([petems](https://github.com/petems))
 
 ## [v2.0.0](https://github.com/pearkes/tugboat/tree/v2.0.0) (2015-11-03)
 
@@ -37,8 +53,6 @@
 - Ipv6 changes broke ssh [\#192](https://github.com/pearkes/tugboat/issues/192)
 
 - tugboat doesn't work with team accounts, because they use api v2 [\#168](https://github.com/pearkes/tugboat/issues/168)
-
-- tugboat ssh not using ssh-agent? [\#160](https://github.com/pearkes/tugboat/issues/160)
 
 **Merged pull requests:**
 
