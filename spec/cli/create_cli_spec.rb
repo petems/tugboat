@@ -73,7 +73,23 @@ Queueing creation of droplet 'example.com'...Could not find file: /foo/bar/baz.s
     end
 
     it "doesn't create a droplet when mistyping help command" do
-      help_text = "Usage:\n  rspec create NAME\n\nOptions:\n  -s, [--size=N]               # The size slug of the droplet\n  -i, [--image=N]              # The image slug of the droplet\n  -r, [--region=N]             # The region slug of the droplet\n  -k, [--keys=KEYS]            # A comma separated list of SSH key ids to add to the droplet\n  -p, [--private-networking]   # Enable private networking on the droplet\n  -l, [--ip6]                  # Enable IP6 on the droplet\n  -u, [--user-data=USER_DATA]  # Location of a file to read and use as user data\n  -b, [--backups-enabled]      # Enable backups on the droplet\n  -q, [--quiet]                \n\nCreate a droplet.\n"
+      help_text = <<-eos
+Usage:
+  rspec create NAME
+
+Options:
+  -s, [--size=SIZE]            # The size slug of the droplet
+  -i, [--image=IMAGE]          # The image slug of the droplet
+  -r, [--region=REGION]        # The region slug of the droplet
+  -k, [--keys=KEYS]            # A comma separated list of SSH key ids to add to the droplet
+  -p, [--private-networking]   # Enable private networking on the droplet
+  -l, [--ip6]                  # Enable IP6 on the droplet
+  -u, [--user-data=USER_DATA]  # Location of a file to read and use as user data
+  -b, [--backups-enabled]      # Enable backups on the droplet
+  -q, [--quiet]               \x20
+
+Create a droplet.
+eos
 
       @cli.create('help')
       expect($stdout.string).to eq help_text
