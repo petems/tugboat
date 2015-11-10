@@ -72,8 +72,12 @@ Queueing creation of droplet 'example.com'...Could not find file: /foo/bar/baz.s
 
     end
 
-    it "doesn't create a droplet when mistyping help command" do
-      help_text = <<-eos
+    context "doesn't create a droplet when mistyping help command" do
+
+      ['help','--help','-h'].each do |help_attempt|
+        it "tugboat create #{help_attempt}" do
+
+          help_text = <<-eos
 Usage:
   rspec create NAME
 
@@ -91,14 +95,10 @@ Options:
 Create a droplet.
 eos
 
-      @cli.create('help')
-      expect($stdout.string).to eq help_text
-
-      @cli.create('--help')
-      expect($stdout.string).to eq help_text + help_text
-
-      @cli.create('-h')
-      expect($stdout.string).to eq help_text + help_text + help_text
+          @cli.create(help_attempt)
+          expect($stdout.string).to eq help_text
+        end
+      end
     end
 
     it "does not clobber named droplets that contain the word help" do
