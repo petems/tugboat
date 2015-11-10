@@ -144,15 +144,15 @@ module Tugboat
 
     desc "create NAME", "Create a droplet."
     method_option  "size",
-                   :type => :numeric,
+                   :type => :string,
                    :aliases => "-s",
                    :desc => "The size slug of the droplet"
     method_option  "image",
-                   :type => :numeric,
+                   :type => :string,
                    :aliases => "-i",
                    :desc => "The image slug of the droplet"
     method_option  "region",
-                   :type => :numeric,
+                   :type => :string,
                    :aliases => "-r",
                    :desc => "The region slug of the droplet"
     method_option  "keys",
@@ -474,10 +474,10 @@ module Tugboat
                   :aliases => "-n",
                   :desc => "The exact name of the droplet"
     method_option "size",
-                  :type => :numeric,
+                  :type => :string,
                   :aliases => "-s",
                   :required => true,
-                  :desc => "The size_id to resize the droplet to"
+                  :desc => "The size slug to resize the droplet to"
     def resize(name=nil)
       Middleware.sequence_resize_droplet.call({
         "tugboat_action" => __method__,
