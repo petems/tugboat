@@ -17,7 +17,7 @@ module Tugboat
           say "Failed to snapshot Droplet: #{response.message}", :red
           exit 1
         else
-          say "Snapshot successful!", :red
+          say "Snapshot successful!", :green
         end
 
         @app.call(env)
