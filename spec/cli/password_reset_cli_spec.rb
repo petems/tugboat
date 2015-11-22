@@ -5,7 +5,7 @@ describe Tugboat::CLI do
 
   describe "passwordreset" do
     it "resets the root password given a fuzzy name" do
-      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)
 
@@ -24,7 +24,7 @@ Your new root password will be emailed to you
     end
 
     it "resets the root password given an id" do
-      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
         to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)
 
@@ -48,7 +48,7 @@ Your new root password will be emailed to you
     end
 
     it "resets the root password given a name" do
-      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)
 
@@ -68,7 +68,7 @@ Your new root password will be emailed to you
     end
 
     it "raises SystemExit when a request fails" do
-      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
         to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)
 

@@ -11,7 +11,7 @@ describe Tugboat::CLI do
     end
 
     it "asks the right questions and checks credentials" do
-      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
@@ -57,7 +57,7 @@ describe Tugboat::CLI do
     end
 
     it "sets defaults if no input given" do
-      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>/Bearer/, 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 

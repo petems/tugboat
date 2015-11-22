@@ -5,7 +5,7 @@ describe Tugboat::CLI do
 
   describe "ssh" do
     it "tries to fetch the droplet's IP from the API" do
-      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
       allow(Kernel).to receive(:exec).with('ssh', anything(), anything(),anything(), anything(),anything(), anything(),anything(), anything(),anything(), anything(),anything(), anything(),anything())
 
@@ -13,7 +13,7 @@ describe Tugboat::CLI do
     end
 
     it "does not allow ssh into a droplet that is inactive" do
-      stub_request(:get, "https://api.digitalocean.com/v2/droplets?per_page=200").
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
         to_return(:headers => {'Content-Type' => 'application/json'}, :status => 200, :body => fixture("show_droplets"))
       allow(Kernel).to receive(:exec)
 

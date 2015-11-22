@@ -5,28 +5,30 @@ module Tugboat
       def call(env)
         ocean = env['barge']
 
-        droplet_list = ocean.droplet.all.droplets
+        droplet_list = get_droplet_list ocean
 
-        if droplet_list.empty?
+        has_one = false
+        droplet_list.each do |droplet|
+          has_one = true
+
+          if droplet.private_ip_address
+            private_addr = droplet.networks.v4.detect { |address| address.type == 'private' }
+            private_ip = ", privateip: #{private_addr.ip_address}"
+          end
+
+          if droplet.status == "active"
+            status_color = GREEN
+          else
+            status_color = RED
+          end
+
+          public_addr = droplet.networks.v4.detect { |address| address.type == 'public' }
+          say "#{droplet.name} (ip: #{public_addr.ip_address}#{private_ip}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region.slug}, id: #{droplet.id}#{env["include_urls"] ? droplet_id_to_url(droplet.id) : '' })"
+        end
+
+        if not has_one
           say "You don't appear to have any droplets.", :red
           say "Try creating one with #{GREEN}\`tugboat create\`#{CLEAR}"
-        else
-          droplet_list.each do |droplet|
-
-            if droplet.private_ip_address
-              private_addr = droplet.networks.v4.detect { |address| address.type == 'private' }
-              private_ip = ", privateip: #{private_addr.ip_address}"
-            end
-
-            if droplet.status == "active"
-              status_color = GREEN
-            else
-              status_color = RED
-            end
-
-            public_addr = droplet.networks.v4.detect { |address| address.type == 'public' }
-            say "#{droplet.name} (ip: #{public_addr.ip_address}#{private_ip}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region.slug}, id: #{droplet.id}#{env["include_urls"] ? droplet_id_to_url(droplet.id) : '' })"
-          end
         end
 
         @app.call(env)

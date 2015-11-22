@@ -2,7 +2,7 @@
   "droplets": [
     {
       "id": 6918990,
-      "name": "example.com",
+      "name": "page2example.com",
       "memory": 512,
       "vcpus": 1,
       "disk": 20,
@@ -83,7 +83,7 @@
     },
     {
       "id": 3164956,
-      "name": "example2.com",
+      "name": "page2example2.com",
       "memory": 512,
       "vcpus": 1,
       "disk": 20,
@@ -164,7 +164,7 @@
     },
   {
       "id": 3164444,
-      "name": "example3.com",
+      "name": "page2example3.com",
       "memory": 512,
       "vcpus": 1,
       "disk": 20,
@@ -245,6 +245,7 @@
     }
   ],
   "links": {
+
   },
   "meta": {
     "total": 4
