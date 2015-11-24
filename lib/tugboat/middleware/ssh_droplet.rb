@@ -49,7 +49,6 @@ module Tugboat
         end
 
         host_string = "#{ssh_user}@#{host_ip}"
-
         say "Attempting SSH: #{host_string}"
 
         options << host_string

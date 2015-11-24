@@ -7,20 +7,7 @@ module Tugboat
       def call(env)
         # We use a harmless API call to check if the authentication will
         # work.
-        begin
-          response = env['barge'].droplet.all({:per_page =>'1', :page =>'1'})
-        rescue Faraday::ClientError => e
-          say "Authentication with DigitalOcean failed at an early stage"
-          say "Error was: #{e}"
-          exit 1
-        end
-
-        unless response.success?
-          say "Failed to connect to DigitalOcean. Reason given from API: #{response.id} - #{response.message}", :red
-          exit 1
-        else
-          say "Authentication with DigitalOcean was successful.", :green
-        end
+        verify_credentials(env['barge'], true)
 
         @app.call(env)
       end
