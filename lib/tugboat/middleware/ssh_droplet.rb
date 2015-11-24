@@ -5,11 +5,17 @@ module Tugboat
         say "Executing SSH on Droplet #{env["droplet_name"]}..."
 
         options = [
-          "-o", "IdentitiesOnly=yes",
           "-o", "LogLevel=ERROR",
           "-o", "StrictHostKeyChecking=no",
           "-o", "UserKnownHostsFile=/dev/null",
-          "-i", File.expand_path(env["config"].ssh_key_path.to_s)]
+        ]
+
+        if env["config"].ssh_key_path.nil? || env["config"].ssh_key_path.empty?
+          options.push("-o", "IdentitiesOnly=no")
+        else
+          options.push("-o", "IdentitiesOnly=yes")
+          options.push("-i", File.expand_path(env["config"].ssh_key_path.to_s))
+        end
 
         if env["user_droplet_ssh_port"]
           options.push("-p", env["user_droplet_ssh_port"].to_s)
@@ -51,6 +57,8 @@ module Tugboat
         if env["user_droplet_ssh_command"]
           options.push(env["user_droplet_ssh_command"])
         end
+
+        say "SShing with options: #{options.join(" ")}"
 
         Kernel.exec("ssh", *options)
 

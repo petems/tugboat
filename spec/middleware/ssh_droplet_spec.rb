@@ -11,10 +11,10 @@ describe Tugboat::Middleware::SSHDroplet do
 
     it "exec ssh with correct options" do
       expect(Kernel).to receive(:exec).with("ssh",
-                        "-o", "IdentitiesOnly=yes",
                         "-o", "LogLevel=ERROR",
                         "-o", "StrictHostKeyChecking=no",
                         "-o", "UserKnownHostsFile=/dev/null",
+                        "-o", "IdentitiesOnly=yes",
                         "-i", File.expand_path(ssh_key_path),
                         "-p", ssh_port,
                         "#{ssh_user}@#{droplet_ip}")
@@ -25,12 +25,30 @@ describe Tugboat::Middleware::SSHDroplet do
       described_class.new(app).call(env)
     end
 
-    it "executes ssh with custom options" do
+    it "exec ssh with IdentitiesOnly=no if no ssh_key_path in config" do
       expect(Kernel).to receive(:exec).with("ssh",
-                        "-o", "IdentitiesOnly=yes",
                         "-o", "LogLevel=ERROR",
                         "-o", "StrictHostKeyChecking=no",
                         "-o", "UserKnownHostsFile=/dev/null",
+                        "-o", "IdentitiesOnly=no",
+                        "-p", ssh_port,
+                        "#{ssh_user}@#{droplet_ip}")
+
+      env["droplet_ip"] = droplet_ip
+
+      config.data['ssh']['ssh_key_path'] = nil
+
+      env["config"] = config
+
+      described_class.new(app).call(env)
+    end
+
+    it "executes ssh with custom options" do
+      expect(Kernel).to receive(:exec).with("ssh",
+                        "-o", "LogLevel=ERROR",
+                        "-o", "StrictHostKeyChecking=no",
+                        "-o", "UserKnownHostsFile=/dev/null",
+                        "-o", "IdentitiesOnly=yes",
                         "-i", File.expand_path(ssh_key_path),
                         "-p", ssh_port,
                         "-e",
@@ -51,10 +69,10 @@ describe Tugboat::Middleware::SSHDroplet do
 
     it "executes ssh with private IP if option chosen" do
       expect(Kernel).to receive(:exec).with("ssh",
-                        "-o", "IdentitiesOnly=yes",
                         "-o", "LogLevel=ERROR",
                         "-o", "StrictHostKeyChecking=no",
                         "-o", "UserKnownHostsFile=/dev/null",
+                        "-o", "IdentitiesOnly=yes",
                         "-i", File.expand_path(ssh_key_path),
                         "-p", ssh_port,
                         "-e",
