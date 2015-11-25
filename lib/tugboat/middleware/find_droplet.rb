@@ -2,6 +2,19 @@ module Tugboat
   module Middleware
     # Check if the client has set-up configuration yet.
     class FindDroplet < Base
+      def get_public_ip(networks)
+        get_ip_per_network_type networks, "public"
+      end
+
+      def get_private_ip(networks)
+        get_ip_per_network_type networks, "private"
+      end
+
+      def get_ip_per_network_type(networks, type)
+        found_network = networks.detect { |n| n.type == type }
+        found_network.ip_address if found_network
+      end
+
       def call(env)
         ocean = env['barge']
         user_fuzzy_name = env['user_droplet_fuzzy_name']
@@ -44,8 +57,8 @@ module Tugboat
 
           env["droplet_id"] = response.droplet.id
           env["droplet_name"] = "(#{response.droplet.name})"
-          env["droplet_ip"] = response.droplet.ip_address
-          env["droplet_ip_private"] = response.droplet.private_ip_address
+          env["droplet_ip"] = get_public_ip response.droplet.networks.v4
+          env["droplet_ip_private"] = get_private_ip response.droplet.networks.v4
           env["droplet_status"] = response.droplet.status
         end
 
@@ -61,8 +74,8 @@ module Tugboat
             if d.name == user_droplet_name
               env["droplet_id"] = d.id
               env["droplet_name"] = "(#{d.name})"
-              env["droplet_ip"] = d.ip_address
-              env["droplet_ip_private"] = d.private_ip_address
+              env["droplet_ip"] = get_public_ip d.networks.v4
+              env["droplet_ip_private"] = get_private_ip d.networks.v4
               env["droplet_status"] = d.status
             end
           end
@@ -104,9 +117,8 @@ module Tugboat
               env["droplet_ip"] = '' # No Network Yet
               env["droplet_ip_private"] = '' # No Network Yet
             else
-              env["droplet_ip"] = droplet_return.networks.v4.detect { |address| address.type == 'public' }.ip_address
-              check_private_ip = droplet_return.networks.v4.detect { |address| address.type == 'private' }
-              env["droplet_ip_private"] = check_private_ip.ip_address if check_private_ip
+              env["droplet_ip"] = get_public_ip droplet_return.networks.v4
+              env["droplet_ip_private"] = get_private_ip droplet_return.networks.v4
             end
             env["droplet_status"] = droplet_return.status
           elsif found_droplets.length > 1
@@ -121,17 +133,10 @@ module Tugboat
             end
             say
             choice = ask "Please choose a droplet:", :limited_to => choices
-            for ip_list in found_droplets[choice.to_i].networks.v4 do
-              if ip_list.type == "private"
-                private_ip = ip_list.ip_address
-              elsif ip_list.type == "public"
-                public_ip = ip_list.ip_address
-              end
-            end
             env["droplet_id"] = found_droplets[choice.to_i].id
             env["droplet_name"] = found_droplets[choice.to_i].name
-            env["droplet_ip"] = public_ip
-            env["droplet_ip_private"] = private_ip
+            env["droplet_ip"] = get_public_ip found_droplets[choice.to_i].networks.v4
+            env["droplet_ip_private"] = get_private_ip found_droplets[choice.to_i].networks.v4
             env["droplet_status"] = found_droplets[choice.to_i].status
           end
 
