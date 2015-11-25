@@ -14,7 +14,7 @@ describe Tugboat::CLI do
          to_return(:status => 200, :body => fixture('show_images'), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
-         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+         with(:body => "{\"type\":\"rebuild\",\"image\":12790328}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -40,7 +40,7 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
          to_return(:status => 200, :body => fixture('show_images'), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
-         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+         with(:body => "{\"type\":\"rebuild\",\"image\":12790328}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -70,7 +70,7 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
          to_return(:status => 200, :body => fixture('show_images'), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
-         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+         with(:body => "{\"type\":\"rebuild\",\"image\":12790328}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -105,7 +105,7 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
          to_return(:status => 200, :body => fixture('show_image'), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
-         with(:body => "{\"type\":\"rebuild\",\"image_id\":6376601}",
+         with(:body => "{\"type\":\"rebuild\",\"image\":6376601}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -139,7 +139,7 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
          to_return(:status => 200, :body => fixture('show_image'), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
-         with(:body => "{\"type\":\"rebuild\",\"image_id\":6376601}",
+         with(:body => "{\"type\":\"rebuild\",\"image\":6376601}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -173,7 +173,7 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
          to_return(:status => 200, :body => fixture('show_image'), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
-         with(:body => "{\"type\":\"rebuild\",\"image_id\":6376601}",
+         with(:body => "{\"type\":\"rebuild\",\"image\":6376601}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -199,7 +199,7 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
          to_return(:status => 200, :body => fixture('show_images'), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
-         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+         with(:body => "{\"type\":\"rebuild\",\"image\":12790328}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -230,7 +230,7 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
          to_return(:status => 200, :body => fixture('show_images'), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
-         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+         with(:body => "{\"type\":\"rebuild\",\"image\":12790328}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -256,7 +256,7 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
          to_return(:status => 200, :body => fixture('show_images'), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
-         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+         with(:body => "{\"type\":\"rebuild\",\"image\":12790328}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -282,7 +282,7 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
          to_return(:status => 200, :body => fixture('show_images'), :headers => {})
 
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/6918990/actions").
-         with(:body => "{\"type\":\"rebuild\",\"image_id\":12790328}",
+         with(:body => "{\"type\":\"rebuild\",\"image\":12790328}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => "", :headers => {})
 
