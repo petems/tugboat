@@ -5,6 +5,8 @@ module Tugboat
       def call(env)
         ocean = env['barge']
 
+        verify_credentials(ocean)
+
         droplet_list = get_droplet_list ocean
 
         has_one = false

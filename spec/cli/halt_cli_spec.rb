@@ -5,6 +5,10 @@ describe Tugboat::CLI do
 
   describe "halt" do
     it "halts a droplet with a fuzzy name" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
@@ -23,6 +27,10 @@ Queuing shutdown for 6918990 (example.com)...Halt successful!
     end
 
     it "halts a droplet hard when the hard option is used" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
@@ -42,6 +50,10 @@ Queuing hard shutdown for 6918990 (example.com)...Halt successful!
     end
 
     it "halts a droplet with an id" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/?per_page=200").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
         to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)
@@ -66,6 +78,10 @@ Queuing shutdown for 6918990 (example.com)...Halt successful!
 
 
     it "halts a droplet with a name" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)
@@ -86,6 +102,10 @@ Queuing shutdown for 6918990 (example.com)...Halt successful!
 
 
     it "does not halt a droplet that is off" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)

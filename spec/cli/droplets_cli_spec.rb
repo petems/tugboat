@@ -5,6 +5,10 @@ describe Tugboat::CLI do
 
   describe "droplets" do
     it "shows a list when droplets exist" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)
@@ -21,6 +25,10 @@ example3.com (ip: 104.236.32.173, status: \e[31moff\e[0m, region: nyc3, id: 3164
     end
 
     it "returns an error message when no droplets exist" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture("show_droplets_empty"), :headers => {'Content-Type' => 'application/json'},)
@@ -36,6 +44,10 @@ Try creating one with \e[32m`tugboat create`\e[0m
     end
 
     it "shows no output when --quiet is set" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)
@@ -50,6 +62,10 @@ Try creating one with \e[32m`tugboat create`\e[0m
     end
 
     it "includes urls when --include-urls is set" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture("show_droplets"), :headers => {'Content-Type' => 'application/json'},)
@@ -67,6 +83,10 @@ example3.com (ip: 104.236.32.173, status: \e[31moff\e[0m, region: nyc3, id: 3164
     end
 
     it "paginates when multiple pages are returned" do
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
+
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
          to_return(:status => 200, :body => fixture("show_droplets_paginated_first"), :headers => {'Content-Type' => 'application/json'},)

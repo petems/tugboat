@@ -22,8 +22,28 @@ module Tugboat
         @app.call(env)
       end
 
+      def verify_credentials(ocean, say_success=false)
+        begin
+          response = ocean.droplet.all({:per_page =>'1', :page =>'1'})
+        rescue Faraday::ClientError => e
+          say "Authentication with DigitalOcean failed at an early stage"
+          say "Error was: #{e}"
+          exit 1
+        end
+
+        unless response.success?
+          say "Failed to connect to DigitalOcean. Reason given from API: #{response.id} - #{response.message}", :red
+          exit 1
+        end
+
+        say "Authentication with DigitalOcean was successful.", :green if say_success
+      end
+
       # Get all pages of droplets
       def get_droplet_list(ocean)
+
+        verify_credentials(ocean)
+
         page = ocean.droplet.all(per_page: 200, page: 1)
         if not page.paginated?
           return page.droplets
@@ -38,6 +58,7 @@ module Tugboat
         end
       end
     end
+
   end
 end
 
