@@ -6,7 +6,7 @@ module Tugboat
         config = env["config"]
         ui = env["ui"]
 
-        if !config || !config.data || !config.token
+        if !config || !config.data || !config.access_token
           ui.say("You must run `tugboat authorize` in order to connect to DigitalOcean", :fail)
           ui.fail
         end
