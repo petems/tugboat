@@ -6,26 +6,7 @@ module Tugboat
 
         say "Waiting for droplet to become #{env["user_droplet_desired_state"]}.", nil, false
 
-        start_time = Time.now
-
-        response = ocean.droplet.show env["droplet_id"]
-
-        say ".", nil, false
-
-        if !response.success?
-          say "Failed to get status of Droplet: #{response.message}", :red
-          exit 1
-        end
-
-        while response.droplet.status != env["user_droplet_desired_state"] do
-          sleep 2
-          response = ocean.droplet.show env["droplet_id"]
-          say ".", nil, false
-        end
-
-        total_time = (Time.now - start_time).to_i
-
-        say "done#{CLEAR} (#{total_time}s)", :green
+        wait_for_state(env["droplet_id"],env["user_droplet_desired_state"],ocean)
 
         @app.call(env)
       end

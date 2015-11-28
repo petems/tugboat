@@ -127,6 +127,10 @@ module Tugboat
                   :type => :string,
                   :aliases => [ "-c", "-y" ,],
                   :desc => "Command to run on the droplet"
+    method_option "wait",
+                  :type => :boolean,
+                  :aliases => '-w',
+                  :desc => 'Wait for droplet to become active before trying to SSH'
     def ssh(name=nil)
       Middleware.sequence_ssh_droplet.call({
         "tugboat_action" => __method__,
@@ -138,7 +142,8 @@ module Tugboat
         "user_droplet_use_private_ip" => options[:use_private_ip],
         "user_droplet_ssh_opts" => options[:ssh_opts],
         "user_droplet_ssh_command" => options[:ssh_command],
-        "user_quiet" => options[:quiet]
+        "user_droplet_ssh_wait"  => options[:wait],
+        "user_quiet" => options[:quiet],
       })
     end
 

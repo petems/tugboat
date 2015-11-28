@@ -39,6 +39,29 @@ module Tugboat
         say "Authentication with DigitalOcean was successful.", :green if say_success
       end
 
+      def wait_for_state(droplet_id, desired_state,ocean)
+        start_time = Time.now
+
+        response = ocean.droplet.show droplet_id
+
+        say ".", nil, false
+
+        if !response.success?
+          say "Failed to get status of Droplet: #{response.message}", :red
+          exit 1
+        end
+
+        while response.droplet.status != desired_state do
+          sleep 2
+          response = ocean.droplet.show droplet_id
+          say ".", nil, false
+        end
+
+        total_time = (Time.now - start_time).to_i
+
+        say "done#{CLEAR} (#{total_time}s)", :green
+      end
+
       # Get all pages of droplets
       def get_droplet_list(ocean)
 
