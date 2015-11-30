@@ -15,7 +15,7 @@ module Tugboat
 
           private_addr = droplet.networks.v4.detect { |address| address.type == 'private' }
           if private_addr
-            private_ip = ", privateip: #{private_addr.ip_address}"
+            private_ip = ", private_ip: #{private_addr.ip_address}"
           end
 
           if droplet.status == "active"
