@@ -1,18 +1,80 @@
 # Change Log
 
-## [Unreleased](https://github.com/pearkes/tugboat/tree/HEAD)
+## [v2.1.0](https://github.com/pearkes/tugboat/tree/v2.1.0) (2015-12-01)
 
-[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.1...HEAD)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.1...v2.1.0)
+
+**Implemented enhancements:**
+
+- --wait option would be useful for ssh [\#133](https://github.com/pearkes/tugboat/issues/133)
+
+**Fixed bugs:**
+
+- Show private ip alongside public ip in droplets list [\#220](https://github.com/pearkes/tugboat/issues/220)
+
+- bug in connect [\#211](https://github.com/pearkes/tugboat/issues/211)
+
+- Wrong color for successful snapshot creation? [\#209](https://github.com/pearkes/tugboat/issues/209)
+
+- Seems to be a limit to the number of retrieved droplets [\#205](https://github.com/pearkes/tugboat/issues/205)
+
+- tugboat ssh not using ssh-agent? [\#160](https://github.com/pearkes/tugboat/issues/160)
+
+**Closed issues:**
+
+- 'fuzzy name' message shows up even when full name is used [\#132](https://github.com/pearkes/tugboat/issues/132)
+
+**Merged pull requests:**
+
+- Add specs to private ip in droplet list fix from \#222 [\#223](https://github.com/pearkes/tugboat/pull/223) ([petems](https://github.com/petems))
+
+- Lock simplecov version [\#222](https://github.com/pearkes/tugboat/pull/222) ([petems](https://github.com/petems))
+
+- Fix showing of private ips when running 'tugboat droplets' [\#221](https://github.com/pearkes/tugboat/pull/221) ([mtbottle](https://github.com/mtbottle))
+
+- Check credentials for all find droplets [\#219](https://github.com/pearkes/tugboat/pull/219) ([petems](https://github.com/petems))
+
+- Fix v2 API changes [\#218](https://github.com/pearkes/tugboat/pull/218) ([pchaussalet](https://github.com/pchaussalet))
+
+- Fixing error checking with new API 2.0 [\#217](https://github.com/pearkes/tugboat/pull/217) ([petems](https://github.com/petems))
+
+- Changes logic when no ssh\_key\_path has been set [\#216](https://github.com/pearkes/tugboat/pull/216) ([petems](https://github.com/petems))
+
+- Rename features folder [\#215](https://github.com/pearkes/tugboat/pull/215) ([petems](https://github.com/petems))
+
+- Add SSH -w command [\#214](https://github.com/pearkes/tugboat/pull/214) ([petems](https://github.com/petems))
+
+- Changes colour of successful snapshot to green [\#213](https://github.com/pearkes/tugboat/pull/213) ([petems](https://github.com/petems))
+
+- Pagination regression fix for API 2.0 [\#212](https://github.com/pearkes/tugboat/pull/212) ([petems](https://github.com/petems))
+
+- Fixes tests for each help text [\#208](https://github.com/pearkes/tugboat/pull/208) ([petems](https://github.com/petems))
+
+- Enable pagination for Droplets list [\#210](https://github.com/pearkes/tugboat/pull/210) ([lachesis](https://github.com/lachesis))
 
 ## [v2.0.1](https://github.com/pearkes/tugboat/tree/v2.0.1) (2015-11-10)
 
 [Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.0...v2.0.1)
+
+**Implemented enhancements:**
+
+- Setting client\_id and api\_key as environment variables in shell [\#176](https://github.com/pearkes/tugboat/issues/176)
+
+- API v2.0 Support [\#122](https://github.com/pearkes/tugboat/issues/122)
 
 **Fixed bugs:**
 
 - Slugs don't work [\#204](https://github.com/pearkes/tugboat/issues/204)
 
 - New Droplets dont have IP address immediatly, so the info command fails [\#198](https://github.com/pearkes/tugboat/issues/198)
+
+**Closed issues:**
+
+- API 2.0 Release Candidate Guinea Pigs and Feedback [\#182](https://github.com/pearkes/tugboat/issues/182)
+
+- API 2.0 Switchover [\#161](https://github.com/pearkes/tugboat/issues/161)
+
+- API v2 Support [\#102](https://github.com/pearkes/tugboat/issues/102)
 
 **Merged pull requests:**
 
@@ -25,10 +87,6 @@
 [Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.0.RC1...v2.0.0)
 
 **Implemented enhancements:**
-
-- Setting client\_id and api\_key as environment variables in shell [\#176](https://github.com/pearkes/tugboat/issues/176)
-
-- API v2.0 Support [\#122](https://github.com/pearkes/tugboat/issues/122)
 
 - If a command that requires arguments is entered without arguments, print the help for that. [\#191](https://github.com/pearkes/tugboat/issues/191)
 
@@ -47,8 +105,6 @@
 - Machine Readable Flag [\#6](https://github.com/pearkes/tugboat/issues/6)
 
 **Fixed bugs:**
-
-- New Droplets dont have IP address immediatly, so the info command fails [\#198](https://github.com/pearkes/tugboat/issues/198)
 
 - Ipv6 changes broke ssh [\#192](https://github.com/pearkes/tugboat/issues/192)
 
@@ -91,12 +147,6 @@
 [Full Changelog](https://github.com/pearkes/tugboat/compare/v1.3.1...v2.0.0.RC1)
 
 **Closed issues:**
-
-- API 2.0 Release Candidate Guinea Pigs and Feedback [\#182](https://github.com/pearkes/tugboat/issues/182)
-
-- API 2.0 Switchover [\#161](https://github.com/pearkes/tugboat/issues/161)
-
-- API v2 Support [\#102](https://github.com/pearkes/tugboat/issues/102)
 
 - Possible to delete an image/snapshot? [\#177](https://github.com/pearkes/tugboat/issues/177)
 
