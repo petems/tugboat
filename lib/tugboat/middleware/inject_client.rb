@@ -1,4 +1,5 @@
 require 'barge'
+require File.expand_path('../custom_logger', __FILE__)
 
 module Tugboat
   module Middleware
@@ -11,6 +12,8 @@ module Tugboat
           @access_token = env["config"].access_token
 
           env['barge'] = Barge::Client.new(:access_token => @access_token)
+
+          env['barge'].faraday.use CustomLogger if ENV['DEBUG']
 
           @app.call(env)
         end
