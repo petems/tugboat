@@ -528,6 +528,11 @@ module Tugboat
                   :aliases => "-s",
                   :default => "active",
                   :desc => "The state of the droplet to wait for"
+    method_option "timeout",
+                  :type => :numeric,
+                  :aliases => "-t",
+                  :default => "active",
+                  :desc => "Number of seconds to set the timeout for (defaults to 300)"
 
     def wait(name=nil)
       Middleware.sequence_wait.call({
@@ -536,6 +541,7 @@ module Tugboat
         "user_droplet_name" => options[:name],
         "user_droplet_desired_state" => options[:state],
         "user_droplet_fuzzy_name" => name,
+        "wait_timeout" => options[:timeout],
         "user_quiet" => options[:quiet]
       })
     end

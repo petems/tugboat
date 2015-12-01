@@ -39,8 +39,11 @@ module Tugboat
         say "Authentication with DigitalOcean was successful.", :green if say_success
       end
 
-      def wait_for_state(droplet_id, desired_state,ocean)
+      def wait_for_state(droplet_id, desired_state, ocean, wait_timeout = 300)
         start_time = Time.now
+
+        ocean.request_options[:open_timeout] = wait_timeout
+        ocean.request_options[:timeout] = wait_timeout
 
         response = ocean.droplet.show droplet_id
 
@@ -53,7 +56,16 @@ module Tugboat
 
         while response.droplet.status != desired_state do
           sleep 2
-          response = ocean.droplet.show droplet_id
+
+          begin
+            response = ocean.droplet.show droplet_id
+          rescue Faraday::TimeoutError => e
+            say "Wait request timed-out!"
+            say "Timeout was set to #{wait_timeout} - You can increase it with the -w option!"
+            say "Error was: #{e}"
+            exit 1
+          end
+
           say ".", nil, false
         end
 
