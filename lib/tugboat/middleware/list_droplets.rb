@@ -13,8 +13,8 @@ module Tugboat
         droplet_list.each do |droplet|
           has_one = true
 
-          if droplet.private_ip_address
-            private_addr = droplet.networks.v4.detect { |address| address.type == 'private' }
+          private_addr = droplet.networks.v4.detect { |address| address.type == 'private' }
+          if private_addr
             private_ip = ", privateip: #{private_addr.ip_address}"
           end
 
