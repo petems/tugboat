@@ -6,10 +6,7 @@ module Tugboat
 
         response = ocean.droplet.show env["droplet_id"]
 
-        unless response.success?
-          say "Failed to get info for Droplet: #{response.message}", :red
-          exit 1
-        end
+        check_response_success('get info for Droplet', response)
 
         droplet = response.droplet
 
