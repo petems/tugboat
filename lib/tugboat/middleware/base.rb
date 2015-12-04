@@ -18,6 +18,13 @@ module Tugboat
         say "", :clear, false
       end
 
+      def check_response_success(task_string, response)
+        unless response.success?
+          say "Failed to #{task_string}: #{response.message}", :red
+          exit 1
+        end
+      end
+
       def call(env)
         @app.call(env)
       end
