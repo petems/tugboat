@@ -27,8 +27,7 @@ module Tugboat
 
       def filter(output)
         if ENV['DEBUG'].to_i == 2
-          output = output.to_s.gsub(/client_id=[a-zA-Z0-9]*/,'client_id=[CLIENT-ID]')
-          output = output.to_s.gsub(/api_key=[a-zA-Z0-9]*/,'api_key=[API-KEY]')
+          output = output.to_s.gsub(/Bearer [a-zA-Z0-9]*/,'Bearer [TOKEN REDACTED]')
           output = output.to_s.gsub(/_digitalocean2_session_v2=[a-zA-Z0-9%-]*/,'_digitalocean2_session_v2=[SESSION_COOKIE]')
         else
           output
@@ -52,15 +51,23 @@ module Tugboat
       end
 
       def debug_message(name, headers, body)
-        <<-MESSAGE.gsub(/^ +([^ ])/m, '\\1')
+
+        main_message = <<-MESSAGE.gsub(/^ +([^ ])/m, '\\1')
         #{name} Headers:
         ----------------
         #{format_headers(headers)}
 
         #{name} Body:
         -------------
-        #{body}
         MESSAGE
+        main_message + pretty_body(body)
+      end
+
+      def pretty_body(body)
+        body_json = JSON.parse(body)
+        JSON.pretty_generate(body_json)
+      rescue JSON::ParserError => e
+        body
       end
 
       def format_headers(headers)
