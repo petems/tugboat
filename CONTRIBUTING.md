@@ -21,6 +21,8 @@ You can then execute tugboat:
 As well as run the tests:
 
     $ bundle exec rspec
+Or
+	$ rake spec
 
 To install the gem on your system from source:
 
