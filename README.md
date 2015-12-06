@@ -243,7 +243,270 @@ After installation, source the bundle path in your `.bash_profile`/`.bashrc`:
 
 Yes, please!
 
-You can create a new issue [here](https://github.com/pearkes/tugboat/issues/new). Thank you!
+You can create a new issue [here](https://github.com/pearkes/tugboat/issues/new). To help with the investigation of your issue, you can set the environment variable DEBUG to give verbose Faraday logging.
+
+* DEBUG=1 is full unredacted
+* DEBUG=2 redacts private keys from the log.
+
+Example:
+
+```bash
+DEBUG=2 bundle exec tugboat regions
+I, [2015-12-06T12:04:27.148922 #92772]  INFO -- : Started GET request to: https://api.digitalocean.com/v2/regions?per_page=200
+D, [2015-12-06T12:04:27.149334 #92772] DEBUG -- : Request Headers:
+----------------
+Authorization : Bearer [TOKEN REDACTED]
+Content-Type  : application/json
+User-Agent    : Faraday v0.9.2
+
+Request Body:
+-------------
+{
+  "regions": [
+    {
+      "name": "New York 1",
+      "slug": "nyc1",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    },
+    {
+      "name": "Amsterdam 1",
+      "slug": "ams1",
+      "sizes": [
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb"
+      ],
+      "features": [
+        "backups"
+      ],
+      "available": true
+    },
+    {
+      "name": "San Francisco 1",
+      "slug": "sfo1",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    },
+    {
+      "name": "New York 2",
+      "slug": "nyc2",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    },
+    {
+      "name": "Amsterdam 2",
+      "slug": "ams2",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    },
+    {
+      "name": "Singapore 1",
+      "slug": "sgp1",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    },
+    {
+      "name": "London 1",
+      "slug": "lon1",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    },
+    {
+      "name": "New York 3",
+      "slug": "nyc3",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    },
+    {
+      "name": "Amsterdam 3",
+      "slug": "ams3",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    },
+    {
+      "name": "Frankfurt 1",
+      "slug": "fra1",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    },
+    {
+      "name": "Toronto 1",
+      "slug": "tor1",
+      "sizes": [
+        "32gb",
+        "16gb",
+        "2gb",
+        "1gb",
+        "4gb",
+        "8gb",
+        "512mb",
+        "64gb",
+        "48gb"
+      ],
+      "features": [
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ],
+      "available": true
+    }
+  ],
+  "links": {
+  },
+  "meta": {
+    "total": 11
+  }
+}
+```
 
 ## Contributing
 
