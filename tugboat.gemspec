@@ -28,6 +28,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec-mocks', '~> 2.14.0'
   gem.add_development_dependency 'webmock', '~> 1.11.0'
   gem.add_development_dependency 'simplecov', '0.10'
+  gem.add_development_dependency 'simplecov-console', '0.2.0'
   gem.add_development_dependency 'coveralls', '~> 0.6.7'
   gem.add_development_dependency 'aruba', '~> 0.6.2'
   gem.add_development_dependency 'pry'
