@@ -25,6 +25,7 @@ defaults:
   ssh_key: '1234'
   private_networking: 'false'
   backups_enabled: 'false'
+  ip6: 'false'
       eos
     end
 
@@ -50,6 +51,7 @@ defaults:
   ssh_key: '1234'
   private_networking: 'false'
   backups_enabled: 'false'
+  ip6: 'true'
       eos
     end
   end
