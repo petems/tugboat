@@ -12,7 +12,7 @@
 To add a feature, fix a bug, or to run a development build of Tugboat
 on your machine, clone down the repo and run:
 
-    $ bundle
+    $ bundle install --path vendor/bundle
 
 You can then execute tugboat:
 
