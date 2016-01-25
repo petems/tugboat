@@ -36,6 +36,8 @@ describe Tugboat::CLI do
       expect($stdin).to receive(:gets).and_return(private_networking)
       expect($stdout).to receive(:print).with("Enter your default for enabling backups (optional, defaults to false): ")
       expect($stdin).to receive(:gets).and_return(backups_enabled)
+      expect($stdout).to receive(:print).with("Enter your default for IPv6 (optional, defaults to false): ")
+      expect($stdin).to receive(:gets).and_return(ip6)
 
       @cli.authorize
 
@@ -54,6 +56,7 @@ describe Tugboat::CLI do
       expect(config["defaults"]["ssh_key"]).to eq ssh_key_id
       expect(config["defaults"]["private_networking"]).to eq private_networking
       expect(config["defaults"]["backups_enabled"]).to eq backups_enabled
+      expect(config["defaults"]["ip6"]).to eq ip6
     end
 
     it "sets defaults if no input given" do
@@ -81,6 +84,8 @@ describe Tugboat::CLI do
       expect($stdout).to receive(:print).with("Enter your default for private networking (optional, defaults to false): ")
       expect($stdin).to receive(:gets).and_return('')
       expect($stdout).to receive(:print).with("Enter your default for enabling backups (optional, defaults to false): ")
+      expect($stdin).to receive(:gets).and_return('')
+      expect($stdout).to receive(:print).with("Enter your default for IPv6 (optional, defaults to true): ")
       expect($stdin).to receive(:gets).and_return('')
 
       @cli.authorize

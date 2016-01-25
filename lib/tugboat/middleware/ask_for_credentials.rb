@@ -20,9 +20,10 @@ module Tugboat
         ssh_key  = ask "Enter your default ssh key IDs (optional, defaults to none, comma separated string):"
         private_networking = ask "Enter your default for private networking (optional, defaults to false):"
         backups_enabled = ask "Enter your default for enabling backups (optional, defaults to false):"
+        ip6      = ask "Enter your default for IPv6 (optional, defaults to false):"
 
         # Write the config file.
-        env['config'].create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled)
+        env['config'].create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled, ip6)
         env['config'].reload!
 
         @app.call(env)

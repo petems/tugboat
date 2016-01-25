@@ -106,7 +106,7 @@ module Tugboat
     end
 
     # Writes a config file
-    def create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled)
+    def create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled, ip6)
       # Default SSH Key path
       if ssh_key_path.empty?
         ssh_key_path = File.join("~", DEFAULT_SSH_KEY_PATH)
@@ -144,6 +144,10 @@ module Tugboat
         backups_enabled = DEFAULT_BACKUPS_ENABLED
       end
 
+      if ip6.empty?
+        ip6 = DEFAULT_IP6
+      end
+
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
         data = {
@@ -160,7 +164,8 @@ module Tugboat
                   "size" => size,
                   "ssh_key" => ssh_key,
                   "private_networking" => private_networking,
-                  "backups_enabled" => backups_enabled
+                  "backups_enabled" => backups_enabled,
+                  "ip6" => ip6,
                 }
         }
         file.write data.to_yaml

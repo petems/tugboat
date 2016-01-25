@@ -19,6 +19,7 @@ shared_context "spec" do
   let(:ssh_public_key)     { 'ssh-dss A123= user@host' }
   let(:private_networking) { 'false'}
   let(:backups_enabled)    { 'false'}
+  let(:ip6)                { 'false' }
   let(:ocean)              { Barge::Client.new(:access_token => access_token) }
   let(:app)                { lambda { |env| } }
   let(:env)                { {} }
@@ -30,7 +31,7 @@ shared_context "spec" do
     @cli = Tugboat::CLI.new
 
     # Set a temprary project path and create fake config.
-    config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
+    config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled, ip6)
     config.reload!
 
     # Keep track of the old stderr / out
