@@ -18,6 +18,7 @@ module Tugboat
         say "ID:               #{image.id}"
         say "Distribution:     #{image.distribution}"
         say "Min Disk Size:    #{image.min_disk_size}GB"
+        say "Regions:          #{image.regions.join(',')}"
 
         @app.call(env)
       end
