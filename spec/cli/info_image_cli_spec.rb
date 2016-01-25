@@ -22,6 +22,7 @@ Name:             745.1.0 (alpha)
 ID:               12789325
 Distribution:     CoreOS
 Min Disk Size:    20GB
+Regions:          nyc1,sfo1,nyc2,ams2,sgp1,lon1,nyc3,ams3,fra1
       eos
     end
 
@@ -44,6 +45,7 @@ Name:             Redmine on 14.04
 ID:               12438838
 Distribution:     Ubuntu
 Min Disk Size:    20GB
+Regions:          nyc1,ams1,sfo1,nyc2,ams2,sgp1,lon1,nyc3,ams3,fra1
       eos
     end
 
@@ -66,6 +68,7 @@ Name:             Redmine on 14.04
 ID:               12438838
 Distribution:     Ubuntu
 Min Disk Size:    20GB
+Regions:          nyc1,ams1,sfo1,nyc2,ams2,sgp1,lon1,nyc3,ams3,fra1
       eos
     end
 
@@ -143,6 +146,7 @@ Name:             14.10 x32
 ID:               9801951
 Distribution:     Ubuntu
 Min Disk Size:    20GB
+Regions:          nyc1,ams1,sfo1,nyc2,ams2,sgp1,lon1,nyc3,ams3,fra1
       eos
     end
 
