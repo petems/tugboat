@@ -33,12 +33,13 @@ describe Tugboat::Configuration do
     let(:ssh_key_id)         { '1234' }
     let(:private_networking) { 'false' }
     let(:backups_enabled)    { 'false' }
+    let(:ip6)                { 'false' }
 
     let(:config)           { config = Tugboat::Configuration.instance }
 
     before :each do
       # Create a temporary file
-      config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled)
+      config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled, ip6)
     end
 
     it "can be created" do
@@ -105,6 +106,7 @@ describe Tugboat::Configuration do
     let(:config_default_ssh_key)    { Tugboat::Configuration::DEFAULT_SSH_KEY }
     let(:config_default_networking) { Tugboat::Configuration::DEFAULT_PRIVATE_NETWORKING }
     let(:config_default_backups)    { Tugboat::Configuration::DEFAULT_BACKUPS_ENABLED }
+    let(:config_default_ip6)    	{ Tugboat::Configuration::DEFAULT_IP6 }
     let(:backwards_config) {
       {
                 'authentication' => { 'client_key' => client_key, 'api_key' => api_key },
@@ -149,6 +151,11 @@ describe Tugboat::Configuration do
     it "should use default backups_enabled if not in the configuration" do
       backups_enabled = config.default_backups_enabled
       expect(backups_enabled).to eql config_default_backups
+    end
+
+    it "should use default ip6 if not in the configuration" do
+      ip6 = config.default_ip6
+      expect(ip6).to eql config_default_ip6
     end
 
   end
