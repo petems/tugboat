@@ -1,5 +1,29 @@
 # Change Log
 
+## [v2.2.0](https://github.com/pearkes/tugboat/tree/v2.2.0) (2016-01-30)
+
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.1.0...v2.2.0)
+
+**Merged pull requests:**
+
+- Configuration support for IPv6 [\#233](https://github.com/pearkes/tugboat/pull/233) ([petems](https://github.com/petems))
+
+- Add Regions to info\_image [\#232](https://github.com/pearkes/tugboat/pull/232) ([bmamlin](https://github.com/bmamlin))
+
+- Install dependencies locally when developing [\#231](https://github.com/pearkes/tugboat/pull/231) ([else](https://github.com/else))
+
+- Adds simplecov-console for terminal coverage info [\#229](https://github.com/pearkes/tugboat/pull/229) ([petems](https://github.com/petems))
+
+- Updated simplecov's Multiple Formatters definition [\#228](https://github.com/pearkes/tugboat/pull/228) ([jasnow](https://github.com/jasnow))
+
+- Add Bundler.require\(:development\) for default rake tasks [\#227](https://github.com/pearkes/tugboat/pull/227) ([andrehjr](https://github.com/andrehjr))
+
+- Add debug logging [\#226](https://github.com/pearkes/tugboat/pull/226) ([petems](https://github.com/petems))
+
+- Refactor the response.success? into helper [\#225](https://github.com/pearkes/tugboat/pull/225) ([petems](https://github.com/petems))
+
+- Improves wait spec to actually perform wait [\#224](https://github.com/pearkes/tugboat/pull/224) ([petems](https://github.com/petems))
+
 ## [v2.1.0](https://github.com/pearkes/tugboat/tree/v2.1.0) (2015-12-01)
 
 [Full Changelog](https://github.com/pearkes/tugboat/compare/v2.0.1...v2.1.0)
@@ -336,7 +360,7 @@
 
 - region one unavailable on some clients, use NYC 2 [\#144](https://github.com/pearkes/tugboat/pull/144) ([Thetoxicarcade](https://github.com/Thetoxicarcade))
 
-- Load config file from current directory, if not exit load from defaults [\#123](https://github.com/pearkes/tugboat/pull/123) ([tg0](https://github.com/tg0))
+- Load config file from current directory, if not exit load from defaults [\#123](https://github.com/pearkes/tugboat/pull/123) ([tggo](https://github.com/tggo))
 
 - improves droplets list/info prints [\#115](https://github.com/pearkes/tugboat/pull/115) ([petems](https://github.com/petems))
 
