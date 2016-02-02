@@ -39,6 +39,10 @@ module Tugboat
       return
     end
 
+    def authentication
+      @data['authentication']
+    end
+
     def access_token
       env_access_token || @data['authentication']['access_token']
     end
