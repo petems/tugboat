@@ -36,6 +36,28 @@ This will create a .tugboat file in your home folder (eg. ~/.tugboat).
 
 Tugboat will look for a .tugboat config file first in the current directory you're running it in, then will look for one in the home directory.
 
+An example of a `.tugboat` file:
+
+```yaml
+---
+authentication:
+  access_token: f8sazukxeh729ggxh9gjavvzw5cabdpq95txpzhz6ep6jvtquxztfkf2chyejcsg5
+ssh:
+  ssh_user: root
+  ssh_key_path: "~/.ssh/id_rsa"
+  ssh_port: '22'
+defaults:
+  region: nyc2
+  image: ubuntu-14-04-x64
+  size: 512mb
+  ssh_key: ['1234','5678']
+  private_networking: 'false'
+  backups_enabled: 'false'
+  ip6: 'false'
+```
+
+
+
 ## Usage
 
 ### Retrieve a list of your droplets
