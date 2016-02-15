@@ -13,6 +13,8 @@ module Tugboat
 
           env['barge'] = Barge::Client.new(:access_token => @access_token)
 
+          env['barge'].faraday.options.timeout
+
           env['barge'].faraday.use CustomLogger if ENV['DEBUG']
 
           @app.call(env)

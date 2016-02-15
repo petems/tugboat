@@ -20,6 +20,7 @@ module Tugboat
     DEFAULT_PRIVATE_NETWORKING = 'false'
     DEFAULT_BACKUPS_ENABLED = 'false'
     DEFAULT_USER_DATA = nil
+    DEFAULT_TUGBOAT_TIMEOUT = 600
 
     # Load config file from current directory, if not exit load from user's home directory
     def initialize
@@ -91,6 +92,10 @@ module Tugboat
       @data['defaults'].nil? ? DEFAULT_BACKUPS_ENABLED : @data['defaults']['backups_enabled']
     end
 
+    def default_tugboat_timeout
+      @data['defaults'].nil? ? DEFAULT_TIMEOUT : @data['defaults']['tugboat_timeout']
+    end
+
     def env_access_token
       ENV['DO_API_TOKEN'] unless ENV['DO_API_TOKEN'].to_s.empty?
     end
@@ -106,7 +111,7 @@ module Tugboat
     end
 
     # Writes a config file
-    def create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled, ip6)
+    def create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled, ip6, timeout)
       # Default SSH Key path
       if ssh_key_path.empty?
         ssh_key_path = File.join("~", DEFAULT_SSH_KEY_PATH)
@@ -148,6 +153,10 @@ module Tugboat
         ip6 = DEFAULT_IP6
       end
 
+      if tugboat_timeout.empty?
+        ip6 = DEFAULT_TUGBOAT_TIMEOUT
+      end
+
       require 'yaml'
       File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
         data = {
@@ -166,6 +175,7 @@ module Tugboat
                   "private_networking" => private_networking,
                   "backups_enabled" => backups_enabled,
                   "ip6" => ip6,
+                  "tugboat_timeout" => default_tugboat_timeout,
                 }
         }
         file.write data.to_yaml

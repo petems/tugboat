@@ -6,6 +6,7 @@ module Tugboat
         say "Note: You can get your Access Token from https://cloud.digitalocean.com/settings/tokens/new", :yellow
         say
         access_token = ask "Enter your access token:"
+        tugboat_timeout = ask "Enter your default timeout for API connections in seconds (optional, defaults to 300):"
         access_token.strip!
         ssh_key_path = ask "Enter your SSH key path (optional, defaults to ~/.ssh/id_rsa):"
         ssh_user = ask "Enter your SSH user (optional, defaults to root):"
@@ -23,7 +24,7 @@ module Tugboat
         ip6      = ask "Enter your default for IPv6 (optional, defaults to false):"
 
         # Write the config file.
-        env['config'].create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled, ip6)
+        env['config'].create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled, ip6, tugboat_timeout)
         env['config'].reload!
 
         @app.call(env)
