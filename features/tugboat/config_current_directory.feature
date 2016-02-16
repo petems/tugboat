@@ -3,7 +3,7 @@ Feature: config
   As a user
   I should be able to load tugboat config from a .tugboat in the current directory
 
-  Scenario:
+  Scenario: Read config from current directory
     Given a file named ".tugboat" with:
       """
 ---
