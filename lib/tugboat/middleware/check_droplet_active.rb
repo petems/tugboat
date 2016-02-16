@@ -4,9 +4,11 @@ module Tugboat
     class CheckDropletActive < Base
       def call(env)
 
-        if env["droplet_status"] != "active"
-          say "Droplet must be on for this operation to be successful.", :red
-          exit 1
+        unless env['user_droplet_ssh_wait']
+          if env["droplet_status"] != "active"
+            say "Droplet must be on for this operation to be successful.", :red
+            exit 1
+          end
         end
 
         @app.call(env)
