@@ -50,7 +50,7 @@ module Tugboat
         if droplet_ssh_key_ids.kind_of?(Array)
           droplet_key_array = droplet_ssh_key_ids
         else
-          droplet_key_array = droplet_ssh_key_ids.split(',')
+          droplet_key_array = droplet_ssh_key_ids.to_s.split(',')
         end
 
         create_opts = {
