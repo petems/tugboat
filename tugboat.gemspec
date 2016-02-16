@@ -30,8 +30,9 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'simplecov', '0.10'
   gem.add_development_dependency 'simplecov-console', '0.2.0'
   gem.add_development_dependency 'coveralls', '~> 0.6.7'
-  gem.add_development_dependency 'aruba', '~> 0.6.2'
+  gem.add_development_dependency 'aruba', '0.7.4'
   gem.add_development_dependency 'pry'
+  gem.add_development_dependency 'vcr', '2.9.3'
 
   gem.post_install_message = '***************************************'
   gem.post_install_message = '   .  o ..                            '
