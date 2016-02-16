@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.digitalocean.com/v2/droplets
+    body:
+      encoding: UTF-8
+      string: '{"name":"droplet-with-array-of-keys","size":"512mb","image":"ubuntu-14-04-x64","region":"nyc2","ssh_keys":["1234","5678"],"private_networking":"false","backups_enabled":"false","ipv6":"false","user_data":null}'
+    headers:
+      Authorization:
+      - Bearer f8sazukxeh729ggxh9gjavvzw5cabdpq95txpzhz6ep6jvtquxztfkf2chyejcsg5
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.9.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      Server:
+      - cloudflare-nginx
+      Date:
+      - Tue, 16 Feb 2016 10:10:51 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=hm6ha3pvo7hm6ha3pvo7hm6ha3pvo7; expires=Wed, 15-Feb-17
+        10:10:50 GMT; path=/; domain=.digitalocean.com; HttpOnly
+      Status:
+      - 202 Accepted
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Ratelimit-Limit:
+      - '5000'
+      Ratelimit-Remaining:
+      - '4994'
+      Ratelimit-Reset:
+      - '1455617507'
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 8d869cf8-bbeb-48fa-ae84-32f1b01ebab6
+      X-Runtime:
+      - '0.246402'
+      Cf-Ray:
+      - 27587709cabc1377-LHR
+    body:
+      encoding: UTF-8
+      string: '{"droplet":{"id":276961,"name":"droplet-with-array-of-keys","memory":512,"vcpus":1,"disk":20,"locked":true,"status":"new","kernel":{"id":6297,"name":"Ubuntu
+        14.04 x64 vmlinuz-3.13.0-71-generic","version":"3.13.0-71-generic"},"created_at":"2016-02-16T10:10:50Z","features":["virtio"],"backup_ids":[],"next_backup_window":null,"snapshot_ids":[],"image":{"id":14782728,"name":"14.04.3
+        x64","distribution":"Ubuntu","slug":"ubuntu-14-04-x64","public":true,"regions":["nyc1","sfo1","nyc2","ams2","sgp1","lon1","nyc3","ams3","fra1","tor1"],"created_at":"2015-12-10T16:42:21Z","min_disk_size":20,"type":"snapshot"},"size":{"slug":"512mb","memory":512,"vcpus":1,"disk":20,"transfer":1.0,"price_monthly":5.0,"price_hourly":0.00744,"regions":["ams1","ams2","ams3","fra1","lon1","nyc1","nyc2","nyc3","sfo1","sgp1","tor1"],"available":true},"size_slug":"512mb","networks":{"v4":[],"v6":[]},"region":{"name":"New
+        York 2","slug":"nyc2","sizes":["1gb","2gb","4gb","8gb","32gb","64gb","512mb","48gb","16gb"],"features":["private_networking","backups","ipv6","metadata"],"available":true},"tags":[]},"links":{"actions":[{"id":84162954,"rel":"create","href":"https://api.digitalocean.com/v2/actions/27624451"}]}}'
+    http_version:
+  recorded_at: Tue, 16 Feb 2016 10:10:51 GMT
+recorded_with: VCR 2.9.3
