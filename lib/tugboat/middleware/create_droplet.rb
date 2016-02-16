@@ -47,10 +47,11 @@ module Tugboat
         droplet_backups_enabled = env["create_droplet_backups_enabled"] :
         droplet_backups_enabled = env["config"].default_backups_enabled
 
-        droplet_key_array = droplet_ssh_key_ids.split(',')
-
-        droplet_key_array = nil if [droplet_key_array].empty?
-
+        if droplet_ssh_key_ids.kind_of?(Array)
+          droplet_key_array = droplet_ssh_key_ids
+        else
+          droplet_key_array = droplet_ssh_key_ids.split(',')
+        end
 
         create_opts = {
           :name               => env["create_droplet_name"],
