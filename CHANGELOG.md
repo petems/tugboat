@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.2.2](https://github.com/pearkes/tugboat/tree/v2.2.2) (2016-02-18)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.2.1...v2.2.2)
+
+**Merged pull requests:**
+
+- Changes authorize command to ask for array [\#241](https://github.com/pearkes/tugboat/pull/241) ([petems](https://github.com/petems))
+- Fix ssh key id as fixnum [\#240](https://github.com/pearkes/tugboat/pull/240) ([petems](https://github.com/petems))
+- Fix ssh wait option [\#239](https://github.com/pearkes/tugboat/pull/239) ([petems](https://github.com/petems))
+
 ## [v2.2.1](https://github.com/pearkes/tugboat/tree/v2.2.1) (2016-02-16)
 [Full Changelog](https://github.com/pearkes/tugboat/compare/v2.2.0...v2.2.1)
 
