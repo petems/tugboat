@@ -124,7 +124,7 @@ match.
 
 Print info in machine-readable format. The ``--porcelain`` flag silences extra output for easy parsing. Fuzzy name matching is not supported with the ``--porcelain`` flag.
 
-    $ tugboat info -n pearkes-admin-001 --attribute ip --porcelain
+    $ tugboat info -n pearkes-admin-001 --porcelain
     name pearkes-admin-001
     id 13231512
     status active
