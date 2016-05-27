@@ -221,6 +221,24 @@ Or just list images that you have created.
     San Francisco 1 (slug: sfo1)
     Singapore 1 (slug: sgp1)
 
+### Add SSH keys
+
+    $ tugboat add-key digitalocean
+    Possible public key paths from /Users/pearkes/.ssh:
+
+    /Users/pearkes/.ssh/digitalocean.pub
+    /Users/pearkes/.ssh/fog.pub
+    /Users/pearkes/.ssh/github.pub
+    /Users/pearkes/.ssh/id_rsa.pub
+    /Users/pearkes/.ssh/terraform.pub
+
+    Enter the path to your SSH key: /Users/petersouter/.ssh/digitalocean.pub
+    Queueing upload of SSH key 'digitalocean'...SSH Key uploaded
+
+    Name: digitalocean
+    ID: 1384812
+    ...
+
 ### List SSH Keys
 
     $ tugboat keys
