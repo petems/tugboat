@@ -4,6 +4,20 @@
 
 A command line tool for interacting with your [DigitalOcean](https://www.digitalocean.com/) droplets.
 
+## History
+
+When Tugboat was created, DigitalOcean was an extremely new cloud provider. They'd only released their public beta back in [2012](https://whoapi.com/blog/1497/fast-growing-digitalocean-is-fueled-by-customer-love/), and their new SSD backed machines only primiered in early [2013](https://techcrunch.com/2013/01/15/techstars-graduate-digitalocean-switches-to-ssd-for-its-5-per-month-vps-to-take-on-linode-and-rackspace/).
+
+Tugboat started out life around that time, [back in April 2013](https://github.com/pearkes/tugboat/commit/f0fbc1f438cce81c286f0e60014dc4393ac95cb6). Back then, there were no official libraries for DigitalOcean, and the 1.0 API was a bit unstable and occasionally flakey.
+
+Since then, DigitalOcean has expanded rapidly and has started offering official libraries.
+
+They now have an offically maintained command-line client called [doctl](https://github.com/digitalocean/doctl).
+
+Some people have asked, **where does that leave Tugboat?**
+
+If you want the bleeding edge of new features and official support from DigitalOcean engineers, **Doctl is the way to go**. However, **as long as there is one other user out there who likes Tugboat and it's workflow, I will try my darndest to maintain this project, investigate bugs, implement new features and merge pull-requests.**
+
 ## Installation
 
     gem install tugboat
