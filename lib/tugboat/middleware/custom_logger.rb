@@ -1,5 +1,7 @@
+require 'faraday'
+
 module Tugboat
-  class CustomLogger < Faraday::Middleware
+  class CustomLogger < ::Faraday::Middleware
     extend Forwardable
     def_delegators :@logger, :debug, :info, :warn, :error, :fatal
 
