@@ -6,11 +6,11 @@ describe Tugboat::CLI do
   describe 'info_image' do
     it 'shows an image with a fuzzy name' do
       stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_images'))
 
       stub_request(:get, 'https://api.digitalocean.com/v2/images/12789325?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_coreos_image'))
 
       cli.info_image('745.1.0 (alpha)')
@@ -28,11 +28,11 @@ Regions:          nyc1,sfo1,nyc2,ams2,sgp1,lon1,nyc3,ams3,fra1
 
     it 'shows an image with an id' do
       stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_images'))
 
       stub_request(:get, 'https://api.digitalocean.com/v2/images/12438838?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_redmine_image'))
 
       cli.options = cli.options.merge(id: 12_438_838)
@@ -51,11 +51,11 @@ Regions:          nyc1,ams1,sfo1,nyc2,ams2,sgp1,lon1,nyc3,ams3,fra1
 
     it 'shows an image with a name' do
       stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_images'))
 
       stub_request(:get, 'https://api.digitalocean.com/v2/images/12438838?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_redmine_image'))
 
       cli.options = cli.options.merge(name: 'Redmine on 14.04')
@@ -74,11 +74,11 @@ Regions:          nyc1,ams1,sfo1,nyc2,ams2,sgp1,lon1,nyc3,ams3,fra1
 
     it 'errors if no image with matching id is found' do
       stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_images'))
 
       stub_request(:get, 'https://api.digitalocean.com/v2/images/123?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 404, body: fixture('not_found'), headers: {})
 
       cli.options = cli.options.merge(id: '123')
@@ -91,7 +91,7 @@ Image id provided. Finding Image...Failed to find Image: The resource you were a
 
     it 'errors if no image with matching name is found' do
       stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_images'))
 
       cli.options = cli.options.merge(name: 'foobarbaz')
@@ -105,7 +105,7 @@ Unable to find an image named 'foobarbaz'.
 
     it 'errors if no image with matching fuzzy name is found' do
       stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_images'))
 
       expect { cli.info_image('foobarbaz') }.to raise_error(SystemExit)
@@ -118,11 +118,11 @@ Unable to find an image named 'foobarbaz'.
 
     it 'allows choice of multiple images' do
       stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_images'))
 
       stub_request(:get, 'https://api.digitalocean.com/v2/images/9801951?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('ubuntu_image_9801951'), headers: {})
 
       $stdin.should_receive(:gets).and_return('0')

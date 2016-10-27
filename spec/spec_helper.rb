@@ -14,6 +14,7 @@ end
 require 'tugboat'
 require 'webmock/rspec'
 require 'barge'
+require 'droplet_kit'
 require 'shared/environment'
 
 RSpec.configure do |config|

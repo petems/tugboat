@@ -20,8 +20,10 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'thor', '0.18.1'
   gem.add_dependency 'barge', '0.12.0'
+  gem.add_dependency 'droplet_kit', '2.0.1'
   gem.add_dependency 'middleware', '0.1.0'
-  gem.add_dependency 'faraday', '0.11.0'
+  gem.add_dependency 'faraday', '0.9.2'
+  gem.add_dependency 'activesupport', '4.0.13'
 
   gem.add_development_dependency 'rake', '< 11.0'
   gem.add_development_dependency 'rspec-core', '~> 2.14.0'

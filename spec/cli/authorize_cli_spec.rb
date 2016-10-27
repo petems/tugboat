@@ -11,7 +11,7 @@ describe Tugboat::CLI do
 
     it 'asks the right questions and checks credentials' do
       stub_request(:get, 'https://api.digitalocean.com/v2/droplets?page=1&per_page=1').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('show_droplets'), headers: {})
 
       expect($stdout).to receive(:print).exactly(6).times
@@ -60,7 +60,7 @@ describe Tugboat::CLI do
 
     it 'sets defaults if no input given' do
       stub_request(:get, 'https://api.digitalocean.com/v2/droplets?page=1&per_page=1').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => %r{Bearer}, 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => %r{Bearer}, 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('show_droplets'), headers: {})
 
       expect($stdout).to receive(:print).exactly(6).times
