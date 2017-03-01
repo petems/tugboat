@@ -34,6 +34,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'aruba', '0.7.4'
   gem.add_development_dependency 'pry', '0.10.4'
   gem.add_development_dependency 'vcr', '2.9.3'
+  gem.add_development_dependency 'cucumber', '2.0.2'
 
   gem.post_install_message = '***************************************'
   gem.post_install_message = '   .  o ..                            '
