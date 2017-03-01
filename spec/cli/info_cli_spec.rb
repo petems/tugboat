@@ -6,11 +6,11 @@ describe Tugboat::CLI do
   describe "info" do
     it "shows an error if response is not successful" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 404, :body => fixture('not_found'), :headers => {})
 
       @cli.options = @cli.options.merge(:id => 6918990)
@@ -26,15 +26,15 @@ Droplet id provided. Finding Droplet...Failed to find Droplet: The resource you 
 
     it "shows a droplet with a fuzzy name" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
       @cli.info("example.com")
@@ -57,11 +57,11 @@ Backups Active:   false
 
     it "shows a droplet made from a user image" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet_user_image'), :headers => {})
 
       @cli.options = @cli.options.merge(:id => 6918990)
@@ -84,11 +84,11 @@ Backups Active:   false
 
     it "shows a droplet with an id" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
       @cli.options = @cli.options.merge(:id => 6918990)
@@ -111,15 +111,15 @@ Backups Active:   false
 
     it "shows a droplet with a name" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
       @cli.options = @cli.options.merge(:name => "example.com")
@@ -142,15 +142,15 @@ Backups Active:   false
 
     it "allows choice of multiple droplets" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
       $stdin.should_receive(:gets).and_return('0')
@@ -181,11 +181,11 @@ Backups Active:   false
 
   it "shows a droplet with an id under porcelain mode" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
       @cli.options = @cli.options.merge(:id => '6918990', :porcelain => true)
@@ -206,15 +206,15 @@ backups_active false
 
     it "shows a droplet with a name under porcelain mode" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
       @cli.options = @cli.options.merge(:name => 'example.com', :porcelain => true)
@@ -235,11 +235,11 @@ backups_active false
 
   it "shows a droplet attribute with an id" do
     stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
     stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
     @cli.options = @cli.options.merge(:id => '6918990', :attribute => "ip4")
@@ -253,15 +253,15 @@ Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
 
   it "shows a droplet attribute with a name" do
     stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
     stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
     stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
     @cli.options = @cli.options.merge(:name => 'example.com', :attribute => "ip4")
@@ -275,11 +275,11 @@ Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 
   it "gives error if invalid attribute given" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
       @cli.options = @cli.options.merge(:id => 6918990, :porcelain => true, :attribute => "foo")
@@ -303,7 +303,7 @@ Provide one of the following:
 
   it "shows a droplet attribute with an id under porcelain mode" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
          to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
       @cli.options = @cli.options.merge(:id => '6918990', :porcelain => true, :attribute => "ip4")
@@ -316,15 +316,15 @@ Provide one of the following:
 
     it "shows a droplet attribute with a name under porcelain mode" do
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=1").
-        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets?page=1&per_page=200").
-        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
         to_return(:status => 200, :body => fixture('show_droplets'), :headers => {})
 
       stub_request(:get, "https://api.digitalocean.com/v2/droplets/6918990?per_page=200").
-        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.2'}).
+        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
         to_return(:status => 200, :body => fixture('show_droplet'), :headers => {})
 
       @cli.options = @cli.options.merge(:name => 'example.com', :porcelain => true, :attribute => "ip4")

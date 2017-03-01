@@ -18,9 +18,10 @@ Gem::Specification.new do |gem|
   gem.require_paths         = ['lib']
   gem.required_ruby_version = '>= 1.9.2'
 
-  gem.add_dependency 'thor', '~> 0.18.1'
-  gem.add_dependency 'barge', '~> 0.12.0'
-  gem.add_dependency 'middleware', '~> 0.1.0'
+  gem.add_dependency 'thor', '0.18.1'
+  gem.add_dependency 'barge', '0.12.0'
+  gem.add_dependency 'middleware', '0.1.0'
+  gem.add_dependency 'faraday', '0.11.0'
 
   gem.add_development_dependency 'rake', '< 11.0'
   gem.add_development_dependency 'rspec-core', '~> 2.14.0'
@@ -31,7 +32,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'simplecov-console', '0.2.0'
   gem.add_development_dependency 'coveralls', '~> 0.6.7'
   gem.add_development_dependency 'aruba', '0.7.4'
-  gem.add_development_dependency 'pry'
+  gem.add_development_dependency 'pry', '0.10.4'
   gem.add_development_dependency 'vcr', '2.9.3'
 
   gem.post_install_message = '***************************************'
