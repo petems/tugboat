@@ -3,9 +3,8 @@ module Tugboat
     # Check if the droplet in the environment is inactive, or "off"
     class CheckDropletInactive < Base
       def call(env)
-
-        if env["droplet_status"] != "off"
-          say "Droplet must be off for this operation to be successful.", :red
+        if env['droplet_status'] != 'off'
+          say 'Droplet must be off for this operation to be successful.', :red
           exit 1
         end
 
@@ -14,4 +13,3 @@ module Tugboat
     end
   end
 end
-

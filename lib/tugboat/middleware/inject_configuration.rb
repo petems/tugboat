@@ -5,11 +5,10 @@ module Tugboat
       def call(env)
         config = Tugboat::Configuration.instance
 
-        env["config"] = config
+        env['config'] = config
 
         @app.call(env)
       end
     end
   end
 end
-

@@ -3,10 +3,10 @@ module Tugboat
     # A base middleware class to initalize.
     class Base
       # Some colors for making things pretty.
-      CLEAR      = "\e[0m"
-      RED        = "\e[31m"
-      GREEN      = "\e[32m"
-      YELLOW     = "\e[33m"
+      CLEAR      = "\e[0m".freeze
+      RED        = "\e[31m".freeze
+      GREEN      = "\e[32m".freeze
+      YELLOW     = "\e[33m".freeze
 
       # We want access to all of the fun thor cli helper methods,
       # like say, yes?, ask, etc.
@@ -15,7 +15,7 @@ module Tugboat
       def initialize(app)
         @app = app
         # This resets the color to "clear" on the user's terminal.
-        say "", :clear, false
+        say '', :clear, false
       end
 
       def check_response_success(task_string, response)
@@ -29,11 +29,11 @@ module Tugboat
         @app.call(env)
       end
 
-      def verify_credentials(ocean, say_success=false)
+      def verify_credentials(ocean, say_success = false)
         begin
-          response = ocean.droplet.all({:per_page =>'1', :page =>'1'})
+          response = ocean.droplet.all(per_page: '1', page: '1')
         rescue Faraday::ClientError => e
-          say "Authentication with DigitalOcean failed at an early stage"
+          say 'Authentication with DigitalOcean failed at an early stage'
           say "Error was: #{e}"
           exit 1
         end
@@ -43,25 +43,25 @@ module Tugboat
           exit 1
         end
 
-        say "Authentication with DigitalOcean was successful.", :green if say_success
+        say 'Authentication with DigitalOcean was successful.', :green if say_success
       end
 
-      def wait_for_state(droplet_id, desired_state,ocean)
+      def wait_for_state(droplet_id, desired_state, ocean)
         start_time = Time.now
 
         response = ocean.droplet.show droplet_id
 
-        say ".", nil, false
+        say '.', nil, false
 
-        if !response.success?
+        unless response.success?
           say "Failed to get status of Droplet: #{response.message}", :red
           exit 1
         end
 
-        while response.droplet.status != desired_state do
+        while response.droplet.status != desired_state
           sleep 2
           response = ocean.droplet.show droplet_id
-          say ".", nil, false
+          say '.', nil, false
         end
 
         total_time = (Time.now - start_time).to_i
@@ -71,13 +71,10 @@ module Tugboat
 
       # Get all pages of droplets
       def get_droplet_list(ocean)
-
         verify_credentials(ocean)
 
         page = ocean.droplet.all(per_page: 200, page: 1)
-        if not page.paginated?
-          return page.droplets
-        end
+        return page.droplets unless page.paginated?
 
         Enumerator.new do |enum|
           page.droplets.each { |drop| enum.yield drop }
@@ -88,7 +85,5 @@ module Tugboat
         end
       end
     end
-
   end
 end
-

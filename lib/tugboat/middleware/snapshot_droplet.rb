@@ -6,18 +6,18 @@ module Tugboat
         # Right now, the digital ocean API doesn't return an error
         # when your droplet is not powered off and you try to snapshot.
         # This is a temporary measure to let the user know.
-        say "Warning: Droplet must be in a powered off state for snapshot to be successful", :yellow
+        say 'Warning: Droplet must be in a powered off state for snapshot to be successful', :yellow
 
-        say "Queuing snapshot '#{env["user_snapshot_name"]}' for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
+        say "Queuing snapshot '#{env['user_snapshot_name']}' for #{env['droplet_id']} #{env['droplet_name']}...", nil, false
 
-        response = ocean.droplet.snapshot env["droplet_id"],
-                                :name => env["user_snapshot_name"]
+        response = ocean.droplet.snapshot env['droplet_id'],
+                                          name: env['user_snapshot_name']
 
-        unless response.success?
+        if response.success?
+          say 'Snapshot successful!', :green
+        else
           say "Failed to snapshot Droplet: #{response.message}", :red
           exit 1
-        else
-          say "Snapshot successful!", :green
         end
 
         @app.call(env)
@@ -25,4 +25,3 @@ module Tugboat
     end
   end
 end
-

@@ -13,22 +13,22 @@ module Tugboat
         droplet_list.each do |droplet|
           has_one = true
 
-          private_addr = droplet.networks.v4.detect { |address| address.type == 'private' }
+          private_addr = droplet.networks.v4.find { |address| address.type == 'private' }
           if private_addr
             private_ip = ", private_ip: #{private_addr.ip_address}"
           end
 
-          if droplet.status == "active"
-            status_color = GREEN
-          else
-            status_color = RED
-          end
+          status_color = if droplet.status == 'active'
+                           GREEN
+                         else
+                           RED
+                         end
 
-          public_addr = droplet.networks.v4.detect { |address| address.type == 'public' }
-          say "#{droplet.name} (ip: #{public_addr.ip_address}#{private_ip}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region.slug}, id: #{droplet.id}#{env["include_urls"] ? droplet_id_to_url(droplet.id) : '' })"
+          public_addr = droplet.networks.v4.find { |address| address.type == 'public' }
+          say "#{droplet.name} (ip: #{public_addr.ip_address}#{private_ip}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region.slug}, id: #{droplet.id}#{env['include_urls'] ? droplet_id_to_url(droplet.id) : ''})"
         end
 
-        if not has_one
+        unless has_one
           say "You don't appear to have any droplets.", :red
           say "Try creating one with #{GREEN}\`tugboat create\`#{CLEAR}"
         end
@@ -44,4 +44,3 @@ module Tugboat
     end
   end
 end
-

@@ -8,16 +8,20 @@ require 'tugboat'
 VCR.configure do |c|
   c.hook_into :webmock
   c.cassette_library_dir     = 'features/cassettes'
-  c.default_cassette_options = { :record => :new_episodes }
+  c.default_cassette_options = { record: :new_episodes }
 end
 
 VCR.cucumber_tags do |t|
-  t.tag  '@vcr', :use_scenario_name => true
+  t.tag '@vcr', use_scenario_name: true
 end
 
 class VcrFriendlyMain
   def initialize(argv, stdin, stdout, stderr, kernel)
-    @argv, @stdin, @stdout, @stderr, @kernel = argv, stdin, stdout, stderr, kernel
+    @argv = argv
+    @stdin = stdin
+    @stdout = stdout
+    @stderr = stderr
+    @kernel = kernel
   end
 
   def execute!

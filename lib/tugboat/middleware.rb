@@ -1,39 +1,39 @@
-require "middleware"
+require 'middleware'
 
 module Tugboat
   module Middleware
-    autoload :AddKey, "tugboat/middleware/add_key"
-    autoload :AskForCredentials, "tugboat/middleware/ask_for_credentials"
-    autoload :Base, "tugboat/middleware/base"
-    autoload :CheckConfiguration, "tugboat/middleware/check_configuration"
-    autoload :CheckCredentials, "tugboat/middleware/check_credentials"
-    autoload :CheckDropletActive, "tugboat/middleware/check_droplet_active"
-    autoload :CheckDropletInactive, "tugboat/middleware/check_droplet_inactive"
-    autoload :Config, "tugboat/middleware/config"
-    autoload :ConfirmAction, "tugboat/middleware/confirm_action"
-    autoload :CreateDroplet, "tugboat/middleware/create_droplet"
-    autoload :RebuildDroplet, "tugboat/middleware/rebuild_droplet"
-    autoload :DestroyDroplet, "tugboat/middleware/destroy_droplet"
-    autoload :DestroyImage, "tugboat/middleware/destroy_image"
-    autoload :FindDroplet, "tugboat/middleware/find_droplet"
-    autoload :FindImage, "tugboat/middleware/find_image"
-    autoload :HaltDroplet, "tugboat/middleware/halt_droplet"
-    autoload :InfoDroplet, "tugboat/middleware/info_droplet"
-    autoload :InfoImage, "tugboat/middleware/info_image"
-    autoload :InjectClient, "tugboat/middleware/inject_client"
-    autoload :InjectConfiguration, "tugboat/middleware/inject_configuration"
-    autoload :ListDroplets, "tugboat/middleware/list_droplets"
-    autoload :ListImages, "tugboat/middleware/list_images"
-    autoload :ListRegions, "tugboat/middleware/list_regions"
-    autoload :ListSizes, "tugboat/middleware/list_sizes"
-    autoload :ListSSHKeys, "tugboat/middleware/list_ssh_keys"
-    autoload :PasswordReset, "tugboat/middleware/password_reset"
-    autoload :ResizeDroplet, "tugboat/middleware/resize_droplet"
-    autoload :RestartDroplet, "tugboat/middleware/restart_droplet"
-    autoload :SnapshotDroplet, "tugboat/middleware/snapshot_droplet"
-    autoload :SSHDroplet, "tugboat/middleware/ssh_droplet"
-    autoload :StartDroplet, "tugboat/middleware/start_droplet"
-    autoload :WaitForState, "tugboat/middleware/wait_for_state"
+    autoload :AddKey, 'tugboat/middleware/add_key'
+    autoload :AskForCredentials, 'tugboat/middleware/ask_for_credentials'
+    autoload :Base, 'tugboat/middleware/base'
+    autoload :CheckConfiguration, 'tugboat/middleware/check_configuration'
+    autoload :CheckCredentials, 'tugboat/middleware/check_credentials'
+    autoload :CheckDropletActive, 'tugboat/middleware/check_droplet_active'
+    autoload :CheckDropletInactive, 'tugboat/middleware/check_droplet_inactive'
+    autoload :Config, 'tugboat/middleware/config'
+    autoload :ConfirmAction, 'tugboat/middleware/confirm_action'
+    autoload :CreateDroplet, 'tugboat/middleware/create_droplet'
+    autoload :RebuildDroplet, 'tugboat/middleware/rebuild_droplet'
+    autoload :DestroyDroplet, 'tugboat/middleware/destroy_droplet'
+    autoload :DestroyImage, 'tugboat/middleware/destroy_image'
+    autoload :FindDroplet, 'tugboat/middleware/find_droplet'
+    autoload :FindImage, 'tugboat/middleware/find_image'
+    autoload :HaltDroplet, 'tugboat/middleware/halt_droplet'
+    autoload :InfoDroplet, 'tugboat/middleware/info_droplet'
+    autoload :InfoImage, 'tugboat/middleware/info_image'
+    autoload :InjectClient, 'tugboat/middleware/inject_client'
+    autoload :InjectConfiguration, 'tugboat/middleware/inject_configuration'
+    autoload :ListDroplets, 'tugboat/middleware/list_droplets'
+    autoload :ListImages, 'tugboat/middleware/list_images'
+    autoload :ListRegions, 'tugboat/middleware/list_regions'
+    autoload :ListSizes, 'tugboat/middleware/list_sizes'
+    autoload :ListSSHKeys, 'tugboat/middleware/list_ssh_keys'
+    autoload :PasswordReset, 'tugboat/middleware/password_reset'
+    autoload :ResizeDroplet, 'tugboat/middleware/resize_droplet'
+    autoload :RestartDroplet, 'tugboat/middleware/restart_droplet'
+    autoload :SnapshotDroplet, 'tugboat/middleware/snapshot_droplet'
+    autoload :SSHDroplet, 'tugboat/middleware/ssh_droplet'
+    autoload :StartDroplet, 'tugboat/middleware/start_droplet'
+    autoload :WaitForState, 'tugboat/middleware/wait_for_state'
 
     # Start the authorization flow.
     # This writes a ~/.tugboat file, which can be edited manually.

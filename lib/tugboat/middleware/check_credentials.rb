@@ -14,4 +14,3 @@ module Tugboat
     end
   end
 end
-
