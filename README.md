@@ -311,7 +311,7 @@ D, [2015-12-06T12:04:27.149334 #92772] DEBUG -- : Request Headers:
 ----------------
 Authorization : Bearer [TOKEN REDACTED]
 Content-Type  : application/json
-User-Agent    : Faraday v0.9.2
+User-Agent    : Faraday v0.11.0
 
 Request Body:
 -------------
