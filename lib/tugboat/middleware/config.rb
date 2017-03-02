@@ -3,16 +3,15 @@ module Tugboat
     # Check if the droplet in the environment is inactive, or "off"
     class Config < Base
       def call(env)
-
         config = Tugboat::Configuration.instance
 
         keys_retracted = ''
 
-        config_data = config.data.to_yaml.gsub(/"/,'')
+        config_data = config.data.to_yaml.delete('"')
 
-        if env["user_hide_keys"]
+        if env['user_hide_keys']
           keys_retracted = '(Keys Redacted)'
-          config_data = config_data.gsub(/(access_token: )([a-zA-Z0-9]+)/,'\1 [REDACTED]')
+          config_data = config_data.gsub(%r{(access_token: )([a-zA-Z0-9]+)}, '\1 [REDACTED]')
         end
 
         say "Current Config #{keys_retracted}\n", :green
@@ -25,4 +24,3 @@ module Tugboat
     end
   end
 end
-

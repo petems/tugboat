@@ -1,12 +1,11 @@
 require 'spec_helper'
 
 describe Tugboat::CLI do
-  include_context "spec"
+  include_context 'spec'
 
-  describe "config" do
-    it "shows the full config" do
-
-      @cli.config
+  describe 'config' do
+    it 'shows the full config' do
+      cli.config
 
       expect($stdout.string).to eq <<-eos
 Current Config\x20
@@ -29,12 +28,11 @@ defaults:
       eos
     end
 
-    it "hides sensitive data if option given" do
+    it 'hides sensitive data if option given' do
+      cli.options = cli.options.merge(hide: true)
+      cli.config
 
-      @cli.options = @cli.options.merge(:hide => true)
-      @cli.config
-
-            expect($stdout.string).to eq <<-eos
+      expect($stdout.string).to eq <<-eos
 Current Config (Keys Redacted)
 Path: #{Dir.pwd}/tmp/tugboat
 ---
@@ -56,4 +54,3 @@ defaults:
     end
   end
 end
-

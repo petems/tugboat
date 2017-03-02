@@ -4,7 +4,7 @@ module Tugboat
       def call(env)
         ocean = env['barge']
 
-        response = ocean.droplet.show env["droplet_id"]
+        response = ocean.droplet.show env['droplet_id']
 
         check_response_success('get info for Droplet', response)
 
@@ -15,45 +15,45 @@ module Tugboat
           exit 1
         end
 
-        if droplet.status == "active"
-          status_color = GREEN
-        else
-          status_color = RED
-        end
+        status_color = if droplet.status == 'active'
+                         GREEN
+                       else
+                         RED
+                       end
 
-        attribute = env["user_attribute"]
+        attribute = env['user_attribute']
 
-        droplet_ip4_public = droplet.networks.v4.detect { |address| address.type == 'public' }.ip_address
-        droplet_ip6_public = droplet.networks.v6.detect { |address| address.type == 'public' }.ip_address unless droplet.networks.v6.empty?
-        check_private_ip   = droplet.networks.v4.detect { |address| address.type == 'private' }
+        droplet_ip4_public = droplet.networks.v4.find { |address| address.type == 'public' }.ip_address
+        droplet_ip6_public = droplet.networks.v6.find { |address| address.type == 'public' }.ip_address unless droplet.networks.v6.empty?
+        check_private_ip   = droplet.networks.v4.find { |address| address.type == 'private' }
         droplet_private_ip = check_private_ip.ip_address if check_private_ip
 
         attributes_list = [
-          ["name",  droplet.name],
-          ["id",  droplet.id],
-          ["status",  droplet.status],
-          ["ip4",  droplet_ip4_public],
-          ["ip6",  droplet_ip6_public],
-          ["private_ip",  droplet_private_ip],
-          ["region",  droplet.region.slug],
-          ["image",  droplet.image.id],
-          ["size",  droplet.size_slug],
-          ["backups_active",  !droplet.backup_ids.empty?]
+          ['name', droplet.name],
+          ['id', droplet.id],
+          ['status', droplet.status],
+          ['ip4',  droplet_ip4_public],
+          ['ip6',  droplet_ip6_public],
+          ['private_ip', droplet_private_ip],
+          ['region', droplet.region.slug],
+          ['image', droplet.image.id],
+          ['size', droplet.size_slug],
+          ['backups_active', !droplet.backup_ids.empty?]
         ]
         attributes = Hash[*attributes_list.flatten(1)]
 
         if attribute
-          if attributes.has_key? attribute
+          if attributes.key? attribute
             say attributes[attribute]
           else
             say "Invalid attribute \"#{attribute}\"", :red
-            say "Provide one of the following:", :red
+            say 'Provide one of the following:', :red
             attributes_list.each { |a| say "    #{a[0]}", :red }
             exit 1
           end
         else
-          if env["user_porcelain"]
-            attributes_list.select{ |a| a[1] != nil }.each{ |a| say "#{a[0]} #{a[1]}"}
+          if env['user_porcelain']
+            attributes_list.select { |a| !a[1].nil? }.each { |a| say "#{a[0]} #{a[1]}" }
           else
             say
             say "Name:             #{droplet.name}"
@@ -62,15 +62,13 @@ module Tugboat
             say "IP4:              #{droplet_ip4_public}"
             say "IP6:              #{droplet_ip6_public}" unless droplet.networks.v6.empty?
 
-            if droplet_private_ip
-              say "Private IP:       #{droplet_private_ip}"
-            end
+            say "Private IP:       #{droplet_private_ip}" if droplet_private_ip
 
-            if droplet.image.slug.nil?
-              image_description  = droplet.image.name
-            else
-              image_description = droplet.image.slug
-            end
+            image_description = if droplet.image.slug.nil?
+                                  droplet.image.name
+                                else
+                                  droplet.image.slug
+                                end
 
             say "Region:           #{droplet.region.name} - #{droplet.region.slug}"
             say "Image:            #{droplet.image.id} - #{image_description}"
@@ -84,4 +82,3 @@ module Tugboat
     end
   end
 end
-

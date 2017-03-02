@@ -36,6 +36,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rb-readline', '0.5.3'
   gem.add_development_dependency 'vcr', '2.9.3'
   gem.add_development_dependency 'cucumber', '2.0.2'
+  gem.add_development_dependency 'rubocop', '0.47.1'
+  gem.add_development_dependency 'rubocop-rspec', '1.5.0'
 
   gem.post_install_message = '***************************************'
   gem.post_install_message = '   .  o ..                            '
@@ -55,5 +57,4 @@ Gem::Specification.new do |gem|
   gem.post_install_message = ' The Tugboat 1.0 API EOL as of November 9th 2015'
   gem.post_install_message = ' Tugboat < 1.0.0 will no longer work from that time'
   gem.post_install_message = '***************************************'
-
 end

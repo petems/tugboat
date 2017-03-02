@@ -5,7 +5,7 @@ module Tugboat
         ocean = env['barge']
         regions = ocean.region.all.regions.sort_by(&:name)
 
-        say "Regions:"
+        say 'Regions:'
         regions.each do |region|
           say "#{region.name} (slug: #{region.slug})"
         end

@@ -5,7 +5,7 @@ module Tugboat
         ocean = env['barge']
         sizes = ocean.size.all.sizes
 
-        say "Sizes:"
+        say 'Sizes:'
         sizes.each do |size|
           say "Disk: #{size.disk}GB, Memory: #{size.memory.round}MB (slug: #{size.slug})"
         end

@@ -9,25 +9,25 @@ module Tugboat
     attr_reader :data
     attr_reader :path
 
-    FILE_NAME = '.tugboat'
-    DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'
-    DEFAULT_SSH_PORT = '22'
-    DEFAULT_REGION = 'nyc2'
-    DEFAULT_IMAGE = 'ubuntu-14-04-x64'
-    DEFAULT_SIZE = '512mb'
-    DEFAULT_SSH_KEY = ''
-    DEFAULT_IP6 = 'false'
-    DEFAULT_PRIVATE_NETWORKING = 'false'
-    DEFAULT_BACKUPS_ENABLED = 'false'
+    FILE_NAME = '.tugboat'.freeze
+    DEFAULT_SSH_KEY_PATH = '.ssh/id_rsa'.freeze
+    DEFAULT_SSH_PORT = '22'.freeze
+    DEFAULT_REGION = 'nyc2'.freeze
+    DEFAULT_IMAGE = 'ubuntu-14-04-x64'.freeze
+    DEFAULT_SIZE = '512mb'.freeze
+    DEFAULT_SSH_KEY = ''.freeze
+    DEFAULT_IP6 = 'false'.freeze
+    DEFAULT_PRIVATE_NETWORKING = 'false'.freeze
+    DEFAULT_BACKUPS_ENABLED = 'false'.freeze
     DEFAULT_USER_DATA = nil
 
     # Load config file from current directory, if not exit load from user's home directory
     def initialize
-      @path = File.join(File.expand_path("."), FILE_NAME)
-      unless File.exists?(@path)
-        @path = ( ENV["TUGBOAT_CONFIG_PATH"] || File.join(File.expand_path("~"), FILE_NAME) )
+      @path = File.join(File.expand_path('.'), FILE_NAME)
+      unless File.exist?(@path)
+        @path = (ENV['TUGBOAT_CONFIG_PATH'] || File.join(File.expand_path('~'), FILE_NAME))
       end
-      @data = self.load_config_file
+      @data = load_config_file
     end
 
     # If we can't load the config file, self.data is nil, which we can
@@ -97,80 +97,62 @@ module Tugboat
 
     # Re-runs initialize
     def reset!
-      self.send(:initialize)
+      send(:initialize)
     end
 
     # Re-loads the config
     def reload!
-      @data = self.load_config_file
+      @data = load_config_file
     end
 
     # Writes a config file
     def create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key, private_networking, backups_enabled, ip6)
       # Default SSH Key path
-      if ssh_key_path.empty?
-        ssh_key_path = File.join("~", DEFAULT_SSH_KEY_PATH)
-      end
+      ssh_key_path = File.join('~', DEFAULT_SSH_KEY_PATH) if ssh_key_path.empty?
 
-      if ssh_user.empty?
-        ssh_user = 'root'
-      end
+      ssh_user = 'root' if ssh_user.empty?
 
-      if ssh_port.empty?
-        ssh_port = DEFAULT_SSH_PORT
-      end
+      ssh_port = DEFAULT_SSH_PORT if ssh_port.empty?
 
-      if region.empty?
-        region = DEFAULT_REGION
-      end
+      region = DEFAULT_REGION if region.empty?
 
-      if image.empty?
-        image = DEFAULT_IMAGE
-      end
+      image = DEFAULT_IMAGE if image.empty?
 
-      if size.empty?
-        size = DEFAULT_SIZE
-      end
+      size = DEFAULT_SIZE if size.empty?
 
-      if ssh_key.empty?
-        default_ssh_key = DEFAULT_SSH_KEY
-      end
+      default_ssh_key = DEFAULT_SSH_KEY if ssh_key.empty?
 
       if private_networking.empty?
         private_networking = DEFAULT_PRIVATE_NETWORKING
       end
 
-      if backups_enabled.empty?
-        backups_enabled = DEFAULT_BACKUPS_ENABLED
-      end
+      backups_enabled = DEFAULT_BACKUPS_ENABLED if backups_enabled.empty?
 
-      if ip6.empty?
-        ip6 = DEFAULT_IP6
-      end
+      ip6 = DEFAULT_IP6 if ip6.empty?
 
       require 'yaml'
-      File.open(@path, File::RDWR|File::TRUNC|File::CREAT, 0600) do |file|
+      File.open(@path, File::RDWR | File::TRUNC | File::CREAT, 0o600) do |file|
         data = {
-                "authentication" => {
-                  "access_token" => access_token
-                },
-                "ssh" => {
-                  "ssh_user" => ssh_user,
-                  "ssh_key_path" => ssh_key_path ,
-                  "ssh_port" => ssh_port },
-                "defaults" => {
-                  "region" => region,
-                  "image" => image,
-                  "size" => size,
-                  "ssh_key" => ssh_key,
-                  "private_networking" => private_networking,
-                  "backups_enabled" => backups_enabled,
-                  "ip6" => ip6,
-                }
+          'authentication' => {
+            'access_token' => access_token
+          },
+          'ssh' => {
+            'ssh_user' => ssh_user,
+            'ssh_key_path' => ssh_key_path,
+            'ssh_port' => ssh_port
+          },
+          'defaults' => {
+            'region' => region,
+            'image' => image,
+            'size' => size,
+            'ssh_key' => ssh_key,
+            'private_networking' => private_networking,
+            'backups_enabled' => backups_enabled,
+            'ip6' => ip6
+          }
         }
         file.write data.to_yaml
       end
     end
-
   end
 end

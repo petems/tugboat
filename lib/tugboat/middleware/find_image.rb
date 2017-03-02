@@ -11,7 +11,7 @@ module Tugboat
         # First, if nothing is provided to us, we should quit and
         # let the user know.
         if !user_fuzzy_name && !user_image_name && !user_image_id
-          say "Tugboat attempted to find an image with no arguments.", :red
+          say 'Tugboat attempted to find an image with no arguments.', :red
           say "Try running `tugboat #{env['tugboat_action']} imagename`", :green
           say "For more help run: `tugboat help #{env['tugboat_action']}`", :blue
           exit 1
@@ -24,7 +24,7 @@ module Tugboat
 
         # Easy for us if they provide an id. Just set it to the image_id
         if user_image_id
-          say "Image id provided. Finding Image...", nil, false
+          say 'Image id provided. Finding Image...', nil, false
           response = ocean.image.show user_image_id
 
           unless response.success?
@@ -32,26 +32,26 @@ module Tugboat
             exit 1
           end
 
-          env["image_id"] = response.image.id
-          env["image_name"] = "(#{response.image.name})"
+          env['image_id'] = response.image.id
+          env['image_name'] = "(#{response.image.name})"
         end
 
         # If they provide a name, we need to get the ID for it.
         # This requires a lookup.
-        if user_image_name && !env["image_id"]
-          say "Image name provided. Finding Image...", nil, false
+        if user_image_name && !env['image_id']
+          say 'Image name provided. Finding Image...', nil, false
 
           # Look for the image by an exact name match.
           ocean.image.all['images'].each do |d|
             if d.name == user_image_name
-              env["image_id"] = d.id
-              env["image_name"] = "(#{d.name})"
+              env['image_id'] = d.id
+              env['image_name'] = "(#{d.name})"
             end
           end
 
           # If we coulnd't find it, tell the user and drop out of the
           # sequence.
-          if !env["image_id"]
+          unless env['image_id']
             say "error\nUnable to find an image named '#{user_image_name}'.", :red
             exit 1
           end
@@ -62,61 +62,55 @@ module Tugboat
         # with a flag.
         #
         # This requires a lookup.
-        if user_fuzzy_name && !env["image_id"]
-          say "Image fuzzy name provided. Finding image ID...", nil, false
+        if user_fuzzy_name && !env['image_id']
+          say 'Image fuzzy name provided. Finding image ID...', nil, false
 
           found_images = []
           choices = []
 
-          ocean.image.all['images'].each_with_index do |d, i|
-
+          ocean.image.all['images'].each_with_index do |d, _i|
             # Check to see if one of the image names have the fuzzy string.
-            if d.name.upcase.include? user_fuzzy_name.upcase
-              found_images << d
-            end
+            found_images << d if d.name.upcase.include? user_fuzzy_name.upcase
 
             unless d.slug.nil?
-              if d.slug.upcase.include? user_fuzzy_name.upcase
-                found_images << d
-              end
+              found_images << d if d.slug.upcase.include? user_fuzzy_name.upcase
             end
           end
 
           # Check to see if we have more then one image, and prompt
           # a user to choose otherwise.
           if found_images.length == 1
-            env["image_id"] = found_images.first.id
-            env["image_name"] = "(#{found_images.first.name})"
+            env['image_id'] = found_images.first.id
+            env['image_name'] = "(#{found_images.first.name})"
           elsif found_images.length > 1
             # Did we run the multiple questionairre?
             did_run_multiple = true
 
-            say "Multiple images found."
+            say 'Multiple images found.'
             say
             found_images.each_with_index do |d, i|
               say "#{i}) #{d.name} (#{d.id})"
               choices << i.to_s
             end
             say
-            choice = ask "Please choose a image:", :limited_to => choices
-            env["image_id"] = found_images[choice.to_i].id
-            env["image_name"] = found_images[choice.to_i].name
+            choice = ask 'Please choose a image:', limited_to: choices
+            env['image_id'] = found_images[choice.to_i].id
+            env['image_name'] = found_images[choice.to_i].name
           end
 
           # If we coulnd't find it, tell the user and drop out of the
           # sequence.
-          if !env["image_id"]
+          unless env['image_id']
             say "error\nUnable to find an image named '#{user_fuzzy_name}'.", :red
             exit 1
           end
         end
 
-        if !did_run_multiple
-          say "done#{CLEAR}, #{env["image_id"]} #{env["image_name"]}", :green
+        unless did_run_multiple
+          say "done#{CLEAR}, #{env['image_id']} #{env['image_name']}", :green
         end
         @app.call(env)
       end
     end
   end
 end
-

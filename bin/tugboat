@@ -3,8 +3,8 @@
 # https://github.com/mitchellh/vagrant/blob/8cc4910fa9ca6059697459d0cdee1557af8d0507/bin/vagrant#L3-L6
 # Catch any ctrl+c's to avoid stack traces. Thanks Mitchell. ^^
 
-Signal.trap("INT") { exit 1 }
+Signal.trap('INT') { exit 1 }
 
-require "tugboat"
+require 'tugboat'
 
 Tugboat::CLI.start(ARGV)

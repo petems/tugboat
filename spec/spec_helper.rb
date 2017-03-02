@@ -14,7 +14,7 @@ end
 require 'tugboat'
 require 'webmock/rspec'
 require 'barge'
-require "shared/environment"
+require 'shared/environment'
 
 RSpec.configure do |config|
   # Pretty tests
@@ -24,11 +24,11 @@ RSpec.configure do |config|
 end
 
 def project_path
-  File.expand_path("../..", __FILE__)
+  File.expand_path('../..', __FILE__)
 end
 
-def fixture(fixture_name, format='json')
+def fixture(fixture_name, format = 'json')
   File.new(project_path + "/spec/fixtures/#{fixture_name}.#{format}")
 end
 
-ENV["TUGBOAT_CONFIG_PATH"] = project_path + "/tmp/tugboat"
+ENV['TUGBOAT_CONFIG_PATH'] = project_path + '/tmp/tugboat'

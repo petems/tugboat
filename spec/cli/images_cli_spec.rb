@@ -1,19 +1,19 @@
 require 'spec_helper'
 
 describe Tugboat::CLI do
-  include_context "spec"
+  include_context 'spec'
 
-  describe "images" do
-    it "shows all images by default" do
-      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
-         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+  describe 'images' do
+    it 'shows all images by default' do
+      stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200').
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        to_return(status: 200, body: fixture('show_images'), headers: {})
 
-      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200&private=true").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
-         to_return(:status => 200, :body => fixture('show_images_global'), :headers => {})
+      stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200&private=true').
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        to_return(status: 200, body: fixture('show_images_global'), headers: {})
 
-      @cli.images
+      cli.images
 
       expect($stdout.string).to eq <<-eos
 Showing both private and public images
@@ -73,17 +73,17 @@ Redmine on 14.04 (slug: redmine, id: 12438838, distro: Ubuntu)
       eos
     end
 
-    it "acknowledges when personal images are empty when showing default full list" do
-      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
-         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+    it 'acknowledges when personal images are empty when showing default full list' do
+      stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200').
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        to_return(status: 200, body: fixture('show_images'), headers: {})
 
-      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200&private=true").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
-         to_return(:status => 200, :body => fixture('show_images_empty'), :headers => {})
+      stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200&private=true').
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        to_return(status: 200, body: fixture('show_images_empty'), headers: {})
 
-      @cli.options = @cli.options.merge(:show_private_images => true)
-      @cli.images
+      cli.options = cli.options.merge(show_private_images: true)
+      cli.images
 
       expect($stdout.string).to eq <<-eos
 Showing both private and public images
@@ -143,17 +143,17 @@ Redmine on 14.04 (slug: redmine, id: 12438838, distro: Ubuntu)
       eos
     end
 
-    it "acknowledges when personal images are empty when just show private images flag given" do
-      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
-         to_return(:status => 200, :body => fixture('show_images'), :headers => {})
+    it 'acknowledges when personal images are empty when just show private images flag given' do
+      stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200').
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        to_return(status: 200, body: fixture('show_images'), headers: {})
 
-      stub_request(:get, "https://api.digitalocean.com/v2/images?per_page=200&private=true").
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer foo', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.11.0'}).
-         to_return(:status => 200, :body => fixture('show_images_empty'), :headers => {})
+      stub_request(:get, 'https://api.digitalocean.com/v2/images?per_page=200&private=true').
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+        to_return(status: 200, body: fixture('show_images_empty'), headers: {})
 
-      @cli.options = @cli.options.merge(:show_just_private_images => true)
-      @cli.images
+      cli.options = cli.options.merge(show_just_private_images: true)
+      cli.images
 
       expect($stdout.string).to eq <<-eos
 Showing just private images
@@ -162,6 +162,4 @@ No private images found
       eos
     end
   end
-
 end
-

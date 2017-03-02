@@ -4,15 +4,15 @@ module Tugboat
       def call(env)
         ocean = env['barge']
 
-        say "Queuing destroy for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
+        say "Queuing destroy for #{env['droplet_id']} #{env['droplet_name']}...", nil, false
 
-        response = ocean.droplet.destroy env["droplet_id"]
+        response = ocean.droplet.destroy env['droplet_id']
 
-        unless response.success?
+        if response.success?
+          say 'Deletion Successful!', :green
+        else
           say "Failed to destroy Droplet: #{response.message}", :red
           exit 1
-        else
-          say "Deletion Successful!", :green
         end
 
         @app.call(env)
@@ -20,4 +20,3 @@ module Tugboat
     end
   end
 end
-

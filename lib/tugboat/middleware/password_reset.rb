@@ -4,15 +4,15 @@ module Tugboat
       def call(env)
         ocean = env['barge']
 
-        say "Queuing password reset for #{env["droplet_id"]} #{env["droplet_name"]}...", nil, false
-        response = ocean.droplet.password_reset env["droplet_id"]
+        say "Queuing password reset for #{env['droplet_id']} #{env['droplet_name']}...", nil, false
+        response = ocean.droplet.password_reset env['droplet_id']
 
-        unless response.success?
+        if response.success?
+          say 'Password reset successful!', :green
+          say 'Your new root password will be emailed to you', :green
+        else
           say "Failed to reset password on Droplet: #{response.message}", :red
           exit 1
-        else
-          say "Password reset successful!", :green
-          say "Your new root password will be emailed to you", :green
         end
 
         @app.call(env)
@@ -20,4 +20,3 @@ module Tugboat
     end
   end
 end
-
