@@ -9,6 +9,7 @@ describe Tugboat::CLI do
       allow(ENV).to receive(:[]).with('DEBUG').and_return(1)
       allow(ENV).to receive(:[]).with('http_proxy').and_return(nil)
       allow(ENV).to receive(:[]).with('DO_API_TOKEN').and_return(nil)
+      allow(ENV).to receive(:[]).with('THOR_SHELL').and_return(nil)
     end
 
     it "gives full faraday logs" do
@@ -35,6 +36,7 @@ describe Tugboat::CLI do
       allow(ENV).to receive(:[]).with('DEBUG').and_return(2)
       allow(ENV).to receive(:[]).with('http_proxy').and_return(nil)
       allow(ENV).to receive(:[]).with('DO_API_TOKEN').and_return(nil)
+      allow(ENV).to receive(:[]).with('THOR_SHELL').and_return(nil)
     end
 
     it "gives full faraday logs with redacted API keys" do
