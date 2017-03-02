@@ -18,9 +18,7 @@ module Tugboat
     desc 'help [COMMAND]', 'Describe commands or a specific command'
     def help(meth = nil)
       super
-      unless meth
-        say 'To learn more or to contribute, please see github.com/pearkes/tugboat'
-      end
+      say 'To learn more or to contribute, please see github.com/pearkes/tugboat' unless meth
     end
 
     desc 'authorize', 'Authorize a DigitalOcean account with tugboat'
