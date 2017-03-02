@@ -18,7 +18,7 @@ describe Tugboat::CLI do
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('password_reset_response'), headers: {})
 
-      @cli.password_reset('example.com')
+      cli.password_reset('example.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -45,8 +45,8 @@ Your new root password will be emailed to you
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('password_reset_response'), headers: {})
 
-      @cli.options = @cli.options.merge(id: 6_918_990)
-      @cli.password_reset
+      cli.options = cli.options.merge(id: 6_918_990)
+      cli.password_reset
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
@@ -69,8 +69,8 @@ Your new root password will be emailed to you
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('password_reset_response'), headers: {})
 
-      @cli.options = @cli.options.merge(name: 'example.com')
-      @cli.password_reset
+      cli.options = cli.options.merge(name: 'example.com')
+      cli.password_reset
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -93,9 +93,9 @@ Your new root password will be emailed to you
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 500, body: '{"status":"ERROR","message":"Some error"}')
 
-      @cli.options = @cli.options.merge(name: 'example.com')
+      cli.options = cli.options.merge(name: 'example.com')
 
-      expect { @cli.password_reset('example.com') }.to raise_error(SystemExit)
+      expect { cli.password_reset('example.com') }.to raise_error(SystemExit)
     end
   end
 end

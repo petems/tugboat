@@ -20,7 +20,7 @@ describe Tugboat::CLI do
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('snapshot_response'), headers: {})
 
-      @cli.snapshot(snapshot_name, 'example3.com')
+      cli.snapshot(snapshot_name, 'example3.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 3164444 (example3.com)
@@ -43,8 +43,8 @@ Queuing snapshot 'foo-snapshot' for 3164444 (example3.com)...Snapshot successful
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('snapshot_response'), headers: {})
 
-      @cli.options = @cli.options.merge(id: '3164444')
-      @cli.snapshot(snapshot_name)
+      cli.options = cli.options.merge(id: '3164444')
+      cli.snapshot(snapshot_name)
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 3164494 (example.com)
@@ -67,8 +67,8 @@ Queuing snapshot 'foo-snapshot' for 3164494 (example.com)...Snapshot successful!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('snapshot_response'), headers: {})
 
-      @cli.options = @cli.options.merge(name: 'example3.com')
-      @cli.snapshot(snapshot_name)
+      cli.options = cli.options.merge(name: 'example3.com')
+      cli.snapshot(snapshot_name)
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 3164444 (example3.com)
@@ -86,8 +86,8 @@ Queuing snapshot 'foo-snapshot' for 3164444 (example3.com)...Snapshot successful
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplets'), headers: {})
 
-      @cli.options = @cli.options.merge(name: 'example.com')
-      expect { @cli.snapshot(snapshot_name) }.to raise_error(SystemExit)
+      cli.options = cli.options.merge(name: 'example.com')
+      expect { cli.snapshot(snapshot_name) }.to raise_error(SystemExit)
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)

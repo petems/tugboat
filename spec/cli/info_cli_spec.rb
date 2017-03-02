@@ -13,9 +13,9 @@ describe Tugboat::CLI do
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 404, body: fixture('not_found'), headers: {})
 
-      @cli.options = @cli.options.merge(id: 6_918_990)
+      cli.options = cli.options.merge(id: 6_918_990)
 
-      expect { @cli.info }.to raise_error(SystemExit)
+      expect { cli.info }.to raise_error(SystemExit)
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...Failed to find Droplet: The resource you were accessing could not be found.
@@ -37,7 +37,7 @@ Droplet id provided. Finding Droplet...Failed to find Droplet: The resource you 
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-      @cli.info('example.com')
+      cli.info('example.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -63,8 +63,8 @@ Backups Active:   false
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplet_user_image'), headers: {})
 
-      @cli.options = @cli.options.merge(id: 6_918_990)
-      @cli.info
+      cli.options = cli.options.merge(id: 6_918_990)
+      cli.info
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
@@ -90,8 +90,8 @@ Backups Active:   false
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(id: 6_918_990)
-      @cli.info
+      cli.options = cli.options.merge(id: 6_918_990)
+      cli.info
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
@@ -121,8 +121,8 @@ Backups Active:   false
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(name: 'example.com')
-      @cli.info
+      cli.options = cli.options.merge(name: 'example.com')
+      cli.info
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -154,7 +154,7 @@ Backups Active:   false
 
       $stdin.should_receive(:gets).and_return('0')
 
-      @cli.info('examp')
+      cli.info('examp')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...Multiple droplets found.
@@ -186,8 +186,8 @@ Backups Active:   false
       with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
       to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-    @cli.options = @cli.options.merge(id: '6918990', porcelain: true)
-    @cli.info
+    cli.options = cli.options.merge(id: '6918990', porcelain: true)
+    cli.info
 
     expect($stdout.string).to eq <<-eos
 name example.com
@@ -215,8 +215,8 @@ backups_active false
       with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
       to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-    @cli.options = @cli.options.merge(name: 'example.com', porcelain: true)
-    @cli.info
+    cli.options = cli.options.merge(name: 'example.com', porcelain: true)
+    cli.info
 
     expect($stdout.string).to eq <<-eos
 name example.com
@@ -240,8 +240,8 @@ backups_active false
       with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
       to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-    @cli.options = @cli.options.merge(id: '6918990', attribute: 'ip4')
-    @cli.info
+    cli.options = cli.options.merge(id: '6918990', attribute: 'ip4')
+    cli.info
 
     expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
@@ -262,8 +262,8 @@ Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
       with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
       to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-    @cli.options = @cli.options.merge(name: 'example.com', attribute: 'ip4')
-    @cli.info
+    cli.options = cli.options.merge(name: 'example.com', attribute: 'ip4')
+    cli.info
 
     expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -280,8 +280,8 @@ Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
       with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
       to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-    @cli.options = @cli.options.merge(id: 6_918_990, porcelain: true, attribute: 'foo')
-    expect { @cli.info }.to raise_error(SystemExit)
+    cli.options = cli.options.merge(id: 6_918_990, porcelain: true, attribute: 'foo')
+    expect { cli.info }.to raise_error(SystemExit)
 
     expect($stdout.string).to eq <<-eos
 Invalid attribute "foo"
@@ -304,8 +304,8 @@ Provide one of the following:
       with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
       to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-    @cli.options = @cli.options.merge(id: '6918990', porcelain: true, attribute: 'ip4')
-    @cli.info
+    cli.options = cli.options.merge(id: '6918990', porcelain: true, attribute: 'ip4')
+    cli.info
 
     expect($stdout.string).to eq <<-eos
 104.131.186.241
@@ -325,8 +325,8 @@ Provide one of the following:
       with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
       to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-    @cli.options = @cli.options.merge(name: 'example.com', porcelain: true, attribute: 'ip4')
-    @cli.info
+    cli.options = cli.options.merge(name: 'example.com', porcelain: true, attribute: 'ip4')
+    cli.info
 
     expect($stdout.string).to eq <<-eos
 104.131.186.241

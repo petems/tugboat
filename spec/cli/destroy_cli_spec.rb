@@ -19,7 +19,7 @@ describe Tugboat::CLI do
 
       expect($stdin).to receive(:gets).and_return('y')
 
-      @cli.destroy('example.com')
+      cli.destroy('example.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing destroy for 6918990 (example.com)...Deletion Successful!
@@ -37,8 +37,8 @@ eos
 
       expect($stdin).to receive(:gets).and_return('y')
 
-      @cli.options = @cli.options.merge(id: '6918990')
-      @cli.destroy
+      cli.options = cli.options.merge(id: '6918990')
+      cli.destroy
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing destroy for 6918990 (example.com)...Deletion Successful!
@@ -60,8 +60,8 @@ Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)\nWarning
 
       expect($stdin).to receive(:gets).and_return('y')
 
-      @cli.options = @cli.options.merge(name: 'example.com')
-      @cli.destroy
+      cli.options = cli.options.merge(name: 'example.com')
+      cli.destroy
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing destroy for 6918990 (example.com)...Deletion Successful!
@@ -81,8 +81,8 @@ Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)\nWa
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 204, body: '', headers: {})
 
-      @cli.options = @cli.options.merge(name: 'example.com', confirm: true)
-      @cli.destroy
+      cli.options = cli.options.merge(name: 'example.com', confirm: true)
+      cli.destroy
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -101,7 +101,7 @@ Queuing destroy for 6918990 (example.com)...Deletion Successful!
 
       $stdin.should_receive(:gets).and_return('n')
 
-      expect { @cli.destroy('example.com') }.to raise_error(SystemExit)
+      expect { cli.destroy('example.com') }.to raise_error(SystemExit)
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)\nWarning! Potentially destructive action. Please confirm [y/n]: Aborted due to user request.

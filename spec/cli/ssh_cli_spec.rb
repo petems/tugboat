@@ -13,7 +13,7 @@ describe Tugboat::CLI do
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_droplets'))
       allow(Kernel).to receive(:exec).with('ssh', anything, anything, anything, anything, anything, anything, anything, anything, anything, anything, anything, anything, anything)
 
-      @cli.ssh('example.com')
+      cli.ssh('example.com')
     end
 
     it "wait's until droplet active if -w command is given and droplet already active" do
@@ -29,9 +29,9 @@ describe Tugboat::CLI do
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_droplets'))
       allow(Kernel).to receive(:exec).with('ssh', anything, anything, anything, anything, anything, anything, anything, anything, anything, anything, anything, anything, anything)
 
-      @cli.options = @cli.options.merge(wait: true)
+      cli.options = cli.options.merge(wait: true)
 
-      @cli.ssh('example.com')
+      cli.ssh('example.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -59,9 +59,9 @@ SShing with options: -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownH
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_droplets'))
       allow(Kernel).to receive(:exec).with('ssh', anything, anything, anything, anything, anything, anything, anything, anything, anything, anything, anything, anything, anything)
 
-      @cli.options = @cli.options.merge(wait: true)
+      cli.options = cli.options.merge(wait: true)
 
-      @cli.ssh('example.com')
+      cli.ssh('example.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -82,7 +82,7 @@ SShing with options: -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownH
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_droplets'))
       allow(Kernel).to receive(:exec)
 
-      expect { @cli.ssh('example3.com') }.to raise_error(SystemExit)
+      expect { cli.ssh('example3.com') }.to raise_error(SystemExit)
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 3164444 (example3.com)

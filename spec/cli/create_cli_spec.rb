@@ -10,7 +10,7 @@ describe Tugboat::CLI do
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('create_droplet'), headers: {})
 
-      @cli.create(droplet_name)
+      cli.create(droplet_name)
 
       expect($stdout.string).to eq <<-eos
 Queueing creation of droplet '#{droplet_name}'...Droplet created!
@@ -23,8 +23,8 @@ Queueing creation of droplet '#{droplet_name}'...Droplet created!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('create_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(image: 'ubuntu-12-04-x64', size: '1gb', region: 'nyc3', keys: 'foo_bar_key')
-      @cli.create('example.com')
+      cli.options = cli.options.merge(image: 'ubuntu-12-04-x64', size: '1gb', region: 'nyc3', keys: 'foo_bar_key')
+      cli.create('example.com')
 
       expect($stdout.string).to eq <<-eos
 Queueing creation of droplet 'example.com'...Droplet created!
@@ -37,8 +37,8 @@ Queueing creation of droplet 'example.com'...Droplet created!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('create_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(ip6: 'true')
-      @cli.create('example.com')
+      cli.options = cli.options.merge(ip6: 'true')
+      cli.create('example.com')
 
       expect($stdout.string).to eq <<-eos
 Queueing creation of droplet 'example.com'...Droplet created!
@@ -51,8 +51,8 @@ Queueing creation of droplet 'example.com'...Droplet created!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('create_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(user_data: project_path + '/spec/fixtures/user_data.sh')
-      @cli.create('example.com')
+      cli.options = cli.options.merge(user_data: project_path + '/spec/fixtures/user_data.sh')
+      cli.create('example.com')
 
       expect($stdout.string).to eq <<-eos
 Queueing creation of droplet 'example.com'...Droplet created!
@@ -60,8 +60,8 @@ Queueing creation of droplet 'example.com'...Droplet created!
     end
 
     it 'fails when user data file does not exist' do
-      @cli.options = @cli.options.merge(user_data: '/foo/bar/baz.sh')
-      expect { @cli.create('example.com') }.to raise_error(SystemExit)
+      cli.options = cli.options.merge(user_data: '/foo/bar/baz.sh')
+      expect { cli.create('example.com') }.to raise_error(SystemExit)
 
       expect($stdout.string).to eq <<-eos
 Queueing creation of droplet 'example.com'...Could not find file: /foo/bar/baz.sh, check your user_data setting
@@ -89,7 +89,7 @@ Options:
 Create a droplet.
 eos
 
-          @cli.create(help_attempt)
+          cli.create(help_attempt)
           expect($stdout.string).to eq help_text
         end
       end
@@ -101,7 +101,7 @@ eos
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('create_droplet'), headers: {})
 
-      @cli.create('somethingblahblah--help')
+      cli.create('somethingblahblah--help')
 
       expect($stdout.string).to eq <<-eos
 Queueing creation of droplet 'somethingblahblah--help'...Droplet created!

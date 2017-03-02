@@ -14,7 +14,7 @@ describe Tugboat::CLI do
       allow(ENV).to receive(:[]).with('http_proxy').and_return(nil)
       allow(ENV).to receive(:[]).with('DEBUG').and_return(nil)
 
-      @cli.verify
+      cli.verify
       expect($stdout.string).to eq "Authentication with DigitalOcean was successful.\n"
       expect(a_request(:get, 'https://api.digitalocean.com/v2/droplets?page=1&per_page=1')).to have_been_made
     end
@@ -29,7 +29,7 @@ describe Tugboat::CLI do
       allow(ENV).to receive(:[]).with('http_proxy').and_return(nil)
       allow(ENV).to receive(:[]).with('DEBUG').and_return(nil)
 
-      @cli.verify
+      cli.verify
       expect($stdout.string).to eq "Authentication with DigitalOcean was successful.\n"
       expect(a_request(:get, 'https://api.digitalocean.com/v2/droplets?page=1&per_page=1')).to have_been_made
     end

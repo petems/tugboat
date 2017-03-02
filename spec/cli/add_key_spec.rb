@@ -22,8 +22,8 @@ describe Tugboat::CLI do
         with(body: '{"name":"macbook_pro","public_key":"ssh-dss A123= user@host"}').
         to_return(status: 201, body: fixture('create_ssh_key'), headers: {})
 
-      @cli.options = @cli.options.merge(key: ssh_public_key.to_s)
-      @cli.add_key(ssh_key_name)
+      cli.options = cli.options.merge(key: ssh_public_key.to_s)
+      cli.add_key(ssh_key_name)
 
       expect($stdout.string).to eq <<-eos
 Queueing upload of SSH key 'macbook_pro'...SSH Key uploaded
@@ -56,7 +56,7 @@ ID: 3
       expect($stdout).to receive(:print).with("Queueing upload of SSH key '#{ssh_key_name}'...")
       expect($stdin).to receive(:gets).and_return("#{fake_home}/.ssh/id_rsa.pub")
 
-      @cli.add_key(ssh_key_name)
+      cli.add_key(ssh_key_name)
 
       expect($stdout.string).to eq <<-eos
 Possible public key paths from #{fake_home}/.ssh:

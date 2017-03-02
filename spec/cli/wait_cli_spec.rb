@@ -17,8 +17,8 @@ describe Tugboat::CLI do
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(state: 'active')
-      @cli.wait('example.com')
+      cli.options = cli.options.merge(state: 'active')
+      cli.wait('example.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -42,8 +42,8 @@ eos
           status: 200, body: fixture('show_droplet'), headers: {}
         )
 
-      @cli.options = @cli.options.merge(state: 'active')
-      @cli.wait('example.com')
+      cli.options = cli.options.merge(state: 'active')
+      cli.wait('example.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -60,8 +60,8 @@ eos
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(id: '6918990', state: 'active')
-      @cli.wait
+      cli.options = cli.options.merge(id: '6918990', state: 'active')
+      cli.wait
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
@@ -82,8 +82,8 @@ Waiting for droplet to become active..done\e[0m (0s)
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(name: 'example.com', state: 'active')
-      @cli.wait
+      cli.options = cli.options.merge(name: 'example.com', state: 'active')
+      cli.wait
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)

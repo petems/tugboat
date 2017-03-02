@@ -9,7 +9,7 @@ describe Tugboat::CLI do
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_regions'), headers: { 'Content-Type' => 'application/json' })
 
-      @cli.regions
+      cli.regions
 
       expect($stdout.string).to eq <<-eos
 Regions:

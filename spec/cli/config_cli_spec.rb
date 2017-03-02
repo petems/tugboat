@@ -5,7 +5,7 @@ describe Tugboat::CLI do
 
   describe 'config' do
     it 'shows the full config' do
-      @cli.config
+      cli.config
 
       expect($stdout.string).to eq <<-eos
 Current Config\x20
@@ -29,8 +29,8 @@ defaults:
     end
 
     it 'hides sensitive data if option given' do
-      @cli.options = @cli.options.merge(hide: true)
-      @cli.config
+      cli.options = cli.options.merge(hide: true)
+      cli.config
 
       expect($stdout.string).to eq <<-eos
 Current Config (Keys Redacted)

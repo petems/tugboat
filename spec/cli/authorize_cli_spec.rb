@@ -38,7 +38,7 @@ describe Tugboat::CLI do
       expect($stdout).to receive(:print).with('Enter your default for IPv6 (optional, defaults to false): ')
       expect($stdin).to receive(:gets).and_return(ip6)
 
-      @cli.authorize
+      cli.authorize
 
       expect($stdout.string).to include('Note: You can get your Access Token from https://cloud.digitalocean.com/settings/tokens/new')
       expect($stdout.string).to include("To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`.")
@@ -87,7 +87,7 @@ describe Tugboat::CLI do
       expect($stdout).to receive(:print).with('Enter your default for IPv6 (optional, defaults to false): ')
       expect($stdin).to receive(:gets).and_return('')
 
-      @cli.authorize
+      cli.authorize
 
       expect($stdout.string).to include('Note: You can get your Access Token from https://cloud.digitalocean.com/settings/tokens/new')
       expect($stdout.string).to include("To retrieve region, image, size and key ID's, you can use the corresponding tugboat command, such as `tugboat images`.")

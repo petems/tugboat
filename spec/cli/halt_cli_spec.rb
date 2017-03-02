@@ -18,7 +18,7 @@ describe Tugboat::CLI do
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('shutdown_response'), headers: {})
 
-      @cli.halt('example.com')
+      cli.halt('example.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -40,8 +40,8 @@ Queuing shutdown for 6918990 (example.com)...Halt successful!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: '', headers: {})
 
-      @cli.options = @cli.options.merge(hard: true)
-      @cli.halt('example.com')
+      cli.options = cli.options.merge(hard: true)
+      cli.halt('example.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -67,8 +67,8 @@ Queuing hard shutdown for 6918990 (example.com)...Halt successful!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('shutdown_response'), headers: {})
 
-      @cli.options = @cli.options.merge(id: '6918990')
-      @cli.halt
+      cli.options = cli.options.merge(id: '6918990')
+      cli.halt
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
@@ -90,8 +90,8 @@ Queuing shutdown for 6918990 (example.com)...Halt successful!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('shutdown_response'), headers: {})
 
-      @cli.options = @cli.options.merge(name: 'example.com')
-      @cli.halt
+      cli.options = cli.options.merge(name: 'example.com')
+      cli.halt
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -108,8 +108,8 @@ Queuing shutdown for 6918990 (example.com)...Halt successful!
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplets'), headers: { 'Content-Type' => 'application/json' })
 
-      @cli.options = @cli.options.merge(name: 'example3.com')
-      expect { @cli.halt }.to raise_error(SystemExit)
+      cli.options = cli.options.merge(name: 'example3.com')
+      expect { cli.halt }.to raise_error(SystemExit)
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 3164444 (example3.com)

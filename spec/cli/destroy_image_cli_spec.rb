@@ -15,7 +15,7 @@ describe Tugboat::CLI do
 
       expect($stdin).to receive(:gets).and_return('y')
 
-      @cli.destroy_image('My application image')
+      cli.destroy_image('My application image')
 
       expect($stdout.string).to eq <<-eos
 Image fuzzy name provided. Finding image ID...done\e[0m, 6376601 (My application image)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing destroy image for 6376601 (My application image)...Image deletion successful!
@@ -33,8 +33,8 @@ Image fuzzy name provided. Finding image ID...done\e[0m, 6376601 (My application
 
       expect($stdin).to receive(:gets).and_return('y')
 
-      @cli.options = @cli.options.merge(id: 6_376_601)
-      @cli.destroy_image
+      cli.options = cli.options.merge(id: 6_376_601)
+      cli.destroy_image
 
       expect($stdout.string).to eq <<-eos
 Image id provided. Finding Image...done\e[0m, 6376601 (My application image)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing destroy image for 6376601 (My application image)...Image deletion successful!
@@ -52,8 +52,8 @@ Image id provided. Finding Image...done\e[0m, 6376601 (My application image)\nWa
 
       expect($stdin).to receive(:gets).and_return('y')
 
-      @cli.options = @cli.options.merge(name: 'My application image')
-      @cli.destroy_image
+      cli.options = cli.options.merge(name: 'My application image')
+      cli.destroy_image
 
       expect($stdout.string).to eq "Image name provided. Finding Image...done\e[0m, 6376601 (My application image)\nWarning! Potentially destructive action. Please confirm [y/n]: Queuing destroy image for 6376601 (My application image)...Image deletion successful!\n"
     end
@@ -67,9 +67,9 @@ Image id provided. Finding Image...done\e[0m, 6376601 (My application image)\nWa
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 204, body: '', headers: {})
 
-      @cli.options = @cli.options.merge(name: 'My application image')
-      @cli.options = @cli.options.merge(confirm: true)
-      @cli.destroy_image('NLP Final')
+      cli.options = cli.options.merge(name: 'My application image')
+      cli.options = cli.options.merge(confirm: true)
+      cli.destroy_image('NLP Final')
 
       expect($stdout.string).to eq <<-eos
 Image name provided. Finding Image...done\e[0m, 6376601 (My application image)\nQueuing destroy image for 6376601 (My application image)...Image deletion successful!

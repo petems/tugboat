@@ -13,7 +13,7 @@ describe Tugboat::CLI do
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplets'), headers: { 'Content-Type' => 'application/json' })
 
-      @cli.droplets
+      cli.droplets
 
       expect($stdout.string).to eq <<-eos
 example.com (ip: 104.236.32.182, status: \e[32mactive\e[0m, region: nyc3, id: 6918990)
@@ -33,7 +33,7 @@ example3.com (ip: 104.236.32.173, status: \e[31moff\e[0m, region: nyc3, id: 3164
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplets_private_ip'), headers: { 'Content-Type' => 'application/json' })
 
-      @cli.droplets
+      cli.droplets
 
       expect($stdout.string).to eq <<-eos
 exampleprivate.com (ip: 104.236.32.182, private_ip: 10.131.99.89, status: \e[32mactive\e[0m, region: nyc3, id: 6918990)
@@ -53,7 +53,7 @@ example3.com (ip: 104.236.32.173, status: \e[31moff\e[0m, region: nyc3, id: 3164
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplets_empty'), headers: { 'Content-Type' => 'application/json' })
 
-      @cli.droplets
+      cli.droplets
 
       expect($stdout.string).to eq <<-eos
 You don't appear to have any droplets.
@@ -72,8 +72,8 @@ Try creating one with \e[32m`tugboat create`\e[0m
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplets'), headers: { 'Content-Type' => 'application/json' })
 
-      @cli.options = @cli.options.merge(quiet: true)
-      @cli.droplets
+      cli.options = cli.options.merge(quiet: true)
+      cli.droplets
 
       # Should be /dev/null not stringIO
       expect($stdout).to be_a File
@@ -90,8 +90,8 @@ Try creating one with \e[32m`tugboat create`\e[0m
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplets'), headers: { 'Content-Type' => 'application/json' })
 
-      @cli.options = @cli.options.merge('include_urls' => true)
-      @cli.droplets
+      cli.options = cli.options.merge('include_urls' => true)
+      cli.droplets
 
       expect($stdout.string).to eq <<-eos
 example.com (ip: 104.236.32.182, status: \e[32mactive\e[0m, region: nyc3, id: 6918990, url: 'https://cloud.digitalocean.com/droplets/6918990')
@@ -115,8 +115,8 @@ example3.com (ip: 104.236.32.173, status: \e[31moff\e[0m, region: nyc3, id: 3164
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('show_droplets_paginated_last'), headers: { 'Content-Type' => 'application/json' })
 
-      @cli.options = @cli.options.merge('include_urls' => true)
-      @cli.droplets
+      cli.options = cli.options.merge('include_urls' => true)
+      cli.droplets
 
       expect($stdout.string).to eq <<-eos
 page1example.com (ip: 104.236.32.182, status: \e[32mactive\e[0m, region: nyc3, id: 6918990, url: 'https://cloud.digitalocean.com/droplets/6918990')

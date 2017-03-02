@@ -18,8 +18,8 @@ describe Tugboat::CLI do
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('resize_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(size: '1gb')
-      @cli.resize('example.com')
+      cli.options = cli.options.merge(size: '1gb')
+      cli.resize('example.com')
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -41,8 +41,8 @@ Queuing resize for 6918990 (example.com)...Resize complete!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('resize_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(size: '1gb', id: 6_918_990)
-      @cli.resize
+      cli.options = cli.options.merge(size: '1gb', id: 6_918_990)
+      cli.resize
 
       expect($stdout.string).to eq <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
@@ -64,8 +64,8 @@ Queuing resize for 6918990 (example.com)...Resize complete!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(status: 200, body: fixture('resize_droplet'), headers: {})
 
-      @cli.options = @cli.options.merge(size: '1gb', name: 'example.com')
-      @cli.resize
+      cli.options = cli.options.merge(size: '1gb', name: 'example.com')
+      cli.resize
 
       expect($stdout.string).to eq <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
@@ -87,8 +87,8 @@ Queuing resize for 6918990 (example.com)...Resize complete!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 500, body: '{"status":"ERROR","message":"Some error"}')
 
-      @cli.options = @cli.options.merge(size: '1gb')
-      expect { @cli.resize('example.com') }.to raise_error(SystemExit)
+      cli.options = cli.options.merge(size: '1gb')
+      expect { cli.resize('example.com') }.to raise_error(SystemExit)
 
       expect($stdout.string).to eq <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)

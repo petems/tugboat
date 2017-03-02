@@ -23,12 +23,11 @@ shared_context 'spec' do
   let(:ocean)              { Barge::Client.new(access_token: access_token) }
   let(:app)                { ->(env) {} }
   let(:env)                { {} }
+  let(:cli)                { Tugboat::CLI.new }
 
   before do
     $stdout.sync = true
     $stderr.sync = true
-
-    @cli = Tugboat::CLI.new
 
     # Set a temprary project path and create fake config.
     config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled, ip6)
