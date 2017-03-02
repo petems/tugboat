@@ -35,11 +35,11 @@ module Tugboat
     end
 
     def request_info(env)
-      'Started %s request to: %s' % [env[:method].to_s.upcase, filter(env[:url])]
+      format('Started %s request to: %s', env[:method].to_s.upcase, filter(env[:url]))
     end
 
     def response_info(env, response_time)
-      'Response from %s; Status: %d; Time: %.1fms' % [filter(env[:url]), env[:status], (response_time * 1_000.0)]
+      format('Response from %s; Status: %d; Time: %.1fms', filter(env[:url]), env[:status], (response_time * 1_000.0))
     end
 
     def request_debug(env)
