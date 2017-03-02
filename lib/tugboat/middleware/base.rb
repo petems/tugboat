@@ -69,6 +69,16 @@ module Tugboat
         say "done#{CLEAR} (#{total_time}s)", :green
       end
 
+      def restart_droplet(hard_restart, ocean, droplet_id = '', droplet_name = '')
+        if hard_restart
+          say "Queuing hard restart for #{droplet_id} #{droplet_name}...", nil, false
+          ocean.droplet.power_cycle droplet_id
+        else
+          say "Queuing restart for #{droplet_id} #{droplet_name}...", nil, false
+          ocean.droplet.reboot droplet_id
+        end
+      end
+
       # Get all pages of droplets
       def get_droplet_list(ocean)
         verify_credentials(ocean)

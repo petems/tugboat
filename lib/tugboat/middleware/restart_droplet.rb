@@ -4,13 +4,7 @@ module Tugboat
       def call(env)
         ocean = env['barge']
 
-        response = if env['user_droplet_hard']
-                     say "Queuing hard restart for #{env['droplet_id']} #{env['droplet_name']}...", nil, false
-                     ocean.droplet.power_cycle env['droplet_id']
-                   else
-                     say "Queuing restart for #{env['droplet_id']} #{env['droplet_name']}...", nil, false
-                     ocean.droplet.reboot env['droplet_id']
-        end
+        response = restart_droplet(env['user_droplet_hard'], ocean, env['droplet_id'], env['droplet_name'])
 
         if response.success?
           say 'Restart complete!', :green
