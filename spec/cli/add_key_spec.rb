@@ -40,6 +40,7 @@ ID: 3
       allow(ENV).to receive(:[]).with('DEBUG').and_return(nil)
       allow(ENV).to receive(:[]).with('DO_API_TOKEN').and_return(nil)
       allow(ENV).to receive(:[]).with('http_proxy').and_return(nil)
+      allow(ENV).to receive(:[]).with('THOR_SHELL').and_return(nil)
 
       FileUtils.mkdir_p "#{fake_home}/.ssh"
       File.open("#{fake_home}/.ssh/id_rsa.pub", 'w') { |f| f.write('ssh-dss A456= user@host') }
