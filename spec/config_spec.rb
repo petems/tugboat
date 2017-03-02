@@ -35,7 +35,7 @@ describe Tugboat::Configuration do
     let(:backups_enabled)    { 'false' }
     let(:ip6)                { 'false' }
 
-    let(:config) { config = described_class.instance }
+    let(:config) { described_class.instance }
 
     before do
       # Create a temporary file
@@ -99,7 +99,7 @@ describe Tugboat::Configuration do
     let(:ssh_key_path)     { '~/.ssh/id_rsa2' }
     let(:ssh_port)         { '22' }
 
-    let(:config)                    { config = described_class.instance }
+    let(:config)                    { described_class.instance }
     let(:config_default_region)     { Tugboat::Configuration::DEFAULT_REGION }
     let(:config_default_image)      { Tugboat::Configuration::DEFAULT_IMAGE }
     let(:config_default_size)       { Tugboat::Configuration::DEFAULT_SIZE }

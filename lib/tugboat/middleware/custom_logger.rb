@@ -65,7 +65,7 @@ module Tugboat
     def pretty_body(body)
       body_json = JSON.parse(body)
       JSON.pretty_generate(body_json)
-    rescue JSON::ParserError => e
+    rescue JSON::ParserError
       body
     end
 
