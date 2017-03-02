@@ -13,6 +13,7 @@ describe Tugboat::CLI do
       allow(ENV).to receive(:[]).with('DO_API_TOKEN').and_return('env_variable')
       allow(ENV).to receive(:[]).with('http_proxy').and_return(nil)
       allow(ENV).to receive(:[]).with('DEBUG').and_return(nil)
+      allow(ENV).to receive(:[]).with('THOR_SHELL').and_return(nil)
 
       cli.verify
       expect($stdout.string).to eq "Authentication with DigitalOcean was successful.\n"
@@ -28,6 +29,7 @@ describe Tugboat::CLI do
       allow(ENV).to receive(:[]).with('DO_API_TOKEN').and_return('')
       allow(ENV).to receive(:[]).with('http_proxy').and_return(nil)
       allow(ENV).to receive(:[]).with('DEBUG').and_return(nil)
+      allow(ENV).to receive(:[]).with('THOR_SHELL').and_return(nil)
 
       cli.verify
       expect($stdout.string).to eq "Authentication with DigitalOcean was successful.\n"
