@@ -1,5 +1,27 @@
 # Change Log
 
+## [v2.2.3](https://github.com/pearkes/tugboat/tree/v2.2.3) (2017-03-02)
+[Full Changelog](https://github.com/pearkes/tugboat/compare/v2.2.2...v2.2.3)
+
+**Closed issues:**
+
+- specify configuration file path [\#253](https://github.com/pearkes/tugboat/issues/253)
+- This compared to doctl? [\#251](https://github.com/pearkes/tugboat/issues/251)
+- API call to add ssh keys [\#245](https://github.com/pearkes/tugboat/issues/245)
+- `tugboat create` with options is not picking up default ssh key [\#234](https://github.com/pearkes/tugboat/issues/234)
+
+**Merged pull requests:**
+
+- Adds 'THOR\_SHELL' env mock for 'DEBUG' spec [\#259](https://github.com/pearkes/tugboat/pull/259) ([petems](https://github.com/petems))
+- Adds Rubocop Setup and fixes [\#258](https://github.com/pearkes/tugboat/pull/258) ([petems](https://github.com/petems))
+- Moves cucumber dependancy into gemspec [\#257](https://github.com/pearkes/tugboat/pull/257) ([petems](https://github.com/petems))
+- Fixes library pinning issues in `.gemspec` [\#256](https://github.com/pearkes/tugboat/pull/256) ([petems](https://github.com/petems))
+- Adds rb-readline [\#255](https://github.com/pearkes/tugboat/pull/255) ([petems](https://github.com/petems))
+- Adds a note in README about history [\#252](https://github.com/pearkes/tugboat/pull/252) ([petems](https://github.com/petems))
+- Update docs for `add-key` [\#246](https://github.com/pearkes/tugboat/pull/246) ([petems](https://github.com/petems))
+- Fix rake issue [\#244](https://github.com/pearkes/tugboat/pull/244) ([petems](https://github.com/petems))
+- \[doc\] fixing first --porcelain sample in readme [\#243](https://github.com/pearkes/tugboat/pull/243) ([seeekr](https://github.com/seeekr))
+
 ## [v2.2.2](https://github.com/pearkes/tugboat/tree/v2.2.2) (2016-02-18)
 [Full Changelog](https://github.com/pearkes/tugboat/compare/v2.2.1...v2.2.2)
 
@@ -151,7 +173,7 @@
 
 **Merged pull requests:**
 
-- Removes wrong help messages for `images`. [\#173](https://github.com/pearkes/tugboat/pull/173) ([haihappen](https://github.com/haihappen))
+- Removes wrong help messages for `images`. [\#173](https://github.com/pearkes/tugboat/pull/173) ([ream88](https://github.com/ream88))
 
 ## [v1.3.0](https://github.com/pearkes/tugboat/tree/v1.3.0) (2015-07-19)
 [Full Changelog](https://github.com/pearkes/tugboat/compare/v1.2.0...v1.3.0)
