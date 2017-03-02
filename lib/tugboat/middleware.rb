@@ -22,6 +22,7 @@ module Tugboat
     autoload :InfoImage, "tugboat/middleware/info_image"
     autoload :InjectClient, "tugboat/middleware/inject_client"
     autoload :InjectConfiguration, "tugboat/middleware/inject_configuration"
+    autoload :InjectUI, "tugboat/middleware/inject_ui"
     autoload :ListDroplets, "tugboat/middleware/list_droplets"
     autoload :ListImages, "tugboat/middleware/list_images"
     autoload :ListRegions, "tugboat/middleware/list_regions"
@@ -39,6 +40,7 @@ module Tugboat
     # This writes a ~/.tugboat file, which can be edited manually.
     def self.sequence_authorize
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use AskForCredentials
         use InjectConfiguration
@@ -51,6 +53,7 @@ module Tugboat
     # This checks that the credentials in ~/.tugboat are valid
     def self.sequence_verify
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -61,6 +64,7 @@ module Tugboat
     # Display a list of droplets
     def self.sequence_list_droplets
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -71,6 +75,7 @@ module Tugboat
     # Display a list of images
     def self.sequence_list_images
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -81,6 +86,7 @@ module Tugboat
     # Restart a droplet
     def self.sequence_restart_droplet
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -92,6 +98,7 @@ module Tugboat
     # Start a droplet
     def self.sequence_start_droplet
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -104,6 +111,7 @@ module Tugboat
     # Shutdown a droplet
     def self.sequence_halt_droplet
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -116,6 +124,7 @@ module Tugboat
     # Show information about a droplet
     def self.sequence_info_droplet
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -127,6 +136,7 @@ module Tugboat
     # Show information about an image
     def self.sequence_info_image
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -138,6 +148,7 @@ module Tugboat
     # SSH into a droplet
     def self.sequence_ssh_droplet
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -150,6 +161,7 @@ module Tugboat
     # Create a droplet
     def self.sequence_create_droplet
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -160,6 +172,7 @@ module Tugboat
     # Rebuild a droplet
     def self.sequence_rebuild_droplet
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -173,6 +186,7 @@ module Tugboat
     # Destroy a droplet
     def self.sequence_destroy_droplet
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -185,6 +199,7 @@ module Tugboat
     # Destroy an image
     def self.sequence_destroy_image
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -197,6 +212,8 @@ module Tugboat
     # Snapshot a droplet
     def self.sequence_snapshot_droplet
       ::Middleware::Builder.new do
+        use InjectUI
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -209,6 +226,7 @@ module Tugboat
     # Display a list of available SSH keys
     def self.sequence_ssh_keys
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -219,6 +237,7 @@ module Tugboat
     # Create a droplet
     def self.sequence_add_key
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -229,6 +248,7 @@ module Tugboat
     # Display a list of regions
     def self.sequence_regions
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -239,6 +259,7 @@ module Tugboat
     # Display a list of droplet sizes
     def self.sequence_sizes
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -249,6 +270,7 @@ module Tugboat
     # Resize a droplet
     def self.sequence_resize_droplet
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -260,6 +282,7 @@ module Tugboat
     # Reset root password
     def self.sequence_password_reset
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
@@ -278,6 +301,7 @@ module Tugboat
     # Wait for a droplet to enter a desired state
     def self.sequence_wait
       ::Middleware::Builder.new do
+        use InjectUI
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
