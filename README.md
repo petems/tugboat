@@ -1,6 +1,6 @@
 # Tugboat
-[![Build Status](https://travis-ci.org/pearkes/tugboat.png?branch=master)](https://travis-ci.org/pearkes/tugboat)
-[![Coverage Status](https://coveralls.io/repos/pearkes/tugboat/badge.png?branch=master)](https://coveralls.io/r/pearkes/tugboat)
+[![Build Status](https://travis-ci.org/petems/tugboat.svg?branch=master)](https://travis-ci.org/petems/tugboat)
+[![Coverage Status](https://coveralls.io/repos/petems/tugboat/badge.png?branch=master)](https://coveralls.io/r/pearkes/tugboat)
 
 A command line tool for interacting with your [DigitalOcean](https://www.digitalocean.com/) droplets.
 
