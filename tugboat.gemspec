@@ -22,6 +22,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'barge', '0.12.0'
   gem.add_dependency 'middleware', '0.1.0'
   gem.add_dependency 'faraday', '0.11.0'
+  gem.add_dependency 'hashie', '3.5.5'
 
   gem.add_development_dependency 'rake', '< 11.0'
   gem.add_development_dependency 'rspec-core', '~> 2.14.0'
