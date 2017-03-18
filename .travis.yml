@@ -7,3 +7,4 @@ rvm:
 script:
   - "bundle exec rake spec"
   - "bundle exec rake features"
+  - "bundle exec license_finder"

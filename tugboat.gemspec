@@ -38,6 +38,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'cucumber', '2.0.2'
   gem.add_development_dependency 'rubocop', '0.47.1'
   gem.add_development_dependency 'rubocop-rspec', '1.5.0'
+  gem.add_development_dependency 'license_finder'
 
   gem.post_install_message = '***************************************'
   gem.post_install_message = '   .  o ..                            '
