@@ -1,0 +1,80 @@
+---
+- - :ignore_group
+  - development
+  - :who: Peter Souter
+    :why: Development gems are not distributed with the final product and are therefore
+      exempt.
+    :versions: []
+    :when: 2017-03-18 22:26:01.054140000 Z
+- - :ignore_group
+  - test
+  - :who: Peter Souter
+    :why: Test gems are not distributed with the final product and are therefore exempt.
+    :versions: []
+    :when: 2017-03-18 22:26:06.250326000 Z
+- - :ignore
+  - bundler
+  - :who: Peter Souter
+    :why: Bundler is MIT licensed but will sometimes fail in CI.
+    :versions: []
+    :when: 2017-03-18 22:46:08.045090000 Z
+- - :whitelist
+  - MIT
+  - :who: Peter Souter
+    :why: http://choosealicense.com/licenses/mit/
+    :versions: []
+    :when: 2017-03-18 22:16:24.558441000 Z
+- - :whitelist
+  - Apache-2.0
+  - :who: Peter Souter
+    :why: http://choosealicense.com/licenses/apache-2.0/
+    :versions: []
+    :when: 2017-03-18 22:26:43.762702000 Z
+- - :whitelist
+  - Ruby
+  - :who: Peter Souter
+    :why: https://github.com/ruby/ruby/blob/ruby_2_1/COPYING
+    :versions: []
+    :when: 2017-03-18 22:36:54.498490000 Z
+- - :whitelist
+  - LGPL-2.1
+  - :who: Peter Souter
+    :why: http://www.gnu.org/licenses/license-list.html#LGPLv2.1
+    :versions: []
+    :when: 2017-03-18 22:36:48.645841000 Z
+- - :whitelist
+  - ISC
+  - :who: Peter Souter
+    :why: http://www.gnu.org/licenses/license-list.html#ISC
+    :versions: []
+    :when: 2017-03-18 22:46:01.894452000 Z
+- - :whitelist
+  - BSD-3-Clause
+  - :who: Peter Souter
+    :why: https://opensource.org/licenses/BSD-3-Clause
+    :versions: []
+    :when: 2017-03-18 22:46:38.246021000 Z
+- - :whitelist
+  - BSD-2-Clause
+  - :who: Peter Souter
+    :why: https://opensource.org/licenses/BSD-2-Clause
+    :versions: []
+    :when: 2017-03-18 22:56:09.796363000 Z
+- - :blacklist
+  - GPL 2.0
+  - :who: Peter Souter
+    :why: GPL-licensed libraries cannot be linked to from non-GPL projects.
+    :versions: []
+    :when: 2017-03-18 22:26:27.637336000 Z
+- - :blacklist
+  - GPL-3.0
+  - :who: Peter Souter
+    :why: GPL-licensed libraries cannot be linked to from non-GPL projects.
+    :versions: []
+    :when: 2017-03-18 22:26:43.904715000 Z
+- - :blacklist
+  - OSL-3.0
+  - :who: Peter Souter
+    :why: The OSL license is a copyleft license
+    :versions: []
+    :when: 2017-03-18 22:06:15.540105000 Z
