@@ -56,7 +56,7 @@ module Tugboat
           exit 1
         end
 
-        say 'Droplet created!'
+        say "Droplet created! Droplet ID is #{response.droplet[:id]}"
 
         @app.call(env)
       end
