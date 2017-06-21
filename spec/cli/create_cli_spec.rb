@@ -13,7 +13,7 @@ describe Tugboat::CLI do
       cli.create(droplet_name)
 
       expect($stdout.string).to eq <<-eos
-Queueing creation of droplet '#{droplet_name}'...Droplet created!
+Queueing creation of droplet '#{droplet_name}'...Droplet created! Droplet ID is 3164494
       eos
     end
 
@@ -27,7 +27,7 @@ Queueing creation of droplet '#{droplet_name}'...Droplet created!
       cli.create('example.com')
 
       expect($stdout.string).to eq <<-eos
-Queueing creation of droplet 'example.com'...Droplet created!
+Queueing creation of droplet 'example.com'...Droplet created! Droplet ID is 3164494
       eos
     end
 
@@ -41,7 +41,7 @@ Queueing creation of droplet 'example.com'...Droplet created!
       cli.create('example.com')
 
       expect($stdout.string).to eq <<-eos
-Queueing creation of droplet 'example.com'...Droplet created!
+Queueing creation of droplet 'example.com'...Droplet created! Droplet ID is 3164494
       eos
     end
 
@@ -55,7 +55,7 @@ Queueing creation of droplet 'example.com'...Droplet created!
       cli.create('example.com')
 
       expect($stdout.string).to eq <<-eos
-Queueing creation of droplet 'example.com'...Droplet created!
+Queueing creation of droplet 'example.com'...Droplet created! Droplet ID is 3164494
       eos
     end
 
@@ -104,7 +104,7 @@ eos
       cli.create('somethingblahblah--help')
 
       expect($stdout.string).to eq <<-eos
-Queueing creation of droplet 'somethingblahblah--help'...Droplet created!
+Queueing creation of droplet 'somethingblahblah--help'...Droplet created! Droplet ID is 3164494
       eos
     end
   end
