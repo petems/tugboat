@@ -78,3 +78,9 @@
     :why: The OSL license is a copyleft license
     :versions: []
     :when: 2017-03-18 22:06:15.540105000 Z
+- - :approve
+  - minitest
+  - :who:
+    :why: MIT licensed but in the README, can remove when this PR merged - https://github.com/seattlerb/minitest/pull/665
+    :versions: []
+    :when: 2017-06-22 15:25:27.212303000 Z
