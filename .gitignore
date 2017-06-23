@@ -13,3 +13,4 @@ pkg/*
 tmp/*
 # Added file to not force other to use it.
 .overcommit.yml
+.yardoc/

@@ -2,8 +2,8 @@ module Tugboat
   module Middleware
     class ListSizes < Base
       def call(env)
-        ocean = env['barge']
-        sizes = ocean.size.all.sizes
+        ocean = env['droplet_kit']
+        sizes = ocean.sizes.all
 
         say 'Sizes:'
         sizes.each do |size|

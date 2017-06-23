@@ -5,8 +5,8 @@ describe Tugboat::CLI do
 
   describe 'sizes' do
     it 'shows a list' do
-      stub_request(:get, 'https://api.digitalocean.com/v2/sizes?per_page=200').
-        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.11.0' }).
+      stub_request(:get, 'https://api.digitalocean.com/v2/sizes?page=1&per_page=20').
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(headers: { 'Content-Type' => 'application/json' }, status: 200, body: fixture('show_sizes'))
 
       cli.sizes
