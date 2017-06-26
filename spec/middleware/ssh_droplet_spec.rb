@@ -21,7 +21,7 @@ describe Tugboat::Middleware::SSHDroplet do
       env['droplet_ip'] = droplet_ip
       env['config'] = config
 
-      described_class.new(app).call(env)
+      expect { described_class.new(app).call(env) }.to output(/SShing with options: -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=\/dev\/null -o IdentitiesOnly=yes -i #{File.expand_path(ssh_key_path)} -p 33 baz@33.33.33.10/).to_stdout
     end
 
     it 'exec ssh with IdentitiesOnly=no if no ssh_key_path in config' do
@@ -39,7 +39,7 @@ describe Tugboat::Middleware::SSHDroplet do
 
       env['config'] = config
 
-      described_class.new(app).call(env)
+      expect { described_class.new(app).call(env) }.to output(/SShing with options: -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=\/dev\/null -o IdentitiesOnly=no -p 33 baz@33.33.33.10/).to_stdout
     end
 
     it 'executes ssh with custom options' do
@@ -63,7 +63,7 @@ describe Tugboat::Middleware::SSHDroplet do
       env['user_droplet_use_public_ip'] = true
       env['user_droplet_ssh_opts'] = '-e -q -X'
 
-      described_class.new(app).call(env)
+      expect { described_class.new(app).call(env) }.to output(/SShing with options: -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=\/dev\/null -o IdentitiesOnly=yes -i #{File.expand_path(ssh_key_path)} -p 33 -e -q -X baz@33.33.33.10 echo hello/).to_stdout
     end
 
     it 'executes ssh with private IP if option chosen' do
@@ -87,7 +87,7 @@ describe Tugboat::Middleware::SSHDroplet do
       env['user_droplet_use_private_ip'] = true
       env['user_droplet_ssh_opts'] = '-e -q -X'
 
-      described_class.new(app).call(env)
+      expect { described_class.new(app).call(env) }.to output(%r{You did! Using private IP for ssh...}).to_stdout
     end
 
     it 'errors if private IP option given but no Private IP on Droplet' do
@@ -97,9 +97,9 @@ describe Tugboat::Middleware::SSHDroplet do
       env['user_droplet_use_private_ip'] = true
       env['user_droplet_ssh_opts'] = '-e -q -X'
 
-      expect { described_class.new(app).call(env) }.to raise_error(SystemExit)
+      expect { described_class.new(app).call(env) }.to raise_error(SystemExit).and output(%r{You asked to ssh to the private IP, but no Private IP found}).to_stdout
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Executing SSH on Droplet ...
 You asked to ssh to the private IP, but no Private IP found!
       eos

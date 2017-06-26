@@ -27,26 +27,9 @@ shared_context 'spec' do
   let(:cli)                { Tugboat::CLI.new }
 
   before do
-    $stdout.sync = true
-    $stderr.sync = true
-
     # Set a temprary project path and create fake config.
     config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled, ip6, timeout)
     config.reload!
-
-    # Keep track of the old stderr / out
-    @orig_stderr = $stderr
-    @orig_stdout = $stdout
-
-    # Make them strings so we can manipulate and compare.
-    $stderr = StringIO.new
-    $stdout = StringIO.new
-  end
-
-  after do
-    # Reassign the stderr / out so rspec can have it back.
-    $stderr = @orig_stderr
-    $stdout = @orig_stdout
   end
 
   after do

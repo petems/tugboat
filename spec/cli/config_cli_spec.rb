@@ -5,9 +5,7 @@ describe Tugboat::CLI do
 
   describe 'config' do
     it 'shows the full config' do
-      cli.config
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Current Config\x20
 Path: #{Dir.pwd}/tmp/tugboat
 ---
@@ -28,13 +26,14 @@ defaults:
   backups_enabled: 'false'
   ip6: 'false'
       eos
+
+      expect { cli.config }.to output(expected_string).to_stdout
     end
 
     it 'hides sensitive data if option given' do
       cli.options = cli.options.merge(hide: true)
-      cli.config
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Current Config (Keys Redacted)
 Path: #{Dir.pwd}/tmp/tugboat
 ---
@@ -55,6 +54,8 @@ defaults:
   backups_enabled: 'false'
   ip6: 'false'
       eos
+
+      expect { cli.config }.to output(expected_string).to_stdout
     end
   end
 end

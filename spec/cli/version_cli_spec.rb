@@ -6,9 +6,8 @@ describe Tugboat::CLI do
   describe 'version' do
     it 'shows the correct version' do
       cli.options = cli.options.merge(version: true)
-      cli.version
 
-      expect($stdout.string.chomp).to eq("Tugboat #{Tugboat::VERSION}")
+      expect { cli.version }.to output("Tugboat #{Tugboat::VERSION}\n").to_stdout
     end
   end
 end
