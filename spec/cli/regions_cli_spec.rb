@@ -9,9 +9,7 @@ describe Tugboat::CLI do
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('show_regions'), headers: { 'Content-Type' => 'application/json' })
 
-      cli.regions
-
-      expect($stdout.string).to eq <<-eos
+      expected_string =   <<-eos
 Regions:
 Amsterdam 1 (slug: ams1)
 Amsterdam 2 (slug: ams2)
@@ -23,6 +21,8 @@ New York 3 (slug: nyc3)
 San Francisco 1 (slug: sfo1)
 Singapore 1 (slug: sgp1)
       eos
+
+      expect { cli.regions }.to output(expected_string).to_stdout
 
       expect(a_request(:get, 'https://api.digitalocean.com/v2/regions?page=1&per_page=20')).
         to have_been_made
