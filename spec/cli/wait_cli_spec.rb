@@ -17,13 +17,13 @@ describe Tugboat::CLI do
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-      cli.options = cli.options.merge(state: 'active')
-      cli.wait('example.com')
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Waiting for droplet to become active..done\e[0m (0s)
 eos
+
+      cli.options = cli.options.merge(state: 'active')
+      expect { cli.wait('example.com') }.to output(expected_string).to_stdout
     end
 
     it 'loops whilst it waits for state' do
@@ -42,13 +42,13 @@ eos
           status: 200, body: fixture('show_droplet'), headers: {}
         )
 
-      cli.options = cli.options.merge(state: 'active')
-      cli.wait('example.com')
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Waiting for droplet to become active...done\e[0m (2s)
 eos
+
+      cli.options = cli.options.merge(state: 'active')
+      expect { cli.wait('example.com') }.to output(expected_string).to_stdout
     end
 
     it 'waits for a droplet with an id' do
@@ -60,13 +60,13 @@ eos
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-      cli.options = cli.options.merge(id: '6918990', state: 'active')
-      cli.wait
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
 Waiting for droplet to become active..done\e[0m (0s)
       eos
+
+      cli.options = cli.options.merge(id: '6918990', state: 'active')
+      expect { cli.wait }.to output(expected_string).to_stdout
     end
 
     it 'waits for a droplet with a name' do
@@ -82,13 +82,13 @@ Waiting for droplet to become active..done\e[0m (0s)
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-      cli.options = cli.options.merge(name: 'example.com', state: 'active')
-      cli.wait
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Waiting for droplet to become active..done\e[0m (0s)
 eos
+
+      cli.options = cli.options.merge(name: 'example.com', state: 'active')
+      expect { cli.wait }.to output(expected_string).to_stdout
     end
   end
 end

@@ -12,7 +12,7 @@ describe Tugboat::Middleware::CheckCredentials do
       # Inject the client.
       env['barge'] = ocean
 
-      expect { described_class.new(app).call(env) }.to raise_error(SystemExit)
+      expect { described_class.new(app).call(env) }.to raise_error(SystemExit).and output(%r{Failed to connect to DigitalOcean. Reason given from API: unauthorized - Unable to authenticate you.}).to_stdout
       expect(a_request(:get, 'https://api.digitalocean.com/v2/droplets?page=1&per_page=1')).
         to have_been_made
     end
