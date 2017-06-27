@@ -14,11 +14,11 @@ describe Tugboat::Middleware::InjectClient do
     it 'loads the client into the environment' do
       described_class.new(app).call(env)
 
-      env['barge'].should be_a Barge::Client
+      expect(env['barge']).to be_a Barge::Client
     end
 
     it 'creates a client with values from config file' do
-      Barge::Client.should_receive(:new).with(hash_including(access_token: 'foo'))
+      expect(Barge::Client).to receive(:new).with(hash_including(access_token: 'foo'))
 
       described_class.new(app).call(env)
     end

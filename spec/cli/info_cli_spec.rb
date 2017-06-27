@@ -152,7 +152,7 @@ Backups Active:   false
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-      $stdin.should_receive(:gets).and_return('0')
+      expect($stdin).to receive(:gets).and_return('0')
 
       cli.info('examp')
 

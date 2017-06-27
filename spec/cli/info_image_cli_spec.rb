@@ -125,7 +125,7 @@ Unable to find an image named 'foobarbaz'.
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('ubuntu_image_9801951'), headers: {})
 
-      $stdin.should_receive(:gets).and_return('0')
+      expect($stdin).to receive(:gets).and_return('0')
 
       cli.info_image('ubun')
 
