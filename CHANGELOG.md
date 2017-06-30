@@ -1,5 +1,15 @@
 # Change Log
 
+## [v3.0.0](https://github.com/petems/tugboat/tree/v3.0.0) (2017-06-30)
+[Full Changelog](https://github.com/petems/tugboat/compare/v2.2.4...v3.0.0)
+
+**Merged pull requests:**
+
+- Transpec changes to spec [\#268](https://github.com/petems/tugboat/pull/268) ([petems](https://github.com/petems))
+- Adding exception for Minitest [\#267](https://github.com/petems/tugboat/pull/267) ([petems](https://github.com/petems))
+- Print the Droplet ID after create [\#266](https://github.com/petems/tugboat/pull/266) ([petems](https://github.com/petems))
+- droplet\_kit Refactor [\#261](https://github.com/petems/tugboat/pull/261) ([petems](https://github.com/petems))
+
 ## [v2.2.4](https://github.com/petems/tugboat/tree/v2.2.4) (2017-03-18)
 [Full Changelog](https://github.com/petems/tugboat/compare/v2.2.3...v2.2.4)
 
