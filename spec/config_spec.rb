@@ -43,7 +43,7 @@ describe Tugboat::Configuration do
     end
 
     it 'can be created' do
-      expect(File.exist?(tmp_path)).to be_true
+      expect(File.exist?(tmp_path)).to be_truthy
     end
 
     it 'can be loaded' do
