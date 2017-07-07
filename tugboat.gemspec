@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths         = ['lib']
   gem.required_ruby_version = '>= 1.9.2'
 
-  gem.add_dependency 'thor', '0.18.1'
+  gem.add_dependency 'thor', '0.19.4'
   gem.add_dependency 'barge', '0.12.0'
   gem.add_dependency 'droplet_kit', '2.2.0'
   gem.add_dependency 'ibsciss-middleware', '0.4.2'
@@ -35,7 +35,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'webmock', '3.0.1'
   gem.add_development_dependency 'simplecov', '0.14.1'
   gem.add_development_dependency 'simplecov-console', '0.4.2'
-  gem.add_development_dependency 'coveralls', '0.7.2'
+  gem.add_development_dependency 'coveralls', '0.8.21'
   gem.add_development_dependency 'aruba', '0.8.1'
   gem.add_development_dependency 'pry', '0.10.4'
   gem.add_development_dependency 'rb-readline', '0.5.4'
