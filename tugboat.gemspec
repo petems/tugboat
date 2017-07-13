@@ -44,6 +44,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rubocop', '0.49.1'
   gem.add_development_dependency 'rubocop-rspec', '1.15.1'
   gem.add_development_dependency 'license_finder', '3.0.0'
+  gem.add_development_dependency 'github_changelog_generator'
 
   gem.post_install_message = '***************************************'
   gem.post_install_message = '   .  o ..                            '

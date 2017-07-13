@@ -17,3 +17,17 @@ RuboCop::RakeTask.new(:rubocop) do |t|
 end
 
 task default: [:spec, :features]
+
+begin
+  require 'github_changelog_generator/task'
+  GitHubChangelogGenerator::RakeTask.new :changelog do |config|
+    require 'tugboat/version'
+    version = Tugboat::VERSION
+    config.user = 'petems'
+    config.project = 'tugboat'
+    config.future_release = "v#{version}"
+    config.header = "# Change log\n\nAll notable changes to this project will be documented in this file."
+    config.exclude_labels = %w{duplicate question invalid wontfix}
+  end
+rescue LoadError
+end

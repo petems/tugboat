@@ -1,4 +1,23 @@
-# Change Log
+# Change log
+
+All notable changes to this project will be documented in this file.
+
+## [v3.1.0](https://github.com/petems/tugboat/tree/v3.1.0) (2017-07-13)
+[Full Changelog](https://github.com/petems/tugboat/compare/v3.0.0...v3.1.0)
+
+**Closed issues:**
+
+- Arbitrary Code Injection Or Denial Of Service \(DoS\) Through Unsafe Middleware in petems/tugboat \(master\) [\#272](https://github.com/petems/tugboat/issues/272)
+- Insecure Storage Of Cache Files in petems/tugboat \(master\) [\#271](https://github.com/petems/tugboat/issues/271)
+- Cross-site Scripting \(XSS\) Through Unescaped JSON String in petems/tugboat \(master\) [\#270](https://github.com/petems/tugboat/issues/270)
+
+**Merged pull requests:**
+
+- Updates for Ruby 2.4.1 [\#277](https://github.com/petems/tugboat/pull/277) ([petems](https://github.com/petems))
+- Update middleware gem [\#276](https://github.com/petems/tugboat/pull/276) ([petems](https://github.com/petems))
+- Update Rubocop [\#275](https://github.com/petems/tugboat/pull/275) ([petems](https://github.com/petems))
+- Switch to safe\_yaml fork [\#274](https://github.com/petems/tugboat/pull/274) ([petems](https://github.com/petems))
+- Update activesupport [\#273](https://github.com/petems/tugboat/pull/273) ([petems](https://github.com/petems))
 
 ## [v3.0.0](https://github.com/petems/tugboat/tree/v3.0.0) (2017-06-30)
 [Full Changelog](https://github.com/petems/tugboat/compare/v2.2.4...v3.0.0)
