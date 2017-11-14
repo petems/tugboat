@@ -20,6 +20,7 @@ module Tugboat
     DEFAULT_PRIVATE_NETWORKING = 'false'.freeze
     DEFAULT_BACKUPS_ENABLED = 'false'.freeze
     DEFAULT_USER_DATA = nil
+    DEFAULT_TIMEOUT = 90
 
     # Load config file from current directory, if not exit load from user's home directory
     def initialize
@@ -93,6 +94,10 @@ module Tugboat
 
     def env_access_token
       ENV['DO_API_TOKEN'] unless ENV['DO_API_TOKEN'].to_s.empty?
+    end
+
+    def timeout
+      @data['timeout'].nil? ? DEFAULT_TIMEOUT : @data['timeout']
     end
 
     # Re-runs initialize
