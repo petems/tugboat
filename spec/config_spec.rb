@@ -34,12 +34,13 @@ describe Tugboat::Configuration do
     let(:private_networking) { 'false' }
     let(:backups_enabled)    { 'false' }
     let(:ip6)                { 'false' }
+    let(:timeout)            { '30' }
 
     let(:config) { described_class.instance }
 
     before do
       # Create a temporary file
-      config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled, ip6)
+      config.create_config_file(access_token, ssh_key_path, ssh_user, ssh_port, region, image, size, ssh_key_id, private_networking, backups_enabled, ip6, timeout)
     end
 
     it 'can be created' do
@@ -90,6 +91,11 @@ describe Tugboat::Configuration do
     it 'has backups_enabled set' do
       backups_enabled = data['defaults']
       expect(backups_enabled).to have_key('backups_enabled')
+    end
+
+    it 'has timeout set' do
+      timeout_set = data['connection']
+      expect(timeout_set).to have_key('timeout')
     end
   end
   describe 'backwards compatible' do

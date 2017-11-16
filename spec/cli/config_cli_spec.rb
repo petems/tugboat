@@ -13,6 +13,8 @@ Path: #{Dir.pwd}/tmp/tugboat
 ---
 authentication:
   access_token: foo
+connection:
+  timeout: '15'
 ssh:
   ssh_user: baz
   ssh_key_path: ~/.ssh/id_rsa2
@@ -38,6 +40,8 @@ Path: #{Dir.pwd}/tmp/tugboat
 ---
 authentication:
   access_token:\x20\x20[REDACTED]
+connection:
+  timeout: '15'
 ssh:
   ssh_user: baz
   ssh_key_path: ~/.ssh/id_rsa2
