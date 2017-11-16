@@ -66,11 +66,17 @@ module Tugboat
                   default: false,
                   aliases: '-i',
                   desc: 'Include URLs for the droplets (can be opened in a browser)'
+    method_option 'per_page',
+                  type: :boolean,
+                  default: 20,
+                  aliases: '-p',
+                  desc: 'Chose how many results to fetch from the DigitalOcean API (larger is slower)'
     desc 'droplets [OPTIONS]', 'Retrieve a list of your droplets'
     def droplets
       Middleware.sequence_list_droplets.call('tugboat_action' => __method__,
                                              'user_quiet' => options[:quiet],
-                                             'include_urls' => options['include_urls'])
+                                             'include_urls' => options['include_urls'],
+                                             'per_page' => options['per_page'],)
     end
 
     desc 'images [OPTIONS]', 'Retrieve a list of images'
