@@ -23,14 +23,15 @@ describe Tugboat::CLI do
         to_return(status: 201, body: fixture('create_ssh_key'), headers: {})
 
       cli.options = cli.options.merge(key: ssh_public_key.to_s)
-      cli.add_key(ssh_key_name)
 
-      expect($stdout.string).to eq <<-eos
+      add_key_with_name_and_keystring = <<-eos
 Queueing upload of SSH key 'macbook_pro'...SSH Key uploaded
 
 Name: macbook_pro
 ID: 3
       eos
+
+      expect { cli.add_key(ssh_key_name) }.to output(add_key_with_name_and_keystring).to_stdout
 
       expect(a_request(:post, 'https://api.digitalocean.com/v2/account/keys')).to have_been_made
     end
@@ -52,23 +53,20 @@ ID: 3
              headers: { 'Accept' => '*/*', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json' }).
         to_return(status: 201, body: fixture('create_ssh_key_from_file'), headers: {})
 
-      expect($stdout).to receive(:print).exactly(4).times
-      expect($stdout).to receive(:print).with('Enter the path to your SSH key: ')
-      expect($stdout).to receive(:print).with("Queueing upload of SSH key '#{ssh_key_name}'...")
       expect($stdin).to receive(:gets).and_return("#{fake_home}/.ssh/id_rsa.pub")
 
-      cli.add_key(ssh_key_name)
-
-      expect($stdout.string).to eq <<-eos
+      with_name_prompts_from_file_folder_stdout = <<-eos
 Possible public key paths from #{fake_home}/.ssh:
 
 #{fake_home}/.ssh/id_rsa.pub
 
-SSH Key uploaded
+Enter the path to your SSH key: Queueing upload of SSH key 'macbook_pro'...SSH Key uploaded
 
 Name: cool_key
 ID: 5
       eos
+
+      expect { cli.add_key(ssh_key_name) }.to output(with_name_prompts_from_file_folder_stdout).to_stdout
     end
 
     after do

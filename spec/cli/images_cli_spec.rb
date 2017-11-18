@@ -13,9 +13,7 @@ describe Tugboat::CLI do
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('show_images_global'), headers: {})
 
-      cli.images
-
-      expect($stdout.string).to eq <<-eos
+      expected_string =   <<-eos
 Showing both private and public images
 Private Images:
 My application image (id: 6376601, distro: Ubuntu)
@@ -71,6 +69,8 @@ MediaWiki 1.24.2 on 14.04 (slug: mediawiki, id: 11716043, distro: Ubuntu)
 PHPMyAdmin on 14.04 (slug: phpmyadmin, id: 11730661, distro: Ubuntu)
 Redmine on 14.04 (slug: redmine, id: 12438838, distro: Ubuntu)
       eos
+
+      expect { cli.images }.to output(expected_string).to_stdout
     end
 
     it 'acknowledges when personal images are empty when showing default full list' do
@@ -83,9 +83,8 @@ Redmine on 14.04 (slug: redmine, id: 12438838, distro: Ubuntu)
         to_return(status: 200, body: fixture('show_images_empty'), headers: {})
 
       cli.options = cli.options.merge(show_private_images: true)
-      cli.images
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Showing both private and public images
 Private Images:
 No private images found
@@ -141,6 +140,8 @@ MediaWiki 1.24.2 on 14.04 (slug: mediawiki, id: 11716043, distro: Ubuntu)
 PHPMyAdmin on 14.04 (slug: phpmyadmin, id: 11730661, distro: Ubuntu)
 Redmine on 14.04 (slug: redmine, id: 12438838, distro: Ubuntu)
       eos
+
+      expect { cli.images }.to output(expected_string).to_stdout
     end
 
     it 'acknowledges when personal images are empty when just show private images flag given' do
@@ -153,13 +154,14 @@ Redmine on 14.04 (slug: redmine, id: 12438838, distro: Ubuntu)
         to_return(status: 200, body: fixture('show_images_empty'), headers: {})
 
       cli.options = cli.options.merge(show_just_private_images: true)
-      cli.images
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Showing just private images
 Private Images:
 No private images found
       eos
+
+      expect { cli.images }.to output(expected_string).to_stdout
     end
   end
 end

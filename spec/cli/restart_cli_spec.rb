@@ -18,12 +18,12 @@ describe Tugboat::CLI do
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('restart_response'), headers: {})
 
-      cli.restart('example.com')
-
-      expect($stdout.string).to eq <<-eos
+      expected_string =   <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Queuing restart for 6918990 (example.com)...Restart complete!
       eos
+
+      expect { cli.restart('example.com') }.to output(expected_string).to_stdout
     end
 
     it 'restarts a droplet hard when the hard option is used' do
@@ -41,12 +41,13 @@ Queuing restart for 6918990 (example.com)...Restart complete!
         to_return(status: 200, body: '', headers: {})
 
       cli.options = cli.options.merge(hard: true)
-      cli.restart('example.com')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Queuing hard restart for 6918990 (example.com)...Restart complete!
       eos
+
+      expect { cli.restart('example.com') }.to output(expected_string).to_stdout
     end
 
     it 'with an id' do
@@ -64,12 +65,13 @@ Queuing hard restart for 6918990 (example.com)...Restart complete!
         to_return(status: 200, body: fixture('restart_response'), headers: {})
 
       cli.options = cli.options.merge(id: '6918990')
-      cli.restart
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
 Queuing restart for 6918990 (example.com)...Restart complete!
       eos
+
+      expect { cli.restart }.to output(expected_string).to_stdout
     end
 
     it 'with a name' do
@@ -86,13 +88,13 @@ Queuing restart for 6918990 (example.com)...Restart complete!
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('restart_response'), headers: {})
 
-      cli.options = cli.options.merge(name: 'example.com')
-      cli.restart
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Queuing restart for 6918990 (example.com)...Restart complete!
       eos
+
+      cli.options = cli.options.merge(name: 'example.com')
+      expect { cli.restart }.to output(expected_string).to_stdout
     end
   end
 end

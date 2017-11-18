@@ -10,11 +10,11 @@ describe Tugboat::CLI do
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('create_droplet'), headers: {})
 
-      cli.create(droplet_name)
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Queueing creation of droplet '#{droplet_name}'...Droplet created! Droplet ID is 3164494
       eos
+
+      expect { cli.create(droplet_name) }.to output(expected_string).to_stdout
     end
 
     it 'with args does not use defaults from configuration' do
@@ -24,11 +24,12 @@ Queueing creation of droplet '#{droplet_name}'...Droplet created! Droplet ID is 
         to_return(status: 200, body: fixture('create_droplet'), headers: {})
 
       cli.options = cli.options.merge(image: 'ubuntu-12-04-x64', size: '1gb', region: 'nyc3', keys: 'foo_bar_key')
-      cli.create('example.com')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Queueing creation of droplet 'example.com'...Droplet created! Droplet ID is 3164494
       eos
+
+      expect { cli.create('example.com') }.to output(expected_string).to_stdout
     end
 
     it 'with ip6 enable args' do
@@ -38,11 +39,12 @@ Queueing creation of droplet 'example.com'...Droplet created! Droplet ID is 3164
         to_return(status: 200, body: fixture('create_droplet'), headers: {})
 
       cli.options = cli.options.merge(ip6: 'true')
-      cli.create('example.com')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Queueing creation of droplet 'example.com'...Droplet created! Droplet ID is 3164494
       eos
+
+      expect { cli.create('example.com') }.to output(expected_string).to_stdout
     end
 
     it 'with user data args' do
@@ -52,26 +54,28 @@ Queueing creation of droplet 'example.com'...Droplet created! Droplet ID is 3164
         to_return(status: 200, body: fixture('create_droplet'), headers: {})
 
       cli.options = cli.options.merge(user_data: project_path + '/spec/fixtures/user_data.sh')
-      cli.create('example.com')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Queueing creation of droplet 'example.com'...Droplet created! Droplet ID is 3164494
       eos
+
+      expect { cli.create('example.com') }.to output(expected_string).to_stdout
     end
 
     it 'fails when user data file does not exist' do
       cli.options = cli.options.merge(user_data: '/foo/bar/baz.sh')
-      expect { cli.create('example.com') }.to raise_error(SystemExit)
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Queueing creation of droplet 'example.com'...Could not find file: /foo/bar/baz.sh, check your user_data setting
       eos
+
+      expect { expect { cli.create('example.com') }.to raise_error(SystemExit) }.to output(expected_string).to_stdout
     end
 
     context "doesn't create a droplet when mistyping help command" do
       ['help', '--help', '-h'].each do |help_attempt|
         it "tugboat create #{help_attempt}" do
-          help_text = <<-eos
+          expected_string = <<-eos
 Usage:
   rspec create NAME
 
@@ -89,8 +93,7 @@ Options:
 Create a droplet.
 eos
 
-          cli.create(help_attempt)
-          expect($stdout.string).to eq help_text
+          expect { cli.create(help_attempt) }.to output(expected_string).to_stdout
         end
       end
     end
@@ -101,11 +104,11 @@ eos
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('create_droplet'), headers: {})
 
-      cli.create('somethingblahblah--help')
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Queueing creation of droplet 'somethingblahblah--help'...Droplet created! Droplet ID is 3164494
       eos
+
+      expect { cli.create('somethingblahblah--help') }.to output(expected_string).to_stdout
     end
   end
 end
