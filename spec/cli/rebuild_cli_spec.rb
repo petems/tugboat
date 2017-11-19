@@ -24,13 +24,13 @@ describe Tugboat::CLI do
 
       expect($stdin).to receive(:gets).and_return('y')
 
-      cli.rebuild('example.com', 'ubuntu-14-04-x64')
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Image fuzzy name provided. Finding image ID...done\e[0m, 12790328 (14.04 x64)
 Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
+
+      expect { cli.rebuild('example.com', 'ubuntu-14-04-x64') }.to output(expected_string).to_stdout
     end
 
     it 'rebuilds a droplet with an id based on an image with a fuzzy name' do
@@ -54,13 +54,14 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
       expect($stdin).to receive(:gets).and_return('y')
 
       cli.options = cli.options.merge(id: '12790328')
-      cli.rebuild('example.com', 'ubuntu-14-04-x64')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
 Image fuzzy name provided. Finding image ID...done\e[0m, 12790328 (14.04 x64)
 Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
+
+      expect { cli.rebuild('example.com', 'ubuntu-14-04-x64') }.to output(expected_string).to_stdout
     end
 
     it 'rebuilds a droplet with a name based on an image with a fuzzy name' do
@@ -88,13 +89,14 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
       expect($stdin).to receive(:gets).and_return('y')
 
       cli.options = cli.options.merge(name: 'example.com')
-      cli.rebuild('example.com', 'ubuntu-14-04-x64')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Image fuzzy name provided. Finding image ID...done\e[0m, 12790328 (14.04 x64)
 Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
+
+      expect { cli.rebuild('example.com', 'ubuntu-14-04-x64') }.to output(expected_string).to_stdout
     end
 
     it 'rebuilds a droplet with a fuzzy name based on an image with an id' do
@@ -125,14 +127,14 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
 
       expect($stdin).to receive(:gets).and_return('y')
 
-      cli.options = cli.options.merge(image_id: 12_790_328)
-      cli.rebuild('example.com', 'ubuntu-14-04-x64')
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Image id provided. Finding Image...done\e[0m, 6376601 (My application image)
 Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 6376601 (My application image)...Rebuild complete
       eos
+
+      cli.options = cli.options.merge(image_id: 12_790_328)
+      expect { cli.rebuild('example.com', 'ubuntu-14-04-x64') }.to output(expected_string).to_stdout
     end
 
     it 'rebuilds a droplet with an id based on an image with an id' do
@@ -164,13 +166,14 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
       expect($stdin).to receive(:gets).and_return('y')
 
       cli.options = cli.options.merge(id: '12790328', image_id: 12_790_328)
-      cli.rebuild('example.com', 'ubuntu-14-04-x64')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
 Image id provided. Finding Image...done\e[0m, 6376601 (My application image)
 Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 6376601 (My application image)...Rebuild complete
       eos
+
+      expect { cli.rebuild('example.com', 'ubuntu-14-04-x64') }.to output(expected_string).to_stdout
     end
 
     it 'rebuilds a droplet with a name based on an image with an id' do
@@ -202,13 +205,14 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
       expect($stdin).to receive(:gets).and_return('y')
 
       cli.options = cli.options.merge(name: 'example.com', image_id: 12_790_328)
-      cli.rebuild('example.com', 'ubuntu-14-04-x64')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Image id provided. Finding Image...done\e[0m, 6376601 (My application image)
 Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 6376601 (My application image)...Rebuild complete
       eos
+
+      expect { cli.rebuild('example.com', 'ubuntu-14-04-x64') }.to output(expected_string).to_stdout
     end
 
     it 'rebuilds a droplet with a fuzzy name based on an image with a name' do
@@ -233,13 +237,13 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
 
       cli.options = cli.options.merge(image_name: '14.04 x64')
 
-      cli.rebuild('example.com', 'ubuntu-14-04-x64')
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Image name provided. Finding Image...done\e[0m, 12790328 (14.04 x64)
 Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
+
+      expect { cli.rebuild('example.com', 'ubuntu-14-04-x64') }.to output(expected_string).to_stdout
     end
 
     it 'rebuilds a droplet with an id based on an image with a name' do
@@ -267,13 +271,14 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
       expect($stdin).to receive(:gets).and_return('y')
 
       cli.options = cli.options.merge(id: '12790328', image_name: '14.04 x64')
-      cli.rebuild('example.com', '14.04 x64')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
 Image name provided. Finding Image...done\e[0m, 12790328 (14.04 x64)
 Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
+
+      expect { cli.rebuild('example.com', '14.04 x64') }.to output(expected_string).to_stdout
     end
 
     it 'rebuilds a droplet with a name based on an image with a name' do
@@ -297,13 +302,14 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
       expect($stdin).to receive(:gets).and_return('y')
 
       cli.options = cli.options.merge(name: 'example.com', image_name: '14.04 x64')
-      cli.rebuild('example.com', '14.04 x64')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Image name provided. Finding Image...done\e[0m, 12790328 (14.04 x64)
 Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
+
+      expect { cli.rebuild('example.com', '14.04 x64') }.to output(expected_string).to_stdout
     end
 
     it 'rebuilds a droplet with confirm flag set' do
@@ -325,13 +331,14 @@ Warning! Potentially destructive action. Please confirm [y/n]: Queuing rebuild f
         to_return(status: 200, body: '', headers: {})
 
       cli.options = cli.options.merge(confirm: 'no')
-      cli.rebuild('example.com', '14.04 x64')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Image fuzzy name provided. Finding image ID...done\e[0m, 12790328 (14.04 x64)
 Queuing rebuild for droplet 6918990 (example.com) with image 12790328 (14.04 x64)...Rebuild complete
       eos
+
+      expect { cli.rebuild('example.com', '14.04 x64') }.to output(expected_string).to_stdout
     end
   end
 end
