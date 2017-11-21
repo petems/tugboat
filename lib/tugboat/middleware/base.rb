@@ -31,15 +31,26 @@ module Tugboat
 
       def verify_credentials(ocean, say_success = false)
         begin
-          response = ocean.droplet.all(per_page: '1', page: '1')
+          if ocean.is_a?(DropletKit::Client)
+            response = ocean.droplets.all(per_page: '1', page: '1')
+
+            begin
+              response.first
+            rescue DropletKit::Error => e
+              say "Failed to connect to DigitalOcean. Reason given from API:\n#{e}", :red
+              exit 1
+            end
+          else
+            response = ocean.droplet.all(per_page: '1', page: '1')
+
+            unless response.success?
+              say "Failed to connect to DigitalOcean. Reason given from API: #{response.id} - #{response.message}", :red
+              exit 1
+            end
+          end
         rescue Faraday::ClientError => e
           say 'Authentication with DigitalOcean failed at an early stage'
           say "Error was: #{e}"
-          exit 1
-        end
-
-        unless response.success?
-          say "Failed to connect to DigitalOcean. Reason given from API: #{response.id} - #{response.message}", :red
           exit 1
         end
 
@@ -80,19 +91,26 @@ module Tugboat
       end
 
       # Get all pages of droplets
-      def get_droplet_list(ocean)
+      def get_droplet_list(ocean, per_page = 20)
         verify_credentials(ocean)
 
-        page = ocean.droplet.all(per_page: 200, page: 1)
-        return page.droplets unless page.paginated?
+        # Allow both Barge and DropletKit usage
+        if ocean.is_a?(DropletKit::Client)
+          # DropletKit self-paginates
+          pages = ocean.droplets.all(per_page: per_page)
+        else
+          page = ocean.droplet.all(per_page: 200, page: 1)
+          return page.droplets unless page.paginated?
 
-        Enumerator.new do |enum|
-          page.droplets.each { |drop| enum.yield drop }
-          for page_num in 2..page.last_page
-            page = ocean.droplet.all(per_page: 200, page: page_num)
+          Enumerator.new do |enum|
             page.droplets.each { |drop| enum.yield drop }
+            for page_num in 2..page.last_page
+              page = ocean.droplet.all(per_page: 200, page: page_num)
+              page.droplets.each { |drop| enum.yield drop }
+            end
           end
         end
+
       end
     end
   end

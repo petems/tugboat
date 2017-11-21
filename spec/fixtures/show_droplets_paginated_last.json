@@ -248,7 +248,10 @@
     }
   ],
   "links": {
-
+    "pages": {
+      "last": "https://api.digitalocean.com/v2/droplets?page=2&per_page=3",
+      "next": "https://api.digitalocean.com/v2/droplets?page=2&per_page=3"
+    }
   },
   "meta": {
     "total": 4

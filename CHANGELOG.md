@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v4.0.0](https://github.com/petems/tugboat/tree/v4.0.0) (2017-11-21)
+[Full Changelog](https://github.com/petems/tugboat/compare/v3.1.0...v4.0.0)
+
+**Fixed bugs:**
+
+- Release Tugboat for 2.4.1 support [\#279](https://github.com/petems/tugboat/issues/279)
+
+**Merged pull requests:**
+
+- Changes debug output to allow multiple regex [\#286](https://github.com/petems/tugboat/pull/286) ([petems](https://github.com/petems))
+- Switches `$stdout` redirection to rspec method [\#285](https://github.com/petems/tugboat/pull/285) ([petems](https://github.com/petems))
+- Change listing droplets to use DK [\#284](https://github.com/petems/tugboat/pull/284) ([petems](https://github.com/petems))
+- Add configurable timeout to config file [\#283](https://github.com/petems/tugboat/pull/283) ([petems](https://github.com/petems))
+
 ## [v3.1.0](https://github.com/petems/tugboat/tree/v3.1.0) (2017-07-13)
 [Full Changelog](https://github.com/petems/tugboat/compare/v3.0.0...v3.1.0)
 
@@ -334,7 +348,7 @@ All notable changes to this project will be documented in this file.
 
 - destroy and info command [\#91](https://github.com/petems/tugboat/pull/91) ([PierreFrisch](https://github.com/PierreFrisch))
 - Add rebuild command [\#90](https://github.com/petems/tugboat/pull/90) ([PierreFrisch](https://github.com/PierreFrisch))
-- Fuzzy name searching is now case insensitive [\#88](https://github.com/petems/tugboat/pull/88) ([Vel0x](https://github.com/Vel0x))
+- Fuzzy name searching is now case insensitive [\#88](https://github.com/petems/tugboat/pull/88) ([dalemyers](https://github.com/dalemyers))
 - global: add a -q/--quiet flag [\#87](https://github.com/petems/tugboat/pull/87) ([pearkes](https://github.com/pearkes))
 - Add backups\_enabled option on droplet creation \(-b true\) [\#82](https://github.com/petems/tugboat/pull/82) ([4n3w](https://github.com/4n3w))
 

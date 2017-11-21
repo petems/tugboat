@@ -5,13 +5,13 @@ describe Tugboat::CLI do
 
   describe 'help' do
     it 'shows a help message' do
-      cli.help
-      expect($stdout.string).to match('Commands:')
+      expected_string = %r{To learn more or to contribute, please see}
+      expect { cli.help }.to output(expected_string).to_stdout
     end
 
     it 'shows a help message for specific commands' do
-      cli.help 'sizes'
-      expect($stdout.string).to match('Usage:')
+      expected_string = %r{Show available droplet sizes}
+      expect { cli.help 'sizes' }.to output(expected_string).to_stdout
     end
   end
 end

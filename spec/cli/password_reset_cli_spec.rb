@@ -18,13 +18,13 @@ describe Tugboat::CLI do
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('password_reset_response'), headers: {})
 
-      cli.password_reset('example.com')
-
-      expect($stdout.string).to eq <<-eos
+      expected_string =   <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Queuing password reset for 6918990 (example.com)...Password reset successful!
 Your new root password will be emailed to you
       eos
+
+      expect { cli.password_reset('example.com') }.to output(expected_string).to_stdout
     end
 
     it 'resets the root password given an id' do
@@ -45,14 +45,14 @@ Your new root password will be emailed to you
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('password_reset_response'), headers: {})
 
-      cli.options = cli.options.merge(id: 6_918_990)
-      cli.password_reset
-
-      expect($stdout.string).to eq <<-eos
+      expected_string =   <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
 Queuing password reset for 6918990 (example.com)...Password reset successful!
 Your new root password will be emailed to you
       eos
+
+      cli.options = cli.options.merge(id: 6_918_990)
+      expect { cli.password_reset }.to output(expected_string).to_stdout
     end
 
     it 'resets the root password given a name' do
@@ -69,14 +69,14 @@ Your new root password will be emailed to you
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('password_reset_response'), headers: {})
 
-      cli.options = cli.options.merge(name: 'example.com')
-      cli.password_reset
-
-      expect($stdout.string).to eq <<-eos
+      expected_string =   <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Queuing password reset for 6918990 (example.com)...Password reset successful!
 Your new root password will be emailed to you
       eos
+
+      cli.options = cli.options.merge(name: 'example.com')
+      expect { cli.password_reset }.to output(expected_string).to_stdout
     end
 
     it 'raises SystemExit when a request fails' do
@@ -95,7 +95,7 @@ Your new root password will be emailed to you
 
       cli.options = cli.options.merge(name: 'example.com')
 
-      expect { cli.password_reset('example.com') }.to raise_error(SystemExit)
+      expect { cli.password_reset('example.com') }.to raise_error(SystemExit).and output(%r{Failed to reset password on Droplet: Some error}).to_stdout
     end
   end
 end

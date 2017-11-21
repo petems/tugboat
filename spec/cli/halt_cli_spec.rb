@@ -18,12 +18,12 @@ describe Tugboat::CLI do
              headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('shutdown_response'), headers: {})
 
-      cli.halt('example.com')
-
-      expect($stdout.string).to eq <<-eos
+      expected_string =   <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Queuing shutdown for 6918990 (example.com)...Halt successful!
       eos
+
+      expect { cli.halt('example.com') }.to output(expected_string).to_stdout
     end
 
     it 'halts a droplet hard when the hard option is used' do
@@ -41,12 +41,13 @@ Queuing shutdown for 6918990 (example.com)...Halt successful!
         to_return(status: 200, body: '', headers: {})
 
       cli.options = cli.options.merge(hard: true)
-      cli.halt('example.com')
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Queuing hard shutdown for 6918990 (example.com)...Halt successful!
       eos
+
+      expect { cli.halt('example.com') }.to output(expected_string).to_stdout
     end
 
     it 'halts a droplet with an id' do
@@ -68,12 +69,13 @@ Queuing hard shutdown for 6918990 (example.com)...Halt successful!
         to_return(status: 200, body: fixture('shutdown_response'), headers: {})
 
       cli.options = cli.options.merge(id: '6918990')
-      cli.halt
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet id provided. Finding Droplet...done\e[0m, 6918990 (example.com)
 Queuing shutdown for 6918990 (example.com)...Halt successful!
       eos
+
+      expect { cli.halt }.to output(expected_string).to_stdout
     end
 
     it 'halts a droplet with a name' do
@@ -91,12 +93,13 @@ Queuing shutdown for 6918990 (example.com)...Halt successful!
         to_return(status: 200, body: fixture('shutdown_response'), headers: {})
 
       cli.options = cli.options.merge(name: 'example.com')
-      cli.halt
 
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
 Queuing shutdown for 6918990 (example.com)...Halt successful!
       eos
+
+      expect { cli.halt }.to output(expected_string).to_stdout
     end
 
     it 'does not halt a droplet that is off' do
@@ -108,13 +111,13 @@ Queuing shutdown for 6918990 (example.com)...Halt successful!
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
         to_return(status: 200, body: fixture('show_droplets'), headers: { 'Content-Type' => 'application/json' })
 
-      cli.options = cli.options.merge(name: 'example3.com')
-      expect { cli.halt }.to raise_error(SystemExit)
-
-      expect($stdout.string).to eq <<-eos
+      expected_string = <<-eos
 Droplet name provided. Finding droplet ID...done\e[0m, 3164444 (example3.com)
 Droplet must be on for this operation to be successful.
       eos
+
+      cli.options = cli.options.merge(name: 'example3.com')
+      expect { cli.halt }.to raise_error(SystemExit).and output(expected_string).to_stdout
     end
   end
 end

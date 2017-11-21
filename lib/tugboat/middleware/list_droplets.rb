@@ -3,13 +3,14 @@ module Tugboat
     # Check if the client has set-up configuration yet.
     class ListDroplets < Base
       def call(env)
-        ocean = env['barge']
+        ocean = env['droplet_kit']
 
         verify_credentials(ocean)
 
-        droplet_list = get_droplet_list ocean
+        droplet_list = get_droplet_list(ocean, env['per_page'])
 
         has_one = false
+
         droplet_list.each do |droplet|
           has_one = true
 
