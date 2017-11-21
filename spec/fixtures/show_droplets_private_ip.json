@@ -85,7 +85,8 @@
           "metadata"
         ],
         "available": null
-      }
+      },
+      "size": {"slug":"512mb","memory":512,"vcpus":1,"disk":20,"transfer":1.0,"price_monthly":5.0,"price_hourly":0.00744,"regions":["ams2","ams3","blr1","fra1","lon1","nyc1","nyc2","nyc3","sfo1","sfo2","sgp1","tor1"],"available":true}
     },
     {
       "id": 3164956,
@@ -166,7 +167,8 @@
           "metadata"
         ],
         "available": null
-      }
+      },
+      "size": {"slug":"512mb","memory":512,"vcpus":1,"disk":20,"transfer":1.0,"price_monthly":5.0,"price_hourly":0.00744,"regions":["ams2","ams3","blr1","fra1","lon1","nyc1","nyc2","nyc3","sfo1","sfo2","sgp1","tor1"],"available":true}
     },
   {
       "id": 3164444,
@@ -247,7 +249,8 @@
           "metadata"
         ],
         "available": null
-      }
+      },
+      "size": {"slug":"512mb","memory":512,"vcpus":1,"disk":20,"transfer":1.0,"price_monthly":5.0,"price_hourly":0.00744,"regions":["ams2","ams3","blr1","fra1","lon1","nyc1","nyc2","nyc3","sfo1","sfo2","sgp1","tor1"],"available":true}
     }
   ],
   "links": {
