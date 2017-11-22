@@ -116,6 +116,21 @@ match.
     Welcome to Ubuntu 12.10 (GNU/Linux 3.5.0-17-generic x86_64)
     pearkes@pearkes-admin-001:~#
 
+### SCP files to droplet
+
+*You can configure an SSH username and key path in `tugboat authorize`,
+or by changing your `~/.tugboat`.*
+
+This lets you scp a file into a droplet by providing it's name, or a partial
+match.
+
+    $ tugboat scp test-scp /tmp/foo /tmp/bar
+    Droplet fuzzy name provided. Finding droplet ID...done, 72025053 (test-scp)
+    Executing SCP on Droplet (test-scp)...
+    Attempting SCP with `scp -i /Users/petems/.ssh/digital_ocean /tmp/foo root@132.61.164.113:/tmp/bar`
+    foo
+                                                  100%    0     0.0KB/s   00:00
+
 ### Create a droplet
 
     $ tugboat create pearkes-www-002 -s 512mb -i ubuntu-12-04-x64 -r nyc2 -k 11251

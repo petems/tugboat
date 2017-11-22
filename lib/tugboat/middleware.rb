@@ -33,6 +33,7 @@ module Tugboat
     autoload :RestartDroplet, 'tugboat/middleware/restart_droplet'
     autoload :SnapshotDroplet, 'tugboat/middleware/snapshot_droplet'
     autoload :SSHDroplet, 'tugboat/middleware/ssh_droplet'
+    autoload :SCPDroplet, 'tugboat/middleware/scp_droplet'
     autoload :StartDroplet, 'tugboat/middleware/start_droplet'
     autoload :WaitForState, 'tugboat/middleware/wait_for_state'
 
@@ -145,6 +146,18 @@ module Tugboat
         use FindDroplet
         use CheckDropletActive
         use SSHDroplet
+      end
+    end
+
+    # SSH into a droplet
+    def self.sequence_scp_droplet
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use CheckDropletActive
+        use SCPDroplet
       end
     end
 

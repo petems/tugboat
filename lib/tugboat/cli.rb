@@ -139,6 +139,48 @@ module Tugboat
                                            'user_quiet' => options[:quiet])
     end
 
+    desc 'scp FUZZY_NAME FROM_PATH TO_PATH', 'scp files to a droplet'
+    method_option 'id',
+                  type: :string,
+                  aliases: '-i',
+                  desc: 'The ID of the droplet.'
+    method_option 'from_path',
+                  type: :string,
+                  aliases: '-from',
+                  desc: 'The path of the local file'
+    method_option 'to_path',
+                  type: :string,
+                  aliases: '-to',
+                  desc: 'The path to copy to on the remote droplet'
+    method_option 'name',
+                  type: :string,
+                  aliases: '-n',
+                  desc: 'The exact name of the droplet'
+    method_option 'ssh_user',
+                  type: :string,
+                  aliases: '-u',
+                  desc: 'Specifies which user to log in as'
+    method_option 'scp_command',
+                  type: :string,
+                  aliases: ['-c'],
+                  desc: 'Command to run to copy the file, eg scp, rsync (defaults to scp)'
+    method_option 'wait',
+                  type: :boolean,
+                  aliases: '-w',
+                  desc: 'Wait for droplet to become active before trying to SSH'
+    def scp(name = nil, from_path, to_path)
+      Middleware.sequence_scp_droplet.call('tugboat_action' => __method__,
+                                           'user_droplet_id' => options[:id],
+                                           'user_droplet_name' => options[:name],
+                                           'user_droplet_fuzzy_name' => name,
+                                           'user_from_file' => from_path,
+                                           'user_to_file' => to_path,
+                                           'user_droplet_ssh_user' => options[:ssh_user],
+                                           'user_scp_command' => options[:scp_command],
+                                           'user_droplet_ssh_wait' => options[:wait],
+                                           'user_quiet' => options[:quiet])
+    end
+
     desc 'create NAME', 'Create a droplet.'
     method_option  'size',
                    type: :string,
