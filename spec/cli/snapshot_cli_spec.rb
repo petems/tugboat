@@ -6,6 +6,19 @@ describe Tugboat::CLI do
   let(:snapshot_name) { 'foo-snapshot' }
 
   describe 'snapshots a droplet' do
+    it 'without a droplet parameter' do
+      stub_request(:get, 'https://api.digitalocean.com/v2/droplets?page=1&per_page=1').
+        with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
+        to_return(status: 200, body: fixture('show_droplets'), headers: {})
+
+      snapshot_no_droplet_parameter_stdout = <<-eos
+You must provide a snapshot name followed by the droplet's name.
+For example: `tugboat snapshot foo-snapshot example-node.com`
+      eos
+
+      expect { cli.snapshot(snapshot_name) }.to raise_error(SystemExit).and output(snapshot_no_droplet_parameter_stdout).to_stdout
+    end
+
     it 'with a fuzzy name' do
       stub_request(:get, 'https://api.digitalocean.com/v2/droplets?page=1&per_page=1').
         with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
