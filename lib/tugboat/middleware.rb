@@ -9,6 +9,7 @@ module Tugboat
     autoload :CheckCredentials, 'tugboat/middleware/check_credentials'
     autoload :CheckDropletActive, 'tugboat/middleware/check_droplet_active'
     autoload :CheckDropletInactive, 'tugboat/middleware/check_droplet_inactive'
+    autoload :CheckSnapshotParameters, 'tugboat/middleware/check_snapshot_parameters'
     autoload :Config, 'tugboat/middleware/config'
     autoload :ConfirmAction, 'tugboat/middleware/confirm_action'
     autoload :CreateDroplet, 'tugboat/middleware/create_droplet'
@@ -197,6 +198,7 @@ module Tugboat
     # Snapshot a droplet
     def self.sequence_snapshot_droplet
       ::Middleware::Builder.new do
+        use CheckSnapshotParameters
         use InjectConfiguration
         use CheckConfiguration
         use InjectClient
