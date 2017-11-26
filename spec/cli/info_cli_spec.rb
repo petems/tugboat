@@ -244,18 +244,6 @@ backups_active false
       with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Bearer foo', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.2' }).
       to_return(status: 200, body: fixture('show_droplet'), headers: {})
 
-    expected_string = <<-eos
-name example.com
-id 6918990
-status active
-ip4 104.131.186.241
-ip6 2604:A880:0800:0010:0000:0000:031D:2001
-region nyc3
-image 6918990
-size 512mb
-backups_active false
-      eos
-
     cli.options = cli.options.merge(porcelain: true)
 
     expect { cli.info('example.com') }.to raise_error(SystemExit).and output(/Tugboat expects an exact droplet ID or droplet name for porcelain mode/).to_stdout
