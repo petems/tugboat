@@ -97,7 +97,7 @@ module Tugboat
         # Allow both Barge and DropletKit usage
         if ocean.is_a?(DropletKit::Client)
           # DropletKit self-paginates
-          pages = ocean.droplets.all(per_page: per_page)
+          ocean.droplets.all(per_page: per_page)
         else
           page = ocean.droplet.all(per_page: 200, page: 1)
           return page.droplets unless page.paginated?

@@ -98,11 +98,6 @@ describe Tugboat::Middleware::SSHDroplet do
       env['user_droplet_ssh_opts'] = '-e -q -X'
 
       expect { described_class.new(app).call(env) }.to raise_error(SystemExit).and output(%r{You asked to ssh to the private IP, but no Private IP found}).to_stdout
-
-      expected_string = <<-eos
-Executing SSH on Droplet ...
-You asked to ssh to the private IP, but no Private IP found!
-      eos
     end
   end
 end
