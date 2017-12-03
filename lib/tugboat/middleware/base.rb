@@ -90,6 +90,66 @@ module Tugboat
         end
       end
 
+      def print_droplet_info(droplet, attribute, porcelain, include_urls, include_name)
+        droplet_ip4_public = droplet.networks.v4.find { |address| address.type == 'public' }.ip_address unless droplet.networks.v4.empty?
+        droplet_ip6_public = droplet.networks.v6.find { |address| address.type == 'public' }.ip_address unless droplet.networks.v6.empty?
+        check_private_ip   = droplet.networks.v4.find { |address| address.type == 'private' }
+        droplet_private_ip = check_private_ip.ip_address if check_private_ip
+
+        attributes_list = [
+          ['name', droplet.name],
+          ['id', droplet.id],
+          ['status', droplet.status],
+          ['ip4',  droplet_ip4_public],
+          ['ip6',  droplet_ip6_public],
+          ['private_ip', droplet_private_ip],
+          ['region', droplet.region.slug],
+          ['image', droplet.image.id],
+          ['size', droplet.size_slug],
+          ['backups_active', !droplet.backup_ids.empty?]
+        ]
+        attributes = Hash[*attributes_list.flatten(1)]
+
+        if attribute
+          if attributes.key? attribute
+            if include_name
+              say "#{attributes['name']},#{attributes[attribute]}"
+            else
+              say attributes[attribute]
+            end
+          else
+            say "Invalid attribute \"#{attribute}\"", :red
+            say 'Provide one of the following:', :red
+            attributes_list.each { |a| say "    #{a[0]}", :red }
+            exit 1
+          end
+        else
+          if porcelain
+            attributes_list.select { |a| !a[1].nil? }.each { |a| say "#{a[0]} #{a[1]}" }
+            say ""
+          else
+            print_droplet_info_full(droplet, include_urls)
+          end
+        end
+      end
+
+      def print_droplet_info_full(droplet, include_urls)
+        private_addr = droplet.networks.v4.find { |address| address.type == 'private' }
+        if private_addr
+          private_ip = ", private_ip: #{private_addr.ip_address}"
+        end
+
+        status_color = if droplet.status == 'active'
+         GREEN
+       else
+         RED
+       end
+
+       public_addr = droplet.networks.v4.find { |address| address.type == 'public' }
+
+       say "#{droplet.name} (ip: #{public_addr.ip_address}#{private_ip}, status: #{status_color}#{droplet.status}#{CLEAR}, region: #{droplet.region.slug}, size: #{droplet.size_slug}, id: #{droplet.id}#{include_urls ? droplet_id_to_url(droplet.id) : ''})"
+     end
+
       # Get all pages of droplets
       def get_droplet_list(ocean, per_page = 20)
         verify_credentials(ocean)

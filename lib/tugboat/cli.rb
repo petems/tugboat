@@ -71,12 +71,26 @@ module Tugboat
                   default: 20,
                   aliases: '-p',
                   desc: 'Chose how many results to fetch from the DigitalOcean API (larger is slower)'
+    method_option 'attribute',
+                  type: :string,
+                  aliases: '-a',
+                  desc: 'The name of the attribute to print.'
+    method_option 'porcelain',
+                  type: :boolean,
+                  desc: 'Give the output in an easy-to-parse format for scripts.'
+    method_option 'include_name',
+                  type: :boolean,
+                  default: true,
+                  desc: 'Include the name when listing attributes from droplets.'
     desc 'droplets [OPTIONS]', 'Retrieve a list of your droplets'
     def droplets
       Middleware.sequence_list_droplets.call('tugboat_action' => __method__,
                                              'user_quiet' => options[:quiet],
                                              'include_urls' => options['include_urls'],
-                                             'per_page' => options['per_page'],)
+                                             'per_page' => options['per_page'],
+                                             'attribute' => options[:attribute],
+                                             'porcelain' => options[:porcelain],
+                                             'include_name' => options[:include_name])
     end
 
     desc 'images [OPTIONS]', 'Retrieve a list of images'
