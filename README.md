@@ -81,6 +81,44 @@ defaults:
     pearkes-admin-001 (ip: 30.30.30.3, status: active, region: nyc2, id: 13231512)
     pearkes-api-001 (ip: 30.30.30.5, status: active, region: nyc2, id: 13231513)
 
+If you wish to use the droplet listing as part of scripting or munging output, you can use the `--porcelain`:
+
+    $ tugboat droplets --attribute=ip4
+    pearkes-web-001,30.30.30.1
+    pearkes-admin-001,30.30.30.3
+    pearkes-api-001,30.30.30.5
+
+Or `--attribute` parameter:
+
+    $ tugboat droplets --porcelain
+    name pearkes-web-001
+    id 13231515
+    status active
+    ip4 330.30.30.1
+    region lon1
+    image 6918990
+    size 1gb
+    backups_active false
+
+    name pearkes-admin-001
+    id 13231513
+    status active
+    ip4 30.30.30.3
+    region lon1
+    image 6918990
+    size 1gb
+    backups_active false
+
+    name pearkes-web-001
+    id 13231514
+    status active
+    ip4 30.30.30.5
+    region lon1
+    image 6918990
+    size 1gb
+    backups_active true
+
+
 ### Fuzzy name matching
 
 You can pass a unique fragment of a droplets name for interactions
