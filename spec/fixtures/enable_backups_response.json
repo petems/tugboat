@@ -1,0 +1,27 @@
+{
+  "action": {
+    "id": 2,
+    "status": "in-progress",
+    "type": "enable_backups",
+    "started_at": "2014-07-29T14:35:27Z",
+    "completed_at": null,
+    "resource_id": 12,
+    "resource_type": "droplet",
+    "region_slug": "nyc1",
+    "region": {
+      "name": "New York",
+      "slug": "nyc1",
+      "available": true,
+      "sizes": [
+        "512mb"
+      ],
+      "features": [
+        "virtio",
+        "private_networking",
+        "backups",
+        "ipv6",
+        "metadata"
+      ]
+    }
+  }
+}
