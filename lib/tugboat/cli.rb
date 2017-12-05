@@ -512,6 +512,20 @@ module Tugboat
                                               'user_quiet' => options[:quiet])
     end
 
+    method_option 'per_page',
+                  type: :boolean,
+                  default: 20,
+                  aliases: '-p',
+                  desc: 'Chose how many results to fetch from the DigitalOcean API (larger is slower)'
+    desc 'snapshots [OPTIONS]', 'Retrieve a list of your snapshots'
+    def snapshots
+      Middleware.sequence_list_snapshots.call(
+                                             'tugboat_action' => __method__,
+                                             'user_quiet' => options[:quiet],
+                                             'per_page' => options['per_page'],
+                                             )
+    end
+
     desc 'password-reset FUZZY_NAME', 'Reset root password'
     method_option 'id',
                   type: :numeric,
