@@ -25,6 +25,10 @@ module Tugboat
         end
       end
 
+      def response_stringify(response)
+        response.type.gsub(/_/,' ')
+      end
+
       def call(env)
         @app.call(env)
       end

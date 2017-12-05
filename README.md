@@ -236,6 +236,18 @@ Print a single attribute.
     $ tugboat resize admin -s 66
     Queuing resize for 13231512 (pearkes-admin-001)...done
 
+### Enabling backups on a droplet
+
+    $ tugboat backup_config admin --on
+    Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+    Backup action enable backups is complete
+
+### Disabling backups on a droplet
+
+    $ tugboat backup_config admin --off
+    Droplet fuzzy name provided. Finding droplet ID...done\e[0m, 6918990 (example.com)
+    Backup action disable backups is complete
+
 ### List Available Images
 
 You can list all images

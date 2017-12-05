@@ -5,6 +5,7 @@ module Tugboat
     autoload :AddKey, 'tugboat/middleware/add_key'
     autoload :AskForCredentials, 'tugboat/middleware/ask_for_credentials'
     autoload :Base, 'tugboat/middleware/base'
+    autoload :BackupConfig, 'tugboat/middleware/backup_setting'
     autoload :CheckConfiguration, 'tugboat/middleware/check_configuration'
     autoload :CheckCredentials, 'tugboat/middleware/check_credentials'
     autoload :CheckDropletActive, 'tugboat/middleware/check_droplet_active'
@@ -47,6 +48,16 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use CheckCredentials
+      end
+    end
+
+    def self.sequence_backup_config
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use FindDroplet
+        use BackupConfig
       end
     end
 

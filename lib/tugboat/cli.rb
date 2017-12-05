@@ -37,6 +37,33 @@ module Tugboat
                                          'user_quiet' => options[:quiet])
     end
 
+    desc 'backup_config FUZZY_NAME', 'Manage backups on a droplet.'
+    method_option 'id',
+                  type: :string,
+                  aliases: '-i',
+                  desc: 'The ID of the droplet.'
+    method_option 'name',
+                  type: :string,
+                  aliases: '-n',
+                  desc: 'The exact name of the droplet'
+    method_option 'enable',
+                  type: :boolean,
+                  aliases: '--on',
+                  desc: 'Enable backups on the droplet.'
+    method_option 'disable',
+                  type: :boolean,
+                  aliases: '--off',
+                  desc: 'Disable backups on the droplet.'
+    def backup_config(name = nil, status = nil)
+      Middleware.sequence_backup_config.call('tugboat_action' => __method__,
+                                        'user_droplet_id' => options[:id],
+                                        'user_droplet_name' => options[:name],
+                                        'user_droplet_fuzzy_name' => name,
+                                        'enable' => options[:enable],
+                                        'disable' => options[:disable],
+                                        'user_quiet' => options[:quiet])
+    end
+
     desc 'config', 'Show your current config information'
     long_desc "This shows the current information in the .tugboat config
     being used by the app
