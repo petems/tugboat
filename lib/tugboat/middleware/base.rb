@@ -3,10 +3,18 @@ module Tugboat
     # A base middleware class to initalize.
     class Base
       # Some colors for making things pretty.
-      CLEAR      = "\e[0m".freeze
-      RED        = "\e[31m".freeze
-      GREEN      = "\e[32m".freeze
-      YELLOW     = "\e[33m".freeze
+
+      if ENV['THOR_SHELL'] == 'Basic'
+        CLEAR      = "\e[0m".freeze
+        RED        = "\e[0m".freeze
+        GREEN      = "\e[0m".freeze
+        YELLOW     = "\e[0m".freeze
+      else
+        CLEAR      = "\e[0m".freeze
+        RED        = "\e[31m".freeze
+        GREEN      = "\e[32m".freeze
+        YELLOW     = "\e[33m".freeze
+      end
 
       # We want access to all of the fun thor cli helper methods,
       # like say, yes?, ask, etc.

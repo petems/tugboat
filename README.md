@@ -315,6 +315,17 @@ Or just list images that you have created.
 
 ### Wait for Droplet State
 
+While the colorized output of tugboat droplets is nice when visually inspecting the output, it can cause problems when one wants to use the command in scripts (either logging information to a file, or using it to check the status of a droplet).
+
+You can disable it with the use of the Thor environmental variable:
+
+    $ THOR_SHELL=Basic bundle exec tugboat verify
+    Authentication with DigitalOcean was successful.
+
+All text will be output without colors.
+
+### Disabling color from output
+
 Sometimes you want to wait for a droplet to enter some state, for
 example "off".
 
