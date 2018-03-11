@@ -271,6 +271,18 @@ Or just list images that you have created.
     My application image (id: 6376601, distro: Ubuntu)
     ....
 
+### List Current Snapshots
+
+    $ tugboat snapshots
+    code-freeze-backup-october (id: 2013184, resource_type: droplet, created_at: 2016-10-06T11:43:06Z)
+    test-admin 2017-05-31 (id: 20234485, resource_type: droplet, created_at: 2017-05-31T02:07:07Z)
+    test-admin 2017-11-08 (id: 21133567, resource_type: droplet, created_at: 2017-11-08T02:49:09Z)
+    test-admin 2017-11-15 (id: 22355454, resource_type: droplet, created_at: 2017-11-15T03:11:08Z)
+    test-admin 2017-11-22 (id: 24523423, resource_type: droplet, created_at: 2017-11-22T03:10:09Z)
+    test-admin 2017-11-29 (id: 26212345, resource_type: droplet, created_at: 2017-11-29T03:15:25Z)
+    ....
+
+
 ### List Available Sizes
 
     $ tugboat sizes

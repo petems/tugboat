@@ -28,6 +28,7 @@ module Tugboat
     autoload :ListImages, 'tugboat/middleware/list_images'
     autoload :ListRegions, 'tugboat/middleware/list_regions'
     autoload :ListSizes, 'tugboat/middleware/list_sizes'
+    autoload :ListSnapshots, 'tugboat/middleware/list_snapshots'
     autoload :ListSSHKeys, 'tugboat/middleware/list_ssh_keys'
     autoload :PasswordReset, 'tugboat/middleware/password_reset'
     autoload :ResizeDroplet, 'tugboat/middleware/resize_droplet'
@@ -239,6 +240,16 @@ module Tugboat
         use CheckConfiguration
         use InjectClient
         use ListSSHKeys
+      end
+    end
+
+    # Display a list of available SSH keys
+    def self.sequence_list_snapshots
+      ::Middleware::Builder.new do
+        use InjectConfiguration
+        use CheckConfiguration
+        use InjectClient
+        use ListSnapshots
       end
     end
 
