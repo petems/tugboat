@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v4.1.0](https://github.com/petems/tugboat/tree/v4.1.0) (2018-03-11)
+[Full Changelog](https://github.com/petems/tugboat/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- Commands like "droplets" need formatting switches [\#206](https://github.com/petems/tugboat/issues/206)
+- Add a scp command [\#120](https://github.com/petems/tugboat/issues/120)
+- Turn Backups on/off [\#51](https://github.com/petems/tugboat/issues/51)
+
+**Merged pull requests:**
+
+- Update README typo. [\#298](https://github.com/petems/tugboat/pull/298) ([simi](https://github.com/simi))
+- Add ability to list snapshots [\#296](https://github.com/petems/tugboat/pull/296) ([petems](https://github.com/petems))
+- Add backup\_config setting [\#295](https://github.com/petems/tugboat/pull/295) ([petems](https://github.com/petems))
+- Adds porcelain option to droplets command [\#294](https://github.com/petems/tugboat/pull/294) ([petems](https://github.com/petems))
+- Adds new SCP feature [\#291](https://github.com/petems/tugboat/pull/291) ([petems](https://github.com/petems))
+
 ## [v4.0.0](https://github.com/petems/tugboat/tree/v4.0.0) (2017-12-03)
 [Full Changelog](https://github.com/petems/tugboat/compare/v3.1.0...v4.0.0)
 
@@ -13,6 +30,7 @@ All notable changes to this project will be documented in this file.
 
 **Merged pull requests:**
 
+- Bump Version to 4.0.0 [\#293](https://github.com/petems/tugboat/pull/293) ([petems](https://github.com/petems))
 - Removing `Assigned but unused variable` warnings [\#292](https://github.com/petems/tugboat/pull/292) ([petems](https://github.com/petems))
 - Adds helper for showing snapshot parameter [\#290](https://github.com/petems/tugboat/pull/290) ([petems](https://github.com/petems))
 - Updates Faraday middleware gem [\#289](https://github.com/petems/tugboat/pull/289) ([petems](https://github.com/petems))
