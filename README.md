@@ -6,7 +6,7 @@ A command line tool for interacting with your [DigitalOcean](https://www.digital
 
 ## History
 
-When Tugboat was created, DigitalOcean was an extremely new cloud provider. They'd only released their public beta back in [2012](https://whoapi.com/blog/1497/fast-growing-digitalocean-is-fueled-by-customer-love/), and their new SSD backed machines only primiered in early [2013](https://techcrunch.com/2013/01/15/techstars-graduate-digitalocean-switches-to-ssd-for-its-5-per-month-vps-to-take-on-linode-and-rackspace/).
+When Tugboat was created, DigitalOcean was an extremely new cloud provider. They'd only released their public beta back in [2012](https://whoapi.com/blog/1497/fast-growing-digitalocean-is-fueled-by-customer-love/), and their new SSD backed machines only premiered in early [2013](https://techcrunch.com/2013/01/15/techstars-graduate-digitalocean-switches-to-ssd-for-its-5-per-month-vps-to-take-on-linode-and-rackspace/).
 
 Tugboat started out life around that time, [back in April 2013](https://github.com/pearkes/tugboat/commit/f0fbc1f438cce81c286f0e60014dc4393ac95cb6). Back then, there were no official libraries for DigitalOcean, and the 1.0 API was a bit unstable and occasionally flakey.
 
